@@ -6,6 +6,7 @@
  <div id = "icon">
   <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
   <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe" style="color:#B0F8EC"></i></a>
+  <a href="chat" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Chatting"><i class="fa fa-user" style="color:#A0EEEE"></i></a>
   <a href="multiChat" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Chatting"><i class="fa fa-user" style="color:#A0EEEE"></i></a>
   <a href="messageList" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope" style="color:#A4D5FE"></i></a>
 <div class="w3-dropdown-hover w3-hide-small">

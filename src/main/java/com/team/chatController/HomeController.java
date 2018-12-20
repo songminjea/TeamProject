@@ -13,16 +13,22 @@ import com.team.chatInterface.MemberVO;
 
 @Controller
 public class HomeController{
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	/*@RequestMapping(value = "login", method = RequestMethod.GET)
 	public ModelAndView login(MemberVO vo, @CookieValue(value="REMEMBER", required=false) Cookie rememberCookie) throws Exception {
 		if (rememberCookie != null) {
 			vo.setMem_id(rememberCookie.getValue());
 		}
 		ModelAndView mv = new ModelAndView("member/login");
 		return mv;
-	}
+	}*/
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String main(Model model) {
 		return "main";
 	}	
+	
+	@RequestMapping("list")
+	public String list(Model model) {
+		return "gallery/list";
+	}
+	
 }

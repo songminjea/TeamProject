@@ -15,10 +15,6 @@ public class ChatController {
 	public String multiChat() {
 		return "chat/multiChat";
 	}
-	@RequestMapping(value="/info", method=RequestMethod.GET)
-	public String infoChat() {
-		return "chat/chat";
-	}
 	@RequestMapping(value="/messageList", method=RequestMethod.GET)
 	public String messageList(Model model) {
 		return "tiles";
@@ -27,4 +23,5 @@ public class ChatController {
 	public String messageSend(Model model)throws Exception{
 		return "message/messageSend";
 	}
+
 }

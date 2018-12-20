@@ -14,5 +14,4 @@ public class AlarmWebSocketHandler extends TextWebSocketHandler{
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {}
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{}
-	
 }

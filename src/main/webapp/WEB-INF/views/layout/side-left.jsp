@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>   
+ 
 <!-- Left Column -->
     <div class="w3-col m3">
       <!-- Profile -->
@@ -26,7 +35,7 @@
           <div id="Demo2" class="w3-hide w3-container">
             <p>Some other text..</p>
           </div>
-          <a href="imgupload" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> =========</a>
+          <a href="imgupload" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</a>
           <div id="Demo3" class="w3-hide w3-container">
          <div class="w3-row-padding">
          <br>
@@ -86,3 +95,5 @@
     
     <!-- End Left Column -->
     </div>
+</body>
+</html>

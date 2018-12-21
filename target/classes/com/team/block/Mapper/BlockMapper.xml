@@ -5,15 +5,15 @@
 <mapper namespace="com.team.block.DAO.BlockDAO">
 
 	<select id="GetAllBlocker" resultType="com.team.block.VO.BlockVO">
-		select blocker_id 
+		select * 
 		from Block
-		where blocking_id = #{blocking_id}
+		where blocker_id = #{blocker_id}
 	</select>
 	
 	<select id="GetAllblocking" resultType="com.team.block.VO.BlockVO">
-		select blocking_id
+		select *
 		from Block
-		where blocker_id = #{blocker_id}
+		where blocking_id = #{blocking_id}
 	</select>
 	
 	<delete id="Deleteblocking" parameterType="com.team.block.VO.BlockVO">

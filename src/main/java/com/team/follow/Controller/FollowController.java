@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
@@ -22,7 +23,7 @@ public class FollowController {
 	public void followTest(Model model, HttpSession session) {
 		//System.out.println( session.getAttribute("id"));
 		
-		
+		//return "follow/list";
 	}
 	
 	// 팔로우 버튼 눌렀을때.
@@ -59,14 +60,15 @@ public class FollowController {
 	
 	
 	@RequestMapping("/followList")
-	public String ShowFollowList(String id, Model model) {
+	public String ShowFollowList(@RequestParam String id, Model model) {
 		
+	
 		model.addAttribute("followList",followService.GetAllFollower(id));
-		model.addAttribute("followingList", followService.GetAllFollowing(id));
+		
+
 		
 		
-		
-		return "followList";	
+		return "follow/list";	
 	
 	}
 	

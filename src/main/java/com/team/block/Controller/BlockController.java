@@ -17,7 +17,6 @@ public class BlockController {
 	@Autowired
 	private BlockService blockService;
 
-
 	@RequestMapping("/blockTest")
 	public void BlockTest(Model model, HttpSession session) {
 		//System.out.println( session.getAttribute("id"));

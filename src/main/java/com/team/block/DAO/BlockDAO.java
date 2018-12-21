@@ -8,7 +8,6 @@ import com.team.block.VO.BlockVO;
 
 
 public interface BlockDAO {
-	
 	// 해당 아이디의 모든 blocker 목록 리턴(Blocker_id, Block_date)
 	public List<BlockVO> GetAllBlocker(String id);
 	

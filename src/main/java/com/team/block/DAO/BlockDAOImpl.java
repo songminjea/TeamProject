@@ -14,7 +14,6 @@ public class BlockDAOImpl implements BlockDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	
 	@Override
 	public List<BlockVO> GetAllBlocker(String Blocking_id) {
 		// 해당 아이디의 모든 blocker 목록 리턴(Blocker_id, Block_date)

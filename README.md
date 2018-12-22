@@ -1,4 +1,4 @@
-#12/21 <최지원>
+2/21 <최지원>
 
 src/main/java : com.team.chat.*, com.team.login.*, com.team.message.*, com.team.main.Controller 추가
 
@@ -21,6 +21,17 @@ root-context.xml : db 실행이 안되서 주석처리한 부분이 2군데 정�
 #12/21 
 
 ##pull request 된거 일부 merge 완료.
+
+
+---
+#12/22
+
+login.jsp 에 각 값들 name 추가.
+
+	mybatis-config.xml
+		<typeAlias alias="Message" type="com.team.message.BVO.MessageVO" /> 추가
+		<mapper> 부분 주석 처리.
+
 
 
 ---

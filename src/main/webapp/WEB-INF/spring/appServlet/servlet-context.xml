@@ -29,7 +29,7 @@
 	</websocket:handlers>
 	
 	
-	<!-- <beans:bean id="myHandler" class="com.team.chat.Handler.MultiChatWebSocketHandler"/> -->
+	<beans:bean id="myHandler" class="com.team.chat.Handler.MultiChatWebSocketHandler"/>
 	
 	<!-- tiles -->
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -46,7 +46,7 @@
 	</beans:bean>
 	
 	<!-- interceptor -->
-	<!-- <beans:bean id="loginInterceptor" class="com.team.login.Interceptor.LoginInterceptor"></beans:bean> -->
+	<beans:bean id="loginInterceptor" class="com.team.login.Interceptor.LoginInterceptor"></beans:bean>
 	
 	<interceptors>
 		<interceptor>

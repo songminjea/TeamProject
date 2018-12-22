@@ -9,20 +9,20 @@
 </head>
 <link rel="stylesheet" href="./resources/css/main2.css"/>
 <body style="margin: 5% 10% 0 10%">
-	<form action="login" method="post">
+	<form action="loginPost" method="post">
 		<table class="login_page">
 			<caption>Login</caption>
 			<tr>
 				<td>ID</td>
-				<td><input type="text" id="ID"/></td>
+				<td><input type="text" id="ID" name="ID"/></td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><input type="password" id="PWD"/></td>
+				<td><input type="password" id="PWD" name="PWD"/></td>
 			</tr>
 			<tr class="checkbox">
 				<td>
-					<input type="checkbox" id="REMEMBERID"/>아이디 기억
+					<input type="checkbox" id="REMEMBERID" name="REMEMBERID"/>아이디 기억
 				</td>
 			</tr>
 			<tr>

@@ -3,15 +3,15 @@ package com.team.login.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.team.login.DAO.MemberDAO;
+import com.team.login.DAO.LoginDAO;
 import com.team.login.DTO.LoginDTO;
-import com.team.login.DTO.MemberVO;
+import com.team.member.VO.MemberVO;
 
 @Service
 public class LoginServiceImpl implements LoginService{
 	
 	@Autowired
-	MemberDAO memberDao;
+	LoginDAO memberDao;
 	
 	@Override
 	public MemberVO login(LoginDTO ldto) throws Exception {

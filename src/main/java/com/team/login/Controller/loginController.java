@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.team.login.DTO.LoginDTO;
-import com.team.login.DTO.MemberVO;
 import com.team.login.Service.LoginService;
+import com.team.member.VO.MemberVO;
 
 @Controller
 public class loginController {

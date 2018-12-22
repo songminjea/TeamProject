@@ -1,37 +1,38 @@
-2/21 <최지원>
-
-src/main/java : com.team.chat.*, com.team.login.*, com.team.message.*, com.team.main.Controller 추가
-
-src/main/resources > mybatis : mybatis-config.xml 추가(Mapper 사용시 필요)
-
-src>main>webapp : mainPage.jsp 삭제, loginPage.jsp 실행하면 login 후 loginPost > main으로 이동하는 시스템입니다.
-
-로그인만 되게 한 거라, 유효성, 디자인 등 조금 이상한 것들이 있습니다.
-				  
-디자인은 추후 수정할 예정입니다.
-				  
-servlet-context.xml : interceptor 추가(login interceptor용)
-
-pom.xml : spring-jdbc, spring-test, commons-dbcp 추가
-
-root-context.xml : db 실행이 안되서 주석처리한 부분이 2군데 정도 있습니다. 확인해주세요.
-
----
-
-#12/21 
-
-##pull request 된거 일부 merge 완료.
+민재씨 패키지명 
+com.team.member.~~ 로 변경
 
 
----
-#12/22
-
-login.jsp 에 각 값들 name 추가.
-
-	mybatis-config.xml
-		<typeAlias alias="Message" type="com.team.message.BVO.MessageVO" /> 추가
-		<mapper> 부분 주석 처리.
+#삭제
+com.team.login.DTO.MemberVO 
 
 
 
 ---
+#변경 
+com.team.login.DAO.MemberDAO -> com.team.login.DAO.LoginDAO
+
+com.team.login.DAO.MemberDAOImpl  -> com.team.login.DAO.LoginDAOImpl
+
+	/mybatis/mybatis-config.xml
+	<typeAlias alias="MemberVO" type="com.team.login.DTO.MemberVO" /> 
+	-> 
+
+com.team.member.VO.MemberVO 
+변수명 대문자로 변경
+
+signUp.jsp 
+form의 name값들 대문자로 변경
+
+memberMapper.xml
+파라미터값들 대문자로 변경
+
+
+---
+
+
+
+
+
+
+
+

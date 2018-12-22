@@ -1,8 +1,9 @@
-package com.team.login.DTO;
+package com.team.member.VO;
 
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+
 
 @Entity
 public class MemberVO { //DTO
@@ -17,6 +18,7 @@ public class MemberVO { //DTO
 	private String FOLLOWER;
 	private String FOLLOWING;
 	private String BIRTH;
+	
 	
 	public String getID() {
 		return ID;
@@ -84,5 +86,9 @@ public class MemberVO { //DTO
 	public void setBIRTH(String bIRTH) {
 		BIRTH = bIRTH;
 	}
+	
 
+	
+	
+	
 }

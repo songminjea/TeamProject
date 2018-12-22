@@ -16,6 +16,9 @@
 		margin-left : 3px;
 		font-weight: bold;
 	}
+	#space{
+		margin-bottom: 3%;
+	}
 
 
 .file-area {
@@ -106,7 +109,7 @@ $(document).ready(function(){
 				var fileInfo = getFileInfo(data);
 				var html ="<a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a><br>";
 				html +="<input type='hidden' name='file' value ='"+fileInfo.fullName+"'>";
-				html +="<input type=''"
+			
 				$(".file-dummy").append(html);
 				
 			}
@@ -123,14 +126,29 @@ $(document).ready(function(){
 
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-	<h4>사진 업로드방</h4>
-
-	<div class="file-area">
+	<h4>사진 업로드</h4>
+	<form action="">
+	<div id="space">
+		<select>
+			<option name="GB_Follow" value="1" selected="selected">친구공개</option>
+			<option name="GB_Follow" value="0">미공개</option>
+		</select>
+	</div>
+	
+	<div class="w3-col m3" id="space">ID</div>
+	<div class="w3-col m9" id="space"><input type="text" name="MB_ID"></div>
+	<div class="w3-col m3" id="space">제목</div>
+	<div class="w3-col m9" id="space"><input type="text" name="MB_ID"></div>
+	<div class="w3-col m3" id="space">내용</div>
+	<textarea rows="5" cols="40" class="w3-col m9" id="space"></textarea>
+	<div>File Drop & Click Zone</div>
+	<div class="file-area w3-col m12" >
     	<input type="file">
-	    <div class="file-dummy">
-	        
+	    <div class="file-dummy" id="space">
+	       
 	    </div>
 	</div>
+	</form>
 </div>
 
 </body>

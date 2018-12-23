@@ -1,6 +1,6 @@
-/.springBeans
-/.classpath
+.springBeans
+.classpath
 /target/
-/.settings/
+.settings
 /bin/
 

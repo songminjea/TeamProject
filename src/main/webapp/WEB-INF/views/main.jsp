@@ -19,7 +19,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <c:set var="center" value="${param.center}"/>
  
 	<c:if test="${empty center}"> 
- 		<c:set var="center" value="/list"/>
+ 		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
 
 <body class="w3-theme-l5">
@@ -38,7 +38,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
 	<!-- Center -->
 	<div class="w3-col m7">
-		<jsp:include page="${center }"></jsp:include>
+		<jsp:include page="${center}"></jsp:include>
 	</div>
 	<!-- END Center -->
     

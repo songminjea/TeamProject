@@ -1,6 +1,5 @@
 package com.team.follow.Controller;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +18,14 @@ public class FollowController {
 	private FollowService followService;
 
 
-	@RequestMapping("/followTest")
-	public void followTest(Model model, HttpSession session) {
+	/*@RequestMapping("/followTest")
+	public String followTest(Model model, HttpSession session) {
 		//System.out.println( session.getAttribute("id"));
+		String url = "follow/followlist.jsp";
+		model.addAttribute("center", url);
 		
-		//return "follow/list";
-	}
+		return "main";
+	}*/
 	
 	// 팔로우 버튼 눌렀을때.
 	@RequestMapping("/follow") 
@@ -59,16 +60,38 @@ public class FollowController {
 	}
 	
 	
-	@RequestMapping("/followList")
+	@RequestMapping("**/follower")
 	public String ShowFollowList(@RequestParam String id, Model model) {
 		
 	
-		model.addAttribute("followList",followService.GetAllFollower(id));
+		String url = "follow/list.jsp";
+		
+		//List<FollowVO> follower = followService.GetAllFollower(id);
+		String follower = "testFollower";
 		
 
+		model.addAttribute("follower", follower);
+		model.addAttribute("center", url);
 		
 		
-		return "follow/list";	
+		return "main";
+	
+	}
+	
+	@RequestMapping("/following")
+	public String ShowFollowinglist(@RequestParam String id, Model model) {
+		
+	
+		String url = "follow/followlist.jsp";
+		
+		//List<FollowVO> following = followService.GetAllfollowing(id);
+		String following = "testFollower";
+
+		model.addAttribute("following", following);
+		model.addAttribute("center", url);
+		
+		
+		return "main";
 	
 	}
 	

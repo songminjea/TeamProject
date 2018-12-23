@@ -29,6 +29,13 @@ memberMapper.xml
 
 ---
 
+.gitignore 적용
+
+프로젝트 불러온 후 
+
+프로젝트 우클릭  - maven - update project 해야함.
+
+---
 
 
 

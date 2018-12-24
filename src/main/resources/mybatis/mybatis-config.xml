@@ -12,7 +12,7 @@
 	<typeAliases>
    		<typeAlias alias="LoginDTO" type="com.team.login.DTO.LoginDTO" />
    		<typeAlias alias="MemberVO" type="com.team.member.VO.MemberVO" />
-   		<typeAlias alias="Message" type="com.team.message.BVO.MessageVO" />
+   		<typeAlias alias="Message" type="com.team.message" />
 	</typeAliases>
 
 	<!-- <mappers>

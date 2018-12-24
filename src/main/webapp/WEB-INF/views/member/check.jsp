@@ -13,8 +13,13 @@
 </style>
 
 <script type="text/javascript">
+	// 취소 버튼 클릭시 첫화면으로 이동
+	function goFirstForm() {
+	    location.href="http://localhost:8080/TeamPro/login";
+	}
+    
     function checkOk(Join) {
-		location.href="http://localhost:8080/team/signUp";
+		location.href="http://localhost:8080/TeamPro/signUp";
 	}
     
     function CheckForm(Join){
@@ -192,7 +197,7 @@
 				<td colspan="3" class="signUp_agree_checkbox" align="center">
 					<input type="checkbox" id="U_checkAgreement1">약관에 동의&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="submit" value="약관에 동의" onclick="checkOk(this)">&nbsp;&nbsp;
-					<input type="reset" value="취소">
+					<input type="button" value="취소" onclick="goFirstForm()">
 				</td>
 			</tr>
 		</thead>

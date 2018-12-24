@@ -9,31 +9,35 @@
 <head>
 <style type="text/css">
 .board_list {width: 500px; margin: 0 auto;}
-.board_list tfoot {text-align: center;}
-.signUp_agree{text-align: center;}
-.signUp_agree_textarea{text-align: center;}
-.signUp_agree_textarea textarea {resize:none;}
 .msg{font-size: 10pt; color: red;}
 </style>
 <meta charset="UTF-8">
 <title>회원가입</title>
+	
+	<script type="text/javascript">
+	
+	 // 취소 버튼 클릭시 첫화면으로 이동
+    function goFirstForm() {
+        location.href="http://localhost:8080/TeamPro/login";
+    }
+	</script>
 </head>
-<body>
 
+<body>
 	<table class="board_list">
 <form:form action="insertOk" method="post" commandName="member">		
 		<tbody>
 			<tr>
 				<th scope="row">이름</th>
-				<td><form:input path="NAME" maxlength="50"/>
+				<td><form:input path="NAME" maxlength="50" />
 					<form:errors path="NAME" cssClass="msg"/></td>
 				<td></td>
 			</tr>
 			<tr>
 				<th scope="row">아이디</th>
-				<td><form:input path="ID" maxlength="50"/>
+				<td><form:input path="ID" maxlength="50" />
 					<form:errors path="ID" cssClass="msg"/></td>
-				<td><a href="#" id="user_id_checkBtn" class="btn">중복확인</a></td>
+				<td><input type="button" value="중복확인" id="checkSignup"></td>
 			</tr>
 			<tr>
 				<th scope="row">비밀번호</th>
@@ -73,7 +77,7 @@
 			<tr>
 				<td colspan="3">
 					<input type="submit" value="등록">&nbsp;&nbsp;
-					<input type="reset" value="취소">
+					<input type="button" value="취소" onclick="goFirstForm()">
 			</tr>
 		</tfoot>
 		</form:form>

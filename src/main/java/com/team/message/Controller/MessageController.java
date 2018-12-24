@@ -23,9 +23,12 @@ public class MessageController {
 	MessageService messageService;
 	
 	@RequestMapping(value="/messageList", method=RequestMethod.GET)
-	public String messageList(Model model)throws Exception{
+	public ModelAndView messageList()throws Exception{
 		List<MessageVO> list = messageService.listAll();
-		return "tiles";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("message/messageList");
+		mav.addObject("list", list);
+		return mav;
 	}
 	@RequestMapping(value="/messageSend", method=RequestMethod.GET)
 	public String messageSend(){

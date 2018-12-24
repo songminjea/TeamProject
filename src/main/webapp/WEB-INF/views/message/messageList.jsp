@@ -50,7 +50,7 @@
 				<td>번호</td>
 				<td>발신자</td>
 				<td>제목</td>
-				<td>확인 날짜</td>
+				<td>보낸 날짜</td>
 			</tr>
 			<c:forEach var="bvo" items="${list}">
 				<tr bgcolor="white">

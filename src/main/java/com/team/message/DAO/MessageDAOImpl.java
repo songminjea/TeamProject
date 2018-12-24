@@ -2,26 +2,37 @@ package com.team.message.DAO;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.team.message.BVO.MessageVO;
+import com.team.message.VO.MessageVO;
 
 @Repository
 public class MessageDAOImpl implements MessageDAO{
 	
-	@Autowired
+	@Inject
 	private SqlSessionTemplate sqlSession;
 	private String namespace = "com.team.message.Mapper.messageMapper";
-	
+	//쪽지 작성
 	@Override
-	public void insertMessage(MessageVO mevo) throws Exception{
-		sqlSession.insert(namespace + ".insertMessage", mevo);
+	public void create(MessageVO mvo) throws Exception{
+		sqlSession.insert(namespace + ".insert", mvo);
 	}
-	
+	//쪽지 내용 상세 보기
 	@Override
-	public List<MessageVO> getMessageList(String str) throws Exception{
-		return sqlSession.selectList(namespace+".selectMessageList", str);
+	public MessageVO read(int MESSAGE_NO) throws Exception{
+		return sqlSession.selectOne(namespace+".view", MESSAGE_NO);
+	}
+	//쪽지 삭제
+	@Override
+	public void delete(int MESSAGE_NO) throws Exception{
+		sqlSession.delete(namespace+".delete", MESSAGE_NO);
+	}
+	//쪽지 전체 목록
+	@Override
+	public List<MessageVO> listAll() throws Exception{
+		return sqlSession.selectList(namespace+".listAll");
 	}
 }

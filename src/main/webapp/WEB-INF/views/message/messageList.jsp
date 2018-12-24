@@ -23,14 +23,16 @@
 <!-- body -->
 <body class="w3-theme-l5">
 <div class="main">
-<!-- header -->
-<tiles:insertAttribute name="header"/>
+<!-- Header -->
+	<jsp:include page="../layout/header.jsp"/>
+<!-- END Header -->
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;padding-top:150px">    
   <!-- The Grid -->
   <div class="w3-row">
-  	<!-- side-left -->
-    <tiles:insertAttribute name="side-left"/>
+  	<!-- Left Column -->
+    <jsp:include page="../layout/side-left.jsp"/>
+    <!-- End Left Column -->
     <!-- Middle Column -->
     <div class="w3-col m7">
       <div class="w3-row-padding">
@@ -52,12 +54,14 @@
 				<td>제목</td>
 				<td>보낸 날짜</td>
 			</tr>
-			<c:forEach var="bvo" items="${list}">
+			<c:forEach var="mvo" items="${list}">
 				<tr bgcolor="white">
-					<td>${bvo.mNo}</td>
-					<td>${bvo.mSender}</td>
-					<td>${bvo.mSubject}</td>
-					<td>${bvo.mReadTime}</td>
+					<td>${mvo.MESSAGE_NO}</td>
+					<td>${mvo.MESSAGE_SENDER}</td>
+					<td>
+						<a href="message/view?MESSAGE_NO=${mvo.MESSAGE_NO}">${mvo.MESSAGE_SUBJECT}</a>
+					</td>
+					<td>${mvo.MESSAGE_SENDTIME}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -69,8 +73,9 @@
       </div>
     <!-- End Middle Column -->
     </div>
-    <!-- side-right column -->
-	<tiles:insertAttribute name="side-right"/>
+     <!-- Right Column -->
+    <jsp:include page="../layout/side-right.jsp"></jsp:include>      
+    <!-- End Right Column -->
   <!-- End Grid -->
   </div>
   </div>

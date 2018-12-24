@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.team.login.DTO.LoginDTO;
 import com.team.message.DAO.MessageDAO;
 import com.team.message.VO.MessageVO;
 
@@ -46,7 +47,12 @@ public class MessageServiceImpl implements MessageService{
 	}
 	//쪽지 전체 목록
 	@Override
-	public List<MessageVO>listAll() throws Exception{
-		return messageDAO.listAll();
+	public List<MessageVO>listAll(String re_id) throws Exception{
+		return messageDAO.listAll(re_id);
+	}
+	//쪽지 레코드 개수
+	@Override
+	public int countArticle(String re_id) throws Exception{
+		return messageDAO.countArticle(re_id);
 	}
 }

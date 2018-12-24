@@ -16,6 +16,9 @@
 		margin-left : 3px;
 		font-weight: bold;
 	}
+	#space{
+		margin-bottom: 3%;
+	}
 
 
 .file-area {
@@ -23,7 +26,7 @@
     position: relative;
     font-size: 12px;
 }
-.file-area input[type=file] {
+input[type=file] {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -74,8 +77,9 @@ $(document).ready(function(){
 			success : function(data){
 				console.log(data);
 				var fileInfo = getFileInfo(data);
-				var html ="<a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a><br>";
-				html +="<input type='hidden' name='file' value ='"+fileInfo.fullName+"'>";
+				var html ="<div class=fileName>"+fileInfo.fileName;
+				html +="<small data-src='{{fullName}}' style='cursor: pointer'>X</small><br>";	
+				html +="<input type='hidden' name='file' value ='"+fileInfo.fullName+"'></div>";
 				$(".file-dummy").append(html);
 				
 			}
@@ -104,14 +108,32 @@ $(document).ready(function(){
 			success : function(data){
 				console.log(data);
 				var fileInfo = getFileInfo(data);
-				var html ="<a href='"+fileInfo.getLink+"'>"+fileInfo.fileName+"</a><br>";
-				html +="<input type='hidden' name='file' value ='"+fileInfo.fullName+"'>";
-				html +="<input type=''"
-				$(".file-dummy").append(html);
+				var html ="<div class=fileName>"+fileInfo.fileName;
+					html +="<small data-src='{{fullName}}' style='cursor: pointer'>X</small><br>";	
+					html +="<input type='hidden' name='file' value ='"+fileInfo.fullName+"'></div>";
+					$(".file-dummy").append(html);
 				
 			}
 		});
 	});
+	
+	$(".file-dummy").on("click", "small", function(event){
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/gallery/delete",
+			type: "post",
+			data: {fileName: $(this).attr("data-src")},
+			dataType: "text",
+			success: function(result) {
+				
+				if (result == "deleted") {
+					alert("삭제 완료");
+					
+					$(".fileName").remove();
+				}
+			}
+ 		})
+	})
 
 });
 </script>
@@ -123,14 +145,29 @@ $(document).ready(function(){
 
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-	<h4>사진 업로드방</h4>
-
-	<div class="file-area">
-    	<input type="file">
-	    <div class="file-dummy">
-	        
+	<h4>사진 업로드</h4>
+	<form action="">
+	<div id="space">
+		<select name="GB_Privacy">
+			<option value="N" selected="selected">친구공개</option>
+			<option value="Y">미공개</option>
+		</select>
+	</div>
+	
+	<div class="w3-col m3" id="space">ID</div>
+	<div class="w3-col m9" id="space"><input type="text" name="MB_ID"></div>
+	<div class="w3-col m3" id="space">제목</div>
+	<div class="w3-col m9" id="space"><input type="text" name="GB_Subject"></div>
+	<div class="w3-col m3" id="space">내용</div>
+	<textarea rows="5" cols="40" class="w3-col m9" id="space" name="GB_Content"></textarea>
+	<div>File Drop & Click Zone</div>
+	<input type="file">
+	<div class="file-area w3-col m12" >
+	    <div class="file-dummy" id="space">
+	       
 	    </div>
 	</div>
+	</form>
 </div>
 
 </body>

@@ -1,5 +1,7 @@
 package com.team.gallery.Controller;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -38,6 +40,16 @@ public class galleryController {
 		logger.info("contentType : " +file.getContentType());
 		
 		return new ResponseEntity<String>(UploadUtil.UploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),HttpStatus.OK);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "gallery/delete", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteImage (String imageName) {
+		logger.info("delete file : " + imageName); 
+		
+		new File(uploadPath + imageName.replace('/', File.separatorChar)).delete();
+		
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
 	

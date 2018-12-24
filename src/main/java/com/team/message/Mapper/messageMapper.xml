@@ -17,6 +17,16 @@
 	</delete>
 	<!-- 쪽지 전체 목록 조회 -->
 	<select id="listAll" resultType="com.team.message.VO.MessageVO">
-		SELECT MESSAGE_NO, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDER, MESSAGE_SENDTIME FROM MESSAGE ORDER BY MESSAGE_NO DESC, MESSAGE_SENDTIME DESC
+		SELECT MESSAGE_NO, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDER, MESSAGE_SENDTIME FROM MESSAGE
+		<include refid="search"></include>
+		ORDER BY MESSAGE_NO DESC, MESSAGE_SENDTIME DESC
 	</select>
+	<!-- 쪽지 레코드 개수 -->
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*) FROM MESSAGE 
+		<include refid="search"></include>
+	</select>
+	<sql id="search">
+		WHERE ${re_id} = #{MESSAGE_RECEIVER}
+	</sql>
 </mapper>

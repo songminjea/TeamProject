@@ -11,14 +11,4 @@
       #{DATE,jdbcType=DATE}, #{MODDATE,jdbcType=DATE}, #{FOLLOWER,jdbcType=INTEGER}, 
       #{FOLLOWING,jdbcType=INTEGER}, #{BIRTH,jdbcType=VARCHAR})
   </insert>
-  <select id="selectById" parameterType="com.team.member.VO.MemberVO">
-        <![CDATA[
-          SELECT
-              *
-          FROM
-              USER
-          WHERE
-              ID = #{ID}       
-      ]]>
-    </select>
 </mapper>

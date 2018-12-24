@@ -29,7 +29,7 @@
 				<td>
 					<input type="submit" value="Login" id="Login"/>
 					<!-- 회원가입 페이지 넘어가는 용 -->
-					<input type="button" value="Register" id="Register"/>
+					<input type="button" value="Register" onclick="location.href='http://localhost:8080/TeamPro/check'"/>
 				</td>
 			</tr>
 		</table>	

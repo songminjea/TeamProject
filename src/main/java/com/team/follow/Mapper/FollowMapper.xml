@@ -7,13 +7,13 @@
 	<select id="GetAllFollower" resultType="com.team.follow.VO.FollowVO">
 		select *
 		from follow
-		where follower_id = #{follower_id}
+		where following_id = #{following_id}
 	</select>
 	
 	<select id="GetAllFollowing" resultType="com.team.follow.VO.FollowVO">
 		select *
 		from follow
-		where following_id = #{following_id}
+		where follower_id = #{follower_id}
 	</select>
 	
 	<delete id="DeleteFollowing" parameterType="com.team.follow.VO.FollowVO">

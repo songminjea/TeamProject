@@ -1,10 +1,13 @@
 package com.team.follow.Controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,15 +21,6 @@ public class FollowController {
 	private FollowService followService;
 
 
-	/*@RequestMapping("/followTest")
-	public String followTest(Model model, HttpSession session) {
-		//System.out.println( session.getAttribute("id"));
-		String url = "follow/followlist.jsp";
-		model.addAttribute("center", url);
-		
-		return "main";
-	}*/
-	
 	// 팔로우 버튼 눌렀을때.
 	@RequestMapping("/follow") 
 	public String Follow(@ModelAttribute FollowVO vo, Model model) {
@@ -60,17 +54,17 @@ public class FollowController {
 	}
 	
 	
-	@RequestMapping("**/follower")
-	public String ShowFollowList(@RequestParam String id, Model model) {
+	@RequestMapping("**/follower/{id}")
+	public String ShowFollowList(@PathVariable String id, Model model) {
 		
-	
+		
+		
 		String url = "follow/list.jsp";
 		
-		//List<FollowVO> follower = followService.GetAllFollower(id);
-		String follower = "testFollower";
+		List<FollowVO> follower = followService.GetAllFollower(id);
 		
-
-		model.addAttribute("follower", follower);
+		model.addAttribute("type", "follower");
+		model.addAttribute("follow_list", follower);
 		model.addAttribute("center", url);
 		
 		
@@ -78,16 +72,16 @@ public class FollowController {
 	
 	}
 	
-	@RequestMapping("/following")
-	public String ShowFollowinglist(@RequestParam String id, Model model) {
+	@RequestMapping("**/following/{id}")
+	public String ShowFollowinglist(@PathVariable String id, Model model) {
 		
 	
 		String url = "follow/followlist.jsp";
 		
-		//List<FollowVO> following = followService.GetAllfollowing(id);
-		String following = "testFollower";
-
-		model.addAttribute("following", following);
+		List<FollowVO> following = followService.GetAllFollowing(id);
+		
+		model.addAttribute("type", "following");
+		model.addAttribute("follow_list", following);
 		model.addAttribute("center", url);
 		
 		

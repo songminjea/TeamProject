@@ -1,8 +1,6 @@
 package com.team.message.DAO;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,7 +14,7 @@ public class MessageDAOImpl implements MessageDAO{
 	
 	@Inject
 	private SqlSessionTemplate sqlSession;
-	private String namespace = "com.team.message.Mapper.messageMapper";
+	private static String namespace = "com.team.message.Mapper.messageMapper";
 	//쪽지 작성
 	@Override
 	public void create(MessageVO mvo) throws Exception{
@@ -34,14 +32,7 @@ public class MessageDAOImpl implements MessageDAO{
 	}
 	//쪽지 전체 목록
 	@Override
-	public List<MessageVO> listAll(String re_id) throws Exception{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("re_id", re_id);
-		return sqlSession.selectList(namespace+".listAll", map);
-	}
-	public int countArticle(String re_id) throws Exception{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("re_id", re_id);
-		return sqlSession.selectOne(namespace+".countArticle" ,map);
+	public List<MessageVO>listAll() throws Exception{
+		return sqlSession.selectList(namespace+".listAll");
 	}
 }

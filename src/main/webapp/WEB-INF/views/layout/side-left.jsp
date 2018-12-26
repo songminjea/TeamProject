@@ -15,7 +15,7 @@
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="./resources/css/baby.jpg" class="w3-circle" style="height:200px;" alt="Avatar"></p>
+         <p class="w3-center"><img src="${pageContext.request.contextPath}/resources/css/baby.jpg" class="w3-circle" style="height:200px;" alt="Avatar"></p>
          <hr>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>

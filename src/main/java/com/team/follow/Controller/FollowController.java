@@ -1,6 +1,7 @@
 package com.team.follow.Controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,39 +54,62 @@ public class FollowController {
 		
 	}
 	
-	
-	@RequestMapping("**/follower/{id}")
+	// 팔로워 목록
+	@RequestMapping("{id}/follower")
 	public String ShowFollowList(@PathVariable String id, Model model) {
+		//System.out.println("ShowFollowList 호출");
 		
 		
+		String url = id + "/follower";
 		
-		String url = "follow/list.jsp";
-		
+		// 팔로워 목록 받아오기
 		List<FollowVO> follower = followService.GetAllFollower(id);
+		// 팔로우 여부 체크
+		List<Boolean> isfollowing = new ArrayList<Boolean>();
+		
+		
+		for(FollowVO vo : follower) {
+			FollowVO temp = new FollowVO();
+			temp.setFollower_id(vo.getFollowing_id());
+			temp.setFollowing_id(vo.getFollower_id());
+			isfollowing.add(followService.IsFollowing(vo));
+		}
 		
 		model.addAttribute("type", "follower");
+		model.addAttribute("page_id", id);
 		model.addAttribute("follow_list", follower);
+		model.addAttribute("isfollowing", isfollowing);
 		model.addAttribute("center", url);
 		
 		
-		return "main";
+		return "main.jsp?center=follow/list";
 	
 	}
 	
-	@RequestMapping("**/following/{id}")
+	// 팔로잉 목록
+	@RequestMapping("{id}/following")
 	public String ShowFollowinglist(@PathVariable String id, Model model) {
-		
+		//System.out.println("ShowFollowinglist 호출");
 	
 		String url = "follow/followlist.jsp";
 		
 		List<FollowVO> following = followService.GetAllFollowing(id);
+		List<Boolean> isfollowing = new ArrayList<Boolean>();
+		
+		
+		for(FollowVO vo : following) {
+			isfollowing.add(followService.IsFollowing(vo));
+		}
+				
 		
 		model.addAttribute("type", "following");
+		model.addAttribute("page_id", id);
 		model.addAttribute("follow_list", following);
+		model.addAttribute("isfollowing", isfollowing);
 		model.addAttribute("center", url);
 		
 		
-		return "main";
+		return "main.jsp?center=follow/list";
 	
 	}
 	

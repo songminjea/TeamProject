@@ -15,11 +15,11 @@
 <script type="text/javascript">
 	// 취소 버튼 클릭시 첫화면으로 이동
 	function goFirstForm() {
-	    location.href="http://localhost:8080/TeamPro/login";
+	    location.href="login";
 	}
     
     function checkOk(Join) {
-		location.href="http://localhost:8080/TeamPro/signUp";
+		location.href="signUp";
 	}
     
     function CheckForm(Join){

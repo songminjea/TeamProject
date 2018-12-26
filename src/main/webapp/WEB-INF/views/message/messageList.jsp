@@ -61,14 +61,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="messageList" items="${messageList}">
-		 			<c:if test="${member.ID eq messageList.MESSAGE_RECEIVER}"> 
+				<c:forEach var="messageList" items="${list}">
+		 			<c:if test="${member.ID eq list.MESSAGE_RECEIVER}"> 
 						<tr bgcolor="white">
 							<td>${messageList.MESSAGE_SENDER}</td>
 							<td>
-								<a href="message/messageView?MESSAGE_NO=${messageList.MESSAGE_NO}" id ="messageView" onclick="messageViewOpen()">${messageList.MESSAGE_SUBJECT}</a>
+								<a href="message/messageView?MESSAGE_NO=${list.MESSAGE_NO}" id ="messageView" onclick="messageViewOpen()">${list.MESSAGE_SUBJECT}</a>
 							</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${messageList.MESSAGE_SENDTIME}"/></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${list.MESSAGE_SENDTIME}"/></td>
 							<td>
 								<a href="messageDelete">X</a>
 							</td>

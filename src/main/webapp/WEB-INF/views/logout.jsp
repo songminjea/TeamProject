@@ -5,7 +5,7 @@
 <head>
 <script type="text/javascript">
 window.alert("${msg}");
-window.location.href="http://localhost:8080/TeamPro/login";
+window.location.href="login";
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>

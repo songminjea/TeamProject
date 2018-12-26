@@ -74,7 +74,9 @@ servlet-context.xml
 com.team.main.Controller -> mainController 추가(왜인지 모르겠지만 빠져있었음)
 servlet-context.xml, pom.xml -> tiles 속성 제거(안써서)
 layout -> header.jsp -> 로고 누르면 main으로 이동, member.NAME -> member.ID로 변경
-
+회원정보 몇군데 -> 주소 컨트롤러로 가게 수정했습니다. 
+저는 8080이 아니라서 접속을 거부당해서...
+쪽지보내기 분명히 기능이 맞는데 컴퓨터가 미쳤는지 자꾸 이상하게 뜹니다 내일 손볼 예정.
 
 
 

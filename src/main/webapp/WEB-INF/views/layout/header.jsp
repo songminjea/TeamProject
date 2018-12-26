@@ -19,7 +19,7 @@
   </div>
 </div>  
   <div class="baby"><a href="main" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><img src="./resources/css/logo2.png" height="50px" class="babylogo"></a></div> 
-  <h5 class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" ><a href="http://localhost:8080/TeamPro/logout">${member.ID}님 환영합니다.</a></h5>
+  <h5 class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" ><a href="logout">${member.ID}님 환영합니다.</a></h5>
  </div>
 </div>
 

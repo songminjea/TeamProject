@@ -24,10 +24,10 @@ public class MessageController {
 	//쪽지 전체 목록 
 	@RequestMapping(value="messageList", method=RequestMethod.GET)
 	public ModelAndView messageList()throws Exception{
-		List<MessageVO>messageList = messageService.listAll();
+		List<MessageVO>list = messageService.listAll();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("message/messageList");
-		mav.addObject("messageList", messageList);
+		mav.addObject("list", list);
 		return mav;
 	}
 	//쪽지 작성

@@ -11,4 +11,16 @@
       #{DATE,jdbcType=DATE}, #{MODDATE,jdbcType=DATE}, #{FOLLOWER,jdbcType=INTEGER}, 
       #{FOLLOWING,jdbcType=INTEGER}, #{BIRTH,jdbcType=VARCHAR})
   </insert>
+  
+  <select id="getMember" resultType="com.team.member.VO.MemberVO" 
+	        parameterType="String">
+		SELECT * FROM MEMBER WHERE ID= #{ID,jdbcType=VARCHAR}	
+	</select>
+	
+	<update id="updateMember" parameterType="com.team.member.VO.MemberVO">		
+		UPDATE MEMBER SET
+		PWD=#{PWD,jdbcType=VARCHAR}, NAME=#{NAME,jdbcType=VARCHAR}, PHONE=#{PHONE,jdbcType=VARCHAR}, EMAIL=#{EMAIL,jdbcType=VARCHAR}
+		WHERE ID=#{ID,jdbcType=VARCHAR}
+	</update>
+  
 </mapper>

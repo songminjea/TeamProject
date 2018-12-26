@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	//회원수정 버튼 클릭시 첫화면으로 이동
+	function goMypage() {
+	    location.href="http://localhost:8080/TeamPro/mypage/"+"${member.ID}"; 
+	}
+</script>
 </head>
 <body>   
  

@@ -36,6 +36,9 @@ memberMapper.xml
 프로젝트 우클릭  - maven - update project 해야함.
 
 ---
+com.team.main.Controller -> mainController 추가(왜인지 모르겠지만 빠져있었음)
+servlet-context.xml, pom.xml -> tiles 속성 제거(안써서)
+layout -> header.jsp -> 로고 누르면 main으로 이동
 
 
 

@@ -1,20 +1,17 @@
 package com.team.message.Controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team.login.DTO.LoginDTO;
 import com.team.message.Service.MessageService;
 import com.team.message.VO.MessageVO;
 
@@ -24,29 +21,27 @@ public class MessageController {
 	@Inject
 	MessageService messageService;
 	
-	@RequestMapping(value="/messageList", method=RequestMethod.GET)
-	public ModelAndView messageList(@ModelAttribute("ldto") LoginDTO ldto)throws Exception{
-		String re_id = ldto.getID();
-		List<MessageVO> list = messageService.listAll(re_id);
-		int count = messageService.countArticle(re_id);
+	//쪽지 전체 목록 
+	@RequestMapping(value="messageList", method=RequestMethod.GET)
+	public ModelAndView messageList()throws Exception{
+		List<MessageVO>messageList = messageService.listAll();
 		ModelAndView mav = new ModelAndView();
-		Map<String, Object>map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("count", count);
-		map.put("re_id", re_id);
-		mav.addObject("map", map);
 		mav.setViewName("message/messageList");
+		mav.addObject("messageList", messageList);
 		return mav;
 	}
-	@RequestMapping(value="/messageSend", method=RequestMethod.GET)
-	public String messageSend(){
+	//쪽지 작성
+	@RequestMapping(value="messageSend", method=RequestMethod.GET)
+	public String messageSend(MessageVO mvo, Model model){	
 		return "message/messageSend";
 	}
-	@RequestMapping(value="messageSendOk", method=RequestMethod.POST)
-	public String messageSendOk(@ModelAttribute MessageVO mvo)throws Exception{
+	//쪽지 보내기
+	@RequestMapping(value="messageSend", method=RequestMethod.POST)
+	public String messageSendOk(MessageVO mvo, Model model)throws Exception{
 		messageService.create(mvo);
 		return "redirect:messageList";
 	}
+	//쪽지 상세 내용 조회
 	@RequestMapping(value="messageView", method=RequestMethod.GET)
 	public ModelAndView view(@RequestParam int MESSAGE_NO, HttpSession session)throws Exception{
 		ModelAndView mav = new ModelAndView();
@@ -55,7 +50,7 @@ public class MessageController {
 		return mav;
 	}
 	@RequestMapping("messageDelete")
-	public String delete(@RequestParam int MESSAGE_NO)throws Exception{
+	public String delete(int MESSAGE_NO)throws Exception{
 		messageService.delete(MESSAGE_NO);
 		return "redirect:messageList";
 	}

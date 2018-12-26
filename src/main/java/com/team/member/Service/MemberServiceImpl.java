@@ -15,6 +15,13 @@ public class MemberServiceImpl {
 	
 	public void InsertMember(MemberVO vo) {
 		memberDAO.InsertMember(vo);
-		
+	}
+	
+	public MemberVO getMember(String ID) {
+		return memberDAO.getMember(ID);
+	}
+
+	public void updateMember(MemberVO vo) {
+		memberDAO.updateMember(vo);
 	}
 }

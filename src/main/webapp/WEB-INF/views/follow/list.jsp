@@ -3,7 +3,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/follow.css">
 
 <c:choose>
 	<%-- 현재 보이는 리스트 페이지가 나의 페이지 일때. --%>
@@ -67,8 +68,9 @@
 							</button>
 						</span>
 						<hr class="w3-clear" style="margin: 5px 0 20px;">
-						<c:set var="index" value="0"/>
+						<c:set var="index" value="0" />
 						<c:forEach var="follow_list" items="${follow_list}">
+
 							<c:choose>
 								<%-- 팔로워 리스트 --%>
 								<c:when test="${type eq 'follower'}">
@@ -89,47 +91,49 @@
 									<c:choose>
 										<%-- 내 팔로잉 리스트일때. --%>
 										<c:when test="${is_mypage eq 'true'}">
-											<c:set var="type_Btntext" value="언팔로우"/>
+											<c:set var="type_Btntext" value="언팔로우" />
 										</c:when>
 										<%-- 내 팔로잉 리스트가 아닐때 --%>
 										<c:otherwise>
-											<c:set var="type_Btntext" value="팔로우"/>
+											<c:set var="type_Btntext" value="팔로우" />
 										</c:otherwise>
 									</c:choose>
 									<c:set var="target_id" value="${follow_list.following_id}" />
 								</c:when>
 							</c:choose>
+							<div id="${target_id}">
+								<img src="/TeamPro/resources/css/baby.jpg" alt="프로필 사진"
+									class="w3-left w3-circle w3-margin-right" style="width: 60px">
 
-							<img src="/TeamPro/resources/css/baby.jpg" alt="프로필 사진"
-								class="w3-left w3-circle w3-margin-right" style="width: 60px">
 
+								<%-- 팔로우,언팔로우, 차단 버튼 상황에 따라 바뀜 --%>
+								<span class="w3-right">
+									<button type="button"
+										class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn"
+										id="followBtn" onclick="follow('${page_id}', '${target_id}')">팔로우</button>
+									<button type="button"
+										class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide"
+										id="followingBtn">팔로잉</button>
+									<button type="button"
+										class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn"
+										id="unfollowBtn"
+										onclick="unfollow('${page_id}', '${target_id}')">언팔로우</button>
+									<button type="button"
+										class="w3-button w3-theme-d1 w3-margin-bottom blockBtn fbBtn fbhide"
+										id="blockBtn">차단</button>
+									<button type="button"
+										class="w3-button w3-theme-d1 w3-margin-bottom blockingBtn fbBtn fbhide"
+										id="blockingBtn">차단중</button>
+									<button type="button"
+										class="w3-button w3-theme-d1 w3-margin-bottom blockBtn fbBtn fbhide"
+										id="unblockBtn">차단 해제</button>
+								</span>
+								<h4>${target_id}</h4>
+								<br>
+								<hr class="w3-clear">
+							</div>
+							<c:set var="index" value="${index+1}" />
 
-							<%-- 팔로우,언팔로우, 차단 버튼 상황에 따라 바뀜 --%>
-							<span class="w3-right">
-								<button type="button"
-									class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide"
-									id="followBtn">팔로우</button>
-								<button type="button"
-									class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide"
-									id="followingBtn">팔로잉</button>
-								<button type="button"
-									class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide"
-									id="unfollowBtn">언팔로우</button>
-								<button type="button"
-									class="w3-button w3-theme-d1 w3-margin-bottom blockBtn fbBtn fbhide"
-									id="blockBtn">차단</button>
-								<button type="button"
-									class="w3-button w3-theme-d1 w3-margin-bottom blockingBtn fbBtn fbhide" 
-									id="blockingBtn">차단중</button>
-								<button type="button"
-									class="w3-button w3-theme-d1 w3-margin-bottom blockBtn fbBtn fbhide"
-									id="unblockBtn">차단 해제</button>	
-							</span>
-							<h4>${target_id}</h4>
-							<br>
-							<hr class="w3-clear">
-							
-							<c:set var="index" value="${index+1}"/>
 						</c:forEach>
 					</div>
 				</div>

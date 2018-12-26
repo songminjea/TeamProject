@@ -4,13 +4,18 @@ package com.team.follow.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.ws.ResponseWrapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
@@ -24,8 +29,8 @@ public class FollowController {
 
 	// 팔로우 버튼 눌렀을때.
 	@RequestMapping("/follow") 
-	public String Follow(@ModelAttribute FollowVO vo, Model model) {
-		
+	public String Follow(@RequestBody FollowVO vo, Model model) {
+		System.out.println("follow 호출");
 		
 		if(followService.IsFollowing(vo)) {
 			System.out.println("이미 팔로우 되어있음.");
@@ -38,19 +43,22 @@ public class FollowController {
 		return "followOk";
 	}
 	
-	
-	@RequestMapping("/unfollow")
-	public String UnFollow(@ModelAttribute FollowVO vo, Model model) {
+	@RequestMapping(value= "/unfollow" , method = RequestMethod.POST)
+	@ResponseBody
+	public int UnFollow(@RequestBody FollowVO vo, Model model) {
+		System.out.println("UnFollow 호출");
 		
 		if(followService.IsFollowing(vo)) {
 			followService.DeleteFollowing(vo);
+			return 1;
 		}
 		else {
 			System.out.println("팔로우 되어있지 않음.");
+			return 0;
 		}
 		
 		
-		return "unfollowOk";
+		
 		
 	}
 	

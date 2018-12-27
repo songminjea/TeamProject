@@ -8,50 +8,50 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#sendBtn").click(function formCheck() {
-			var subject = $("#subject").val();
-			var content = $("#content").val();
-			var receiver = $("#receiver").val();
+		$("#sendBtn").click(function(){
+			var subject = $("#MESSAGE_SUBJECT").val();
+			var content = $("#MESSAGE_CONTENT").val();
+			var receiver = $("#MESSAGE_RECEIVER").val();
 			
 			if(subject == ""){
 				alert("제목을 입력하세요.");
-				document.messageSend.subject.focus();
+				document.messageSendOk.subject.focus();
 				return;
 			}
 			if(content == ""){
 				alert("내용을 입력하세요.");
-				document.messageSend.content.focus();
+				document.messageSendOk.content.focus();
 				return;
 			}
 			if(receiver == ""){
 				alert("받는 사람을 입력하세요.");
-				document.messageSend.receiver.focus();
+				document.messageSendOk.receiver.focus();
 				return;
 			}
-			document.messageSend.submit();
+			document.messageSendOk.submit();
 		})
 	})
 </script>
 <body>
 <c:if test="${member.NAME!= null}">
 	<div id="sendForm" title="메세지 전송">
-	  <form method="post" onsubmit="return formCheck();" name="messageSend">
+	  <form method="post" name="messageSendOk">
 	    <table>
 		    <tr>
 		   	 	<td>작성자</td>
-		   	 	<td><input type="text" name="sender" id="sender" value="${member.ID}" readonly="readonly"></td>
+		   	 	<td><input type="text" name="MESSAGE_SENDER" id="MESSAGE_SENDER" value="${member.ID}" readonly="readonly"></td>
 		    </tr>
 		    <tr>
 		   	 	<td>받는 사람</td>
-		   	 	<td><input type="text" name="receiver" id="receiver" ></td>
+		   	 	<td><input type="text" name="MESSAGE_RECEIVER" id="MESSAGE_RECEIVER" ></td>
 		    </tr>
 		    <tr>
 		   	 	<td>제목</td>
-		   	 	<td><input type="text" name="subject" id="subject" ></td>
+		   	 	<td><input type="text" name="MESSAGE_SUBJECT" id="MESSAGE_SUBJECT" ></td>
 		    </tr>
 	      	<tr>
 	      		<td>내용</td>
-	      		<td><textarea id = "messageArea" rows="15" cols="48" name="content" id="content"></textarea></td>
+	      		<td><textarea id = "messageArea" rows="15" cols="48" name="MESSAGE_CONTENT" id="MESSAGE_CONTENT"></textarea></td>
 	      	</tr>
 	      	<tr>
 	      		<td><input type="submit" value="보내기" id="sendBtn"></td>

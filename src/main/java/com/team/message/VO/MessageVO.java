@@ -2,8 +2,12 @@ package com.team.message.VO;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+
+@Entity
 public class MessageVO {
-	private int MESSAGE_NO; //쪽지 번호(뷰페이지에서 나타나지는 않는다)
+	
+	private int MESSAGE_NO; //쪽지 번호(뷰페이지에서 나타나지는 않는다.)
 	private String MESSAGE_SENDER; //쪽지 송신자
 	private String MESSAGE_RECEIVER; //쪽지 수신자
 	private String MESSAGE_SUBJECT; //쪽지 제목
@@ -54,4 +58,5 @@ public class MessageVO {
 	public void setMESSAGE_READTIME(Timestamp mESSAGE_READTIME) {
 		MESSAGE_READTIME = mESSAGE_READTIME;
 	}
+	
 }

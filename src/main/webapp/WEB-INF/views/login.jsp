@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BabyParent | Login</title>
 </head>
 <link rel="stylesheet" href="./resources/css/main2.css"/>
 <body style="margin: 5% 10% 0 10%">

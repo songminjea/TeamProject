@@ -1,3 +1,16 @@
+
+#변경
+imgupload.jsp
+uploadUtil.java
+MediaUtil.java
+gallerController.java
+upload.js
+
+#추가
+galleryVo.java
+
+
+---
 민재씨 패키지명 
 com.team.member.~~ 로 변경
 

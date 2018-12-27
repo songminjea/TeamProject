@@ -1,11 +1,16 @@
 package com.team.gallery.Controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,23 +38,55 @@ public class galleryController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/gallery/imgupload", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
-	public ResponseEntity<String> imgupload(MultipartFile file) throws Exception{
-		logger.info("originalName : "+file.getOriginalFilename());
-		logger.info("size: " +file.getSize());
-		logger.info("contentType : " +file.getContentType());
+	@RequestMapping(value="gallery/imgupload", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
+	public ResponseEntity<String> imgupload(MultipartFile file, HttpServletRequest request) {
+		ResponseEntity<String> entity = null;
 		
-		return new ResponseEntity<String>(UploadUtil.UploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),HttpStatus.OK);
+		
+		try {
+			String saveFilePath = UploadUtil.uplaodFile(file, request);
+			entity = new ResponseEntity<>(saveFilePath,HttpStatus.CREATED);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="/display", method=RequestMethod.GET)
+	public ResponseEntity<byte[]> displayFile(String fileName,HttpServletRequest request) throws Exception{
+		
+		HttpHeaders header = UploadUtil.getHttpHeaders(fileName);
+		String rootPath = UploadUtil.getRootPath(fileName, request);
+		
+				
+		ResponseEntity<byte[]> entity = null;
+		
+		try (InputStream is = new FileInputStream(rootPath+fileName)){
+			entity = new ResponseEntity<>(IOUtils.toByteArray(is),header,HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "gallery/delete", method = RequestMethod.POST)
-	public ResponseEntity<String> deleteImage (String imageName) {
-		logger.info("delete file : " + imageName); 
+	public ResponseEntity<String> deleteImage (String fileName, HttpServletRequest request) {
 		
-		new File(uploadPath + imageName.replace('/', File.separatorChar)).delete();
+				
+		ResponseEntity<String> entity = null;
 		
-		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+		try {
+			UploadUtil.deleteFile(fileName, request);
+			entity = new ResponseEntity<>("DELETED",HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 	
 	

@@ -13,7 +13,7 @@
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
-<link rel="stylesheet" href="./resources/css/main2.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
 
 <c:set var="center" value="${param.center}"/>
  
@@ -21,8 +21,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
 
-<body class="w3-theme-l5">
-<div class="main">
+<body class="w3-theme-l5 main">
+<div class="">
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>
 <!-- END Header -->

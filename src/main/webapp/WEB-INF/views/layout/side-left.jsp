@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	//회원수정 버튼 클릭시 첫화면으로 이동
 	function goMypage() {
-	    location.href="mypage/"+"${member.ID}"; 
+	    location.href="${pageContext.request.contextPath}/mypage/${member.ID}"; 
 	}
 </script>
 </head>
@@ -30,19 +30,16 @@
         </div>
       </div>
       <br>
-      
+
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
-          <div id="Demo1" class="w3-hide w3-container">
-            <p>Some text..</p>
-          </div>
+          <a href="${pageContext.request.contextPath}/${member.ID}/follower" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>My Groups</a>
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
           <div id="Demo2" class="w3-hide w3-container">
             <p>Some other text..</p>
           </div>
-          <a href="imgupload" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</a>
+          <a href="${pageContext.request.contextPath}/imgupload" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</a>
           <div id="Demo3" class="w3-hide w3-container">
          <div class="w3-row-padding">
          <br>

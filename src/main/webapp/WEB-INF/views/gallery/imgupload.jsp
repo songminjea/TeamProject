@@ -143,6 +143,7 @@ $(document).ready(function(){
 
 </script>
 
+<!-- 핸들바 기능 -->
 <script id ="fileTemplate" type="text/x-handlebars-template">
 	<li>
 		<img src="{{imgSrc}}" alt = "Attachment" class ="view">
@@ -168,7 +169,7 @@ $(document).ready(function(){
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 	<h4>사진 업로드</h4>
-	<form role = "form" method = "post" action="">
+	<form role = "form" method = "post" action="gallerWrite">
 	<div id="space">
 		<select name="GB_Privacy">
 			<option value="N" selected="selected">친구공개</option>
@@ -177,11 +178,11 @@ $(document).ready(function(){
 	</div>
 	
 	<div class="w3-col m3" id="space">ID</div>
-	<div class="w3-col m9" id="space"><input type="text" name="MB_ID"></div>
+	<div class="w3-col m9" id="space"><input type="text" name="mb_ID"></div>
 	<div class="w3-col m3" id="space">제목</div>
-	<div class="w3-col m9" id="space"><input type="text" name="GB_Subject"></div>
+	<div class="w3-col m9" id="space"><input type="text" name="gb_Subject"></div>
 	<div class="w3-col m3" id="space">내용</div>
-	<textarea rows="5" cols="40" class="w3-col m9" id="space" name="GB_Content"></textarea>
+	<textarea rows="5" cols="40" class="w3-col m9" id="space" name="gb_Content"></textarea>
 	<div class="file-click">File Drop & Click Zone
 		<input type="file">
 	</div>

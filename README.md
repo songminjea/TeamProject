@@ -73,4 +73,9 @@ galleryVo.java
 
 Follow 리스트 대충 80% 구현
 
+header,side-left
+
+img src에 {pageContext.request.contextPath}/ 추가
+
+
 

@@ -3,14 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-window.alert("${msg}");
-window.location.href="login";
-</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
+	쪽지를 성공적으로 보냈습니다.
+	<input type="button" value="창닫기" onclick="window.close()">
 </body>
 </html>

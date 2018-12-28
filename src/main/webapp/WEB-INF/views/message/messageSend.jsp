@@ -5,37 +5,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function formCheck(){
-		
-	}
-	send();
-	function send() {
-		var msg = $("#messageContents").val();
-		if (msg != "") {
-			me
-		}
-		
-	}
+	$(document).ready(function() {
+		$("#sendBtn").click(function(){
+			var subject = $("#MESSAGE_SUBJECT").val();
+			var content = $("#MESSAGE_CONTENT").val();
+			var receiver = $("#MESSAGE_RECEIVER").val();
+			
+			if(subject == ""){
+				alert("제목을 입력하세요.");
+				document.messageSendOk.subject.focus();
+				return;
+			}
+			if(content == ""){
+				alert("내용을 입력하세요.");
+				document.messageSendOk.content.focus();
+				return;
+			}
+			if(receiver == ""){
+				alert("받는 사람을 입력하세요.");
+				document.messageSendOk.receiver.focus();
+				return;
+			}
+			document.messageSendOk.submit();
+		})
+	})
 </script>
 <body>
 <c:if test="${member.NAME!= null}">
 	<div id="sendForm" title="메세지 전송">
-	  <form action="messageSendOk" method="post" onsubmit="return formCheck();">
+	  <form method="post" name="messageSendOk">
 	    <table>
 		    <tr>
 		   	 	<td>작성자</td>
-		   	 	<td>${member.NAME}</td>
+		   	 	<td><input type="text" name="MESSAGE_SENDER" id="MESSAGE_SENDER" value="${member.ID}" readonly="readonly"></td>
 		    </tr>
 		    <tr>
 		   	 	<td>받는 사람</td>
-		   	 	<td><input type="text" name="receiver"></td>
+		   	 	<td><input type="text" name="MESSAGE_RECEIVER" id="MESSAGE_RECEIVER" ></td>
+		    </tr>
+		    <tr>
+		   	 	<td>제목</td>
+		   	 	<td><input type="text" name="MESSAGE_SUBJECT" id="MESSAGE_SUBJECT" ></td>
 		    </tr>
 	      	<tr>
-	      		<td>전송할 내용을 입력하세요</td>
-	      		<td><textarea id = "messageArea" rows="15" cols="48" name="messageContents" id="messageContents"></textarea></td>
+	      		<td>내용</td>
+	      		<td><textarea id = "messageArea" rows="15" cols="48" name="MESSAGE_CONTENT" id="MESSAGE_CONTENT"></textarea></td>
 	      	</tr>
 	      	<tr>
 	      		<td><input type="submit" value="보내기" id="sendBtn"></td>

@@ -9,40 +9,29 @@ function getContextPath() { // ContextPath 얻어오는 함수
 
 // 팔로워 목록을 출력
 function getFollowerList(my_id, page_id) {
-	
-	$("#s_listArea").children().remove();
-	
-	$("#s_listArea").append(
-			"<button type='button' class='w3-button w3-theme-d1'" +
-				" id='getfollower_Btn' value='" +page_id+ "'" +
-				" onclick=getFollowerList('" + my_id + "','" + page_id  + "')>" +
-				" <i class='fa fa-thumbs-up'></i> 팔로워" +
-			"</button>");
-	
-	$("#s_listArea").append(
-			"<button type='button' class='w3-button w3-theme-d1'" +
-				" id='getfollowing_Btn' value='" +page_id+ "'" +
-				" onclick=getFollowingList('" + my_id + "','" + page_id  + "')>" +		
-				" <i class='fa fa-thumbs-up'></i> 팔로잉" +
-			"</button>");
-	
-	//console.log(page_id + " " + my_id);
+
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
 		DataType : "json",
-		url : "/TeamPro/" + page_id + "/test",
+		url : "/TeamPro/" + page_id + "/getFollowerList",
 		success : function(result) {
-
+			$("#s_infoArea").children().remove();
+			//console.log(result.length);
+			if(result.length == 0){
+				$("#s_infoArea").append("<h1>저런! 친구가 없으시네요!</h1>");
+			}else
 			$.each(result, function(i) {
 				//console.log(result[i]);
 				
-				isFollowed(my_id , result[i].follower_id);
+				
+
+				
 				
 				// 리스트를 감싸는 div의 아이디
 				var div_id = "list_"+result[i].follower_id;
-				$("#"+div_id).remove();
-				$("#div_flist").append("<div id="+div_id+">");
+				
+				$("#s_infoArea").append("<div id="+div_id+">");
 				
 				$("#"+div_id).append("<img src='/TeamPro/resources/css/baby.jpg' alt='프로필 사진'" +
 					"class='w3-left w3-circle w3-margin-right' style='width: 60px'>");
@@ -50,14 +39,18 @@ function getFollowerList(my_id, page_id) {
 				
 				$("#"+div_id).append("<span id='span_fBtn' class='w3-right'>");
 				
-				$("#"+div_id).children("#span_fBtn").append("<button type='button'" +
-						"class='w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide'" +
-						"onclick=follow('" + my_id + "','" + result[i].follower_id + "')>팔로우</button>" +
-						"<button type='button'" +
-						"class='w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide'" +
-						"onclick=unfollow('" + my_id + "','" + result[i].follower_id + "')>" +
-						"<span>팔로잉</span> <span>언팔로우</span>" +
-					"</button>");
+				if(my_id != "") {
+					$("#"+div_id).children("#span_fBtn").append("<button type='button'" +
+							"class='w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide'" +
+							"onclick=follow('" + my_id + "','" + result[i].follower_id + "')>팔로우</button>" +
+							"<button type='button'" +
+							"class='w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide'" +
+							"onclick=unfollow('" + my_id + "','" + result[i].follower_id + "')>" +
+							"<span>팔로잉</span> <span>언팔로우</span>" +
+						"</button>");
+					
+					isFollowed(my_id , result[i].follower_id);
+				}
 				
 				$("#"+div_id).append("<h4><a href=''>"+ result[i].follower_id + "</a></h4>");
 				$("#"+div_id).append("<br>	<hr class='w3-clear'>");
@@ -74,54 +67,41 @@ function getFollowerList(my_id, page_id) {
 
 //팔로잉 목록을 출력
 function getFollowingList(my_id, page_id) {
-	$("#div_flist").children().remove();
-	$("#div_flist").append("<span id='s_listArea'>");
-	$("#s_listArea").append(
-			"<button type='button' class='w3-button w3-theme-d1'" +
-				" id='getfollower_Btn' value='" +page_id+ "'" +
-				" onclick=getFollowerList('" + my_id + "','" + page_id  + "')>" +
-				" <i class='fa fa-thumbs-up'></i> 팔로워" +
-			"</button>");
-	
-	$("#s_listArea").append(
-			"<button type='button' class='w3-button w3-theme-d1'" +
-				" id='getfollowing_Btn' value='" +page_id+ "'" +
-				" onclick=getFollowingList('" + my_id + "','" + page_id  + "')>" +		
-				" <i class='fa fa-thumbs-up'></i> 팔로잉" +
-			"</button>");
 	
 	//console.log(page_id + " " + my_id);
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
 		DataType : "json",
-		url : "/TeamPro/" + page_id + "/test2",
+		url : "/TeamPro/" + page_id + "/getFollowingList",
 		success : function(result) {
-
+			$("#s_infoArea").children().remove();
+			if(result.length == 0){
+				$("#s_infoArea").append("<h1>저런! 친구를 만드세요!</h1>");
+			}else
 			$.each(result, function(i) {
-				//console.log(result[i]);
-				
-				isFollowed(my_id , result[i].following_id);
 				
 				// 리스트를 감싸는 div의 아이디
 				var div_id = "list_"+result[i].following_id;
-				$("#"+div_id).remove();
-				$("#div_flist").append("<div id="+div_id+">");
+				$("#s_infoArea").append("<div id="+div_id+">");
 				
 				$("#"+div_id).append("<img src='/TeamPro/resources/css/baby.jpg' alt='프로필 사진'" +
 					"class='w3-left w3-circle w3-margin-right' style='width: 60px'>");
 				
 				
 				$("#"+div_id).append("<span id='span_fBtn' class='w3-right'>");
-				
-				$("#"+div_id).children("#span_fBtn").append("<button type='button'" +
-						"class='w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide'" +
-						"onclick=follow('" + my_id + "','" + result[i].following_id + "')>팔로우</button>" +
-						"<button type='button'" +
-						"class='w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide'" +
-						"onclick=unfollow('" + my_id + "','" + result[i].following_id + "')>" +
-						"<span>팔로잉</span> <span>언팔로우</span>" +
-					"</button>");
+				if(my_id != "") {
+					$("#"+div_id).children("#span_fBtn").append("<button type='button'" +
+							"class='w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide'" +
+							"onclick=follow('" + my_id + "','" + result[i].following_id + "')>팔로우</button>" +
+							"<button type='button'" +
+							"class='w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide'" +
+							"onclick=unfollow('" + my_id + "','" + result[i].following_id + "')>" +
+							"<span>팔로잉</span> <span>언팔로우</span>" +
+						"</button>");
+					
+					isFollowed(my_id , result[i].following_id);
+				}
 				
 				$("#"+div_id).append("<h4><a href=''>"+ result[i].following_id + "</a></h4>");
 				$("#"+div_id).append("<br>	<hr class='w3-clear'>");
@@ -153,6 +133,7 @@ function isFollowed(follower_id, following_id) {
 		success : function(result) {
 			
 			isfollowed = result;
+			//console.log("isFollowed.js " + follower_id + " " + following_id + " " + isfollowed);
 			// 팔로우 되어있는 사람이 아닐때
 			if (isfollowed == 0) { 
 				$('#list_' + following_id).find('button').eq(0).removeClass(
@@ -213,10 +194,6 @@ function follow(follower_id, following_id) {
 // 언파로우 버튼 눌렀을때.
 function unfollow(follower_id, following_id) {
 
-	// console.log(follower_id);
-	// console.log(following_id);
-	// console.log('#list_' + following_id);
-
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -248,25 +225,40 @@ function unfollow(follower_id, following_id) {
 
 }
 
+
+
 $(function() {
 
 	// 팔로워 버튼 메뉴 클릭 이벤트
 	$(document).on("click", "#getfollower_Btn" , function(){
 		
-		var id = $(this).val()
+		var id = $("#page_id").val()
 		url = getContextPath() + "/" + id + "/follower/";
-		//location.href = url;
+		location.href = url;
 		
 	});
 	
 	// 팔로잉 버튼 메뉴 클릭이벤트.
 	$(document).on("click", "#getfollowing_Btn" , function(){
 		
-		var id = $(this).val()
+		var id = $("#page_id").val()
 		url = getContextPath() + "/" + id + "/following/";
-		//location.href = url;
+		location.href = url;
 		
 	});
 
 
 });
+
+window.onload = function(){
+	
+	var my_id = $("#mem_id").val();
+	var page_id = $("#page_id").val();
+	
+	if($("#page_type").val() == 'follower'){	
+		getFollowerList(my_id, page_id);
+	}
+	else{
+		getFollowingList(my_id, page_id);
+	}
+}

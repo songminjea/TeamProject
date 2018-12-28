@@ -1,19 +1,18 @@
 package com.team.follow.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javax.xml.ws.ResponseWrapper;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.follow.Service.FollowService;
@@ -65,74 +64,47 @@ public class FollowController {
 
 	}
 
-	// 팔로워 목록
-	@RequestMapping("{id}/follower")
-	public String ShowFollowList(@PathVariable String id, Model model) {
-		// System.out.println("ShowFollowList 호출");
-
-		String url = id + "/follower";
-
-		// 팔로워 목록 받아오기
-		List<FollowVO> follower = followService.GetAllFollower(id);
-		// 팔로우 여부 체크
-		List<Boolean> isfollowing = new ArrayList<Boolean>();
-
-		for (FollowVO vo : follower) {
-			FollowVO temp = new FollowVO();
-			temp.setFollower_id(vo.getFollowing_id());
-			temp.setFollowing_id(vo.getFollower_id());
-			isfollowing.add(followService.IsFollowing(temp));
+	// 팔로우 목록 페이지 요청 처리
+	@RequestMapping(value = {"{id}/follower", "{id}/following"})
+	public String ShowFollowList(@PathVariable String id, Model model, HttpServletRequest request) {
+		
+		// uri 에서 id/~~~ 에서 ~~~ 값을 뽑아내는 부분
+		String uri = request.getRequestURI();
+		String type = "";
+		Pattern pattern = Pattern.compile("(?<="+id+"\\/)\\w+");
+		Matcher data = pattern.matcher(uri);
+		if(data.find()) {
+			type = data.group();
 		}
+		///---------
 
-		model.addAttribute("type", "follower");
-		model.addAttribute("page_id", id);
-		model.addAttribute("follow_list", follower);
-		model.addAttribute("isfollowing", isfollowing);
-		model.addAttribute("center", url);
+		
+		
+		model.addAttribute("type", type); // 팔로우 페이지인지 팔로잉 페이지인지
+		model.addAttribute("page_id", id); // 보여줄 페이지의 아이디값
 
-		return "main.jsp?center=follow/list2";
+		return "main.jsp?center=follow/list";
 
 	}
 
-	// 팔로잉 목록
-	@RequestMapping("{id}/following")
-	public String ShowFollowinglist(@PathVariable String id, Model model) {
-		// System.out.println("ShowFollowinglist 호출");
-
-		String url = "follow/followlist.jsp";
-
-		List<FollowVO> following = followService.GetAllFollowing(id);
-		List<Boolean> isfollowing = new ArrayList<Boolean>();
-
-		for (FollowVO vo : following) {
-			isfollowing.add(followService.IsFollowing(vo));
-		}
-
-		model.addAttribute("type", "following");
-		model.addAttribute("page_id", id);
-		model.addAttribute("follow_list", following);
-		model.addAttribute("isfollowing", isfollowing);
-		model.addAttribute("center", url);
-
-		return "main.jsp?center=follow/list2";
-
-	}
 
 	// 팔로워 목록
-	@RequestMapping("{id}/test")
+	@RequestMapping("{id}/getFollowerList")
 	@ResponseBody
 	public List<FollowVO> Test(@PathVariable String id) {
-		System.out.println("TEST2 호출");
+		System.out.println("TEST 호출");
 
 		// 팔로워 목록 받아오기
 		List<FollowVO> follower = followService.GetAllFollower(id);
-
+		
+		
+		
 		return follower;
 
 	}
 
 	// 팔로잉 목록
-	@RequestMapping("{id}/test2")
+	@RequestMapping("{id}/getFollowingList")
 	@ResponseBody
 	public List<FollowVO> Test2(@PathVariable String id) {
 		System.out.println("TEST2 호출");
@@ -144,10 +116,12 @@ public class FollowController {
 
 	}
 
+	
+	// 팔로우 되어있는지 안되어있는지 체크 여부.
 	@RequestMapping(value = "/isFollowed", method = RequestMethod.POST)
 	@ResponseBody
 	public int isFollowed(@RequestBody FollowVO vo, Model model) {
-		System.out.println("isFollowed 호출");
+		//System.out.println("isFollowed 호출");
 
 		int result = 0;
 
@@ -157,8 +131,6 @@ public class FollowController {
 			result = 1;
 		else
 			result = 0;
-
-		// System.out.println("isfollow값 " + result);
 
 		return result;
 

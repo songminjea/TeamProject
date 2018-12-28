@@ -1,3 +1,6 @@
+---
+민재씨 패키지명 
+com.team.member.~~ 로 변경
 MemverController -> 회원가입 수정 ,로그아웃 추가
 
 MemberDAO -> 회원가입 수정
@@ -54,7 +57,20 @@ main.jsp 의 <div class="main"> main 속성을 제거 후
 
 팔로우 ajax 로 구현하고 테스트중
 
+---
 
+#변경
+imgupload.jsp
+uploadUtil.java
+MediaUtil.java
+gallerController.java
+upload.js
 
+#추가
+galleryVo.java
+
+---
+
+Follow 리스트 대충 80% 구현
 
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.team.gallery.DAO.GalleryDAO;
 import com.team.gallery.VO.galleryVO;
 
+
 @Service("GBService")
 public class GBServiceImpl implements GBService {
 

@@ -69,6 +69,8 @@ upload.js
 #추가
 galleryVo.java
 
+---
 
+Follow 리스트 대충 80% 구현
 
 

@@ -45,9 +45,9 @@
 					<colgroup bgcolor="#ddffaa">
 						<col width="5%">
 						<col width="15%">
-						<col width="40%">
 						<col width="30%">
-						<col width="10%">
+						<col width="25%">
+						<col width="25%">
 					</colgroup>
 					<tr align="center">
 						<td><input type="hidden" value="메세지넘버"></td>
@@ -56,7 +56,7 @@
 						<td>보낸 날짜</td>
 						<td>확인 여부</td>
 					</tr>
-					<c:forEach items="${sendlist}" var="message">
+					<c:forEach items="${mslist}" var="message">
 					 	<c:if test="${member.ID eq message.MESSAGE_SENDER}">  
 							<tr bgcolor="white">
 								<td><input type="hidden" value="${message.MESSAGE_NO}"></td>
@@ -80,7 +80,7 @@
 		 				</c:if>  
 					</c:forEach>
 				</table>
-				<input type="button" value="받은 쪽지 확인" onclick="location.href='messageList'">
+					<input type="button" value="받은 쪽지 확인" onclick="location.href='messageList'">
 				</div>
             </div>
           </div>

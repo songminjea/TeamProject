@@ -32,8 +32,8 @@ public class MessageController {
 	//내가 보낸 쪽지
 	@RequestMapping(value="messageSendList", method=RequestMethod.GET)
 	public String messageSendList(Model model)throws Exception{
-		List<MessageVO>sendlist = messageService.sendListAll();
-		model.addAttribute("sendlist", sendlist);
+		List<MessageVO>mslist = messageService.sendListAll();
+		model.addAttribute("mslist", mslist);
 		return "message/messageSendList";
 	}
 	

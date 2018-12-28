@@ -23,7 +23,7 @@ public class MessageDAOImpl implements MessageDAO{
 	
 	//내가 보낸 쪽지 목록
 	public List<MessageVO>sendListAll()throws Exception{
-		return sqlSession.selectList(namespace+".sendListAll");
+		return sqlSession.selectList(namespace+".sendList");
 	}
 	
 	//쪽지 작성

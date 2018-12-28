@@ -71,8 +71,8 @@
 		 				</c:if>  
 					</c:forEach>
 				</table>
-				<input type="button" class="btn" value="쪽지보내기" id="messageSend" onclick="window.open('messageSend', 'messageSend', 'width=500, height=600')">
-				<input type="button" value="보낸 쪽지 확인" onclick="location.href='messageSendList'">
+					<input type="button" class="btn" value="쪽지보내기" id="messageSend" onclick="window.open('messageSend', 'messageSend', 'width=500, height=600')">
+					<input type="button" value="보낸 쪽지 확인" onclick="location.href='messageSendList'">
 				</div>
             </div>
           </div>

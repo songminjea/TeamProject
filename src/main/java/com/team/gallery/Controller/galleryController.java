@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,19 +45,17 @@ public class galleryController {
 	}
 	
 	@RequestMapping("/galleryWrite")
-	public String galleryWrite(galleryVO gvo, RedirectAttributes ra, HttpServletRequest request) throws Exception {
+	public String galleryWrite(@ModelAttribute galleryVO gvo, RedirectAttributes ra, HttpServletRequest request) throws Exception {
 		
+				
 		gvo.setGb_IP(IPUtill.getClientIpAddr(request));
-		
+				
 		gbService.insert(gvo);
-		
+				
 		ra.addFlashAttribute("msg", "success");
 		
-		return null;
+		return "main.jsp?center=gallery/list";
 	}
-	
-
-	
 	
 	
 	@Resource(name = "uploadPath")

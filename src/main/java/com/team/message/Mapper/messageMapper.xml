@@ -3,20 +3,12 @@
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.message.Mapper.messageMapper">
 	
-	<!-- 쪽지 전체 목록 -->
+	<!-- 쪽지 전체 목록(보낸 쪽지, 받은 쪽지 둘다) -->
 	<select id="listAll" resultType="MessageVO">
-		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME
+		SELECT *
 		FROM TB_MESSAGE
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
-		
-	<!-- 내가 보낸 쪽지 목록 -->
-	<select id="sendList" resultType="MessageVO">
-		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, 
-		MESSAGE_SENDTIME, MESSAGE_READTIME, MESSAGE_READVAL
-		FROM TB_MESSAGE
- 		ORDER BY MESSAGE_SENDTIME DESC 
-	</select> 
 
 	<!-- 쪽지 작성 -->
 	<insert id="insert">
@@ -33,11 +25,13 @@
 		WHERE MESSAGE_NO = #{MESSAGE_NO}
 	</select>
 	
-	<update id="readvaltrue" parameterType="String">
+	<!-- 쪽지를 읽을 시, 읽지않음이 읽은 날짜로 변경된다. -->
+	<update id="readvaltrue">
 		UPDATE TB_MESSAGE
 		SET MESSAGE_READVAL = true,
 			MESSAGE_READTIME = now()
-		WHERE MESSAGE_NO = #{MESSAGE_NO} 
+		WHERE MESSAGE_NO = #{MESSAGE_NO}
+		AND MESSAGE_READVAL IS NULL
 	</update>
 	
 	<!-- 내가 보낸 쪽지 상세 내용 -->

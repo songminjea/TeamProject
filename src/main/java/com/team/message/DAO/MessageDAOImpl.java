@@ -23,7 +23,7 @@ public class MessageDAOImpl implements MessageDAO{
 	
 	//내가 보낸 쪽지 목록
 	public List<MessageVO>sendListAll()throws Exception{
-		return sqlSession.selectList(namespace+".sendList");
+		return sqlSession.selectList(namespace+".listAll");
 	}
 	
 	//쪽지 작성
@@ -42,6 +42,12 @@ public class MessageDAOImpl implements MessageDAO{
 	@Override
 	public MessageVO sendRead(MessageVO mvo)throws Exception{
 		return sqlSession.selectOne(namespace+".sendView", mvo);
+	}
+	
+	//쪽지를 읽을 시, 읽지않음이 읽은 날짜로 변경된다.
+	@Override
+	public void updateRead(int MESSAGE_NO)throws Exception{
+		sqlSession.update(namespace+".readvaltrue", MESSAGE_NO);
 	}
 	
 	//쪽지 삭제

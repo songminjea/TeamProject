@@ -73,6 +73,11 @@ public class MessageServiceImpl implements MessageService{
 		return resultVO;
 	}
 	
+	//쪽지를 읽을 시, 읽지않음이 읽은 날짜로 변경된다.
+	public void updateRead(int MESSAGE_NO)throws Exception{
+		messageDao.updateRead(MESSAGE_NO);
+	}
+	
 	//쪽지 삭제
 	@Override
 	public void delete(int MESSSAGE_NO)throws Exception{

@@ -57,6 +57,7 @@ public class MessageController {
 		int MESSAGE_NO = Integer.parseInt(request.getParameter("MESSAGE_NO"));
 		mvo.setMESSAGE_NO(MESSAGE_NO);
 		MessageVO resultVO = messageService.read(mvo);
+		messageService.updateRead(MESSAGE_NO);
 		model.addAttribute("mdto", resultVO);
 		return "message/messageView";
 	}
@@ -70,7 +71,7 @@ public class MessageController {
 		model.addAttribute("msdto", resultVO);
 		return "message/messageSendView";
 	}
-	
+
 	//쪽지 삭제
 	@RequestMapping(value="messageDelete")
 	public String messageDelete(@RequestParam int MESSAGE_NO)throws Exception{

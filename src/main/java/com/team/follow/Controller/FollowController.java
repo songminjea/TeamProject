@@ -65,21 +65,19 @@ public class FollowController {
 	}
 
 	// 팔로우 목록 페이지 요청 처리
-	@RequestMapping(value = {"{id}/follower", "{id}/following"})
+	@RequestMapping(value = { "{id}/follower", "{id}/following" })
 	public String ShowFollowList(@PathVariable String id, Model model, HttpServletRequest request) {
-		
+
 		// uri 에서 id/~~~ 에서 ~~~ 값을 뽑아내는 부분
 		String uri = request.getRequestURI();
 		String type = "";
-		Pattern pattern = Pattern.compile("(?<="+id+"\\/)\\w+");
+		Pattern pattern = Pattern.compile("(?<=" + id + "\\/)\\w+");
 		Matcher data = pattern.matcher(uri);
-		if(data.find()) {
+		if (data.find()) {
 			type = data.group();
 		}
-		///---------
+		/// ---------
 
-		
-		
 		model.addAttribute("type", type); // 팔로우 페이지인지 팔로잉 페이지인지
 		model.addAttribute("page_id", id); // 보여줄 페이지의 아이디값
 
@@ -87,18 +85,15 @@ public class FollowController {
 
 	}
 
-
 	// 팔로워 목록
 	@RequestMapping("{id}/getFollowerList")
 	@ResponseBody
-	public List<FollowVO> Test(@PathVariable String id) {
-		System.out.println("TEST 호출");
+	public List<FollowVO> getFollowerList(@PathVariable String id) {
+		System.out.println("getFollowerList 호출");
 
 		// 팔로워 목록 받아오기
 		List<FollowVO> follower = followService.GetAllFollower(id);
-		
-		
-		
+
 		return follower;
 
 	}
@@ -106,8 +101,8 @@ public class FollowController {
 	// 팔로잉 목록
 	@RequestMapping("{id}/getFollowingList")
 	@ResponseBody
-	public List<FollowVO> Test2(@PathVariable String id) {
-		System.out.println("TEST2 호출");
+	public List<FollowVO> getFollowingList(@PathVariable String id) {
+		System.out.println("getFollowingList 호출");
 
 		// 팔로잉 목록 받아오기
 		List<FollowVO> following = followService.GetAllFollowing(id);
@@ -116,12 +111,11 @@ public class FollowController {
 
 	}
 
-	
 	// 팔로우 되어있는지 안되어있는지 체크 여부.
 	@RequestMapping(value = "/isFollowed", method = RequestMethod.POST)
 	@ResponseBody
 	public int isFollowed(@RequestBody FollowVO vo, Model model) {
-		//System.out.println("isFollowed 호출");
+		// System.out.println("isFollowed 호출");
 
 		int result = 0;
 
@@ -136,4 +130,5 @@ public class FollowController {
 
 	}
 
+	
 }

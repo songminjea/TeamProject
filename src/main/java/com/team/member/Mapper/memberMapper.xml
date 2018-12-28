@@ -22,5 +22,11 @@
 		PWD=#{PWD,jdbcType=VARCHAR}, NAME=#{NAME,jdbcType=VARCHAR}, PHONE=#{PHONE,jdbcType=VARCHAR}, EMAIL=#{EMAIL,jdbcType=VARCHAR}
 		WHERE ID=#{ID,jdbcType=VARCHAR}
 	</update>
+	
+	<update id="changePic">
+		UPDATE TB_MEMBER
+		SET MEM_PIC = #{mem_pic}
+		WHERE MEM_SEQ = #{mem_seq}
+	</update>
   
 </mapper>

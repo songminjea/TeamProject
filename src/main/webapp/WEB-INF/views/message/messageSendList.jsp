@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -38,8 +40,8 @@
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
               <div align="center">
-				<h3>쪽지 리스트</h3>
-				<table width="600" cellpadding="0" cellspacing="0" border="0">
+				<h3>내가 보낸 쪽지</h3>
+				<table width="650" cellpadding="0" cellspacing="0" border="0">
 					<colgroup bgcolor="#ddffaa">
 						<col width="5%">
 						<col width="15%">
@@ -49,30 +51,36 @@
 					</colgroup>
 					<tr align="center">
 						<td><input type="hidden" value="메세지넘버"></td>
-						<td>보낸 사람</td>
+						<td>받는 사람</td>
 						<td>제목</td>
-						<td>받은 날짜</td>
-						<td>삭제</td>
+						<td>보낸 날짜</td>
+						<td>확인 여부</td>
 					</tr>
-					<c:forEach items="${mlist}" var="message">
-					 	<c:if test="${member.ID eq message.MESSAGE_RECEIVER}">  
+					<c:forEach items="${sendlist}" var="message">
+					 	<c:if test="${member.ID eq message.MESSAGE_SENDER}">  
 							<tr bgcolor="white">
-								<td><input type="hidden" value="${message.MESSAGE_NO}" id="MESSAGE_NO" name="MESSAGE_NO"></td>
-								<td>${message.MESSAGE_SENDER}</td>
+								<td><input type="hidden" value="${message.MESSAGE_NO}"></td>
+								<td>${message.MESSAGE_RECEIVER}</td>
 								<td>
-									<a href="#" id="messageView" 
-										onclick="window.open('messageView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageView', 'width=500, height=600')">${message.MESSAGE_SUBJECT}</a>
+									<a href="#" id="messageSendView" 
+										onclick="window.open('messageSendView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageSendView', 'width=500, height=600')">${message.MESSAGE_SUBJECT}</a>
 								</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${message.MESSAGE_SENDTIME}"/></td>
 								<td>
-									<a href="messageDelete?MESSAGE_NO=${message.MESSAGE_NO}">X</a>
+								<c:choose>
+									<c:when test="${message.MESSAGE_READVAL == false}">
+										읽지 않음
+									</c:when>
+									<c:otherwise>
+										<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${message.MESSAGE_READTIME}"/>
+									</c:otherwise>
+								</c:choose>
 								</td>
 							</tr>
 		 				</c:if>  
 					</c:forEach>
 				</table>
-				<input type="button" class="btn" value="쪽지보내기" id="messageSend" onclick="window.open('messageSend', 'messageSend', 'width=500, height=600')">
-				<input type="button" value="보낸 쪽지 확인" onclick="location.href='messageSendList'">
+				<input type="button" value="받은 쪽지 확인" onclick="location.href='messageList'">
 				</div>
             </div>
           </div>

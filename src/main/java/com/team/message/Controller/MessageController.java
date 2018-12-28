@@ -29,6 +29,14 @@ public class MessageController {
 		return "message/messageList";
 	}
 	
+	//내가 보낸 쪽지
+	@RequestMapping(value="messageSendList", method=RequestMethod.GET)
+	public String messageSendList(Model model)throws Exception{
+		List<MessageVO>sendlist = messageService.sendListAll();
+		model.addAttribute("sendlist", sendlist);
+		return "message/messageSendList";
+	}
+	
 	//쪽지 작성
 	@RequestMapping(value="messageSend", method=RequestMethod.GET)
 	public String messageSend(MessageVO mvo, Model model) {
@@ -43,6 +51,7 @@ public class MessageController {
 	}
 	
 	//쪽지 상세내용 조회
+	//쪽지 조회시 읽음으로 변경되고, 읽은 날짜가 변경된다.(이후 변경되지는 않음)
 	@RequestMapping(value="messageView", method=RequestMethod.GET)
 	public String messageView(@ModelAttribute("MessageVO")MessageVO mvo, Model model, HttpServletRequest request)throws Exception{
 		int MESSAGE_NO = Integer.parseInt(request.getParameter("MESSAGE_NO"));
@@ -51,8 +60,16 @@ public class MessageController {
 		model.addAttribute("mdto", resultVO);
 		return "message/messageView";
 	}
-	
-	//쪽지 조회시 읽음으로 변경되고, 읽은 날짜가 변경된다.(이후 변경되지는 않음)
+
+	//내가 보낸 쪽지 상세내용 조회
+	@RequestMapping(value="messageSendView", method=RequestMethod.GET)
+	public String messageSendView(@ModelAttribute("MessageVO")MessageVO mvo, Model model, HttpServletRequest request)throws Exception{
+		int MESSAGE_NO = Integer.parseInt(request.getParameter("MESSAGE_NO"));
+		mvo.setMESSAGE_NO(MESSAGE_NO);
+		MessageVO resultVO = messageService.sendRead(mvo);
+		model.addAttribute("msdto", resultVO);
+		return "message/messageSendView";
+	}
 	
 	//쪽지 삭제
 	@RequestMapping(value="messageDelete")

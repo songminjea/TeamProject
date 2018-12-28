@@ -9,6 +9,13 @@
 		FROM MESSAGE
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
+	
+	<!-- 내가 보낸 쪽지 목록 -->
+	<select id="sendListAll" resultType="MessageVO">
+		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME, MESSAGE_READTIME, MESSAGE_READVAL
+		FROM MESSAGE
+		ORDER BY MESSAGE_SENDTIME DESC
+	</select>
 
 	<!-- 쪽지 작성 -->
 	<insert id="insert">
@@ -20,6 +27,20 @@
 	
 	<!-- 쪽지 상세 내용 -->
 	<select id="view" resultType="MessageVO" parameterType="MessageVO">
+		SELECT * 
+		FROM MESSAGE
+		WHERE MESSAGE_NO = #{MESSAGE_NO}
+	</select>
+	
+	<update id="readvaltrue" parameterType="String">
+		UPDATE MESSAGE
+		SET MESSAGE_READVAL = true,
+			MESSAGE_READTIME = now()
+		WHERE MESSAGE_NO = #{MESSAGE_NO} 
+	</update>
+	
+	<!-- 내가 보낸 쪽지 상세 내용 -->
+	<select id="sendView" resultType="MessageVO" parameterType="MessageVO">
 		SELECT * 
 		FROM MESSAGE
 		WHERE MESSAGE_NO = #{MESSAGE_NO}

@@ -21,6 +21,11 @@ public class MessageDAOImpl implements MessageDAO{
 		return sqlSession.selectList(namespace+".listAll");
 	}
 	
+	//내가 보낸 쪽지 목록
+	public List<MessageVO>sendListAll()throws Exception{
+		return sqlSession.selectList(namespace+".sendListAll");
+	}
+	
 	//쪽지 작성
 	@Override
 	public void create(MessageVO mvo)throws Exception{
@@ -31,6 +36,12 @@ public class MessageDAOImpl implements MessageDAO{
 	@Override
 	public MessageVO read(MessageVO mvo)throws Exception{
 		return sqlSession.selectOne(namespace+".view", mvo);
+	}
+	
+	//내가 보낸 쪽지 상세 내용
+	@Override
+	public MessageVO sendRead(MessageVO mvo)throws Exception{
+		return sqlSession.selectOne(namespace+".sendView", mvo);
 	}
 	
 	//쪽지 삭제

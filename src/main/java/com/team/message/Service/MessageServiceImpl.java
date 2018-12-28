@@ -20,6 +20,12 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.listAll();
 	}
 	
+	//내가 보낸 쪽지 목록 
+	@Override
+	public List<MessageVO>sendListAll()throws Exception{
+		return messageDao.sendListAll();
+	}
+	
 	//쪽지 작성
 	@Override
 	public void create(MessageVO mvo)throws Exception{
@@ -57,6 +63,13 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public MessageVO read(MessageVO mvo)throws Exception{
 		MessageVO resultVO = messageDao.read(mvo);
+		return resultVO;
+	}
+	
+	//내가 보낸 쪽지 상세 내용
+	@Override
+	public MessageVO sendRead(MessageVO mvo)throws Exception{
+		MessageVO resultVO = messageDao.sendRead(mvo);
 		return resultVO;
 	}
 	

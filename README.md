@@ -77,5 +77,6 @@ header,side-left
 
 img src에 {pageContext.request.contextPath}/ 추가
 
+side-left에 my group 버튼 누르면 로그인한 아이디의 팔로워,팔로잉 목록 보는 페이지로 이동.
 
-
+---

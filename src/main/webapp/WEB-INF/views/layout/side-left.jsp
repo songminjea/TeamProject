@@ -9,7 +9,7 @@
 <script type="text/javascript">
 	//회원수정 버튼 클릭시 첫화면으로 이동
 	function goMypage() {
-	    location.href="$/{pageContext.request.contextPath}/mypage/${member.ID}"; 
+	    location.href="${pageContext.request.contextPath}/mypage/${member.ID}"; 
 	}
 </script>
 </head>

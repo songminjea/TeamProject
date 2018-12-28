@@ -23,7 +23,7 @@
 
 	
 
-.file-click {
+.file-click{
     width: 100%;
     position: relative;
 }
@@ -39,6 +39,7 @@
     opacity: 0;
     cursor: pointer;
 }
+
 .file-area .file-dummy {
     width: 100%;
     padding: 20px 10px;
@@ -169,9 +170,9 @@ $(document).ready(function(){
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 	<h4>사진 업로드</h4>
-	<form role = "form" method = "post" action="gallerWrite">
+	<form role = "form" method = "post" action="galleryWrite">
 	<div id="space">
-		<select name="GB_Privacy">
+		<select name="gb_Privacy">
 			<option value="N" selected="selected">친구공개</option>
 			<option value="Y">미공개</option>
 		</select>
@@ -179,20 +180,23 @@ $(document).ready(function(){
 	
 	<div class="w3-col m3" id="space">ID</div>
 	<div class="w3-col m9" id="space"><input type="text" name="mb_ID"></div>
-	<div class="w3-col m3" id="space">제목</div>
-	<div class="w3-col m9" id="space"><input type="text" name="gb_Subject"></div>
 	<div class="w3-col m3" id="space">내용</div>
 	<textarea rows="5" cols="40" class="w3-col m9" id="space" name="gb_Content"></textarea>
-	<div class="file-click">File Drop & Click Zone
-		<input type="file">
+	<div>
+		<span class="file-click">Click & Drag Zone
+			<input type="file">
+		</span>
 	</div>
 	<div class="file-area w3-col m12" >
-		
 	    <div class="file-dummy" id="space">
 	       <div class = "box-footer">
 	       		<ul class = "mailbox-attachments clearfix uploadedFileList"></ul>	       
 	       </div>
 	    </div>
+	</div>
+	<div id ="space">
+		<input type ="submit" value="등록">
+		<input type ="reset" value="다시작성">
 	</div>
 	</form>
 </div>

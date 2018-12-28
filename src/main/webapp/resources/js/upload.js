@@ -1,10 +1,10 @@
 
-
-
 var fileTemplate = Handlebars.compile($("#fileTemplate").html());
+
 
 function checkImageType(fileName){
 	var pattern = /jpg|gif|png|jpeg/i;
+	
 	return fileName.match(pattern);
 }
 
@@ -27,6 +27,7 @@ function getFileInfo(fullName){
 		originalFileUrl = "display?fileName="+fullName;
 			
 	}
+
 	originalFileName = uuidFileName.substr(uuidFileName.indexOf("_")+1);
 	return {originalFileName:originalFileName, imgSrc:imgSrc, originalFileUrl:originalFileUrl,fullName:fullName};
 }
@@ -49,3 +50,4 @@ function printFiles(data){
 		that.find(".fa-paperclip").attr("class","fa fa-camera");
 	}
 }
+

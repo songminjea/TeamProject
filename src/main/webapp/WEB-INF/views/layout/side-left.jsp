@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	//회원수정 버튼 클릭시 첫화면으로 이동
+	function goMypage() {
+	    location.href="mypage/"+"${member.ID}"; 
+	}
+</script>
 </head>
 <body>   
  
@@ -15,11 +21,12 @@
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="./resources/css/baby.jpg" class="w3-circle" style="height:200px;" alt="Avatar"></p>
+         <p class="w3-center"><img src="${member.PIC }" class="w3-circle" style="height:200px;" alt="Avatar"></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${member.NAME}</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> ${member.EMAIL}</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> ${member.BIRTH}</p>
+         <p><input type="button" value="회원수정" onclick="goMypage()"></p>
         </div>
       </div>
       <br>

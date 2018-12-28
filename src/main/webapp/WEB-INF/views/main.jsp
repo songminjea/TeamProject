@@ -2,10 +2,9 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-
 <!DOCTYPE html>
 <html>
-<title>BabyParent</title>
+<title>BabyParent | Main</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -14,7 +13,7 @@
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
-<link rel="stylesheet" href="./resources/css/main2.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
 
 <c:set var="center" value="${param.center}"/>
  
@@ -22,8 +21,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
 
-<body class="w3-theme-l5">
-<div class="main">
+<body class="w3-theme-l5 main">
+<div class="">
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>
 <!-- END Header -->

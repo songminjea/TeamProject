@@ -2,17 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.message.Mapper.messageMapper">
-	<insert id="insertMessage" parameterType="Message">
-		INSERT INTO MESSAGE(MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT)
-		VALUES(MESSAGE_seq.nextval, #{MESSAGE_SENDER}, #{MESSAGE_RECEIVER}, #{MESSAGE_SUBJECT}, #{MESSAGE_CONTENT})
-	</insert>
-	<select id="selectMessageList" resultType="Message" parameterType="String">
-		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME(inputdate, 'yyyy/MM/dd')inputdate 
-		FROM MESSAGE WHERE MESSAGE_RECEIVER = #{MESSAGE_RECEIVER} ORDER BY MESSAGE_NO
+	
+	<!-- 쪽지 전체 목록 -->
+	<select id="listAll" resultType="MessageVO">
+		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME
+		FROM MESSAGE
+		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
-	<update id ="updateReadTime">
-		UPDATE MESSAGE SET MESSAGE_READTIME = NOW() WHERE MESSAGE_RECEIVER = #{MESSAGE_RECEIVER} 
-		AND MESSAGE_SENDER = #{MESSAGE_SENDER} AND MESSAGE_READTIME = MESSAGE_SENDTIME 
-		AND MESSAGE_SENDER = MESSAGE_SENDERID AND MESSAGE_RECEIVER = #{MESSAGE_RECEIVERID};
-</update>
+
+	<!-- 쪽지 작성 -->
+	<insert id="insert">
+		INSERT INTO MESSAGE
+		(MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME)
+		VALUES
+		(#{MESSAGE_SENDER}, #{MESSAGE_RECEIVER}, #{MESSAGE_SUBJECT}, #{MESSAGE_CONTENT}, NOW())
+	</insert>
+	
+	<!-- 쪽지 상세 내용 -->
+	<select id="view" resultType="MessageVO" parameterType="MessageVO">
+		SELECT * 
+		FROM MESSAGE
+		WHERE MESSAGE_NO = #{MESSAGE_NO}
+	</select>
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="deleteMessage">
+		DELETE 
+		FROM MESSAGE
+		WHERE MESSAGE_NO = #{MESSAGE_NO}
+	</delete>
+	
 </mapper>

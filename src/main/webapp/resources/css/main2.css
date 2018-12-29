@@ -6,14 +6,31 @@
 	background-position: top center;
 	background-size: cover; 
 }
-#bar{
-	background-color: white;
-	display:table;
+body{font-family: 'Nunito', sans-serif;}
+
+/* header */
+.top-bar {background: white;
+    	  border-bottom: 1px solid white;
+    	  margin-left: auto;
+   		  margin-right: auto;}
+#bar_icon a i{display: block;
+			  padding: auto;}
+.babylogo{
+	position: relative;
 }
-#icon{padding: 5px;}
-.margin_20{
-	margin: 20px;
+.babylogo img{
+	position: absolute; 
+	left: 50%; 
+	transform: translate(-50%, -0%);
 }
-#bar .baby{display:table-cell;
-      		margin-top: 5px;
-      		margin-bottom: 5px;}
+    	  
+/* side-left */
+.image_wrapper{
+	width: 90%;
+	margin-left: auto;
+    margin-right: auto;
+}
+.image_wrapper img{
+	display: block;
+	max-width: 100%; height: auto;
+}

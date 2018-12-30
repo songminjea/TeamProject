@@ -16,7 +16,7 @@ function getFollowerList(my_id, page_id) {
 		DataType : "json",
 		url : "/TeamPro/" + page_id + "/getFollowerList",
 		success : function(result) {
-			$("#s_infoArea").children().remove();
+			$("#s_infoArea").children().detach();
 			//console.log(result.length);
 			if(result.length == 0){
 				$("#s_infoArea").append("<h1>저런! 친구가 없으시네요!</h1>");
@@ -74,7 +74,7 @@ function getFollowingList(my_id, page_id) {
 		success : function(result) {
 			
 			
-			$("#s_infoArea").children().remove();
+			$("#s_infoArea").children().detach();
 			if(result.length == 0){
 				$("#s_infoArea").append("<h1>저런! 친구를 만드세요!</h1>");
 			}else{

@@ -10,7 +10,6 @@ public class galleryVO {
 	private Timestamp gb_Date;
 	private String gb_IP;
 	private String gb_Privacy;
-	private String follower_id;
 	
 	public int getGb_Num() {
 		return gb_Num;
@@ -48,12 +47,7 @@ public class galleryVO {
 	public void setGb_Privacy(String gb_Privacy) {
 		this.gb_Privacy = gb_Privacy;
 	}
-	public String getFollower_id() {
-		return follower_id;
-	}
-	public void setFollower_id(String follower_id) {
-		this.follower_id = follower_id;
-	}
+
 	
 	
 	

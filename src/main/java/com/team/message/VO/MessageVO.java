@@ -14,6 +14,7 @@ public class MessageVO {
 	private String MESSAGE_CONTENT; //쪽지 내용
 	private Timestamp MESSAGE_SENDTIME; //쪽지 보낸 시간(송신자)
 	private Timestamp MESSAGE_READTIME; //쪽지 확인 시간(수신자)
+	private boolean MESSAGE_READVAL; //쪽지 확인 여부
 	
 	//getter, setter 메서드
 	public int getMESSAGE_NO() {
@@ -57,6 +58,12 @@ public class MessageVO {
 	}
 	public void setMESSAGE_READTIME(Timestamp mESSAGE_READTIME) {
 		MESSAGE_READTIME = mESSAGE_READTIME;
+	}
+	public boolean isMESSAGE_READVAL() {
+		return MESSAGE_READVAL;
+	}
+	public void setMESSAGE_READVAL(boolean mESSAGE_READVAL) {
+		MESSAGE_READVAL = mESSAGE_READVAL;
 	}
 	
 }

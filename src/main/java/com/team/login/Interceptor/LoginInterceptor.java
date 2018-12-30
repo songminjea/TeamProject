@@ -12,12 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-	private static final String LOGIN  = "login";
+	private static final String LOGIN  = "member";
 	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mv) throws Exception {
-		HttpSession session = request.getSession();
+		super.postHandle(request, response, handler, mv);
+		/*HttpSession session = request.getSession();
 		ModelMap modelMap = mv.getModelMap();
 		Object memberVO = modelMap.get("MemberVO");
 		
@@ -33,9 +34,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				response.addCookie(loginCookie);
 			}
 			
-			/*Object dest = session.getAttribute("dest");
+			Object dest = session.getAttribute("dest");
 
-			response.sendRedirect(dest != null ? (String)dest : "/mysns/board/list");*/
+			response.sendRedirect(dest != null ? (String)dest : "/mysns/board/list");
 			
 			response.sendRedirect("main");
 			
@@ -43,16 +44,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			session.setAttribute("isfail", "true");
 			
 			response.sendRedirect("login");
-		}
+		}*/
 	}
 	
-	@Override
+	@Override // 컨트롤러 가기 전 처리
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		
-		if (session.getAttribute(LOGIN) != null) {
-			logger.info("clear login data before");
-			session.removeAttribute(LOGIN);
+		// member 세션이 있을때
+		if (session.getAttribute(LOGIN) == null) {
+			response.sendRedirect("login");
+			return false;
 		}
 		
 		return true;

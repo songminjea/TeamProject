@@ -1,10 +1,13 @@
 package com.team.gallery.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.gallery.DAO.GalleryDAO;
 import com.team.gallery.VO.galleryVO;
+import com.team.member.VO.MemberVO;
 
 
 @Service("GBService")
@@ -19,4 +22,19 @@ public class GBServiceImpl implements GBService {
 		gdao.insert(gvo);
 	
 	}
+
+	@Override
+	public List<galleryVO> GetMyGalleryList(String my_id) {
+		
+		return gdao.GetMyGalleryList(my_id);
+	}
+
+	@Override
+	public List<galleryVO> GetSpecGalleryList(String id) {
+		return gdao.GetSpecGalleryList(id);
+	}
+	
+	
+	
+	
 }

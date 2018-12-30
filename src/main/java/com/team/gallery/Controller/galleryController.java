@@ -3,6 +3,7 @@ package com.team.gallery.Controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,7 @@ import com.team.gallery.Service.GBService;
 import com.team.gallery.VO.galleryVO;
 import com.team.gallery.util.IPUtill;
 import com.team.gallery.util.UploadUtil;
+import com.team.member.VO.MemberVO;
 
 
 @Controller
@@ -117,10 +120,40 @@ public class galleryController {
 	}
 	
 	
-	@RequestMapping(value = "gallery/list")
-	public String ShowGallery(HttpSession session, Model model) {
+	
+	
+	// 갤러리 접근 처리.
+	@RequestMapping(value = "{id}/gallery")
+	public String ShowGallery(@PathVariable String id, Model model) {
+		//System.out.println("ShowGallery 호출");
+
+		model.addAttribute("isMyGall" , false);
+		model.addAttribute("pageid", id);
 		
 		return "main.jsp?center=gallery/list";
 	}
 	
+	// {id} 에 해당하는 사용자가 쓴 글을 가져온다.
+	@RequestMapping(value = "{id}/getSpecGallery")
+	@ResponseBody
+	public List<galleryVO> GetSpecGallery(@PathVariable String id, Model model) {
+		//System.out.println("GetSpecGallery 호출 " + id);
+		List<galleryVO> vo = gbService.GetSpecGalleryList(id);
+
+		return vo;
+	}
+	
+	// 내가 팔로우 한 사람들의 글을 가져옴.
+	@RequestMapping(value = "{id}/getMyGallery")
+	@ResponseBody
+	public List<galleryVO> GetMyGallery(@PathVariable String id, Model model) {
+		//System.out.println("GetMyGallery 호출 " + id);
+		List<galleryVO> vo = gbService.GetMyGalleryList(id);
+
+		/*for (galleryVO vv : vo) {
+			System.out.println("ShowGallery " + vv.getGb_Content() + " " + vv.getMb_ID() + " " + vv.getGb_Date());
+		}*/
+
+		return vo;
+	}
 }

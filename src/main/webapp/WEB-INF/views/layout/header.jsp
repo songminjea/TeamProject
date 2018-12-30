@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 <div class="w3-top top-bar">
  <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
  <%-- 각 페이지 연결할 아이콘 --%>
@@ -32,7 +34,12 @@
   </div> 
   <%-- 로그인 확인, 로그아웃 및 회원 정보 관리 --%>
   <h6 class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" >
-  	<a href="${pageContext.request.contextPath}/logout">${member.ID}(${member.NAME})</a>
+  	<c:if test="${!empty member.ID}">
+		<a href="${pageContext.request.contextPath}/logout">${member.ID}(${member.NAME})</a>
+	</c:if>
+	<c:if test="${empty member.ID}">
+		<a href="${pageContext.request.contextPath}/login">로그인</a>
+	</c:if>
   </h6>
  </div>
 </div>

@@ -11,7 +11,6 @@ public class galleryVO {
 	private String gb_IP;
 	private String gb_Privacy;
 	
-	
 	public int getGb_Num() {
 		return gb_Num;
 	}
@@ -48,6 +47,8 @@ public class galleryVO {
 	public void setGb_Privacy(String gb_Privacy) {
 		this.gb_Privacy = gb_Privacy;
 	}
+
+	
 	
 	
 }

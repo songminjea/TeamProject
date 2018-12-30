@@ -27,9 +27,10 @@
 	<!-- interceptor -->
 	<beans:bean id="loginInterceptor" class="com.team.login.Interceptor.LoginInterceptor"></beans:bean>
 	
+	
 	<interceptors>
 		<interceptor>
-			<mapping path="loginPOST"/>
+			<mapping path="/main"/>
 			<beans:ref bean = "loginInterceptor"/>
 		</interceptor>
 	</interceptors>

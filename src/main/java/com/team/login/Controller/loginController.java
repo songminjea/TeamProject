@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.team.login.DTO.LoginDTO;
 import com.team.login.Service.LoginService;
@@ -38,10 +39,21 @@ public class loginController {
 			session.setAttribute("member", member);
 			//로그인 세션값 30분 유지
 			request.getSession().setMaxInactiveInterval(60*30);
-			return "main";
+			return "redirect:main";
 		}else {
 			model.addAttribute("msg", "사용자의 아이디 혹은 비밀번호가 일치하지 않습니다.");
-			return "redirect:login";
+			return "login";
 		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request, Model mv){
+		
+		request.getSession().removeAttribute("member");
+		
+		mv.addAttribute("msg","로그아웃 되었습니다.");
+		
+		return "login";
+		
 	}
 }

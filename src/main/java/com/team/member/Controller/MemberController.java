@@ -80,15 +80,5 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/logout")
-	public ModelAndView logout(HttpServletRequest request) throws Exception{
-		
-		request.getSession().removeAttribute("login");
-		
-		ModelAndView mav = new ModelAndView("/logout");
-		mav.addObject("msg","로그아웃 되었습니다.");
-		
-		return mav;
-		
-	}
+	
 }

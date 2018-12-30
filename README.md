@@ -1,11 +1,11 @@
-#변경
+# 변경
 imgupload.jsp
 uploadUtil.java
 MediaUtil.java
 gallerController.java
 upload.js
 
-#추가
+# 추가
 galleryVo.java
 
 ---
@@ -34,7 +34,7 @@ servlet-context, java -> 채팅 관련 자바파일, 설정 삭제. 현재 멀�
 회원 프로필 이미지가 없을 경우 기본 이미지가 뜨게 설정
 css 폴더의 이미지 -> img 폴더로 이동
 --------------------------
-#<12/30>
+# <12/30>
 
 <최지원 해야할 것 메모>
 
@@ -52,7 +52,7 @@ css 폴더의 이미지 -> img 폴더로 이동
 
 ---
 
-###로그인 관련
+### 로그인 관련
 
 - main 으로 접속할시 LoginInterceptor를 통해서 로그인 안되어있을 경우 login 페이지로 이동하게 변경 
 
@@ -61,15 +61,15 @@ css 폴더의 이미지 -> img 폴더로 이동
 
 - *servlet-context*에 인터셉터 맵핑에 main 추가
 
-- *loginController* 로그인 성공시 return "main" -> return "redirect:main" 으로 변경
+- *loginController* 로그인 성공시 ```return "main" -> return "redirect:main"``` 으로 변경
 
 - *memberController* 로그아웃 매핑을 loginController로 이동.
 
 - *logout.jsp* 삭제
 
-- *loginController* > loginSuccess 에서 return "redirect:login"; -> return "login"; 로 변경
+- *loginController* > loginSuccess 에서 ```return "redirect:login"; -> return "login";``` 로 변경
 
-###gallery 관련
+### gallery 관련
 
 - *list* 추가
 
@@ -80,13 +80,13 @@ css 폴더의 이미지 -> img 폴더로 이동
 - **{id}/gallery** 로 접속하면 화면 출력
 
 
-###기타 등등
+### 기타 등등
 - header.jsp 로그인 안되어있으면 로그인 버튼 뜨게 바꿈
 
 
 - main2.css 
 
-	a{ text-decoration: none; } 추가
+```a{ text-decoration: none; }``` 추가
 
-#<12/30 끝>
+# <12/30 끝>
 ---

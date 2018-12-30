@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +13,24 @@
 	}
 </script>
 </head>
-<body>   
- 
+<body>    
 <!-- Left Column -->
     <div class="w3-col m3">
       <!-- Profile -->
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="${member.PIC }" class="w3-circle" style="height:200px;" alt="Avatar"></p>
+         <div class="w3-center image_wrapper">
+         	<!-- 만약 회원 프로필 이미지가 없을 경우에는 기본 이미지를 띄운다. -->
+         	<c:choose>
+				<c:when test="${empty member.PIC}">
+					<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="defaultImage">					
+				</c:when>
+				<c:otherwise>
+					<img src="${member.PIC}">
+				</c:otherwise>
+			</c:choose>
+         </div>
          <hr>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${member.NAME}</p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> ${member.EMAIL}</p>
@@ -32,7 +41,7 @@
       <br>
 
       <!-- Accordion -->
-      <div class="w3-card w3-round">
+      <div class="w3-card w3-round w3-white">
         <div class="w3-white">
           <a href="${pageContext.request.contextPath}/${member.ID}/follower" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>My Groups</a>
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
@@ -70,20 +79,7 @@
       <!-- Interests --> 
       <div class="w3-card w3-round w3-white w3-hide-small">
         <div class="w3-container">
-          <p>Interests</p>
-          <p>
-            <span class="w3-tag w3-small w3-theme-d5">News</span>
-            <span class="w3-tag w3-small w3-theme-d4">W3Schools</span>
-            <span class="w3-tag w3-small w3-theme-d3">Labels</span>
-            <span class="w3-tag w3-small w3-theme-d2">Games</span>
-            <span class="w3-tag w3-small w3-theme-d1">Friends</span>
-            <span class="w3-tag w3-small w3-theme">Games</span>
-            <span class="w3-tag w3-small w3-theme-l1">Friends</span>
-            <span class="w3-tag w3-small w3-theme-l2">Food</span>
-            <span class="w3-tag w3-small w3-theme-l3">Design</span>
-            <span class="w3-tag w3-small w3-theme-l4">Art</span>
-            <span class="w3-tag w3-small w3-theme-l5">Photos</span>
-          </p>
+        	<p>fgdfgfdgd</p>
         </div>
       </div>
       <br>

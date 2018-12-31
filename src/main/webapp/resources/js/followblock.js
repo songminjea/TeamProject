@@ -6,52 +6,44 @@ function getContextPath() { // ContextPath 얻어오는 함수
 			hostIndex + 1));
 
 }
+// 
+Handlebars.registerHelper('getType', function(type,follower,following,options) {
+	  if (type == "follower") {
+	    return follower;
+	  } else {
+	    return following;
+	  }
+});
+
 
 // 팔로워 목록을 출력
 function getFollowerList(my_id, page_id) {
-
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
 		DataType : "json",
 		url : "/TeamPro/" + page_id + "/getFollowerList",
 		success : function(result) {
-			$("#s_infoArea").children().detach();
-			//console.log(result.length);
+			$("#follow_list").children().detach();
 			if(result.length == 0){
-				$("#s_infoArea").append("<h1>저런! 친구가 없으시네요!</h1>");
+				$("#follow_list").append("<h1>저런! 친구가 없으시네요!</h1>");
 			}else{
-				$.each(result, function(i) {
-					//console.log(result[i]);
-					
-					// 리스트를 감싸는 div의 아이디
-					var div_id = "list_"+result[i].follower_id;
-					
-					$("#s_infoArea").append("<div id="+div_id+">");
-					
-					$("#"+div_id).append("<img src='/TeamPro/resources/css/baby.jpg' alt='프로필 사진'" +
-						"class='w3-left w3-circle w3-margin-right' style='width: 60px'>");
-					
-					
-					$("#"+div_id).append("<span id='span_fBtn' class='w3-right'>");
-					
-					if(my_id != "") {
-						$("#"+div_id).children("#span_fBtn").append("<button type='button'" +
-								"class='w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide'" +
-								"onclick=follow('" + my_id + "','" + result[i].follower_id + "')>팔로우</button>" +
-								"<button type='button'" +
-								"class='w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide'" +
-								"onclick=unfollow('" + my_id + "','" + result[i].follower_id + "')>" +
-								"<span>팔로잉</span> <span>언팔로우</span>" +
-							"</button>");
-						
-						isFollowed(my_id , result[i].follower_id);
-					}
-					
-					$("#"+div_id).append("<h4><a href=''>"+ result[i].follower_id + "</a></h4>");
-					$("#"+div_id).append("<br>	<hr class='w3-clear'>");
-				}) // each 끝
-			};
+				var source = $("#follow-template").html();
+				var template = Handlebars.compile(source);
+				var data = {
+					follow : result,
+					my_id,
+					type : "follower"
+				}	
+				//console.log(data);
+				var html = template(data);
+				$("#follow_list").append(html);
+				
+				$.each(result, function(i){
+					isFollowed(my_id , result[i].follower_id);
+				})
+			}
+			
 
 		},
 		error : function(request, status, error) {
@@ -64,8 +56,6 @@ function getFollowerList(my_id, page_id) {
 
 //팔로잉 목록을 출력
 function getFollowingList(my_id, page_id) {
-	
-	//console.log(page_id + " " + my_id);
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -78,35 +68,23 @@ function getFollowingList(my_id, page_id) {
 			if(result.length == 0){
 				$("#s_infoArea").append("<h1>저런! 친구를 만드세요!</h1>");
 			}else{
-				$.each(result, function(i) {
-					
-					// 리스트를 감싸는 div의 아이디
-					var div_id = "list_"+result[i].following_id;
-					$("#s_infoArea").append("<div id="+div_id+">");
-					
-					$("#"+div_id).append("<img src='/TeamPro/resources/css/baby.jpg' alt='프로필 사진'" +
-						"class='w3-left w3-circle w3-margin-right' style='width: 60px'>");
-					
-					
-					$("#"+div_id).append("<span id='span_fBtn' class='w3-right'>");
-					if(my_id != "") {
-						$("#"+div_id).children("#span_fBtn").append("<button type='button'" +
-								"class='w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide'" +
-								"onclick=follow('" + my_id + "','" + result[i].following_id + "')>팔로우</button>" +
-								"<button type='button'" +
-								"class='w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide'" +
-								"onclick=unfollow('" + my_id + "','" + result[i].following_id + "')>" +
-								"<span>팔로잉</span> <span>언팔로우</span>" +
-							"</button>");
-						
-						// 팔로우 여부 체크
-						isFollowed(my_id , result[i].following_id);
-					}
-					
-					$("#"+div_id).append("<h4><a href=''>"+ result[i].following_id + "</a></h4>");
-					$("#"+div_id).append("<br>	<hr class='w3-clear'>");
-				})//each 종료
+				var source = $("#follow-template").html();
+				var template = Handlebars.compile(source);
+				var data = {
+					follow : result,
+					my_id,
+					type : "following"
+				}
+				
+				var html = template(data);
+				$("#follow_list").append(html);
+				
+				$.each(result, function(i){
+					isFollowed(my_id , result[i].following_id);
+				})
 			};
+			console.log("호출한다 test");
+			test();
 
 		},
 		error : function(request, status, error) {
@@ -120,7 +98,7 @@ function getFollowingList(my_id, page_id) {
 function isFollowed(follower_id, following_id) {
 	var isfollowed;
 	
-	//console.log(follower_id + " " + following_id);
+	if(follower_id != "")
 	$.ajax({
 		type : "POST",
 		//async: false,
@@ -132,11 +110,10 @@ function isFollowed(follower_id, following_id) {
 		}),
 		url : "/TeamPro/isFollowed",
 		success : function(result) {
-			
 			isfollowed = result;
-			//console.log("isFollowed.js " + follower_id + " " + following_id + " " + isfollowed);
 			// 팔로우 되어있는 사람이 아닐때
 			if (isfollowed == 0) { 
+				
 				$('#list_' + following_id).find('button').eq(0).removeClass(
 				'fbhide');
 				$('#list_' + following_id).find('button').eq(1).addClass(
@@ -144,6 +121,7 @@ function isFollowed(follower_id, following_id) {
 
 			// 팔로우 되어있는 사람일때
 			} else { 
+				
 				$('#list_' + following_id).find('button').eq(0).addClass(
 				'fbhide');
 				$('#list_' + following_id).find('button').eq(1).removeClass(

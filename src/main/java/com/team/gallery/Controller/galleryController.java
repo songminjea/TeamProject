@@ -59,7 +59,7 @@ public class galleryController {
 				
 		ra.addFlashAttribute("msg", "success");
 		
-		return "main.jsp?center=gallery/list";
+		return "redirect:main";
 	}
 	
 	
@@ -124,9 +124,13 @@ public class galleryController {
 	
 	// 갤러리 접근 처리.
 	@RequestMapping(value = "{id}/gallery")
-	public String ShowGallery(@PathVariable String id, Model model) {
+	public String ShowGallery(@PathVariable String id, Model model, HttpServletRequest request) {
 		//System.out.println("ShowGallery 호출");
-
+		
+		// id에 해당하는 프로필을 가져온다. 
+		// MemberInterceptor에서 처리 한 후 가져오는것.
+		MemberVO memberVo = (MemberVO)request.getAttribute("vo");
+		model.addAttribute("profile",memberVo);
 		model.addAttribute("isMyGall" , false);
 		model.addAttribute("pageid", id);
 		

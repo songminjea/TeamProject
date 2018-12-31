@@ -16,20 +16,20 @@
          <div class="w3-center image_wrapper">
          	<%-- 만약 회원 프로필 이미지가 없을 경우에는 기본 이미지를 띄운다. --%>
          	<c:choose>
-				<c:when test="${empty member.PIC}">
+				<c:when test="${empty profile.PIC}">
 					<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="defaultImage">					
 				</c:when>
 				<c:otherwise>
-					<img src="${member.PIC}">
+					<img src="${profile.PIC}">
 				</c:otherwise>
 			</c:choose>
          </div>
          <hr>
         <%-- 회원 정보 --%>
         <div class="member_icon" style="font-weight: 500; font-size: 15px;">
-	         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${member.NAME}</p>
-	         <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> ${member.EMAIL}</p>
-	         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> ${member.BIRTH}</p>
+	         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${profile.NAME}</p>
+	         <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> ${profile.EMAIL}</p>
+	         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> ${profile.BIRTH}</p>
 	         <p align="center"><input type="button" class="uploadBtn"onclick="location.href='${pageContext.request.contextPath}/imgupload'" value="게시물 올리기"></p>
         </div>
         </div>

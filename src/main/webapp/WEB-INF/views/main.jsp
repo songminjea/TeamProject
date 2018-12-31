@@ -20,7 +20,7 @@
 	<c:if test="${empty center}"> 
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
-<body class="w3-theme-l5 main">
+<body class="w3-theme-l5 main" style="overflow-x: hidden;">
 
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>

@@ -1,24 +1,3 @@
-# 변경
-imgupload.jsp
-uploadUtil.java
-MediaUtil.java
-gallerController.java
-upload.js
-
-# 추가
-galleryVo.java
-
----
-
-Follow 리스트 대충 80% 구현
-
-=======
-header,side-left
-
-img src에 {pageContext.request.contextPath}/ 추가
-
-side-left에 my group 버튼 누르면 로그인한 아이디의 팔로워,팔로잉 목록 보는 페이지로 이동.
-
 ---
 쪽지 보내기 구현 완료
 (디테일한 부분은 추후 수정할 예정)
@@ -89,4 +68,35 @@ css 폴더의 이미지 -> img 폴더로 이동
 ```a{ text-decoration: none; }``` 추가
 
 # <12/30 끝>
+
+
 ---
+
+
+# <12/31>
+
+
+### 로그인 관련
+- 
+
+### 갤러리 관련
+- 
+
+### 게시판 관련
+-
+
+### 팔로우 관련
+-
+
+### 채팅 관련
+-
+
+### 디자인
+-
+
+### 기타 등등
+-
+
+# <12/31 끝>
+---
+

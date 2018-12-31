@@ -1,12 +1,10 @@
 package com.team.gallery.Controller;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -24,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.gallery.Service.GBService;
+import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
 import com.team.gallery.util.IPUtill;
 import com.team.gallery.util.UploadUtil;
@@ -45,7 +44,7 @@ public class galleryController {
 	}
 	
 	@RequestMapping("/galleryWrite")
-	public String galleryWrite(@ModelAttribute galleryVO gvo, RedirectAttributes ra, HttpServletRequest request) throws Exception {
+	public String galleryWrite(@ModelAttribute galleryVO gvo,fileVO fvo, RedirectAttributes ra, HttpServletRequest request) throws Exception {
 		
 				
 		gvo.setGb_IP(IPUtill.getClientIpAddr(request));

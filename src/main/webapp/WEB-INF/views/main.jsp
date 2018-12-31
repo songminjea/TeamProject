@@ -3,32 +3,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
+<head>
 <title>BabyParent | Main</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- CSS -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
-</style>
-<!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- font -->
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+</head>
 <c:set var="center" value="${param.center}"/>
 	<c:if test="${empty center}"> 
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
 <body class="w3-theme-l5 main">
-<div class="">
+
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>
 <!-- END Header -->
 
 <!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1400px;padding-top:150px">    
+<div class="w3-container w3-content" style="max-width:1600px;padding-top:120px">    
   <!-- The Grid -->
   <div class="w3-row">
     <!-- Left Column -->
@@ -49,7 +48,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   </div>
   </div>
 <!-- End Page Container -->
-</div>
+
 <br>
 <script>
 // Accordion
@@ -74,5 +73,7 @@ function openNav() {
     }
 }
 </script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 </body>
 </html> 

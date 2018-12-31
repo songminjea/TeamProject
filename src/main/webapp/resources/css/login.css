@@ -1,17 +1,47 @@
 @charset "UTF-8";
-.login_layer{
-	position:absolute;
- 	top:0;right:0;bottom:0;left:0;
- 	display:flex;
- 	align-items:center;
-  	justify-content:center;
-	display: inline-block;
-  	display:-webkit-flex;
- 	 -webkit-align-item: center;
- 	 -webkit-justify-content:center;
+.main_login{
+	background-image: url(../img/back-02.jpg);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: cover; 
 }
 .login_layer #ID,
 .login_layer #PWD{
 	border-radius: 5px;
-	border: 1px solid #2874ff;
+	border: 1px solid #4497fd;
 }
+#loginArea{
+			display: table; margin-left: auto; margin-right: auto;
+			position:absolute; 
+   			top:0;right:0;bottom:0;left:0; 
+     		display:flex; 
+     		align-items:center; 
+     		justify-content:center; 
+    		display: inline-block; 
+      		display:-webkit-flex; 
+     		 -webkit-align-item: center; 
+    	 	-webkit-justify-content:center;    	 	
+}
+.padding_area{padding: 40px 30px;}
+.input_login{width: 225px;
+			 margin-bottom: 5px;}
+#LoginBtn{width: 225px;
+		  height: 50px;
+		  border-radius: 5px;
+		  background-color: #4497fd;
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;}
+#RegisterBtn{width: 225px;
+		  height: 50px;
+		  border-radius: 5px;
+		  background-color: #cbcbcd;
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;}

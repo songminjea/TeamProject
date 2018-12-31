@@ -78,7 +78,7 @@
 					</button>
 					<div class="w3-dropdown-content w3-card-4 w3-bar-block" id="dropdown_menu">
 					     <a href="#" class="w3-bar-item w3-button" onclick="goMypage()">회원정보 수정</a>
-					     <a href="#" class="w3-bar-item w3-button">내 게시물 확인</a>
+					     <a href="${pageContext.request.contextPath}/${member.ID}/gallery" class="w3-bar-item w3-button">내 게시물 확인</a>
 					     <a href="${pageContext.request.contextPath}/${member.ID}/follower" class="w3-bar-item w3-button">팔로우</a>
 					     <a href="${pageContext.request.contextPath}/logout" onclick="return confirm('로그아웃하시겠습니까?')" class="w3-bar-item w3-button">Logout</a>
 					</div>		

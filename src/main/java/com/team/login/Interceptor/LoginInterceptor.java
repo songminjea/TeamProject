@@ -51,7 +51,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		
-		// member 세션이 있을때
+		// member 세션이 없을때
 		if (session.getAttribute(LOGIN) == null) {
 			response.sendRedirect("login");
 			return false;

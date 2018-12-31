@@ -14,7 +14,6 @@ function ShowGallery(id, isMyGall){
 		GotoUrl = "/TeamPro/" + id + "/getSpecGallery"
 	}
 	
-	
 	$("#gallery_list").children().detach();
 	$.ajax({
 		type : "POST",
@@ -22,15 +21,19 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			
-			var source = $("#gallery-template").html();
-			var template = Handlebars.compile(source);
-			var data = {
-				gall : result
+			console.log(result.length);
+			if(result.length != 0){		
+				var source = $("#gallery-template").html();
+				var template = Handlebars.compile(source);
+				var data = {
+					gall : result
+				}
+				var html = template(data);
+				$("#gallery_list").append(html);
+				TimeFormat();
+			} else{
+				$("#gallery_list").append("<h1>글좀 써주세요... 싫음 말고</h1>");
 			}
-			var html = template(data);
-			$("#gallery_list").append(html);
-			TimeFormat();
 		}
 		
 	});
@@ -63,7 +66,7 @@ function TimeFormat(){
 			$(".writeTime").eq(i).text("방금 전");
 		}
 		
-		console.log(sgap + "초 차이 ," + mgap + "분 차이 " + hgap + "시간 차이");
+		//console.log(sgap + "초 차이 ," + mgap + "분 차이 " + hgap + "시간 차이");
 
 	}
 	

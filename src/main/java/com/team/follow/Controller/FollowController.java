@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
+import com.team.member.VO.MemberVO;
 
 @Controller
 public class FollowController {
@@ -77,7 +78,11 @@ public class FollowController {
 			type = data.group();
 		}
 		/// ---------
-
+		
+		// id에 해당하는 프로필을 가져온다. 
+		// MemberInterceptor에서 처리 한 후 가져오는것.
+		MemberVO memberVo = (MemberVO)request.getAttribute("vo");
+		model.addAttribute("profile",memberVo);
 		model.addAttribute("type", type); // 팔로우 페이지인지 팔로잉 페이지인지
 		model.addAttribute("page_id", id); // 보여줄 페이지의 아이디값
 

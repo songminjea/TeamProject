@@ -10,7 +10,7 @@
 	background-position: top center;
 	background-size: cover; 
 }
-body{font-family: 'Nunito', sans-serif;}
+body{font-family: 'Nunito', sans-serif; overflow: scroll;}
 
 /* header */
 .top-bar {background: white;

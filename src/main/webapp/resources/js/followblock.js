@@ -34,8 +34,8 @@ function getFollowerList(my_id, page_id) {
 					follow : result,
 					my_id,
 					type : "follower"
-				}
-				console.log(data);
+				}	
+				//console.log(data);
 				var html = template(data);
 				$("#follow_list").append(html);
 				
@@ -83,6 +83,8 @@ function getFollowingList(my_id, page_id) {
 					isFollowed(my_id , result[i].following_id);
 				})
 			};
+			console.log("호출한다 test");
+			test();
 
 		},
 		error : function(request, status, error) {

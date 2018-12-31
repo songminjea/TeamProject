@@ -78,18 +78,9 @@
 		}
 	</script>
 <!-- 채팅 API -->	
-	<!-- 닫기 버튼 자바 -->
-		<script>
-			function close_window() {
-				var popup = document.getElementById("positionLayer");
-				popup.style.display = "none";
-			}
-		</script>
-		<!-- 닫기 버튼 자바 -->
-
 		<!-- 닫기 버튼 html -->
 		<div id="popup">
-			<div id="close" onclick="close_window()">창닫기</div>
+			<input type="button" value="창닫기" onclick="window.close()">
 		</div>
 		<!-- 닫기 버튼 html -->
 

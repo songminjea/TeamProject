@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
-
-
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BabyParent | Upload</title>
 <style>
 	.fileDrop{
 		height : 100px;
@@ -20,9 +17,6 @@
 	#space{
 		margin-bottom: 3%;
 	}
-
-	
-
 .file-click{
     width: 100%;
     position: relative;
@@ -55,12 +49,7 @@
 .mailbox-attachment-info{
 	width: 150px;
 }
-
-	
 </style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
-<script  src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -138,8 +127,6 @@ $(document).ready(function(){
 		});
 		
 	});	
-
-	
 });
 
 </script>
@@ -159,16 +146,9 @@ $(document).ready(function(){
 		</div>
 	</li>
 </script>
-
-
-<!-- image upload -->
-<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/upload.js"></script>
-
-
 </head>
-
 <body>
-<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+<div class="w3-container w3-card w3-white w3-round w3-margin" ><br>
 	<h4>사진 업로드</h4>
 	<form role = "form" method = "post" action="galleryWrite">
 	<div id="space">
@@ -200,9 +180,10 @@ $(document).ready(function(){
 	</div>
 	</form>
 </div>
-
 </body>
-
-
-
+<!-- js파일 -->
+<!-- image upload -->
+<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/upload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
+<script  src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </html>

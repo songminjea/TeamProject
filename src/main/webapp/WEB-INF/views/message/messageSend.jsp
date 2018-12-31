@@ -33,7 +33,7 @@
 	})
 </script>
 <body>
-<c:if test="${member.NAME!= null}">
+<c:if test="${member.ID!= null}">
 	<div id="sendForm" title="메세지 전송">
 	  <form method="post" name="messageSendOk">
 	    <table>

@@ -63,7 +63,7 @@ function TimeFormat(){
 			$(".writeTime").eq(i).text("방금 전");
 		}
 		
-		//console.log(sgap + "초 차이 ," + mgap + "분 차이 " + hgap + "시간 차이");
+		console.log(sgap + "초 차이 ," + mgap + "분 차이 " + hgap + "시간 차이");
 
 	}
 	

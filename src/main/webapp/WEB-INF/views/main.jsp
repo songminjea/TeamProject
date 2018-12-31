@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+    pageEncoding="UTF-8"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
@@ -13,14 +12,15 @@
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
+<!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<!-- font -->
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 <c:set var="center" value="${param.center}"/>
- 
 	<c:if test="${empty center}"> 
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
-
 <body class="w3-theme-l5 main">
 <div class="">
 <!-- Header -->

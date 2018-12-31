@@ -23,20 +23,14 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2"/>
 	</beans:bean>
-	
-	<websocket:handlers>
-		<websocket:mapping handler="myHandler" path="/echo-ws"/>
-	</websocket:handlers>
-	
-	
-	<beans:bean id="myHandler" class="com.team.chat.Handler.MultiChatWebSocketHandler"/>
 
 	<!-- interceptor -->
 	<beans:bean id="loginInterceptor" class="com.team.login.Interceptor.LoginInterceptor"></beans:bean>
 	
+	
 	<interceptors>
 		<interceptor>
-			<mapping path="loginPOST"/>
+			<mapping path="/main"/>
 			<beans:ref bean = "loginInterceptor"/>
 		</interceptor>
 	</interceptors>

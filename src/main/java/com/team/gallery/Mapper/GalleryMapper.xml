@@ -9,4 +9,24 @@
 	</insert>
 	
 	
+	<select id="GetMyGalleryList" resultType="com.team.gallery.VO.galleryVO">
+		select f.follower_id, g.GB_Num, g.MB_ID, g.GB_Content, g.GB_Date, g.GB_IP, g.GB_Privacy
+		from TB_FOLLOW f , TB_gallery g
+		where f.following_id = g.MB_ID and f.follower_id = #{my_id}
+		order by g.GB_Num desc; 
+	</select>
+	
+	<select id="GetSpecGalleryList" resultType="com.team.gallery.VO.galleryVO">
+		select *
+		from tb_gallery
+		where MB_ID = #{id}
+		order by GB_Num desc;
+	</select>
+	
+	<select id="GetImgList" parameterType="com.team.gallery.VO.galleryVO" resultType="com.team.gallery.VO.galleryVO">
+		select i.IM_Num, i.IM_File
+		from tb_gallery g, tb_image i
+		where g.GB_Num = i.IM_Num and g.mb_id = #{mb_ID} and IM_Num = #{im_Num};
+	</select>
+	
 </mapper>

@@ -36,6 +36,15 @@
 					where b.following_id = #{following_id} and b.follower_id = #{follower_id})
 	
 	</select>
+	
+	<select id="getNotFollowingList" resultType="com.team.follow.VO.FollowVO">
+		select distinct m.ID as following_id
+		from TB_FOLLOW f, member m
+		where m.ID != #{following_id} and m.ID not in (select following_id
+							from TB_FOLLOW
+		                    where follower_id = #{following_id})
+		order by rand() limit 5;
+	</select>
 
 
 

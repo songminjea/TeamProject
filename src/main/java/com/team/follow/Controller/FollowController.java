@@ -39,7 +39,7 @@ public class FollowController {
 
 		} else {
 			followService.InsertFollowing(vo);
-			System.out.println("컨트롤러에서 팔로우 처리 완료");
+			//System.out.println("컨트롤러에서 팔로우 처리 완료");
 			result = 1;
 		}
 
@@ -54,7 +54,7 @@ public class FollowController {
 
 		if (followService.IsFollowing(vo)) {
 			followService.DeleteFollowing(vo);
-			System.out.println("컨트롤러에서 언팔로우 완료");
+			//System.out.println("컨트롤러에서 언팔로우 완료");
 			result = 1;
 		} else {
 			System.out.println("팔로우 되어있지 않음.");
@@ -132,6 +132,19 @@ public class FollowController {
 
 		return result;
 
+	}
+	
+	
+	
+	@RequestMapping(value = "/SuggestionFollow")
+	@ResponseBody
+	public List<FollowVO> getSuggestionFollowList(@RequestBody String id, Model model){
+		
+		//System.out.println("suggesition " + id);
+		List<FollowVO> recommend = followService.getNotFollowingList(id);
+		
+		return recommend;
+		
 	}
 
 	

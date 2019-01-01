@@ -20,6 +20,9 @@ public interface FollowService {
 	
 	// 팔로잉 하고 있는지 체크
 	public boolean IsFollowing(FollowVO vo);
+
+	// 팔로우 하지않은 목록 얻어오기
+	public List<FollowVO> getNotFollowingList(String id);
 	
 	
 }

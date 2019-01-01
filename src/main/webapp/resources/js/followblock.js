@@ -32,7 +32,6 @@ function getFollowerList(my_id, page_id) {
 				var template = Handlebars.compile(source);
 				var data = {
 					follow : result,
-					my_id,
 					type : "follower"
 				}	
 				//console.log(data);
@@ -40,6 +39,7 @@ function getFollowerList(my_id, page_id) {
 				$("#follow_list").append(html);
 				
 				$.each(result, function(i){
+					//console.log(result[i].follower_id);
 					isFollowed(my_id , result[i].follower_id);
 				})
 			}
@@ -64,9 +64,9 @@ function getFollowingList(my_id, page_id) {
 		success : function(result) {
 			
 			
-			$("#s_infoArea").children().detach();
+			$("#follow_list").children().detach();
 			if(result.length == 0){
-				$("#s_infoArea").append("<h1>저런! 친구를 만드세요!</h1>");
+				$("#follow_list").append("<h1>저런! 친구를 만드세요!</h1>");
 			}else{
 				var source = $("#follow-template").html();
 				var template = Handlebars.compile(source);
@@ -83,8 +83,7 @@ function getFollowingList(my_id, page_id) {
 					isFollowed(my_id , result[i].following_id);
 				})
 			};
-			console.log("호출한다 test");
-			test();
+			
 
 		},
 		error : function(request, status, error) {
@@ -94,12 +93,12 @@ function getFollowingList(my_id, page_id) {
 	});
 }
 
-
+// 팔로우 되어있는지 여부 체크
 function isFollowed(follower_id, following_id) {
 	var isfollowed;
-	
 	if(follower_id != "")
 	$.ajax({
+		
 		type : "POST",
 		//async: false,
 		contentType : "application/json",
@@ -114,17 +113,17 @@ function isFollowed(follower_id, following_id) {
 			// 팔로우 되어있는 사람이 아닐때
 			if (isfollowed == 0) { 
 				
-				$('#list_' + following_id).find('button').eq(0).removeClass(
+				$('.fbtn_'+ following_id).filter('.followBtn').removeClass(
 				'fbhide');
-				$('#list_' + following_id).find('button').eq(1).addClass(
+				$('.fbtn_'+ following_id).filter('.followingBtn').addClass(
 				'fbhide');
 
 			// 팔로우 되어있는 사람일때
 			} else { 
 				
-				$('#list_' + following_id).find('button').eq(0).addClass(
+				$('.fbtn_'+ following_id).filter('.followBtn').addClass(
 				'fbhide');
-				$('#list_' + following_id).find('button').eq(1).removeClass(
+				$('.fbtn_'+ following_id).filter('.followingBtn').removeClass(
 				'fbhide');
 			}
 		},
@@ -140,8 +139,9 @@ function isFollowed(follower_id, following_id) {
 
 
 // 팔로우 눌렀을때 처리
-function follow(follower_id, following_id) {
-
+function follow(following_id) {
+	var follower_id = $("#mem_id").val();
+	
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -151,13 +151,13 @@ function follow(follower_id, following_id) {
 		}),
 		url : "/TeamPro/follow",
 		success : function(result) {
-			if (result == 1) { // 언팔로우 되었을때
+			if (result == 1) { // 팔로우 되었을때
 				// alert("성공!");
 				console.log("팔로우 성공 - ajax")
-				$('#list_' + following_id).find('button').eq(0).addClass(
-						'fbhide');
-				$('#list_' + following_id).find('button').eq(1).removeClass(
-						'fbhide');
+				$('.fbtn_'+ following_id).filter('.followBtn').addClass(
+				'fbhide');
+				$('.fbtn_'+ following_id).filter('.followingBtn').removeClass(
+				'fbhide');
 			} else { // 언팔로우 안되었을때
 				console.log("팔로우 실패! 이미 팔로우 되어있음.")
 			}
@@ -172,8 +172,9 @@ function follow(follower_id, following_id) {
 }
 
 // 언파로우 버튼 눌렀을때.
-function unfollow(follower_id, following_id) {
-
+function unfollow(following_id) {
+	
+	var follower_id = $("#mem_id").val();
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
@@ -187,10 +188,10 @@ function unfollow(follower_id, following_id) {
 			if (result == 1) { // 언팔로우 되었을때
 				// alert("성공!");
 				console.log("언팔로우 성공 - ajax")
-				$('#list_' + following_id).find('button').eq(0).removeClass(
-						'fbhide');
-				$('#list_' + following_id).find('button').eq(1).addClass(
-						'fbhide');
+				$('.fbtn_'+ following_id).filter('.followBtn').removeClass(
+				'fbhide');
+				$('.fbtn_'+ following_id).filter('.followingBtn').addClass(
+				'fbhide');
 			} else { // 언팔로우 안되었을때
 				console.log("언팔로우 실패! 팔로우 되어있는 사람이 아님!")
 			}
@@ -205,10 +206,45 @@ function unfollow(follower_id, following_id) {
 
 }
 
+// 팔로우 추천 목록 얻어오기.
+function getSuggestionFollowList(my_id){
+	
+	$("#small_recommend_list").children().detach();
+	if(my_id != ""){
+		
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			// dataType: "json",
+			data : my_id,
+			url : "/TeamPro/SuggestionFollow",
+			success : function(result) {
+				
+				//console.log(result);
+				if(result.length > 0){
+					var source = $("#s_recom_follow-template").html();
+					var template = Handlebars.compile(source);
+					var data = {
+						s_r_list : result,
+						my_id,
+					}
+					
+					var html = template(data);
+					$("#small_recommend_list").append(html);
+					
+					$.each(result, function(i){
+						isFollowed(my_id , result[i].following_id);
+					})
+				}else{
+					$("#small_recommend_list").append("더 이상 추천 할 회원이 없습니다.");
+				}
+			}
+		})
+	}	
+}
 
-
-$(function() {
-
+// 버튼 클릭 이벤트 ~~
+function BtnClickEvent(){
 	// 팔로워 버튼 메뉴 클릭 이벤트
 	$(document).on("click", "#getfollower_Btn" , function(){
 		
@@ -226,19 +262,46 @@ $(function() {
 		location.href = url;
 		
 	});
-
-
-});
-
-window.onload = function(){
 	
-	var my_id = $("#mem_id").val();
-	var page_id = $("#page_id").val();
 	
-	if($("#page_type").val() == 'follower'){	
-		getFollowerList(my_id, page_id);
-	}
-	else{
-		getFollowingList(my_id, page_id);
-	}
+	$(document).on("click", ".followBtn" , function(){
+		var following_id = $(this).val();
+		follow(following_id);
+		
+	});
+	
+	$(document).on("click", ".followingBtn" , function(){
+		var following_id = $(this).val();
+		unfollow(following_id)
+		
+	});
+
 }
+
+$(document).ready(function(){
+	BtnClickEvent();
+	
+	// 로그인된 아이디 (main.jsp에 hidden값)
+	var my_id = $("#mem_id").val();
+	
+	// 현재 봐야하는 페이지의 아이디
+	var page_id = $("#page_id").val();
+	//console.log(my_id + " " + page_id);
+
+	// follow 페이지에서 호출했을때.
+	if(page_id != null){
+		if($("#page_type").val() == 'follower'){	
+			getFollowerList(my_id, page_id);
+		}
+		else{
+			getFollowingList(my_id, page_id);
+		} 
+	}
+	// 로그인 되어있지않으면 팔로우 추천목록을 호출하지 않음.
+	if(my_id != null)
+		$("#small_recommend_list").children().detach();
+		getSuggestionFollowList(my_id);
+
+	
+	
+})

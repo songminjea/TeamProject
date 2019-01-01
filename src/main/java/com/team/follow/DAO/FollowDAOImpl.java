@@ -61,4 +61,12 @@ public class FollowDAOImpl implements FollowDAO {
 
 	}
 
+	@Override
+	public List<FollowVO> getNotFollowingList(String follower_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getNotFollowingList", follower_id);
+	}
+	
+	
+
 }

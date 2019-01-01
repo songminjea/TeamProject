@@ -40,5 +40,13 @@ public class FollowServiceImpl implements FollowService {
 	public boolean IsFollowing(FollowVO vo) {
 		return followDAO.IsFollowing(vo);
 	}
+
+	@Override
+	public List<FollowVO> getNotFollowingList(String id) {
+		return followDAO.getNotFollowingList(id);
+	}
+	
+	
+	
 	
 }

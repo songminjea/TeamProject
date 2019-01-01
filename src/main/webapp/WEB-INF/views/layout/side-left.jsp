@@ -1,17 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-</head>
-<body>    
+
     <div class="w3-col m3" style="max-width: 320px;">
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="padding: 20px;">
         <div class="w3-container">
-         <h4 class="w3-center">My Profile</h4>
+         <h4 class="w3-center">Profile</h4>
          <br/>
          <div class="w3-center image_wrapper">
          	<%-- 만약 회원 프로필 이미지가 없을 경우에는 기본 이미지를 띄운다. --%>
@@ -42,40 +37,48 @@
           <div id="Demo2" class="w3-hide w3-container">
             <p>Some other text..</p>
           </div>
-<%--           <a href="${pageContext.request.contextPath}/imgupload" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</a> --%>
-<!--           <div id="Demo3" class="w3-hide w3-container"> -->
-<!--          <div class="w3-row-padding"> -->
-<!--          <br> -->
-<!--            <div class="w3-half"> -->
-<!--              <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom"> -->
-<!--            </div> -->
-<!--            <div class="w3-half"> -->
-<!--              <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom"> -->
-<!--            </div> -->
-<!--            <div class="w3-half"> -->
-<!--              <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom"> -->
-<!--            </div> -->
-<!--            <div class="w3-half"> -->
-<!--              <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom"> -->
-<!--            </div> -->
-<!--            <div class="w3-half"> -->
-<!--              <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom"> -->
-<!--            </div> -->
-<!--            <div class="w3-half"> -->
-<!--              <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom"> -->
-<!--            </div> -->
-<!--          </div> -->
-<!--           </div> -->
         </div>      
       </div>
       <br>     
-      <!-- Interests --> 
-      <div class="w3-card w3-round w3-white w3-hide-small" style="padding: 10px;">
-        <div class="w3-container">
-        	<p>내가 생각하는 팔로우 추천해주는 곳 위치</p>
-        </div>
-      </div>
+      <!-- 팔로우 추천 목록 -->
+      <c:if test="${!empty member.ID}"> 
+	      <div class="w3-card w3-round w3-white w3-hide-small" style="padding: 10px;">
+	      	<h3 style="text-align: center;">팔로우 추천</h3>
+	      	<br>
+	        <hr class="w3-clear" style="margin: 5px 0 20px;">
+	        <div class="w3-container" id="small_recommend_list">
+		        	
+	        </div>
+	      </div>
+      </c:if>
+      
+
       <br>
     </div>
-</body>
-</html>
+<script id="s_recom_follow-template" type="text/x-handlebars-template">
+{{#s_r_list}}
+	<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" 
+	        	alt="defaultImage" class="w3-left w3-circle w3-margin-right" style="max-width: 100%; max-height: 40px;">
+	        	<span class="w3-right">
+					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide fbtn_{{following_id}}"
+						value='{{following_id}}'>팔로우
+					</button>
+					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide fbtn_{{following_id}}"
+						value='{{following_id}}'>
+						<span>팔로잉</span> <span>언팔로우</span>
+					</button>
+				</span>
+				
+	        	<h4>
+					<a href="${pageContext.request.contextPath}/{{following_id}}/gallery"><span class="writerId">{{following_id}}</span></a>
+				</h4>	        	
+				<br>
+	        	<hr class="w3-clear" style="margin: 5px 0 20px;">
+{{/s_r_list}}
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script> --%>
+
+
+

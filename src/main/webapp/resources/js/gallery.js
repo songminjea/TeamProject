@@ -21,7 +21,7 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			console.log(result.length);
+			//console.log(result.length);
 			if(result.length != 0){		
 				var source = $("#gallery-template").html();
 				var template = Handlebars.compile(source);
@@ -55,8 +55,10 @@ function TimeFormat(){
 		var sgap = Math.round(gap/1000);
 		var mgap = Math.round(gap/1000/60);
 		var hgap = Math.round(gap/1000/3600);
-		
-		if(hgap >= 1){
+		if(hgap > 24){
+			$(".writeTime").eq(i).text(old.getMonth()+1 + "월 " + old.getDate() + "일");
+		}		
+		else if(hgap >= 1){
 			$(".writeTime").eq(i).text(hgap + "시간 전");
 		}else if(mgap >= 1){
 			$(".writeTime").eq(i).text(mgap + "분 전");
@@ -73,9 +75,9 @@ function TimeFormat(){
 	
 }
 
-window.onload = function(){
+$(document).ready(function(){
 	var isMyGall = $("#isMyGall").val()
 	var pageid = $("#pageid").val();
 
 	ShowGallery(pageid, isMyGall);
-};
+});

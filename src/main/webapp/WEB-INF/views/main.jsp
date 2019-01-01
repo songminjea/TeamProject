@@ -13,9 +13,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css">
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
+<%-- 로그인된 아이디 --%>
+<input type="hidden" id="mem_id" value="${member.ID}">
+
 <c:set var="center" value="${param.center}"/>
 	<c:if test="${empty center}"> 
  		<c:set var="center" value="gallery/list.jsp"/>
@@ -73,7 +77,9 @@ function openNav() {
     }
 }
 </script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script>
 </body>
 </html> 

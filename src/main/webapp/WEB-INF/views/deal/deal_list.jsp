@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Baby Parent</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -16,6 +18,7 @@ html, body, h1, h2, h3, h4, h5 {
 }
 </style>
 <link rel="stylesheet" href="../resources/css/main2.css" />
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <body class="w3-theme-l5">
 	<div class="main">
 		<!-- Navbar -->
@@ -225,15 +228,38 @@ html, body, h1, h2, h3, h4, h5 {
 										정렬기준 <select name="order">
 											<option value="small">게시판형</option>
 											<option value="image">이미지형</option>
-										</select> <br>
-										<br>
+										</select> <br> <br>
 
-										<table border="1" cellspacing="0">
+										<table border="1">
 											<tr>
-												<td>d</td>
-												<td>d</td>
+												<th>번호</th>
+												<th>제목</th>
+												<!-- 내용은 나중에 list페이지에서 삭제 -->
+												<th>내용</th>
+												<th>작성자</th>
+												<th>작성일자</th>
+												<th>조회수</th>
 											</tr>
+											<c:forEach var="row" items="${list}">
+												<tr>
+													<td>${row.DEAL_NUM}</td>
+													<!-- 게시물 조회를 위해서 get방식으로 게시물번호 값을 넘겨줌 -->
+													<td><a href="${path }/deal/read.do?DEAL_NUM=${row.DEAL_NUM}">${row.DEAL_SUBJECT}</a></td>
+													<!-- 내용은 나중에 list페이지에서 삭제 -->
+													<td>${row.DEAL_CONTENT}</td>
+													<td>${row.DEAL_ID}</td>
+													<td>
+														<!-- 만약 오늘이면 HH:mm:ss만 그 밖이면 yyyy-MM-dd만 상세 보기에서는 yyyy-MM-dd HH:mm:ss -->
+														<fmt:formatDate value="${row.DEAL_DATETIME}"
+															pattern="yyyy-MM-dd HH:mm:ss" />
+													</td>
+													<td>${row.DEAL_READCOUNT}</td>
+												</tr>
+											</c:forEach>
 										</table>
+										
+										<br>
+										<input type="button" value="글쓰기" onclick="location.href='${path }/deal/write'"/>
 
 									</div>
 									<br>

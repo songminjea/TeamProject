@@ -46,21 +46,21 @@
 {{#follow}}	
 
 
-	<div id="list_{{#getType ../type follower_id following_id}}{{/getType}}">
+	<div id="list_{{target_id}}">
 		<img src='/TeamPro/resources/img/baby.jpg' alt="프로필 사진" class="w3-left w3-circle w3-margin-right" style="width: 60px">
 		<span id="span_fBtn" class="w3-right">
-			<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide fbtn_{{#getType ../type follower_id following_id}}{{/getType}}"
-				value='{{#getType ../type follower_id following_id}}{{/getType}}'>팔로우
+			<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn {{#SetBtnState isfollowed 'follow'}}{{/SetBtnState}} fbtn_{{target_id}}"
+				value='{{target_id}}'>팔로우
 			</button>
-			<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide fbtn_{{#getType ../type follower_id following_id}}{{/getType}}"
-				value='{{#getType ../type follower_id following_id}}{{/getType}}'>
+			<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn {{#SetBtnState isfollowed 'following'}}{{/SetBtnState}} fbtn_{{target_id}}"
+				value='{{target_id}}'>
 				<span>팔로잉</span> <span>언팔로우</span>
 			</button>
 		</span>
 						
 		<h4>
-			<a href="${pageContext.request.contextPath}/{{#getType ../type follower_id following_id}}{{/getType}}/gallery">
-				{{#getType ../type follower_id following_id}}{{/getType}}
+			<a href="${pageContext.request.contextPath}/{{target_id}}/gallery">
+				{{target_id}}
 			</a>
 		</h4>
 		<br>	

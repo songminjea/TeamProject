@@ -1,6 +1,9 @@
 package com.team.follow.Controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,29 +94,75 @@ public class FollowController {
 	}
 
 	// 팔로워 목록
-	@RequestMapping(value = "{id}/getFollowerList", method = RequestMethod.POST)
+	@RequestMapping(value = "/getFollowerList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<FollowVO> getFollowerList(@PathVariable String id) {
-		//System.out.println("getFollowerList 호출");
-
-		// 팔로워 목록 받아오기
-		List<FollowVO> follower = followService.GetAllFollower(id);
-
-		return follower;
+	public List<Map<String, String>> getFollowerList(@RequestBody Map<String, String> FollowInfo ) {
+		
+		return getFollowList(FollowInfo,0);
 
 	}
 
 	// 팔로잉 목록
-	@RequestMapping(value = "{id}/getFollowingList", method = RequestMethod.POST)
+	@RequestMapping(value = "/getFollowingList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<FollowVO> getFollowingList(@PathVariable String id) {
-		//System.out.println("getFollowingList 호출");
+	public List<Map<String, String>> getFollowingList(@RequestBody Map<String, String> FollowInfo ) {
 
-		// 팔로잉 목록 받아오기
-		List<FollowVO> following = followService.GetAllFollowing(id);
+		return getFollowList(FollowInfo,1);
 
-		return following;
+	}
+	
+	public List<Map<String, String>> getFollowList(Map<String, String> FollowInfo, int Type) {
+											// map(my_id로그인 아이디, id페이지 아이디, pageNum페이지 번호), 
+											// Type = 0일때 follower 목록 / 1일때 following 목록
+		
+		
+		// 페이지 번호에 10 곱해서 저장. (0, 10, 20 단위 글 보려고)
+		int pageNum = Integer.parseInt(FollowInfo.get("pageNum")) * 10;
+		FollowInfo.put("pageNum", String.valueOf(pageNum));
+		
+		// 팔로우 목록 담을 리스트
+		List<FollowVO> follow;
+		
+		if(Type == 0)
+			follow = followService.GetAllFollower(FollowInfo);
+		else
+			follow = followService.GetAllFollowing(FollowInfo);
+		
+		// 팔로워 id,팔로우여부 담을 리스트 맵 생성
+		List<Map<String, String>> followlist = new ArrayList<>();
 
+		for (FollowVO temp : follow) {
+			//System.out.println(aa.getFollower_id() + " " + aa.getFollowing_id());
+			// 임시 맵
+			Map<String, String> tempMap = new HashMap<>();
+
+			// 팔로우 여부 체크하기 위해서 (내아이디, 대상 아이디) 담을 FollowVO 생성
+
+			if (!FollowInfo.get("my_id").equals("")) {
+				FollowVO vo = new FollowVO();
+				vo.setFollower_id(FollowInfo.get("my_id"));
+				
+				if(Type == 0)
+					vo.setFollowing_id(temp.getFollower_id());
+				else
+					vo.setFollowing_id(temp.getFollowing_id());
+
+				// 팔로우 여부 확인
+				String isfollowing = String.valueOf(followService.IsFollowing(vo));
+				tempMap.put("isfollowed", isfollowing);
+			} else {
+				tempMap.put("isfollowed", "");
+			}
+			if(Type == 0)
+				tempMap.put("target_id", temp.getFollower_id());
+			else
+				tempMap.put("target_id", temp.getFollowing_id());
+
+			followlist.add(tempMap);
+
+		}
+
+		return followlist;
 	}
 
 	// 팔로우 되어있는지 안되어있는지 체크 여부.
@@ -135,13 +184,14 @@ public class FollowController {
 	}
 	
 	
-	
-	@RequestMapping(value = "/SuggestionFollow")
+	// 팔로우 추천 목록
+	@RequestMapping(value = "/SuggestionFollow", method = RequestMethod.POST)
 	@ResponseBody
-	public List<FollowVO> getSuggestionFollowList(@RequestBody String id, Model model){
-		
+	public List<FollowVO> getSuggestionFollowList(@RequestBody String id){
+	
 		//System.out.println("suggesition " + id);
 		List<FollowVO> recommend = followService.getNotFollowingList(id);
+		
 		
 		return recommend;
 		

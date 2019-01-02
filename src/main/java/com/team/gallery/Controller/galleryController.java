@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team.gallery.Service.FUploadService;
 import com.team.gallery.Service.GBService;
 import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
@@ -41,6 +42,9 @@ public class galleryController {
 	@Autowired
 	private GBService gbService;
 	
+	@Autowired
+	private FUploadService fuService;
+	
 	
 	@RequestMapping(value = "imgupload", method=RequestMethod.GET)
 	public String imgupload() {
@@ -53,9 +57,14 @@ public class galleryController {
 		
 				
 		gvo.setGb_IP(IPUtill.getClientIpAddr(request));
-				
+		
+		
 		gbService.insert(gvo);
-				
+		
+		fuService.insert(fvo);
+		
+		System.out.println(fvo.getGb_Image());
+		
 		ra.addFlashAttribute("msg", "success");
 		
 		return "main.jsp?center=gallery/list";

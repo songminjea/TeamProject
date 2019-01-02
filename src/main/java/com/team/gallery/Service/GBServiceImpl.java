@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.team.gallery.DAO.GalleryDAO;
 import com.team.gallery.VO.galleryVO;
-import com.team.member.VO.MemberVO;
+
 
 
 @Service("GBService")

@@ -2,15 +2,15 @@ package com.team.gallery.VO;
 
 public class fileVO {
 	
-	String[] gb_File;
+	String[] gb_Image;
 	int gb_Num;
 	
 	
-	public String[] getGb_File() {
-		return gb_File;
+	public String[] getGb_Image() {
+		return gb_Image;
 	}
-	public void setGb_File(String[] gb_File) {
-		this.gb_File = gb_File;
+	public void setGb_Image(String[] gb_Image) {
+		this.gb_Image = gb_Image;
 	}
 	public int getGb_Num() {
 		return gb_Num;
@@ -18,5 +18,6 @@ public class fileVO {
 	public void setGb_Num(int gb_Num) {
 		this.gb_Num = gb_Num;
 	}
+	
 	
 }

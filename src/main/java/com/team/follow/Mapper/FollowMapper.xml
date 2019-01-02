@@ -7,14 +7,15 @@
 	<select id="GetAllFollower" resultType="com.team.follow.VO.FollowVO">
 		select *
 		from TB_FOLLOW
-		where following_id = #{following_id}
-		limit #{pageNum} , 10
+		where following_id = #{id}
+		limit ${pageNum} , 10
 	</select>
 	
 	<select id="GetAllFollowing" resultType="com.team.follow.VO.FollowVO">
 		select *
 		from TB_FOLLOW
-		where follower_id = #{follower_id}
+		where follower_id = #{id}
+		limit ${pageNum} , 10
 	</select>
 	
 	<delete id="DeleteFollowing" parameterType="com.team.follow.VO.FollowVO">

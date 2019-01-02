@@ -22,9 +22,9 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public List<FollowVO> GetAllFollowing(String id) {
+	public List<FollowVO> GetAllFollowing(Map<String, String> FollowingInfo) {
 		// 해당 아이디의 모든 팔로잉 목록 리턴(following_id, follow_date)
-		return followDAO.GetAllFollowing(id);
+		return followDAO.GetAllFollowing(FollowingInfo);
 	}
 
 	@Override

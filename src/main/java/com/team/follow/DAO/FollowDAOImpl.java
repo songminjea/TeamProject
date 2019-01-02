@@ -25,10 +25,10 @@ public class FollowDAOImpl implements FollowDAO {
 	}
 
 	@Override
-	public List<FollowVO> GetAllFollowing(String follower_id) {
+	public List<FollowVO> GetAllFollowing(Map<String, String> FollowingInfo) {
 		// 해당 아이디의 모든 팔로잉 목록 리턴(following_id, follow_date)
 
-		return sqlSession.selectList("GetAllFollowing", follower_id);
+		return sqlSession.selectList("GetAllFollowing", FollowingInfo);
 	}
 
 	@Override

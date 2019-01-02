@@ -59,7 +59,7 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("/mypage/{ID}")
+	@RequestMapping("{ID}/mypage")
 	public String mypageMember(@PathVariable String ID,Model model) {
 		model.addAttribute("member",memberService.getMember(ID));
 		
@@ -79,6 +79,8 @@ public class MemberController {
 			return "login";
 		}
 	}
+	
+	
 	
 	
 }

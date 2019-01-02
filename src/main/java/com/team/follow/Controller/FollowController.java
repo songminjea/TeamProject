@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
+import com.team.member.VO.MemberVO;
 
 @Controller
 public class FollowController {
@@ -38,7 +39,7 @@ public class FollowController {
 
 		} else {
 			followService.InsertFollowing(vo);
-			System.out.println("컨트롤러에서 팔로우 처리 완료");
+			//System.out.println("컨트롤러에서 팔로우 처리 완료");
 			result = 1;
 		}
 
@@ -53,7 +54,7 @@ public class FollowController {
 
 		if (followService.IsFollowing(vo)) {
 			followService.DeleteFollowing(vo);
-			System.out.println("컨트롤러에서 언팔로우 완료");
+			//System.out.println("컨트롤러에서 언팔로우 완료");
 			result = 1;
 		} else {
 			System.out.println("팔로우 되어있지 않음.");
@@ -77,7 +78,11 @@ public class FollowController {
 			type = data.group();
 		}
 		/// ---------
-
+		
+		// id에 해당하는 프로필을 가져온다. 
+		// MemberInterceptor에서 처리 한 후 가져오는것.
+		MemberVO memberVo = (MemberVO)request.getAttribute("vo");
+		model.addAttribute("profile",memberVo);
 		model.addAttribute("type", type); // 팔로우 페이지인지 팔로잉 페이지인지
 		model.addAttribute("page_id", id); // 보여줄 페이지의 아이디값
 
@@ -86,10 +91,10 @@ public class FollowController {
 	}
 
 	// 팔로워 목록
-	@RequestMapping("{id}/getFollowerList")
+	@RequestMapping(value = "{id}/getFollowerList", method = RequestMethod.POST)
 	@ResponseBody
 	public List<FollowVO> getFollowerList(@PathVariable String id) {
-		System.out.println("getFollowerList 호출");
+		//System.out.println("getFollowerList 호출");
 
 		// 팔로워 목록 받아오기
 		List<FollowVO> follower = followService.GetAllFollower(id);
@@ -99,10 +104,10 @@ public class FollowController {
 	}
 
 	// 팔로잉 목록
-	@RequestMapping("{id}/getFollowingList")
+	@RequestMapping(value = "{id}/getFollowingList", method = RequestMethod.POST)
 	@ResponseBody
 	public List<FollowVO> getFollowingList(@PathVariable String id) {
-		System.out.println("getFollowingList 호출");
+		//System.out.println("getFollowingList 호출");
 
 		// 팔로잉 목록 받아오기
 		List<FollowVO> following = followService.GetAllFollowing(id);
@@ -115,7 +120,6 @@ public class FollowController {
 	@RequestMapping(value = "/isFollowed", method = RequestMethod.POST)
 	@ResponseBody
 	public int isFollowed(@RequestBody FollowVO vo, Model model) {
-		// System.out.println("isFollowed 호출");
 
 		int result = 0;
 
@@ -128,6 +132,19 @@ public class FollowController {
 
 		return result;
 
+	}
+	
+	
+	
+	@RequestMapping(value = "/SuggestionFollow")
+	@ResponseBody
+	public List<FollowVO> getSuggestionFollowList(@RequestBody String id, Model model){
+		
+		//System.out.println("suggesition " + id);
+		List<FollowVO> recommend = followService.getNotFollowingList(id);
+		
+		return recommend;
+		
 	}
 
 	

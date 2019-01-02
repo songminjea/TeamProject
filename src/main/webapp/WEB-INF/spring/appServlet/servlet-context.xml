@@ -26,12 +26,19 @@
 
 	<!-- interceptor -->
 	<beans:bean id="loginInterceptor" class="com.team.login.Interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="MemberInterceptor" class="com.team.member.Interceptor.MemberInterceptor"></beans:bean>
 	
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/main"/>
 			<beans:ref bean = "loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/**/follower"/>
+			<mapping path="/**/following"/>
+			<mapping path="/**/gallery"/>
+			<beans:ref bean = "MemberInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

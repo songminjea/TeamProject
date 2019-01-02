@@ -14,8 +14,10 @@ public class mainController {
 
 	@RequestMapping(value = "main", method = {RequestMethod.POST, RequestMethod.GET})
 	public String main(HttpSession session, Model model){
-		String id = ((MemberVO) session.getAttribute("member")).getID();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String id = memberVO.getID();
 		
+		model.addAttribute("profile", memberVO);
 		model.addAttribute("pageid", id);
 		model.addAttribute("isMyGall", true);
 		

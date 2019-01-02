@@ -41,7 +41,7 @@
             <div class="w3-container w3-padding">
               <div align="center" style="padding: 20px 30px;">
 				<h4 style="color: #1d2c52; margin-bottom: 20px;">Message</h4>
-				<table width="700" cellpadding="0" cellspacing="0" border="0">
+				<table width="95%" cellpadding="0" cellspacing="0" border="0">
 					<colgroup bgcolor="#4497fd">
 						<col width="5%">
 						<col width="15%">
@@ -62,12 +62,14 @@
 								<td><input type="hidden" value="${message.MESSAGE_NO}" id="MESSAGE_NO" name="MESSAGE_NO"></td>
 								<td>${message.MESSAGE_SENDER}</td>
 								<td>
-									<a href="#" id="messageView" 
-										onclick="window.open('messageView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageView', 'width=500, height=600')">${message.MESSAGE_SUBJECT}</a>
+									<c:if test="${message.MESSAGE_READVAL == false}">
+										<span style="color: #78787c; font-size: 12px; font-weight: 600;">New</span>
+									</c:if>
+										<a href="#" id="messageView" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageView', 'width=500, height=600')">${message.MESSAGE_SUBJECT}</a>
 								</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${message.MESSAGE_SENDTIME}"/></td>
 								<td>
-									<a href="messageDelete?MESSAGE_NO=${message.MESSAGE_NO}">X</a>
+									<a href="${pageContext.request.contextPath}/${member.ID}/messageDelete?MESSAGE_NO=${message.MESSAGE_NO}" onclick="return confirm('정말로 쪽지를 삭제하시겠습니까?')"><i class="fa fa-times" aria-hidden="true"></i></a>
 								</td>
 							</tr>
 		 				</c:if>  

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.team.message.VO.MessageVO;
+import com.team.message.VO.SendMessageVO;
 
 @Repository
 public class MessageDAOImpl implements MessageDAO{
@@ -21,9 +22,10 @@ public class MessageDAOImpl implements MessageDAO{
 		return sqlSession.selectList(namespace+".listAll");
 	}
 	
-	//내가 보낸 쪽지 목록
-	public List<MessageVO>sendListAll()throws Exception{
-		return sqlSession.selectList(namespace+".listAll");
+	//내가 보낸 쪽지
+	@Override
+	public List<SendMessageVO>sendListAll()throws Exception{
+		return sqlSession.selectList(namespace+".sendListAll");
 	}
 	
 	//쪽지 작성

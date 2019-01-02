@@ -24,7 +24,7 @@
 							<a
 								class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
 								href="javascript:void(0);"><i class="fa fa-bars"></i></a> <a
-								href="#"
+								href="deal/list"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 								title="Board"><i class="fa fa-list" id="board_i"
 								aria-hidden="true"></i></a> <a href="${pageContext.request.contextPath}/${member.ID}/messageList"
@@ -46,7 +46,7 @@
 								<div class="w3-dropdown-content w3-card-4 w3-bar-block"
 									style="width: 150px;">
 									<a href="#" class="w3-bar-item w3-button">게시물</a> 
-									<a href="messageList" class="w3-bar-item w3-button">쪽지</a> 
+									<a href="${pageContext.request.contextPath}/${member.ID}/messageList" class="w3-bar-item w3-button">쪽지</a> 
 									<a href="chat" class="w3-bar-item w3-button">채팅</a>
 								</div>
 							</div>

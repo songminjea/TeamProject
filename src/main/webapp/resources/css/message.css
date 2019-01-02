@@ -13,6 +13,8 @@
 		  padding: 5px 10px;
 		  color: white;
 		  font-weight: 500;}
+#delete_i{font-size: 18px;
+		  color: #78787c;}
 		  
 /* message sendform*/		  
 #sendForm{margin-top: 50px;}

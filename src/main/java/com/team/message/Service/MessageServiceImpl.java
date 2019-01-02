@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.team.message.DAO.MessageDAO;
 import com.team.message.VO.MessageVO;
+import com.team.message.VO.SendMessageVO;
 
 @Service
 public class MessageServiceImpl implements MessageService{
@@ -20,12 +21,12 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.listAll();
 	}
 	
-	//내가 보낸 쪽지 목록 
+	//내가 보낸 쪽지
 	@Override
-	public List<MessageVO>sendListAll()throws Exception{
+	public List<SendMessageVO>sendListAll()throws Exception{
 		return messageDao.sendListAll();
 	}
-	
+		
 	//쪽지 작성
 	@Override
 	public void create(MessageVO mvo)throws Exception{

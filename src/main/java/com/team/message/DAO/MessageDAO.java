@@ -3,14 +3,15 @@ package com.team.message.DAO;
 import java.util.List;
 
 import com.team.message.VO.MessageVO;
+import com.team.message.VO.SendMessageVO;
 
 public interface MessageDAO {
 	
 	//쪽지 전체 목록
 	public List<MessageVO>listAll()throws Exception;
 	
-	//내가 보낸 쪽지 목록
-	public List<MessageVO>sendListAll()throws Exception;
+	//내가 보낸 쪽지
+	public List<SendMessageVO>sendListAll()throws Exception;
 	
 	//쪽지 작성
 	public void create(MessageVO mvo)throws Exception;

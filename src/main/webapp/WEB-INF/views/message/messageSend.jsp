@@ -17,27 +17,32 @@
 </head>
 <script type="text/javascript">
 	function messageCheck(){
-		var subject = $("#MESSAGE_SUBJECT").val();
-		var content = $("#MESSAGE_CONTENT").val();
-		var receiver = $("#MESSAGE_RECEIVER").val();
+		var subject = document.messageSendOk.MESSAGE_SUBJECT.value;
+		var content = document.messageSendOk.MESSAGE_CONTENT.value;
+		var receiver = document.messageSendOk.MESSAGE_RECEIVER.value;
 		
-		if(subject == "" || subject == null){
-			alert("제목을 입력하세요.");
-			document.messageSendOk.subject.focus();
-			return;
-		}
-		if(content == "" || content == null){
-			alert("내용을 입력하세요.");
-			document.messageSendOk.content.focus();
-			return;
-		}
-		if(receiver == ""|| receiver == null){
+		if(receiver == ""){
 			alert("받는 사람을 입력하세요.");
-			document.messageSendOk.receiver.focus();
-			return;
+			document.messageSendOk.MESSAGE_RECEIVER.focus();
+			return false;
+		}else{
+			if(subject == ""){
+				alert("제목을 입력하세요.");
+				document.messageSendOk.MESSAGE_SUBJECT.focus();
+				return false;
+			}
+			else {
+				if(content == ""){
+					alert("내용을 입력하세요.");
+					document.messageSendOk.MESSAGE_CONTENT.focus();
+					return false;
+				}
+			}			
 		}
+		
+		document.messageSendOk.method = "POST";
 		document.messageSendOk.submit();
-	});
+	}
 </script>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
 <div id="sendTitle" align="center" style="background-color: #4497fd; width: 100%; height: 50px;">
@@ -45,11 +50,14 @@
 </div>
 <c:if test="${member.ID!= null}">
 	<div id="sendForm" title="메세지 전송">
-	  <form method="post" name="messageSendOk" onsubmit="messageCheck();">
+	  <form name="messageSendOk" onsubmit="return messageCheck();">
 	    <table width="90%" align="center" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" border="0">
+	    	<tr>
+		   	 	<td><input class="messageText" type="hidden" name="MESSAGE_SENDER" id="MESSAGE_SENDER" value="${member.ID}"></td>
+		    </tr>
 		    <tr>
 		   	 	<td class="send_text_td">작성자</td>
-		   	 	<td><input class="messageText" type="text" name="MESSAGE_SENDER" id="MESSAGE_SENDER" value="${member.ID}(${member.NAME})" readonly="readonly"></td>
+		   	 	<td><input class="messageText" type="text" name="SENDER" id="SENDER" value="${member.ID}(${member.NAME})" readonly="readonly"></td>
 		    </tr>
 		    <tr>
 		   	 	<td class="send_text_td">받는 사람</td>
@@ -61,7 +69,7 @@
 		    </tr>
 	      	<tr>
 	      		<td class="send_text_td">내용</td>
-	      		<td><textarea id = "messageArea" rows="15" cols="48" name="MESSAGE_CONTENT" id="MESSAGE_CONTENT"></textarea></td>
+	      		<td><textarea id = "messageArea" rows="15" cols="48" name="MESSAGE_CONTENT" id="MESSAGE_CONTENT" placeholder="1000자 이내로 입력해 주세요." maxlength="1000"></textarea></td>
 	      	</tr>
 	      	<tr align="center">
 	      		<td colspan="2">

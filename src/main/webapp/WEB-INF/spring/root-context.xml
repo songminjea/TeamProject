@@ -22,19 +22,11 @@
 
 	<!-- 임시 개인 DB -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-<<<<<<< HEAD
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://localhost/babysns"/>
 		<property name="username" value="jspid"/>
 		<property name="password" value="jsppass"/>
 	</bean>
-=======
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/jspbeginner" />
-		<property name="username" value="root" />
-		<property name="password" value="1234" />
-	</bean>	
->>>>>>> branch 'master' of https://github.com/juhoyoung/TeamProject.git
 	
 	<!-- SqlSessionFactoryBean 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

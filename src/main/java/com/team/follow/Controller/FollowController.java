@@ -1,6 +1,7 @@
 package com.team.follow.Controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,9 +98,11 @@ public class FollowController {
 		//System.out.println("getFollowerList 호출");
 
 		// 팔로워 목록 받아오기
-		List<FollowVO> follower = followService.GetAllFollower(id);
+/*		List<FollowVO> follower = followService.GetAllFollower(id);
 
-		return follower;
+		return follower;*/
+		
+		return null;
 
 	}
 
@@ -146,6 +149,21 @@ public class FollowController {
 		return recommend;
 		
 	}
-
+	
+	
+	@RequestMapping(value ="/test")
+	@ResponseBody
+	public List<FollowVO> test(@RequestBody Map<String, String> test, Model model){
+		
+		System.out.println("테스트 하겟읍니다." + test.get("following_id") + " " + test.get("pageNum"));
+		List<FollowVO> vv = followService.GetAllFollower(test);
+		
+		for(FollowVO aa : vv) {
+			System.out.println(aa.getFollower_id() + " " + aa.getFollowing_id());
+		}
+		
+		return null;
+		
+	}
 	
 }

@@ -68,7 +68,6 @@
 						<span>팔로잉</span> <span>언팔로우</span>
 					</button>
 				</span>
-				
 	        	<h4>
 					<a href="${pageContext.request.contextPath}/{{following_id}}/gallery"><span class="writerId">{{following_id}}</span></a>
 				</h4>	        	

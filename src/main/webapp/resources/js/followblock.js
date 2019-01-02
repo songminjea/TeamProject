@@ -1,3 +1,5 @@
+pageNum = 0;
+
 function getContextPath() { // ContextPath 얻어오는 함수
 
 	var hostIndex = location.href.indexOf(location.host) + location.host.length;
@@ -243,6 +245,34 @@ function getSuggestionFollowList(my_id){
 	}	
 }
 
+
+function test(my_id){
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		DataType : "json",
+		data : 	JSON.stringify({following_id : my_id, pageNum : pageNum}),
+		url : "/TeamPro/test",
+		success : function(result) {
+			console.log("성공!");
+
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+	});
+}
+
+$('body').scroll(function() {
+	
+    if ($('body').scrollTop() == $(document).height() - $(window).height()) {
+    	console.log($('body').scrollTop() + " " + $(document).height() + " " +  $(window).height());
+    	console.log(++pageNum);
+    	test('aaaa');
+    }
+});
+
 // 버튼 클릭 이벤트 ~~
 function BtnClickEvent(){
 	// 팔로워 버튼 메뉴 클릭 이벤트
@@ -298,10 +328,12 @@ $(document).ready(function(){
 		} 
 	}
 	// 로그인 되어있지않으면 팔로우 추천목록을 호출하지 않음.
-	if(my_id != null)
+	if(my_id != null){
 		$("#small_recommend_list").children().detach();
 		getSuggestionFollowList(my_id);
-
+	}
+	
+	
 	
 	
 })

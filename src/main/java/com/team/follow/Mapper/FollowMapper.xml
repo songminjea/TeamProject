@@ -8,6 +8,7 @@
 		select *
 		from TB_FOLLOW
 		where following_id = #{following_id}
+		limit #{pageNum} , 10
 	</select>
 	
 	<select id="GetAllFollowing" resultType="com.team.follow.VO.FollowVO">
@@ -39,7 +40,7 @@
 	
 	<select id="getNotFollowingList" resultType="com.team.follow.VO.FollowVO">
 		select distinct m.ID as following_id
-		from TB_FOLLOW f, member m
+		from TB_FOLLOW f, MEMBER m
 		where m.ID != #{following_id} and m.ID not in (select following_id
 							from TB_FOLLOW
 		                    where follower_id = #{following_id})

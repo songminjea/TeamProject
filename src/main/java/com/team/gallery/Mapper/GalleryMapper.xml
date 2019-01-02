@@ -18,14 +18,14 @@
 	
 	<select id="GetSpecGalleryList" resultType="com.team.gallery.VO.galleryVO">
 		select *
-		from tb_gallery
+		from TB_gallery
 		where MB_ID = #{id}
 		order by GB_Num desc;
 	</select>
 	
 	<select id="GetImgList" parameterType="com.team.gallery.VO.galleryVO" resultType="com.team.gallery.VO.galleryVO">
 		select i.IM_Num, i.IM_File
-		from tb_gallery g, tb_image i
+		from TB_gallery g, TB_image i
 		where g.GB_Num = i.IM_Num and g.mb_id = #{mb_ID} and IM_Num = #{im_Num};
 	</select>
 	

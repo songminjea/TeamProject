@@ -13,10 +13,13 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
+<%-- 로그인된 아이디 --%>
+<input type="hidden" id="mem_id" value="${member.ID}">
 <!-- body -->
 <body class="w3-theme-l5">
 <div class="main">
@@ -36,8 +39,8 @@
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
-              <div align="center" style="padding: 30px;">
-				<h3>쪽지 리스트</h3>
+              <div align="center" style="padding: 20px 30px;">
+				<h4 style="color: #1d2c52; margin-bottom: 20px;">Message</h4>
 				<table width="700" cellpadding="0" cellspacing="0" border="0">
 					<colgroup bgcolor="#4497fd">
 						<col width="5%">
@@ -55,7 +58,7 @@
 					</tr>
 					<c:forEach items="${mlist}" var="message">
 					 	<c:if test="${member.ID eq message.MESSAGE_RECEIVER}">  
-							<tr bgcolor="white">
+							<tr bgcolor="white" align="center">
 								<td><input type="hidden" value="${message.MESSAGE_NO}" id="MESSAGE_NO" name="MESSAGE_NO"></td>
 								<td>${message.MESSAGE_SENDER}</td>
 								<td>
@@ -70,8 +73,10 @@
 		 				</c:if>  
 					</c:forEach>
 				</table>
-					<input type="button" class="btn" value="쪽지보내기" id="messageSend" onclick="window.open('messageSend', 'messageSend', 'width=500, height=600')">
-					<input type="button" value="보낸 쪽지 확인" onclick="location.href='messageSendList'">
+					<div class="btn_Message">
+						<input id="messageSend" type="button" value="쪽지보내기" id="messageSend" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageSend', 'messageSend', 'width=500, height=650')">
+						<input class="sendMessageList" type="button" value="보낸 쪽지 확인" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageSendList'">
+					</div>
 				</div>
             </div>
           </div>

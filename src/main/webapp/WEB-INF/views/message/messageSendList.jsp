@@ -14,6 +14,7 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
@@ -56,7 +57,7 @@
 					</tr>
 					<c:forEach items="${mslist}" var="message">
 					 	<c:if test="${member.ID eq message.MESSAGE_SENDER}">  
-							<tr bgcolor="white">
+							<tr bgcolor="white" align="center">
 								<td><input type="hidden" value="${message.MESSAGE_NO}"></td>
 								<td>${message.MESSAGE_RECEIVER}</td>
 								<td>
@@ -78,7 +79,9 @@
 		 				</c:if>  
 					</c:forEach>
 				</table>
-					<input type="button" value="받은 쪽지 확인" onclick="location.href='messageList'">
+					<div class="btn_Message">
+						<input class="sendMessageList" type="button" value="받은 쪽지 확인" onclick="location.href='messageList'">
+					</div>
 				</div>
             </div>
           </div>

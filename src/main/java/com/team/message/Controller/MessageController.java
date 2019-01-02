@@ -3,15 +3,18 @@ package com.team.message.Controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
 import com.team.message.VO.MessageVO;
 
@@ -22,31 +25,47 @@ public class MessageController {
 	MessageService messageService;
 	
 	//쪽지 전체 목록
-	@RequestMapping(value="messageList", method=RequestMethod.GET)
-	public String messageList(Model model)throws Exception{
+	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
+	public String messageList(@PathVariable String id, HttpSession session, Model model)throws Exception{
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		List<MessageVO>mlist = messageService.listAll();
+		
+		model.addAttribute("profile", memberVO);
 		model.addAttribute("mlist", mlist);
+		
 		return "message/messageList";
 	}
 	
 	//내가 보낸 쪽지
-	@RequestMapping(value="messageSendList", method=RequestMethod.GET)
-	public String messageSendList(Model model)throws Exception{
+	@RequestMapping(value="{id}/messageSendList", method=RequestMethod.GET)
+	public String messageSendList(@PathVariable String id, HttpSession session, Model model)throws Exception{
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		List<MessageVO>mslist = messageService.sendListAll();
+			
+		model.addAttribute("profile", memberVO);
 		model.addAttribute("mslist", mslist);
+		
 		return "message/messageSendList";
 	}
 	
 	//쪽지 작성
-	@RequestMapping(value="messageSend", method=RequestMethod.GET)
-	public String messageSend(MessageVO mvo, Model model) {
+	@RequestMapping(value="{id}/messageSend", method=RequestMethod.GET)
+	public String messageSend(@PathVariable String id, HttpSession session, MessageVO mvo, Model model) {
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		
+		model.addAttribute("profile", memberVO);
+		
 		return "message/messageSend";
 	}
 	
 	//쪽지 보내기
-	@RequestMapping(value="messageSend", method=RequestMethod.POST)
-	public String messageSendOk(MessageVO mvo, Model model)throws Exception{
+	@RequestMapping(value="{id}/messageSend", method=RequestMethod.POST)
+	public String messageSendOk(@PathVariable String id, HttpSession session, MessageVO mvo, Model model)throws Exception{
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		messageService.create(mvo);
+		
+		model.addAttribute("profile", memberVO);
+		
 		return "message/messageSendOk";
 	}
 	

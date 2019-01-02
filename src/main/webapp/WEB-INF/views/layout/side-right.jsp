@@ -12,7 +12,6 @@
         </div>
       </div>
       <br>
-      
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>Friend Request</p>

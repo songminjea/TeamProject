@@ -19,7 +19,7 @@ Handlebars.registerHelper('getType', function(type,follower,following,options) {
 });
 
 Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
-	console.log(isfollowed);
+	//console.log(isfollowed);
 	if(isfollowed == ""){
 		return 'fbhide';
 	}
@@ -75,20 +75,10 @@ function getFollowList(my_id, page_id, pageType) {
 					follow : result,
 					type : pageType
 				}	
-				console.log(data);
+				//console.log(data);
 				var html = template(data);
 				$("#follow_list").append(html);
 				
-				/*$.each(result, function(i){
-					//console.log(val.target_id);
-					//console.log(result[i].follower_id);
-					if(pageType == 'follower'){
-						isFollowed(my_id , result[i].follower_id);
-					}else{
-						isFollowed(my_id , result[i].following_id);
-					}
-					
-				})*/
 				pageNum++;
 			}
 		},
@@ -98,51 +88,6 @@ function getFollowList(my_id, page_id, pageType) {
 		}
 	});
 }
-
-// 팔로우 되어있는지 여부 체크
-function isFollowed(follower_id, following_id) {
-	var isfollowed;
-	if(follower_id != "")
-	$.ajax({
-		
-		type : "POST",
-		//async: false,
-		contentType : "application/json",
-		dataType : "json",
-		data : JSON.stringify({
-			follower_id : follower_id,
-			following_id : following_id
-		}),
-		url : "/TeamPro/isFollowed",
-		success : function(result) {
-			isfollowed = result;
-			// 팔로우 되어있는 사람이 아닐때
-			if (isfollowed == 0) { 
-				
-				$('.fbtn_'+ following_id).filter('.followBtn').removeClass(
-				'fbhide');
-				$('.fbtn_'+ following_id).filter('.followingBtn').addClass(
-				'fbhide');
-
-			// 팔로우 되어있는 사람일때
-			} else { 
-				
-				$('.fbtn_'+ following_id).filter('.followBtn').addClass(
-				'fbhide');
-				$('.fbtn_'+ following_id).filter('.followingBtn').removeClass(
-				'fbhide');
-			}
-		},
-		error : function(request, status, error) {
-			console.log("code:" + request.status + "\n" + "message:"
-					+ request.responseText + "\n" + "error:" + error);
-		}
-
-	});
-	
-
-}
-
 
 // 팔로우 눌렀을때 처리
 function follow(following_id) {
@@ -225,7 +170,6 @@ function getSuggestionFollowList(my_id){
 			data : my_id,
 			url : "/TeamPro/SuggestionFollow",
 			success : function(result) {
-				
 				//console.log(result);
 				if(result.length > 0){
 					var source = $("#s_recom_follow-template").html();
@@ -237,10 +181,10 @@ function getSuggestionFollowList(my_id){
 					
 					var html = template(data);
 					$("#small_recommend_list").append(html);
-					
+					/*
 					$.each(result, function(i){
 						isFollowed(my_id , result[i].following_id);
-					})
+					})*/
 				}else{
 					$("#small_recommend_list").append("더 이상 추천 할 회원이 없습니다.");
 				}

@@ -97,40 +97,6 @@ public class FollowController {
 	@RequestMapping(value = "/getFollowerList", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Map<String, String>> getFollowerList(@RequestBody Map<String, String> FollowInfo ) {
-															// map(my_id로그인 아이디, id페이지 아이디, pageNum페이지 번호)
-		/*// 페이지 번호에 10 곱해서 저장. (0, 10, 20 단위 글 보려고)
-		int pageNum = Integer.parseInt(FollowInfo.get("pageNum")) * 10;
-		FollowInfo.put("pageNum", String.valueOf(pageNum));
-		List<FollowVO> follower = followService.GetAllFollower(FollowInfo);
-
-		// 팔로워 id,팔로우여부 담을 리스트 맵 생성
-		List<Map<String, String>> followerlist = new ArrayList<>();
-		
-		for(FollowVO temp : follower) {
-			//System.out.println(aa.getFollower_id() + " " + aa.getFollowing_id());
-			// 임시 맵
-			Map<String, String> tempMap = new HashMap<>();
-			
-			// 팔로우 여부 체크하기 위해서 (내아이디, 팔로워 아이디) 담을 FollowVO 생성
-			
-			if(!FollowInfo.get("my_id").equals("")) {
-				FollowVO vo = new FollowVO();
-				vo.setFollower_id(FollowInfo.get("my_id"));
-				vo.setFollowing_id(temp.getFollower_id());
-				
-				// 팔로우 여부 확인
-				
-				String isfollowing = String.valueOf(followService.IsFollowing(vo));
-				tempMap.put("isfollowed", isfollowing);
-			}else {
-				tempMap.put("isfollowed", "");
-			}
-			tempMap.put("target_id", temp.getFollower_id());
-			
-			
-			followerlist.add(tempMap);
-			
-		}*/
 		
 		return getFollowList(FollowInfo,0);
 
@@ -140,33 +106,7 @@ public class FollowController {
 	@RequestMapping(value = "/getFollowingList", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Map<String, String>> getFollowingList(@RequestBody Map<String, String> FollowInfo ) {
-		
-		/*int pageNum = Integer.parseInt(FollowInfo.get("pageNum")) * 10;
-		FollowInfo.put("pageNum", String.valueOf(pageNum));
-		
-		List<FollowVO> following = followService.GetAllFollowing(FollowInfo);
-		List<Map<String, String>> followinglist = new ArrayList<>();
-		
-		for(FollowVO temp : following) {
-			//System.out.println(aa.getFollower_id() + " " + aa.getFollowing_id());
-			Map<String, String> tempMap = new HashMap<>();
-			
-			if(!FollowInfo.get("my_id").equals("")) {
-				FollowVO vo = new FollowVO();
-				vo.setFollower_id(FollowInfo.get("my_id"));
-				vo.setFollowing_id(temp.getFollowing_id());
-				tempMap.put("isfollowed", String.valueOf(followService.IsFollowing(vo)));
-			}else {
-				tempMap.put("isfollowed", "");
-			}
-			tempMap.put("target_id", temp.getFollowing_id());
-			
-			
-			
-			followinglist.add(tempMap);
-			
-		}*/
-		// 필요한것 id,팔로우여부
+
 		return getFollowList(FollowInfo,1);
 
 	}
@@ -244,33 +184,18 @@ public class FollowController {
 	}
 	
 	
-	
-	@RequestMapping(value = "/SuggestionFollow")
+	// 팔로우 추천 목록
+	@RequestMapping(value = "/SuggestionFollow", method = RequestMethod.POST)
 	@ResponseBody
-	public List<FollowVO> getSuggestionFollowList(@RequestBody String id, Model model){
-		
+	public List<FollowVO> getSuggestionFollowList(@RequestBody String id){
+	
 		//System.out.println("suggesition " + id);
 		List<FollowVO> recommend = followService.getNotFollowingList(id);
+		
 		
 		return recommend;
 		
 	}
-	
-	
-	@RequestMapping(value ="/test")
-	@ResponseBody
-	public List<FollowVO> test(@RequestBody Map<String, String> test, Model model){
-		
-		System.out.println("테스트 하겟읍니다." + test.get("following_id") + " " + test.get("pageNum"));
-		test.put("pageNum", String.valueOf((Integer.parseInt(test.get("pageNum")) * 10)));
-		List<FollowVO> vv = followService.GetAllFollower(test);
-		
-		for(FollowVO aa : vv) {
-			System.out.println(aa.getFollower_id() + " " + aa.getFollowing_id());
-		}
-		
-		return null;
-		
-	}
+
 	
 }

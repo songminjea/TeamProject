@@ -60,7 +60,7 @@
 	<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" 
 	        	alt="defaultImage" class="w3-left w3-circle w3-margin-right" style="max-width: 100%; max-height: 40px;">
 	        	<span class="w3-right">
-					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbhide fbtn_{{following_id}}"
+					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbtn_{{following_id}}"
 						value='{{following_id}}'>팔로우
 					</button>
 					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn fbhide fbtn_{{following_id}}"

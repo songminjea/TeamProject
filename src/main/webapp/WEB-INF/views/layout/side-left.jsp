@@ -6,7 +6,7 @@
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="padding: 20px;">
         <div class="w3-container">
-         <h4 class="w3-center">Profile</h4>
+         <h4 class="w3-center" style="color: #1d2c52;">Profile</h4>
          <br/>
          <div class="w3-center image_wrapper">
          	<%-- 만약 회원 프로필 이미지가 없을 경우에는 기본 이미지를 띄운다. --%>
@@ -78,6 +78,3 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script> --%>
-
-
-

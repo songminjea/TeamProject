@@ -32,7 +32,11 @@
       <!-- Profile -->
       	<div class="w3-card w3-round w3-white padding_area">
         	<div class="w3-container">
-         		<h4 class="w3-center">Login</h4>
+         		<h4 class="w3-center h4_font" style="font-weight: 700; color: #1d2c52; font-size: 20px;">
+         			회원님, 반갑습니다.<br>
+         			로그인 해주세요!
+         		</h4>
+         		<br/>
 				<form action="loginPost" method="post">
 					<table class="login_layer">
 					<tbody id="login_area">
@@ -44,14 +48,13 @@
 						</tr>
 						<tr class="checkbox">
 							<td>
-								<input type="checkbox" id="REMEMBERID" name="REMEMBERID" style="margin-top: 10px;"/>아이디 기억
+								<input type="checkbox" id="REMEMBERID" name="REMEMBERID" style="margin-top: 10px;"/>
+								<font style="font-size: 14px; font-weight: 700; color: #78787c;">아이디 기억</font>
 							</td>
 						</tr>
 						<tr align="center">
 							<td>
-								<input type="submit" value="Login" id="LoginBtn" style="margin-bottom: 5px; margin-top: 10px;"/><br/>
-								<!-- 회원가입 페이지 넘어가는 용 -->
-								<input type="button" value="Register" id="RegisterBtn" onclick="location.href='check'" style="margin-bottom: 3px;"/>
+								<input type="submit" value="Login" id="LoginBtn" style="margin-bottom: 5px; margin-top: 10px;"/>
 							</td>
 						</tr>
 						<tr>
@@ -74,7 +77,14 @@
 								</div>
 							</td>
 						</tr>
-						</tbody>
+						<tr align="center">
+							<td>
+								<font class="gray_font" style="font-size: 14px; font-weight: 700; color: #78787c;">회원가입이 필요하신가요?</font><br/>
+								<!-- 회원가입 페이지 넘어가는 용 -->
+								<input type="button" value="Register" id="RegisterBtn" onclick="location.href='check'" style="margin-bottom: 3px;"/>
+							</td>
+						</tr>
+						</tbody>					
 					</table>	
 				</form>
       		</div>

@@ -27,6 +27,12 @@
 <!-- 		<property name="username" value="root" /> -->
 <!-- 		<property name="password" value="1234" /> -->
 <!-- 	</bean>	 -->
+
+<!-- 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/> -->
+<!-- 		<property name="url" value="jdbc:mysql://localhost/babysns"/> -->
+<!-- 		<property name="username" value="jspid"/> -->
+<!-- 		<property name="password" value="jsppass"/> -->
+<!-- 	</bean> -->
 	
 	<!-- SqlSessionFactoryBean 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

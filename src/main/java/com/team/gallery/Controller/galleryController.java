@@ -1,13 +1,11 @@
 package com.team.gallery.Controller;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -27,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team.gallery.Service.FUploadService;
 import com.team.gallery.Service.GBService;
+import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
 import com.team.gallery.util.IPUtill;
 import com.team.gallery.util.UploadUtil;
@@ -42,6 +42,9 @@ public class galleryController {
 	@Autowired
 	private GBService gbService;
 	
+	@Autowired
+	private FUploadService fuService;
+	
 	
 	@RequestMapping(value = "imgupload", method=RequestMethod.GET)
 	public String imgupload() {
@@ -50,13 +53,18 @@ public class galleryController {
 	}
 	
 	@RequestMapping("/galleryWrite")
-	public String galleryWrite(@ModelAttribute galleryVO gvo, RedirectAttributes ra, HttpServletRequest request) throws Exception {
+	public String galleryWrite(@ModelAttribute galleryVO gvo,fileVO fvo, RedirectAttributes ra, HttpServletRequest request) throws Exception {
 		
 				
 		gvo.setGb_IP(IPUtill.getClientIpAddr(request));
-				
+		
+		
 		gbService.insert(gvo);
-				
+		
+		fuService.insert(fvo);
+		
+		System.out.println(fvo.getGb_Image());
+		
 		ra.addFlashAttribute("msg", "success");
 		
 		return "redirect:main";

@@ -24,7 +24,7 @@
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
-<body class="main_login">
+<body class="main">
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>
 <!-- END Header -->
@@ -89,8 +89,7 @@
 				</form>
       		</div>
 		</div>
-   	</div>
-		
+   	</div>		
 <%-- js파일 --%>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>

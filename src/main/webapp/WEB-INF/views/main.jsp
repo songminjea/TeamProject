@@ -32,7 +32,7 @@
 <!-- END Header -->
 
 <!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1600px;padding-top:120px;" align="center">    
+<div class="w3-container w3-content" style="max-width:1600px;padding-top:120px;">    
   <!-- The Grid -->
   <div class="w3-row">
     <!-- Left Column -->

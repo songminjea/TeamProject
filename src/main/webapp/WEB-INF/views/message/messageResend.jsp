@@ -61,7 +61,7 @@
 		    </tr>
 		    <tr>
 		   	 	<td class="send_text_td">받는 사람</td>
-		   	 	<td><input class="messageText" type="text" name="MESSAGE_RECEIVER" id="MESSAGE_RECEIVER" ></td>
+		   	 	<td><input class="messageText" type="text" name="MESSAGE_RECEIVER" id="MESSAGE_RECEIVER" value="${mdto.MESSAGE_SENDER}" readonly="readonly"></td>
 		    </tr>
 		    <tr>
 		   	 	<td class="send_text_td">제목</td>

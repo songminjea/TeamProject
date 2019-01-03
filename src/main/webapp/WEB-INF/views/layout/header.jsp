@@ -24,7 +24,7 @@
 							<a
 								class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
 								href="javascript:void(0);"><i class="fa fa-bars"></i></a> <a
-								href="deal/list"
+								href="${pageContext.request.contextPath}/${member.ID}/deal/list"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 								title="Board"><i class="fa fa-list" id="board_i"
 								aria-hidden="true"></i></a> <a href="${pageContext.request.contextPath}/${member.ID}/messageList"
@@ -36,7 +36,7 @@
 								title="Chat"><i class="fa fa-weixin" id="chat_i"
 								aria-hidden="true"></i></a>
 							<%-- 새 글 알림 --%>
-							<div class="w3-dropdown-hover w3-hide-small">
+							<div class="w3-dropdown-hover w3-hide-small w3-hover-white">
 								<button class="w3-button w3-padding-large" title="Notifications">
 									<i class="fa fa-bell" id="alarm_i"></i> <span
 										class="w3-badge w3-right w3-small"
@@ -70,7 +70,7 @@
 					<c:otherwise>
 						<div class="col-md-12 col-xs-6">
 							<div class="babylogo">
-								<a href="login"> 
+								<a href="${pageContext.request.contextPath}/${member.ID}/login"> 
 									<img src="${pageContext.request.contextPath}/resources/img/logo2.png" height="50px">
 								</a>
 							</div>
@@ -83,11 +83,12 @@
 			<div class="col-md-4" align="right">
 				<div class="w3-dropdown-hover">
 		<%-- 		<c:if test="${!empty member.ID}"> --%>
-					<button class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" style="text-decoration: none; font-weight: 500; font-size: 18px;">${member.ID}(${member.NAME})
+					<button class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-white" style="text-decoration: none; font-weight: 500; font-size: 18px;">
+						<font color="#1d2c52">${member.ID}(${member.NAME})</font>
 					&nbsp;
 						<i class="fa fa-user-circle" aria-hidden="true" id="user_i"></i>
 					</button>
-					<div class="w3-dropdown-content w3-card-4 w3-bar-block" id="dropdown_menu">
+					<div class="w3-dropdown-content w3-card-4 w3-bar-block" id="dropdown_menu" align="right">
 					     <a href="#" class="w3-bar-item w3-button" onclick="goMypage()">회원정보 수정</a>
 					     <a href="${pageContext.request.contextPath}/${member.ID}/gallery" class="w3-bar-item w3-button">내 게시물 확인</a>
 					     <a href="${pageContext.request.contextPath}/${member.ID}/follower" class="w3-bar-item w3-button">팔로우</a>

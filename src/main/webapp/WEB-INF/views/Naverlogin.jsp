@@ -13,12 +13,12 @@
 					<h3>네이버 로그인 확인</h3>
 					<div id="naver_id_login" style="text-align:center">
 						<a href="${url}">
-							네이버로그인 하겠습니다
+							네이버 로그인 하겠습니다.
 						</a>
 					</div>
 					<div id="naver_id_login" style="text-align:center">
-						<a href="http://localhost:8080/TeamPro/login">
-							네이버로그인 취소하겠습니다.
+						<a href="${pageContext.request.contextPath}/${member.ID}/login">
+							네이버 로그인 취소하겠습니다.
 						</a>
 					</div>
 </body>

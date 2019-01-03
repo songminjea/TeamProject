@@ -1,9 +1,7 @@
 package com.team.gallery.Service;
 
 import java.util.List;
-
 import com.team.gallery.VO.galleryVO;
-import com.team.member.VO.MemberVO;
 
 
 public interface GBService {

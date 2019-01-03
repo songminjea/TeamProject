@@ -1,5 +1,7 @@
 package com.team.member.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +10,7 @@ import com.team.member.VO.MemberVO;
 
 
 @Service
-public class MemberServiceImpl {
+public class MemberServiceImpl{
 	
 	@Autowired
 	MemberDAO memberDAO;
@@ -23,5 +25,10 @@ public class MemberServiceImpl {
 
 	public void updateMember(MemberVO vo) {
 		memberDAO.updateMember(vo);
+	}
+
+	public List<MemberVO> GetSearchMember(String ID) {
+		// TODO Auto-generated method stub
+		return memberDAO.GetSearchMember(ID);
 	}
 }

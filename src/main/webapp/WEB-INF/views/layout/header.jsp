@@ -65,6 +65,12 @@
 								</a>
 							</div>
 						</div>
+						
+						<%-- 검색창 --%>
+						<div class="col-md-2" style="padding: 0px; margin-top: 14px;">
+							<input type="text" id="search_keyword" value="${keyword}" placeholder="검색할 아이디를 입력">
+							<a href="" onclick="return false;" id="search_confirm"><i class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i></a>
+						</div>	
 					</c:when>
 					<%-- 로그인 되어있지 않을 경우 로고를 누르면 로그인 화면으로 이동 --%>
 					<c:otherwise>
@@ -76,11 +82,13 @@
 							</div>
 						</div>	
 					</c:otherwise>
-				</c:choose>	
+				</c:choose>
+			
 			<%-- 로그인 확인, 로그아웃 및 회원 정보 관리 --%>
 			<%-- 로그인이 되어 있을 경우 회원 정보 아이콘이 뜬다. --%>
+			
 			<c:if test="${member.ID != null}">
-			<div class="col-md-4" align="right">
+			<div class="col-md-2" align="right">
 				<div class="w3-dropdown-hover">
 		<%-- 		<c:if test="${!empty member.ID}"> --%>
 					<button class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-white" style="text-decoration: none; font-weight: 500; font-size: 18px;">
@@ -104,4 +112,6 @@
 		</div>
 	</div>
 </div>
+
+
 </body>   

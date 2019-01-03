@@ -1,7 +1,11 @@
 package com.team.member.Controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.team.follow.Service.FollowService;
+import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
 
@@ -21,6 +28,9 @@ public class MemberController {
 
 	@Autowired
 	MemberServiceImpl memberService;
+	
+	@Autowired
+	FollowService followService;
 	
 	@RequestMapping("/check")
 	public String check() {
@@ -73,5 +83,47 @@ public class MemberController {
 			return "login";
 		}
 	}
+	
+	@RequestMapping("/search")
+	public String MemberSearch(@RequestParam String keyword, HttpSession session ,Model model) {
+		//System.out.println(keyword);
+
+		
+		// 검색값 얻어오기
+		List<MemberVO> member = memberService.GetSearchMember(keyword);
+		
+		// 로그인 여부 체크하기 위해 세션값 받아옴.
+		MemberVO memVO = (MemberVO)session.getAttribute("member");
+		
+		// 팔로우 여부를 맵으로 저장. <아이디, 팔로우여부>
+		Map<String, Boolean> isFollowedList = new HashMap<>();
+		
+		// 세션 member가 존재할때. = 로그인 되어있을때만.
+		if(memVO != null) {
+			
+			for(MemberVO temp : member) {
+				if(memVO.getID().equals(temp.getID()))
+					continue;
+					
+				FollowVO fVo = new FollowVO();
+				fVo.setFollower_id(memVO.getID());
+				fVo.setFollowing_id(temp.getID());
+				
+				// 팔로우 여부 체크
+				boolean isFollowed = followService.IsFollowing(fVo);
+				
+				
+				isFollowedList.put(temp.getID(), isFollowed);
+			}
+		}
+		
+		//System.out.println(isFollowedList.get("aaaa"));
+		model.addAttribute("isfollowed", isFollowedList);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("search_Mem", member);
+		
+		return "main.jsp?center=member/search";
+	}
 
 }
+

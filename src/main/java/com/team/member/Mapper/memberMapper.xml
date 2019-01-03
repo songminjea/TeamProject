@@ -28,5 +28,13 @@
 		SET MEM_PIC = #{mem_pic}
 		WHERE MEM_SEQ = #{mem_seq}
 	</update>
+	
+	<select id="GetSearchMemberList" resultType="com.team.member.VO.MemberVO">
+		select *
+		from MEMBER
+		where ID like CONCAT("%",#{id},"%")
+	</select>
+	
+	
   
 </mapper>

@@ -1,6 +1,8 @@
 package com.team.member.DAO;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,6 +33,13 @@ public class MemberDAOImpl implements MemberDAO{
 	public void updateMember(MemberVO member) {
 		sqlSession.update("updateMember",member);
 	}
+
+	@Override
+	public List<MemberVO> GetSearchMember(String ID) {
+		return sqlSession.selectList("GetSearchMemberList", ID);
+	}
+	
+	
 	
 	
 }

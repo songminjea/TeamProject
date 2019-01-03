@@ -13,5 +13,7 @@ public interface GalleryDAO {
 	public List<galleryVO> GetMyGalleryList(String my_id);
 
 	public List<galleryVO> GetSpecGalleryList(String id);
+
+	public int maxNum(galleryVO gvo);
 	
 }

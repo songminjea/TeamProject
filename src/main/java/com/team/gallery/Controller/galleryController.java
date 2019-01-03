@@ -3,6 +3,7 @@ package com.team.gallery.Controller;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -58,12 +59,13 @@ public class galleryController {
 				
 		gvo.setGb_IP(IPUtill.getClientIpAddr(request));
 		
-		
 		gbService.insert(gvo);
 		
-		fuService.insert(fvo);
+		int Num = gbService.maxNum(gvo);
 		
-		System.out.println(fvo.getGb_Image());
+		fvo.setGb_Num(Num);
+		
+		fuService.insert(fvo);
 		
 		ra.addFlashAttribute("msg", "success");
 		
@@ -79,7 +81,6 @@ public class galleryController {
 	@RequestMapping(value="gallery/imgupload", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
 	public ResponseEntity<String> imgupload(MultipartFile file, HttpServletRequest request) {
 		ResponseEntity<String> entity = null;
-		
 		
 		try {
 			String saveFilePath = UploadUtil.uplaodFile(file, request);

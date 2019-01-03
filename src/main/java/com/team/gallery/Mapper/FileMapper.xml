@@ -3,7 +3,7 @@
 
 <mapper namespace = "com.team.gallery.DAO.FUploadDAO">
 	<insert id="fileInsert">
-		insert into tb_file (gb_Num,gb_file)
+		insert into TB_FILE (gb_Num,gb_file)
 		VALUES(#{Num},#{Image})
 	</insert>
 	

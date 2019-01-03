@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.team.deal.DTO.DealDTO;
 
+
+
 @Repository
 public class DealDAOImpl implements DealDAO {
 @Inject

@@ -26,6 +26,12 @@ public class GalleryDAOImpl implements GalleryDAO {
 	
 		sqlSession.insert("GalleryInsert", gvo);
 	}
+	
+	@Override
+	public int maxNum(galleryVO gvo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("maxNum",gvo);
+	}
 
 	@Override
 	public List<galleryVO> GetMyGalleryList(String my_id) {

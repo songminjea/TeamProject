@@ -2,6 +2,7 @@ package com.team.deal.Service;
 
 import java.util.List;
 
+import com.team.deal.DTO.Criteria;
 import com.team.deal.DTO.DealDTO;
 
 public interface DealService {
@@ -20,6 +21,8 @@ public interface DealService {
 	
 	//게시물 삭제
 	public void deleteDeal(int DEAL_NUM)throws Exception;
+
+	
 }
 
 

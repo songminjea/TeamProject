@@ -10,7 +10,15 @@ public class galleryVO {
 	private Timestamp gb_Date;
 	private String gb_IP;
 	private String gb_Privacy;
+	private String gb_File;
 	
+	
+	public String getGb_File() {
+		return gb_File;
+	}
+	public void setGb_File(String gb_File) {
+		this.gb_File = gb_File;
+	}
 	public int getGb_Num() {
 		return gb_Num;
 	}

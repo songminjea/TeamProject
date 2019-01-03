@@ -50,92 +50,12 @@
 	width: 150px;
 }
 </style>
-<script type="text/javascript">
-
-$(document).ready(function(){
-	$(".file-area").on("dragenter dragover",function(e){
-		e.preventDefault();
-	});
-	
-	$('input[type="file"]').on('change', function(e){
-		e.preventDefault();
-		
-		var file = e.target.files[0];
-		console.log(file);
-		var formData = new FormData();
-				
-		formData.append("file",file);
-		
-		console.log(formData);
-		
-		$.ajax({
-			type : "POST",
-			url :"${pageContext.request.contextPath}/gallery/imgupload",
-			data : formData,
-			datatype: "text",
-			contentType: false,
-			processData: false,
-			success : function(data){
-				console.log(data);
-				printFiles(data);
-				$(".noAttach").remove();
-			}
-		});
-	});
-	
-	$(".file-area").on("drop", function(e){
-		e.preventDefault();
-		
-		var files = e.originalEvent.dataTransfer.files;
-		var file = files[0];
-		console.log(file);
-		var formData = new FormData();
-				
-		formData.append("file",file);
-		
-		console.log(formData);
-		
-		$.ajax({
-			type : "POST",
-			url :"${pageContext.request.contextPath}/gallery/imgupload",
-			data : formData,
-			datatype: "text",
-			contentType: false,
-			processData: false,
-			success : function(data){
-				console.log(data);
-				printFiles(data);
-				$(".noAttach").remove();
-			}
-		});
-	});
-	
-	$(".uploadedFileList").on("click",".delBtn", function(e) {
-		e.preventDefault();
-		var that = $(this);
-		$.ajax({
-			type : "POST",
-			url :"${pageContext.request.contextPath}/gallery/delete",
-			data : {fileName: that.attr("href")},
-			datatype : "text",
-			success : function(result){
-				if(result == "DELETED"){
-					alert("삭제되었습니다.");
-					that.parents("li").remove();
-				}
-			}
-		});
-		
-	});	
-});
-
-</script>
 
 <!-- 핸들바 기능 -->
 <script id ="fileTemplate" type="text/x-handlebars-template">
 	<li>
 		<img src="{{imgSrc}}" alt = "Attachment" class ="view">
-		<input type="hidden" name = "gb_Image" value ="{{fullName}}">
+		<input type="hidden" name = "gb_Image" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
 				<i class = "fa fa-paperclip"></i>{{originalFileName}}
@@ -159,7 +79,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div class="w3-col m3" id="space">ID</div>
-	<div class="w3-col m9" id="space"><input type="text" name="mb_ID"></div>
+	<div class="w3-col m9" id="space"><input type="text" name="mb_ID" value ="${member.ID}"></div>
 	<div class="w3-col m3" id="space">내용</div>
 	<textarea rows="5" cols="40" class="w3-col m9" id="space" name="gb_Content"></textarea>
 	<div>
@@ -182,6 +102,7 @@ $(document).ready(function(){
 </div>
 </body>
 <!-- js파일 -->
+
 <!-- image upload -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/upload.js"></script>

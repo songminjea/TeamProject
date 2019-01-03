@@ -23,11 +23,13 @@ public class FUploadDAOImpl implements FUploadDAO{
 		
 		String[] Image = fvo.getGb_Image();
 		int Num = fvo.getGb_Num();
+		
+		System.out.println(Image);
+		
 		Map<String, Object> paramMap = new HashMap<>();
 		for(String s : Image) {
-			System.out.println(s);
 			paramMap.put("Image", s);
-			paramMap.put("Num", Num);
+			paramMap.put("Num",Num);
 			sqlSession.insert("fileInsert",paramMap);
 		}
 		

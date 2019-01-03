@@ -65,7 +65,7 @@
 									<c:if test="${message.MESSAGE_READVAL == false}">
 										<span style="color: #78787c; font-size: 12px; font-weight: 600;">New</span>
 									</c:if>
-										<a href="#" id="messageView" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageView', 'width=500, height=600')">${message.MESSAGE_SUBJECT}</a>
+										<a href="#" id="messageView" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageView', 'width=500, height=650')">${message.MESSAGE_SUBJECT}</a>
 								</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${message.MESSAGE_SENDTIME}"/></td>
 								<td>

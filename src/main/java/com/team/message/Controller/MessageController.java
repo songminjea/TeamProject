@@ -24,13 +24,7 @@ public class MessageController {
 	
 	@Autowired
 	MessageService messageService;
-	
-	//쪽지 작성
-	@RequestMapping(value="message/messageWindow", method=RequestMethod.GET)
-	public String messageWindow(MessageVO mvo, Model model) {		
-		return "message/messageWindow";
-	}
-	
+		
 	//쪽지 전체 목록
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
 	public String messageList(@PathVariable String id, HttpSession session, Model model)throws Exception{
@@ -58,7 +52,7 @@ public class MessageController {
 	//쪽지 작성
 	@RequestMapping(value="{id}/messageSend", method=RequestMethod.GET)
 	public String messageSend(MessageVO mvo, Model model) {		
-		return "message/messageWindow.jsp?center=message/messageSend.jsp";
+		return "message/messageSend";
 	}
 	
 	//쪽지 보내기
@@ -68,6 +62,12 @@ public class MessageController {
 		messageService.create(mvo);
 		
 		return "message/messageSendOk";
+	}
+	
+	//쪽지 답장
+	@RequestMapping(value="{id}/messageResend", method=RequestMethod.GET)
+	public String messageResend(Model model)throws Exception{
+		return "message/messageResend";
 	}
 	
 	//쪽지 상세내용 조회

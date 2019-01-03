@@ -135,7 +135,7 @@ $(document).ready(function(){
 <script id ="fileTemplate" type="text/x-handlebars-template">
 	<li>
 		<img src="{{imgSrc}}" alt = "Attachment" class ="view">
-		<input type="hidden" name = "gb_Image" value ="{{fullName}}">
+		<input type="hidden" name = "gb_Image" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
 				<i class = "fa fa-paperclip"></i>{{originalFileName}}
@@ -159,7 +159,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div class="w3-col m3" id="space">ID</div>
-	<div class="w3-col m9" id="space"><input type="text" name="mb_ID"></div>
+	<div class="w3-col m9" id="space"><input type="text" name="mb_ID" value ="${member.ID}"></div>
 	<div class="w3-col m3" id="space">내용</div>
 	<textarea rows="5" cols="40" class="w3-col m9" id="space" name="gb_Content"></textarea>
 	<div>

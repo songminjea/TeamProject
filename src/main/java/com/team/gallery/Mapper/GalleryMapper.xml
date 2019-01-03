@@ -8,9 +8,13 @@
 		VALUES(#{gb_Num},#{mb_ID},#{gb_Content},#{gb_Date},#{gb_IP},#{gb_Privacy})
 	</insert>
 	
+	<select id="maxNum" resultType="int">
+		select Max(GB_Num)
+		from TB_gallery
+	</select>
 	
 	<select id="GetMyGalleryList" resultType="com.team.gallery.VO.galleryVO">
-		select f.follower_id, g.GB_Num, g.MB_ID, g.GB_Content, g.GB_Date, g.GB_IP, g.GB_Privacy
+		select  f.follower_id, g.GB_Num, g.MB_ID, g.GB_Content, g.GB_Date, g.GB_IP, g.GB_Privacy
 		from TB_FOLLOW f , TB_gallery g
 		where f.following_id = g.MB_ID and f.follower_id = #{my_id}
 		order by g.GB_Num desc; 

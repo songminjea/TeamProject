@@ -10,12 +10,12 @@ function checkImageType(fileName){
 
 function getFileInfo(fullName){
 	//원본파일, 이미지경로, 원본파일경로,저장파일명 변수 선언
-	var originalFileName,imgSrc,originalFileUrl,uuidFileName;
+	var originalFileName,imgSrc,originalFileUrl,uuidFileName,originalImg;
 	
 	if(checkImageType(fullName)){
 		imgSrc="display?fileName="+fullName;
 		uuidFileName = fullName.substr(14);
-		var originalImg = fullName.substr(0,12)+fullName.substr(14);
+		originalImg = fullName.substr(0,12)+fullName.substr(14);
 		
 		//원본이미지 링크
 		originalFileUrl = "display?fileName="+originalImg;

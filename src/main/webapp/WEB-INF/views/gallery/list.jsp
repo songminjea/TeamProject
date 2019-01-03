@@ -15,6 +15,7 @@
 </div>
 <script id="gallery-template" type="text/x-handlebars-template">
 {{#gall}}
+
 	<span class="profileImg">
 		<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="Avatar"
 			class="w3-left w3-circle w3-margin-right" style="width: 60px">
@@ -28,7 +29,7 @@
 	</span>
 	<div class="w3-row-padding" style="margin: 0 -16px">
 		<div class="w3-half">
-			<img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="width: 100%"
+			<img src="display?fileName=/2019/01/02/1ead46fb-5ed1-4efe-97fe-72aa18b5d2ac_eagle.jpg" style="width: 100%"
 				alt="Northern Lights" class="w3-margin-bottom">
 		</div>
 	</div>

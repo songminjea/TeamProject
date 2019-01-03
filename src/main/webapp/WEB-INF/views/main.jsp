@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>BabyParent | Main</title>
+<title>BabyParent</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- CSS -->
@@ -15,6 +16,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gallery.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chat.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
@@ -32,7 +37,7 @@
 <!-- END Header -->
 
 <!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1600px;padding-top:120px;" align="center">    
+<div class="w3-container w3-content main_form" style="max-width:1600px;padding-top:120px;">    
   <!-- The Grid -->
   <div class="w3-row">
     <!-- Left Column -->
@@ -41,19 +46,18 @@
 
 	<!-- Center -->
 	<div class="w3-col m7">
-		<jsp:include page="${center}"></jsp:include>
+		<jsp:include page="${center}"/>
 	</div>
 	<!-- END Center -->
     
     <!-- Right Column -->
-    <jsp:include page="layout/side-right.jsp"></jsp:include>      
+    <jsp:include page="layout/side-right.jsp"/>      
     <!-- End Right Column -->
     
   <!-- End Grid -->
   </div>
   </div>
 <!-- End Page Container -->
-
 <br>
 <script>
 // Accordion
@@ -78,9 +82,11 @@ function openNav() {
     }
 }
 </script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<!-- js 파일 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html> 

@@ -21,7 +21,7 @@
          </div>
          <hr>
         <%-- 회원 정보 --%>
-        <div class="member_icon" style="font-weight: 500; font-size: 15px;">
+        <div class="member_icon" style="font-weight: 500; font-size: 15px;" align="left">
 	         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${profile.NAME}</p>
 	         <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> ${profile.EMAIL}</p>
 	         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> ${profile.BIRTH}</p>
@@ -43,7 +43,7 @@
       <!-- 팔로우 추천 목록 -->
       <c:if test="${!empty member.ID}"> 
 	      <div class="w3-card w3-round w3-white w3-hide-small" style="padding: 30px 10px;">
-	      	<h4 style="text-align: center; color: #1d2c52; margin-bottom: 10px;">Follow Recommend</h4>
+	      	<h4 style="text-align: center; color: #1d2c52; margin-bottom: 10px;">Recommend Follow</h4>
 	        <hr class="w3-clear" style="margin: 5px 20px 20px;">
 	        <div class="w3-container" id="small_recommend_list">	        	
 	        </div>

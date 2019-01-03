@@ -15,6 +15,7 @@ public class MessageDAOImpl implements MessageDAO{
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	String namespace = "com.team.message.Mapper.messageMapper";
+	String namespace_send="com.team.message.Mapper.sendMessageMapper";
 	
 	//쪽지 전체 목록
 	@Override
@@ -25,7 +26,7 @@ public class MessageDAOImpl implements MessageDAO{
 	//내가 보낸 쪽지
 	@Override
 	public List<SendMessageVO>sendListAll()throws Exception{
-		return sqlSession.selectList(namespace+".sendListAll");
+		return sqlSession.selectList(namespace+".listAll");
 	}
 	
 	//쪽지 작성

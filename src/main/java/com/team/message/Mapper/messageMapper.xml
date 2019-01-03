@@ -5,14 +5,7 @@
 	
 	<!-- 쪽지 전체 목록(받은 쪽지) -->
 	<select id="listAll" resultType="MessageVO">
-		SELECT *
-		FROM TB_MESSAGE
-		ORDER BY MESSAGE_SENDTIME DESC
-	</select>
-	
-	<!-- 쪽지 전체 목록(보낸 쪽지) -->
-	<select id="sendListAll" resultType="SendMessageVO">
-		SELECT *
+		SELECT MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME, MESSAGE_READVAL
 		FROM TB_MESSAGE
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>

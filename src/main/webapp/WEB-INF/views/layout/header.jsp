@@ -70,7 +70,7 @@
 					<c:otherwise>
 						<div class="col-md-12 col-xs-6">
 							<div class="babylogo">
-								<a href="${pageContext.request.contextPath}/login"> 
+								<a href="login"> 
 									<img src="${pageContext.request.contextPath}/resources/img/logo2.png" height="50px">
 								</a>
 							</div>

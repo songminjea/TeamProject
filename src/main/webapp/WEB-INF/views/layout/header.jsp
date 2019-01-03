@@ -66,8 +66,9 @@
 							</div>
 						</div>
 						
-						<div class="col-md-2" align="right">
-							<input type="text" id="search_keyword" id="search_keyword">
+						<%-- 검색창 --%>
+						<div class="col-md-2" style="padding: 0px; margin-top: 14px;">
+							<input type="text" id="search_keyword" value="${keyword}" placeholder="검색할 아이디를 입력">
 							<a href="" onclick="return false;" id="search_confirm"><i class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i></a>
 						</div>	
 					</c:when>
@@ -110,4 +111,6 @@
 		</div>
 	</div>
 </div>
+
+
 </body>   

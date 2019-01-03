@@ -80,3 +80,8 @@ a{
   border: 2px solid #6297ff;
   border-radius: 4px;
 }
+
+/* 버튼 크기 조절 할 때. */
+.smallSizeFont{
+	font-size: 12px;
+}

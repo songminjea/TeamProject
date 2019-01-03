@@ -13,7 +13,12 @@
 		</div>
 	</div>
 </div>
+
+
+
 <script id="gallery-template" type="text/x-handlebars-template">
+
+
 {{#gall}}
 	<span class="profileImg">
 		<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="Avatar"
@@ -28,7 +33,7 @@
 	</span>
 	<div class="w3-row-padding" style="margin: 0 -16px">
 		<div class="w3-half">
-			<img src="${pageContext.request.contextPath}/resources/img/logo2.png" style="width: 100%"
+			<img src="${pageContext.request.contextPath}/{{gb_File}}" style="width: 100%"
 				alt="Northern Lights" class="w3-margin-bottom">
 		</div>
 	</div>

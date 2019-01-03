@@ -2,6 +2,85 @@
 var fileTemplate = Handlebars.compile($("#fileTemplate").html());
 
 
+$(document).ready(function(){
+	$(".file-area").on("dragenter dragover",function(e){
+		e.preventDefault();
+	});
+	
+	$('input[type="file"]').on('change', function(e){
+		e.preventDefault();
+		
+		var file = e.target.files[0];
+		console.log(file);
+		var formData = new FormData();
+				
+		formData.append("file",file);
+		
+		console.log(formData);
+		
+		$.ajax({
+			type : "POST",
+			url :"/TeamPro/gallery/imgupload",
+			data : formData,
+			datatype: "text",
+			contentType: false,
+			processData: false,
+			success : function(data){
+				console.log(data);
+				printFiles(data);
+				$(".noAttach").remove();
+			}
+		});
+	});
+	
+	$(".file-area").on("drop", function(e){
+		e.preventDefault();
+		
+		var files = e.originalEvent.dataTransfer.files;
+		var file = files[0];
+		console.log(file);
+		var formData = new FormData();
+				
+		formData.append("file",file);
+		
+		console.log(formData);
+		
+		$.ajax({
+			type : "POST",
+			url :"/TeamPro/gallery/imgupload",
+			data : formData,
+			datatype: "text",
+			contentType: false,
+			processData: false,
+			success : function(data){
+				console.log(data);
+				printFiles(data);
+				$(".noAttach").remove();
+			}
+		});
+	});
+	
+	$(".uploadedFileList").on("click",".delBtn", function(e) {
+		e.preventDefault();
+		var that = $(this);
+		$.ajax({
+			type : "POST",
+			url :"/TeamPro/gallery/delete",
+			data : {fileName: that.attr("href")},
+			datatype : "text",
+			success : function(result){
+				if(result == "DELETED"){
+					alert("삭제되었습니다.");
+					that.parents("li").remove();
+				}
+			}
+		});
+		
+	});	
+});
+
+
+
 function checkImageType(fileName){
 	var pattern = /jpg|gif|png|jpeg/i;
 	
@@ -10,12 +89,12 @@ function checkImageType(fileName){
 
 function getFileInfo(fullName){
 	//원본파일, 이미지경로, 원본파일경로,저장파일명 변수 선언
-	var originalFileName,imgSrc,originalFileUrl,uuidFileName;
+	var originalFileName,imgSrc,originalFileUrl,uuidFileName,originalImg;
 	
 	if(checkImageType(fullName)){
 		imgSrc="display?fileName="+fullName;
 		uuidFileName = fullName.substr(14);
-		var originalImg = fullName.substr(0,12)+fullName.substr(14);
+		originalImg = fullName.substr(0,12)+fullName.substr(14);
 		
 		//원본이미지 링크
 		originalFileUrl = "display?fileName="+originalImg;

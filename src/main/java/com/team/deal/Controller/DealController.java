@@ -14,7 +14,7 @@ import com.team.deal.DTO.DealDTO;
 import com.team.deal.Service.DealService;
 
 @Controller
-@RequestMapping("/deal/*")
+@RequestMapping("{id}/deal/*")
 public class DealController {
 	@Inject
 	DealService dealService;
@@ -66,6 +66,6 @@ public class DealController {
 		return "redirect:list.do";
 	}
 	
-	
+
 
 }

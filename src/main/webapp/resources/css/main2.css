@@ -11,6 +11,9 @@
 	background-size: cover; 
 }
 body{font-family:'Nanum Gothic', sans-serif;}
+.main_form{
+	display: table; margin-left: auto; margin-right: auto;	 	
+}
 
 /* header */
 #header{width: 100%;

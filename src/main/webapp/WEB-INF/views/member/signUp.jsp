@@ -1,86 +1,130 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+    pageEncoding="UTF-8"%>   
     <!-- 스프링 프레임웍에서 제공해주는 form태그 사용을 위한 선언 -->
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-.board_list {width: 500px; margin: 0 auto;}
-.msg{font-size: 10pt; color: red;}
-</style>
 <meta charset="UTF-8">
-<title>회원가입</title>
-	
+<title>BabyParent | Sign Up</title>	
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- CSS -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signup.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<!-- font -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet"> 
 	<script type="text/javascript">
-	
 	 // 취소 버튼 클릭시 첫화면으로 이동
     function goFirstForm() {
         location.href="login";
     }
 	</script>
 </head>
-
-<body>
-	<table class="board_list">
-<form:form action="insertOk" method="post" commandName="member">		
-		<tbody>
-			<tr>
-				<th scope="row">이름</th>
-				<td><form:input path="NAME" maxlength="50" />
-					<form:errors path="NAME" cssClass="msg"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<th scope="row">아이디</th>
-				<td><form:input path="ID" maxlength="50" />
-					<form:errors path="ID" cssClass="msg"/></td>
-				<td><input type="button" value="중복확인" id="checkSignup"></td>
-			</tr>
-			<tr>
-				<th scope="row">비밀번호</th>
-				<td>
-					<form:input path="PWD" maxlength="20"/>
-					<form:errors path="PWD" cssClass="msg"/>
-				</td>
-				<td></td>
-			</tr>
-			<tr>
-				<th scope="row">전화번호</th>
-					<td>
-						<form:input path="PHONE" maxlength="20"/>
-						<form:errors path="PHONE" cssClass="msg"/>
-					</td>
-				<td></td>
-			</tr>
-			<tr>
-				<th scope="row">이메일</th>
-					<td>
-						<form:input path="EMAIL" maxlength="50"/>
-						<form:errors path="EMAIL" cssClass="msg"/>
-					</td>
-				<td></td>
-			</tr>
-			<tr>
-				<th scope="row">생년월일</th>
-					<td>
-						<form:input path="BIRTH" maxlength="20"/>
-						<form:errors path="BIRTH" cssClass="msg"/>
-					</td>
-				<td></td>
-			</tr>
-			
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="3">
-					<input type="submit" value="등록">&nbsp;&nbsp;
-					<input type="button" value="취소" onclick="goFirstForm()">
-			</tr>
-		</tfoot>
-		</form:form>
-	</table>
+<body class="main">
+<!-- Header -->
+	<jsp:include page="../layout/header.jsp"/>
+<!-- END Header -->
+	<div class="w3-col m3" id="signupArea" align="center">
+      <!-- Profile -->
+      	<div class="w3-card w3-round w3-white" style="width:550px; padding: 30px 0 30px 30px;">
+        	<div class="w3-container">
+				<table id="signupTable">
+					<form:form action="insertOk" method="post" commandName="member">		
+							<tbody style="width: 100%;">
+								<tr>
+									<th scope="row">이름</th>
+									<td>
+										<form:input class="signupInput" path="NAME" maxlength="13"/>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="2">
+										<form:errors path="NAME" cssClass="msg"/>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">아이디</th>
+									<td>
+										<form:input class="signupInput" path="ID" maxlength="20" />
+										<input type="button" value="중복확인" id="checkSignup">
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="2">
+										<form:errors path="ID" cssClass="msg"/>
+									</td>	
+								</tr>
+								<tr>
+									<th scope="row">비밀번호</th>
+									<td>
+										<form:input class="signupInput" path="PWD" maxlength="20"/>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="2">
+										<form:errors path="PWD" cssClass="msg"/>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">전화번호</th>
+									<td>
+										<form:input class="signupInput" path="PHONE" maxlength="12"/>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="2">
+										<form:errors path="PHONE" cssClass="msg"/>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">이메일</th>
+									<td>
+										<form:input class="signupInput" path="EMAIL" maxlength="50"/>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="2">
+										<form:errors path="EMAIL" cssClass="msg"/>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">생년월일</th>
+									<td>
+										<form:input class="signupInput" path="BIRTH" maxlength="9"/>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td colspan="2">
+										<form:errors path="BIRTH" cssClass="msg"/>
+									</td>
+								</tr>						
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3" align="center" style="margin-top: 10px;">
+										<input type="submit" id="checkBtn" value="등록">
+										<input type="button" id="cancelBtn" value="취소" onclick="goFirstForm()">
+									</td>
+								</tr>
+							</tfoot>
+					</form:form>
+				</table>
+		   	</div>
+		</div>
+	</div>
+<!-- js 파일 -->
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 </body>
 </html>

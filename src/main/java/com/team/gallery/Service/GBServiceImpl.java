@@ -22,6 +22,12 @@ public class GBServiceImpl implements GBService {
 		gdao.insert(gvo);
 	
 	}
+	
+	@Override
+	public int maxNum(galleryVO gvo) {
+		// TODO Auto-generated method stub
+		return gdao.maxNum(gvo);
+	}
 
 	@Override
 	public List<galleryVO> GetMyGalleryList(String my_id) {

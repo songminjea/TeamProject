@@ -84,9 +84,6 @@ public class MemberController {
 		}
 	}
 	
-	
-	
-	
 	@RequestMapping("/search")
 	public String MemberSearch(@RequestParam String keyword, HttpSession session ,Model model) {
 		//System.out.println(keyword);
@@ -127,7 +124,6 @@ public class MemberController {
 		
 		return "main.jsp?center=member/search";
 	}
-	
-	
-	
+
 }
+

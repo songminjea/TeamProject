@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
-
+<body>
     <div class="w3-col m3" style="max-width: 320px;">
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="padding: 20px;">
@@ -21,7 +21,7 @@
          </div>
          <hr>
         <%-- 회원 정보 --%>
-        <div class="member_icon" style="font-weight: 500; font-size: 15px;">
+        <div class="member_icon" style="font-weight: 500; font-size: 15px;" align="left">
 	         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${profile.NAME}</p>
 	         <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> ${profile.EMAIL}</p>
 	         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> ${profile.BIRTH}</p>
@@ -42,23 +42,19 @@
       <br>     
       <!-- 팔로우 추천 목록 -->
       <c:if test="${!empty member.ID}"> 
-	      <div class="w3-card w3-round w3-white w3-hide-small" style="padding: 10px;">
-	      	<h3 style="text-align: center;">팔로우 추천</h3>
-	      	<br>
-	        <hr class="w3-clear" style="margin: 5px 0 20px;">
-	        <div class="w3-container" id="small_recommend_list">
-		        	
+	      <div class="w3-card w3-round w3-white w3-hide-small" style="padding: 30px 10px;">
+	      	<h4 style="text-align: center; color: #1d2c52; margin-bottom: 10px;">Recommend Follow</h4>
+	        <hr class="w3-clear" style="margin: 5px 20px 20px;">
+	        <div class="w3-container" id="small_recommend_list">	        	
 	        </div>
 	      </div>
       </c:if>
-      
-
       <br>
     </div>
 <script id="s_recom_follow-template" type="text/x-handlebars-template">
 {{#s_r_list}}
 	<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" 
-	        	alt="defaultImage" class="w3-left w3-circle w3-margin-right" style="max-width: 100%; max-height: 40px;">
+	        	alt="defaultImage" class="w3-left w3-circle w3-margin-right" style="max-width: 100%; max-height: 50px;">
 	        	<span class="w3-right smallSizeFont">
 					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbtn_{{following_id}}"
 						value='{{following_id}}'>팔로우
@@ -68,13 +64,14 @@
 						<span>팔로잉</span> <span>언팔로우</span>
 					</button>
 				</span>
-	        	<h4>
+	        	<font style="font-size: 18px; font-weight: 600; margin: 0 10px;">
 					<a href="${pageContext.request.contextPath}/{{following_id}}/gallery"><span class="writerId">{{following_id}}</span></a>
-				</h4>	        	
-				<br>
-	        	<hr class="w3-clear" style="margin: 5px 0 20px;">
+				</font>	        	
+				<br><div class="w3-clear" style="margin: 5px 20px 10px;"></div>
+
 {{/s_r_list}}
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script> --%>
+</body>

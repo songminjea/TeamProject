@@ -13,12 +13,12 @@
 					<h3>구글 로그인 확인</h3>
 					<div id="google_id_login" style="text-align:center">
 						<a href="${google_url} ">
-							구글로그인 하겠습니다
+							구글 로그인 하겠습니다
 						</a>
 					</div>
 					<div id="google_id_login" style="text-align:center">
-						<a href="http://localhost:8080/TeamPro/login">
-							구글로그인 취소합니다.
+						<a href="${pageContext.request.contextPath}/${member.ID}/login">
+							구글 로그인 취소합니다.
 						</a>
 					</div>
 </body>

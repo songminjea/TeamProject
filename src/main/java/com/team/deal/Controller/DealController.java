@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,27 +19,27 @@ import com.team.deal.Service.DealService;
 public class DealController {
 	@Inject
 	DealService dealService;
-	//ï¿½Û¸ï¿½ï¿½
-	@RequestMapping("list")
+	//±Û¸ñ·Ï
+	@RequestMapping("list.do")
 	public String dealList(Model model) throws Exception{
 		List<DealDTO> list =dealService.dealList();
 		model.addAttribute("list", list);
 		return "deal/deal_list";
 	}
 
-	//ï¿½Û¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//±Û¾²±âÆäÀÌÁö·Î
 	@RequestMapping("write")
 	public String writePage() {
 		return "deal/write";
 	}
-	//ï¿½Û¾ï¿½ï¿½ï¿½
+	//±Û¾²±â
 	@RequestMapping(value="insert.do", method=RequestMethod.POST)
 	public String dealWriter(DealDTO ddto) throws Exception{
 		dealService.writerDeal(ddto);
 		return "redirect:list.do";
 	}
 	
-	//ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//±Û »ó¼¼ ³»¿ë
 	@RequestMapping(value="read.do", method=RequestMethod.GET)
 	public String dealRead(@RequestParam int DEAL_NUM,Model model) throws Exception{
 		DealDTO data=dealService.dealRead(DEAL_NUM);
@@ -46,26 +47,26 @@ public class DealController {
 		return "deal/read";
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+	//¼öÁ¤ÆäÀÌÁö·Î ÀÌµ¿
 	@RequestMapping(value="updatepage",method=RequestMethod.GET)
 	public String dealUpdate(@RequestParam int DEAL_NUM,Model model)throws Exception{
 		DealDTO data = dealService.dealRead(DEAL_NUM);
 		model.addAttribute("data",data);
 		return "deal/update";
 	}
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
+	//¼öÁ¤À»ÇÑ´Ù
 	@RequestMapping(value="update.do",method=RequestMethod.POST)
 	public String dealUpdateDo(DealDTO ddto)throws Exception{
 		dealService.updateDeal(ddto);
 		return "redirect:list.do";
 	}
-	//ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//°Ô½Ã±Û »èÁ¦
 	@RequestMapping(value="delete.do",method=RequestMethod.GET)
 	public String dealDelte(@RequestParam int DEAL_NUM)throws Exception{
 		dealService.deleteDeal(DEAL_NUM);
 		return "redirect:list.do";
 	}
 	
-	
+
 
 }

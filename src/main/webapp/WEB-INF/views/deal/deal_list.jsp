@@ -5,375 +5,252 @@
 <!DOCTYPE html>
 <html>
 <title>Baby Parent</title>
+<style>
+.ablack {
+	color: black;
+	text-decoration: none;
+	background-color: transparent;
+	-webkit-text-decoration-skip: objects;
+	
+}
+​
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- CSS -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel='stylesheet'
 	href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-html, body, h1, h2, h3, h4, h5 {
-	font-family: "Open Sans", sans-serif
-}
-</style>
-<link rel="stylesheet" href="../resources/css/main2.css" />
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<body class="w3-theme-l5">
-	<div class="main">
-		<!-- Navbar -->
-		<div class="w3-top">
-			<div class="w3-bar w3-theme-d2 w3-left-align w3-large" id="bar">
-				<div id="icon">
-					<a
-						class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
-						href="javascript:void(0);" onclick="openNav()"><i
-						class="fa fa-bars"></i></a>
-					<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
-					<a href="deal"
-						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-						title="중고거래"><i class="fa fa-globe" style="color: #B0F8EC"></i></a>
-					<a href="#"
-						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-						title="Account Settings"><i class="fa fa-user"
-						style="color: #A0EEEE"></i></a> <a href="#"
-						class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-						title="Messages"><i class="fa fa-envelope"
-						style="color: #A4D5FE"></i></a>
-					<div class="w3-dropdown-hover w3-hide-small">
-						<button class="w3-button w3-padding-large" title="Notifications">
-							<i class="fa fa-bell" style="color: #A3B4FD"></i><span
-								class="w3-badge w3-right w3-small w3-green">3</span>
-						</button>
-						<div class="w3-dropdown-content w3-card-4 w3-bar-block"
-							style="width: 300px">
-							<a href="#" class="w3-bar-item w3-button">One new friend
-								request</a> <a href="#" class="w3-bar-item w3-button">John Doe
-								posted on your wall</a> <a href="#" class="w3-bar-item w3-button">Jane
-								likes your post</a>
-						</div>
-					</div>
-				</div>
-				<div class="baby">
-					<a href="main2"
-						class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><img
-						src="../resources/css/logo2.png" height="50px" class="babylogo"></a>
-				</div>
-				<a href="#"
-					class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"
-					title="My Account"> <img src="/w3images/avatar2.png"
-					class="w3-circle" style="height: 23px; width: 23px" alt="Avatar">
-				</a>
-			</div>
-		</div>
-
-		<!-- Navbar on small screens -->
-		<div id="navDemo"
-			class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-			<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-			<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-			<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-			<a href="#" class="w3-bar-item w3-button w3-padding-large">My
-				Profile</a>
-		</div>
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/main2.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean"
+	rel="stylesheet">
+	
+</head>
+<!-- body -->
+<body class="w3-theme-l5" >
+	<div class="main" style="overflow-y:auto;">
+		<!-- Header -->
+		<jsp:include page="../layout/header.jsp" />
+		<!-- END Header -->
 		<!-- Page Container -->
 		<div class="w3-container w3-content"
-			style="max-width: 1400px; padding-top: 150px">
+			style="max-width: 1600px; padding-top: 120px;">
 			<!-- The Grid -->
 			<div class="w3-row">
 				<!-- Left Column -->
-				<div class="w3-col m3">
-					<!-- Profile -->
-					<div class="w3-card w3-round w3-white">
-						<div class="w3-container">
-							<h4 class="w3-center">My Profile</h4>
-							<p class="w3-center">
-								<img src="../resources/css/baby.jpg" class="w3-circle"
-									style="height: 200px;" alt="Avatar">
-							</p>
-							<hr>
-							<p>
-								<i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
-								Designer, UI
-							</p>
-							<p>
-								<i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
-								London, UK
-							</p>
-							<p>
-								<i
-									class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>
-								April 1, 1988
-							</p>
-						</div>
-					</div>
-					<br>
-
-					<!-- Accordion -->
-					<div class="w3-card w3-round">
-						<div class="w3-white">
-							<button onclick="myFunction('Demo1')"
-								class="w3-button w3-block w3-theme-l1 w3-left-align">
-								<i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My
-								Groups
-							</button>
-							<div id="Demo1" class="w3-hide w3-container">
-								<p>Some text..</p>
-							</div>
-							<button onclick="myFunction('Demo2')"
-								class="w3-button w3-block w3-theme-l1 w3-left-align">
-								<i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My
-								Events
-							</button>
-							<div id="Demo2" class="w3-hide w3-container">
-								<p>Some other text..</p>
-							</div>
-							<button onclick="myFunction('Demo3')"
-								class="w3-button w3-block w3-theme-l1 w3-left-align">
-								<i class="fa fa-users fa-fw w3-margin-right"></i> My Photos
-							</button>
-							<div id="Demo3" class="w3-hide w3-container">
-								<div class="w3-row-padding">
-									<br>
-									<div class="w3-half">
-										<img src="/w3images/lights.jpg" style="width: 100%"
-											class="w3-margin-bottom">
-									</div>
-									<div class="w3-half">
-										<img src="/w3images/nature.jpg" style="width: 100%"
-											class="w3-margin-bottom">
-									</div>
-									<div class="w3-half">
-										<img src="/w3images/mountains.jpg" style="width: 100%"
-											class="w3-margin-bottom">
-									</div>
-									<div class="w3-half">
-										<img src="/w3images/forest.jpg" style="width: 100%"
-											class="w3-margin-bottom">
-									</div>
-									<div class="w3-half">
-										<img src="/w3images/nature.jpg" style="width: 100%"
-											class="w3-margin-bottom">
-									</div>
-									<div class="w3-half">
-										<img src="/w3images/snow.jpg" style="width: 100%"
-											class="w3-margin-bottom">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br>
-
-					<!-- Interests -->
-					<div class="w3-card w3-round w3-white w3-hide-small">
-						<div class="w3-container">
-							<p>Interests</p>
-							<p>
-								<span class="w3-tag w3-small w3-theme-d5">News</span> <span
-									class="w3-tag w3-small w3-theme-d4">W3Schools</span> <span
-									class="w3-tag w3-small w3-theme-d3">Labels</span> <span
-									class="w3-tag w3-small w3-theme-d2">Games</span> <span
-									class="w3-tag w3-small w3-theme-d1">Friends</span> <span
-									class="w3-tag w3-small w3-theme">Games</span> <span
-									class="w3-tag w3-small w3-theme-l1">Friends</span> <span
-									class="w3-tag w3-small w3-theme-l2">Food</span> <span
-									class="w3-tag w3-small w3-theme-l3">Design</span> <span
-									class="w3-tag w3-small w3-theme-l4">Art</span> <span
-									class="w3-tag w3-small w3-theme-l5">Photos</span>
-							</p>
-						</div>
-					</div>
-					<br>
-
-					<!-- Alert Box -->
-					<div
-						class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
-						<span onclick="this.parentElement.style.display='none'"
-							class="w3-button w3-theme-l3 w3-display-topright"> <i
-							class="fa fa-remove"></i>
-						</span>
-						<p>
-							<strong>Hey!</strong>
-						</p>
-						<p>People are looking at your profile. Find out who.</p>
-					</div>
-
-					<!-- End Left Column -->
-				</div>
-
+				<jsp:include page="../layout/side-left.jsp" />
+				<!-- End Left Column -->
 				<!-- Middle Column -->
 				<div class="w3-col m7">
-
 					<div class="w3-row-padding">
 						<div class="w3-col m12">
 							<div class="w3-card w3-round w3-white">
 								<div class="w3-container w3-padding">
-									<br>
+									<div align="center" style="padding: 30px;">
 
-									<h3>중고거래</h3>
-									<div align="center">
-										지역 : <select name="region">
-											<option value="all">전체</option>
-											<option value="seoul">서울</option>
-											<option value="degu">대구</option>
-											<option value="ulsan">울산</option>
-											<option value="busan">부산</option>
-										</select> &nbsp;&nbsp; <input type="text" name="search" size="23"
-											placeholder="원하시는 물건을 입력해주세요."> <input type="button"
-											value="찾아보기">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-										정렬기준 <select name="order">
-											<option value="small">게시판형</option>
-											<option value="image">이미지형</option>
-										</select> <br> <br>
-
-										<table border="1">
-											<tr>
-												<th>번호</th>
-												<th>제목</th>
-												<!-- 내용은 나중에 list페이지에서 삭제 -->
-												<th>내용</th>
-												<th>작성자</th>
-												<th>작성일자</th>
-												<th>조회수</th>
-											</tr>
-											<c:forEach var="row" items="${list}">
+										<h3>중고거래</h3>
+										<c:set var="path" value="${pageContext.request.contextPath}" />
+										<div align="left">
+										<div align="right">
+											<input type="button" value="글쓰기" class="btn btn-info"
+												onclick="location.href='${path }/deal/write'" />
+												</div>
+										정렬기준 <select id="choice">
+												<option value="small">게시판형</option>
+												<option value="image">이미지형</option>
+											</select>
+											지역 : <select name="region">
+												<option value="all">전체</option>
+												<option value="seoul">서울</option>
+												<option value="degu">대구</option>
+												<option value="ulsan">울산</option>
+												<option value="busan">부산</option>
+											</select>
+											
+											</div>
+											<br>
+											<input type="text" class="form-control"
+												id="myInput" size="33" placeholder="원하는 물건,글쓴이를 검색해보세요">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											
+											  <br>
+											<br>
+											<table border="1" id="small" class="table">
 												<tr>
-													<td>${row.DEAL_NUM}</td>
-													<!-- 게시물 조회를 위해서 get방식으로 게시물번호 값을 넘겨줌 -->
-													<td><a href="${path }/deal/read.do?DEAL_NUM=${row.DEAL_NUM}">${row.DEAL_SUBJECT}</a></td>
-													<!-- 내용은 나중에 list페이지에서 삭제 -->
-													<td>${row.DEAL_CONTENT}</td>
-													<td>${row.DEAL_ID}</td>
-													<td>
-														<!-- 만약 오늘이면 HH:mm:ss만 그 밖이면 yyyy-MM-dd만 상세 보기에서는 yyyy-MM-dd HH:mm:ss -->
-														<fmt:formatDate value="${row.DEAL_DATETIME}"
-															pattern="yyyy-MM-dd HH:mm:ss" />
-													</td>
-													<td>${row.DEAL_READCOUNT}</td>
+													<th>번호</th>
+													<th>물건</th>
+													<!-- 내용은 상세페이지에서만-->
+													<th>작성자</th>
+													<th>작성일자</th>
+													<th>조회수</th>
 												</tr>
-											</c:forEach>
-										</table>
-										
-										<br>
-										<input type="button" value="글쓰기" onclick="location.href='${path }/deal/write'"/>
+												<c:forEach var="row" items="${list}">
+													<tr>
+														<td>${row.DEAL_NUM}</td>
+														<!-- 게시물 조회를 위해서 get방식으로 게시물번호 값을 넘겨줌 -->
+														<td><a
+															href="${path }/deal/read.do?DEAL_NUM=${row.DEAL_NUM}"
+															class="ablack">${row.DEAL_SUBJECT}</a></td>
+														<!-- 내용은 나중에 list페이지에서 삭제 -->
+														<td>${row.DEAL_ID}</td>
 
+														<!-- 만약 오늘이면 HH:mm:ss만 그 밖이면 yyyy-MM-dd만 상세 보기에서는 yyyy-MM-dd HH:mm:ss -->
+
+														<%-- 	
+														<!-- 안됨..시스템시간 받아오는법..  -->
+														
+														<c:if test="${row.DEAL_DATETIME eq sysdate}">
+														<td>
+														<fmt:formatDate value="${row.DEAL_DATETIME}"
+															pattern="HH:mm:ss" />
+														</td>
+														</c:if>  --%>
+
+														<td><fmt:formatDate value="${row.DEAL_DATETIME}"
+																pattern="yyyy-MM-dd" /></td>
+
+														<%-- <fmt:formatDate value="${row.DEAL_DATETIME}"
+															pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+
+														<td>${row.DEAL_READCOUNT}</td>
+													</tr>
+												</c:forEach>
+											</table>
+
+											<table id="image">
+												<c:forEach var="row" items="${list}">
+													<tr>
+														<td>
+															<div class="card" style="width: 400px">
+																<img class="card-img-top"
+																	src="https://cdn.pixabay.com/photo/2014/10/01/10/44/hedgehog-468228_960_720.jpg"
+																	alt="Card image" style="width: 100%">
+																<div class="card-body">
+																	<h4 class="card-title">${row.DEAL_SUBJECT}</h4>
+																	<p class="card-text">일단은 실험..</p>
+																	<a
+																		href="${path }/deal/read.do?DEAL_NUM=${row.DEAL_NUM}"
+																		class="btn btn-primary">자세히보기</a>
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="card" style="width: 400px">
+																<img class="card-img-top"
+																	src="https://cdn.pixabay.com/photo/2014/05/20/21/20/easter-349026_960_720.jpg"
+																	alt="Card image" style="width: 100%">
+																<div class="card-body">
+																	<h4 class="card-title">팝니다</h4>
+																	<p class="card-text">
+																		데이터 받아오기 언제해<br>글자를 길게 적으면 어떻게 되는지 보자.<br>커지네..안돼
+																		그.. 점점점 처리로 바꿔야겠어
+																	</p>
+																	<a href="#" class="btn btn-primary">자세히보기</a>
+																</div>
+															</div>
+														</td>
+
+													</tr>
+													<tr>
+														<td>
+															<div class="card" style="width: 400px">
+																<img class="card-img-top"
+																	src="https://cdn.pixabay.com/photo/2014/11/30/14/11/kitty-551554_960_720.jpg"
+																	alt="Card image" style="width: 100%">
+																<div class="card-body">
+																	<h4 class="card-title">John Doe</h4>
+																	<p class="card-text">Some example text some example
+																		text. John Doe is an architect and engineer</p>
+																	<a href="#" class="btn btn-primary">See Profile</a>
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="card" style="width: 400px">
+																<img class="card-img-top" src="img_avatar1.png"
+																	alt="Card image" style="width: 100%">
+																<div class="card-body">
+																	<h4 class="card-title">John Doe</h4>
+																	<p class="card-text">Some example text some example
+																		text. John Doe is an architect and engineer</p>
+																	<a href="#" class="btn btn-primary">See Profile</a>
+																</div>
+															</div>
+														</td>
+
+													</tr>
+												</c:forEach>
+
+
+											</table>
+
+										<br> <br> <br>
 									</div>
-									<br>
-									<br>
-									<br>
-
-
 								</div>
 							</div>
 						</div>
 					</div>
-
-
-
 					<!-- End Middle Column -->
 				</div>
-
 				<!-- Right Column -->
-				<div class="w3-col m2">
-					<div class="w3-card w3-round w3-white w3-center">
-						<div class="w3-container">
-							<p>Upcoming Events:</p>
-							<img src="/w3images/forest.jpg" alt="Forest" style="width: 100%;">
-							<p>
-								<strong>Holiday</strong>
-							</p>
-							<p>Friday 15:00</p>
-							<p>
-								<button class="w3-button w3-block w3-theme-l4">Info</button>
-							</p>
-						</div>
-					</div>
-					<br>
-
-					<div class="w3-card w3-round w3-white w3-center">
-						<div class="w3-container">
-							<p>Friend Request</p>
-							<img src="/w3images/avatar6.png" alt="Avatar" style="width: 50%"><br>
-							<span>Jane Doe</span>
-							<div class="w3-row w3-opacity">
-								<div class="w3-half">
-									<button class="w3-button w3-block w3-green w3-section"
-										title="Accept">
-										<i class="fa fa-check"></i>
-									</button>
-								</div>
-								<div class="w3-half">
-									<button class="w3-button w3-block w3-red w3-section"
-										title="Decline">
-										<i class="fa fa-remove"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br>
-
-					<div class="w3-card w3-round w3-white w3-padding-16 w3-center">
-						<p>ADS</p>
-					</div>
-					<br>
-
-					<div class="w3-card w3-round w3-white w3-padding-32 w3-center">
-						<p>
-							<i class="fa fa-bug w3-xxlarge"></i>
-						</p>
-					</div>
-
-					<!-- End Right Column -->
-				</div>
-
+				<jsp:include page="../layout/side-right.jsp"></jsp:include>
+				<!-- End Right Column -->
 				<!-- End Grid -->
 			</div>
 		</div>
-		<!-- End Page Container -->
 	</div>
-	<br>
+	<!-- End Page Container -->
+	<!-- js 파일 -->
+	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+	<script type="text/javascript">
+	$(document).ready(
+			function() {
 
-	<!-- Footer -->
-	<footer class="w3-container w3-theme-d3 w3-padding-16">
-		<h5>Footer</h5>
-	</footer>
+				$("#image").hide();
 
-	<footer class="w3-container w3-theme-d5">
-		<p>
-			Powered by <a href="https://www.w3schools.com/w3css/default.asp"
-				target="_blank">w3.css</a>
-		</p>
-	</footer>
+				$("#choice").change(function() {
+					if ($("#choice").val() == 'image') {
+						$("#small").hide();
+						$("#image").show();
+					} else {
+						$("#image").hide()
+						$("#small").show();
+					}
+				});
 
-	<script>
-		// Accordion
-		function myFunction(id) {
-			var x = document.getElementById(id);
-			if (x.className.indexOf("w3-show") == -1) {
-				x.className += " w3-show";
-				x.previousElementSibling.className += " w3-theme-d1";
-			} else {
-				x.className = x.className.replace("w3-show", "");
-				x.previousElementSibling.className = x.previousElementSibling.className
-						.replace(" w3-theme-d1", "");
-			}
-		}
+				$("#myInput").on(
+						"keyup",
+						function() {
+							var value = $(this).val().toLowerCase();
+							$("#small tr").filter(
+									function() {
+										$(this).toggle(
+												$(this).text().toLowerCase()
+														.indexOf(value) > -1)
+									});
+							$("#image tr").filter(
+									function() {
+										$(this).toggle(
+												$(this).text().toLowerCase()
+														.indexOf(value) > -1)
+									});
+						});
+				
+				
 
-		// Used to toggle the menu on smaller screens when clicking on the menu button
-		function openNav() {
-			var x = document.getElementById("navDemo");
-			if (x.className.indexOf("w3-show") == -1) {
-				x.className += " w3-show";
-			} else {
-				x.className = x.className.replace(" w3-show", "");
-			}
-		}
-	</script>
-
+			})
+</script>
+	
+	<script
+		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 </body>
 </html>

@@ -32,4 +32,15 @@
 	delete from tb_deal where deal_num=#{DEAL_NUM}
 </delete>
 
+<select id="dealListWithPaging" resultType="com.team.deal.DTO.DealDTO">
+	<![CDATA[
+		select deal_num,deal_id,deal_subject,deal_content,deal_region,deal_img,deal_readcount,deal_datetime
+		from tb_deal
+		where deal_num>0
+		order by deal_num desc, deal_datetime desc
+		limit #{pageNum},#{amount}
+	]]>
+	
+</select>
+
 </mapper>

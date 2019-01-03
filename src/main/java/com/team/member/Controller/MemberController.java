@@ -1,5 +1,6 @@
 package com.team.member.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.team.member.Service.MemberServiceImpl;
@@ -74,6 +76,24 @@ public class MemberController {
 		}
 	}
 	
+	
+	
+	
+	@RequestMapping("/search")
+	public String MemberSearch(@RequestParam String keyword, Model model) {
+		//System.out.println(keyword);
+
+		List<MemberVO> member = memberService.GetSearchMember(keyword);
+		
+		/*for(MemberVO vv : member) {
+			System.out.println(vv.getID());
+		}*/
+		
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("search_Mem", member);
+		
+		return "main.jsp?center=member/search";
+	}
 	
 	
 	

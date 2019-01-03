@@ -73,3 +73,10 @@ a{
 		  font-weight: 600;	
 }		
 
+
+/* 검색창 */
+#search_keyword{
+
+  border: 2px solid #6297ff;
+  border-radius: 4px;
+}

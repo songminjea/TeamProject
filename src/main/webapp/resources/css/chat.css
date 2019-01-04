@@ -1,0 +1,20 @@
+@charset "UTF-8";
+#positionLayer{
+	overflow-y: auto; 
+	width: 370px; 
+	height: 450px; 
+	position: fixed; 
+	right: 0; 
+	bottom: 0; 
+	z-index: 10000; 
+	border: none; 
+	text-align: center;
+}
+#chat_title{background-color: #4497fd;}
+#chatBtnSend{font-size:18px; 
+			 font-weight:600; 
+			 background-color: #4497fd; 
+			 border-radius: 5px;
+			 border: 1px solid #4497fd;
+			 color:#ffffff; 
+			 width: 100%;}

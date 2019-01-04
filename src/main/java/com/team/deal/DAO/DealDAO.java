@@ -2,7 +2,9 @@ package com.team.deal.DAO;
 
 import java.util.List;
 
+import com.team.deal.DTO.Criteria;
 import com.team.deal.DTO.DealDTO;
+
 
 public interface DealDAO {
 	//게시물 목록보기
@@ -18,4 +20,8 @@ public interface DealDAO {
 		
 		//삭제
 		public void dealDelete(int DEAL_NUM) throws Exception;
+
+		/*public List<DealDTO> dealListWithPaging(Criteria cri);*/
+		
+		
 }

@@ -32,7 +32,7 @@
 <!-- END Header -->
 
 <!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1600px;padding-top:120px;" align="center">    
+<div class="w3-container w3-content" style="max-width:1600px;padding-top:120px;">    
   <!-- The Grid -->
   <div class="w3-row">
     <!-- Left Column -->
@@ -77,6 +77,15 @@ function openNav() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+
+$(document).ready(function(){
+	$("#search_confirm").on("click", function(){
+		var keyword = $("#search_keyword").val();
+		
+		location.href="${pageContext.request.contextPath}/search?keyword="+keyword;
+	});
+});
+
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>

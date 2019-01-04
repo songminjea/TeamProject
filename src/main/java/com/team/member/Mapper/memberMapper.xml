@@ -28,5 +28,13 @@
 		SET PIC = #{PIC}
 		WHERE ID = #{ID}
 	</update>
+	
+	<select id="GetSearchMemberList" resultType="com.team.member.VO.MemberVO">
+		select *
+		from MEMBER
+		where ID like CONCAT("%",#{id},"%")
+	</select>
+	
+	
   
 </mapper>

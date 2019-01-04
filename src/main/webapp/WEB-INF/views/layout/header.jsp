@@ -32,7 +32,7 @@
 								title="Send Message"><i class="fa fa-envelope"
 								id="message_i"></i></a> <a href="#"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/multiChat', 'multiChat', 'width=370, height=450')"
+								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/multiChat', 'multiChat', 'width=400, height=650')"
 								title="Chat"><i class="fa fa-weixin" id="chat_i"
 								aria-hidden="true"></i></a>
 							<%-- 새 글 알림 --%>
@@ -101,7 +101,7 @@
 					<div class="w3-dropdown-content w3-card-4 w3-bar-block" id="dropdown_menu" align="center" style="width:120px;">
 					     <a href="#" class="w3-bar-item w3-button" onclick="goMypage()">회원정보 수정</a>
 					     <a href="${pageContext.request.contextPath}/${member.ID}/gallery" class="w3-bar-item w3-button">내 게시물 확인</a>
-					     <a href="${pageContext.request.contextPath}/${member.ID}/follower" class="w3-bar-item w3-button">팔로우</a>
+					     <a href="${pageContext.request.contextPath}/${member.ID}/follower" class="w3-bar-item w3-button">팔로우 관리</a>
 					     <a href="${pageContext.request.contextPath}/logout" onclick="return confirm('로그아웃하시겠습니까?')" class="w3-bar-item w3-button">Logout</a>
 					</div>		
 				</div>

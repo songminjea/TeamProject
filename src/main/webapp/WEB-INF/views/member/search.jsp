@@ -15,9 +15,9 @@ margin: 0px 10px 10px 10px;
 <body>
 	<div class=" w3-row-padding" style="text-align: left;">
 		<c:if test="${empty search_Mem}">
-			<div class="w3-col m12 w3-card w3-round w3-white">
-				<div class="w3-container">
-					<h1>${keyword}로 검색한 결과가 없습니다.</h1>
+			<div class="w3-col m12 w3-card w3-round w3-white" style="padding: 50px 30px;">
+				<div class="w3-container" align="center">
+					<h4 style="font-weight: 500; color: #1d2c52;">${keyword}로 검색한 결과가 없습니다.</h4>
 				</div>
 			</div>
 		</c:if>

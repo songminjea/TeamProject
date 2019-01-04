@@ -16,6 +16,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gallery.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css"/> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css"/>
+<!-- 썸머노트 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
@@ -26,7 +33,7 @@
 	<c:if test="${empty center}"> 
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
-<body class="w3-theme-l5 main" style="overflow-x: hidden;">
+<body class="w3-theme-l5 main" style="overflow-x: hidden; overflow-y:auto;">
 
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>
@@ -86,6 +93,41 @@ $(document).ready(function(){
 		
 		location.href="${pageContext.request.contextPath}/search?keyword="+keyword;
 	});
+});
+//게시판
+$(document).ready(
+	function() {
+		$("#image").hide();
+			$("#choice").change(function() {
+				if ($("#choice").val() == 'image') {
+					$("#small").hide();
+					$("#image").show();
+				} else {
+					$("#image").hide()
+					$("#small").show();
+				}
+			});
+		$("#myInput").on(
+			"keyup",
+				function() {
+					var value = $(this).val().toLowerCase();
+					$("#small tr").filter(
+						function() {
+							$(this).toggle(
+								$(this).text().toLowerCase().indexOf(value) > -1)
+						});
+					$("#image tr").filter(
+						function() {
+							$(this).toggle(
+								$(this).text().toLowerCase().indexOf(value) > -1)
+						});
+				});	
+})
+//썸머노트
+$('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 100
 });
 </script>
 <!-- js 파일 -->

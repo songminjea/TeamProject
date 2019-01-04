@@ -13,6 +13,7 @@
    		<typeAlias alias="MemberVO" type="com.team.member.VO.MemberVO" />
 		<typeAlias alias="MessageVO" type="com.team.message.VO.MessageVO" />
 		<typeAlias alias="SendMessageVO" type="com.team.message.VO.SendMessageVO" />
+		<typeAlias alias="DealDTO" type="com.team.deal.DTO.DealDTO" />
 	</typeAliases>
 
 	<!-- <mappers>

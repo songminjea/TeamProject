@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-<title>Baby Parent</title>
+<head>
 <style>
 .ablack {
 	color: black;
@@ -13,54 +11,21 @@
 	-webkit-text-decoration-skip: objects;
 	
 }
-​
+
 </style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- CSS -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel='stylesheet'
-	href='https://fonts.googleapis.com/css?family=Open+Sans'>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/main2.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-<!-- font -->
-<link
-	href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean"
-	rel="stylesheet">
-	
 </head>
-<!-- body -->
-<body class="w3-theme-l5" >
-	<div class="main" style="overflow-y:auto;">
-		<!-- Header -->
-		<jsp:include page="../layout/header.jsp" />
-		<!-- END Header -->
-		<!-- Page Container -->
-		<div class="w3-container w3-content"
-			style="max-width: 1600px; padding-top: 120px;">
-			<!-- The Grid -->
-			<div class="w3-row">
-				<!-- Left Column -->
-				<jsp:include page="../layout/side-left.jsp" />
-				<!-- End Left Column -->
-				<!-- Middle Column -->
-				<div class="w3-col m7">
 					<div class="w3-row-padding">
 						<div class="w3-col m12">
 							<div class="w3-card w3-round w3-white">
 								<div class="w3-container w3-padding">
 									<div align="center" style="padding: 30px;">
 
-										<h3>중고거래</h3>
+										<h4>중고거래</h4>
 										<c:set var="path" value="${pageContext.request.contextPath}" />
 										<div align="left">
 										<div align="right">
 											<input type="button" value="글쓰기" class="btn btn-info"
-												onclick="location.href='${path }/deal/write'" />
+												onclick="location.href='${path}/${member.ID}/deal/write'"/>
 												</div>
 										정렬기준 <select id="choice">
 												<option value="small">게시판형</option>
@@ -96,7 +61,7 @@
 														<td>${row.DEAL_NUM}</td>
 														<!-- 게시물 조회를 위해서 get방식으로 게시물번호 값을 넘겨줌 -->
 														<td><a
-															href="${path }/deal/read.do?DEAL_NUM=${row.DEAL_NUM}"
+															href="${path}/${member.ID}/deal/read?DEAL_NUM=${row.DEAL_NUM}"
 															class="ablack">${row.DEAL_SUBJECT}</a></td>
 														<!-- 내용은 나중에 list페이지에서 삭제 -->
 														<td>${row.DEAL_ID}</td>
@@ -197,60 +162,3 @@
 							</div>
 						</div>
 					</div>
-					<!-- End Middle Column -->
-				</div>
-				<!-- Right Column -->
-				<jsp:include page="../layout/side-right.jsp"></jsp:include>
-				<!-- End Right Column -->
-				<!-- End Grid -->
-			</div>
-		</div>
-	</div>
-	<!-- End Page Container -->
-	<!-- js 파일 -->
-	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-	<script type="text/javascript">
-	$(document).ready(
-			function() {
-
-				$("#image").hide();
-
-				$("#choice").change(function() {
-					if ($("#choice").val() == 'image') {
-						$("#small").hide();
-						$("#image").show();
-					} else {
-						$("#image").hide()
-						$("#small").show();
-					}
-				});
-
-				$("#myInput").on(
-						"keyup",
-						function() {
-							var value = $(this).val().toLowerCase();
-							$("#small tr").filter(
-									function() {
-										$(this).toggle(
-												$(this).text().toLowerCase()
-														.indexOf(value) > -1)
-									});
-							$("#image tr").filter(
-									function() {
-										$(this).toggle(
-												$(this).text().toLowerCase()
-														.indexOf(value) > -1)
-									});
-						});
-				
-				
-
-			})
-</script>
-	
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-</body>
-</html>

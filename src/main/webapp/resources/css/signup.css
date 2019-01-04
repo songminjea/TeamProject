@@ -12,7 +12,6 @@
     	 	-webkit-justify-content:center;    	 	
 }
 #signupArea tfoot{text-align: center;}
-#signupArea th{width: 20%;}
 #signupTable{width: 95%;}
 .signUp_agree_textarea{text-align: center;}
 .signUp_agree_textarea textarea,

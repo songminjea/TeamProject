@@ -2,6 +2,7 @@ package com.team.message.Service;
 
 import java.util.List;
 
+import com.team.member.VO.MemberVO;
 import com.team.message.VO.MessageVO;
 import com.team.message.VO.SendMessageVO;
 
@@ -12,7 +13,10 @@ public interface MessageService {
 	
 	//내가 보낸 쪽지
 	public List<SendMessageVO> sendListAll()throws Exception;
-
+	
+	//쪽지 개수
+	public int countList(MemberVO memberVO)throws Exception;
+		
 	//쪽지 작성
 	public void create(MessageVO mvo)throws Exception;
 	

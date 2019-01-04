@@ -74,7 +74,7 @@ public class MemberController {
 		model.addAttribute("profile", memVO);
 		model.addAttribute("member",memberService.getMember(ID));
 		
-		return "member/mypage";
+		return "main.jsp?center=member/mypage";
 	}
 	
 	@RequestMapping("/mypageOk")

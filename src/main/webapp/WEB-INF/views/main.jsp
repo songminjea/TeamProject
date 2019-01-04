@@ -13,6 +13,7 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css"/> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gallery.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css"/> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css"/>

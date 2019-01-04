@@ -32,7 +32,7 @@ function ShowGallery(id, isMyGall){
 				$("#gallery_list").append(html);
 				TimeFormat();
 			} else{
-				$("#gallery_list").append("<h1>글좀 써주세요... 싫음 말고</h1>");
+				$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
 			}
 		}
 		

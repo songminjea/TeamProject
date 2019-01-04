@@ -67,7 +67,7 @@ function getFollowList(my_id, page_id, pageType) {
 			
 			if(result.length == 0){
 				if(isDetach == true)
-					$("#follow_list").append("<h1>저런! 친구가 없으시네요!</h1>");
+					$("#follow_list").append("<h4 style='color: #1d2c52;'>저런! 친구가 없으시네요!</h4>");
 			}else{
 				var source = $("#follow-template").html();
 				var template = Handlebars.compile(source);

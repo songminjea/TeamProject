@@ -17,7 +17,6 @@
 						id="getfollower_Btn">
 						<i class="fa fa-thumbs-up"></i> 팔로워
 					</button>
-
 					<button type="button" class="w3-button w3-theme-d1"
 						<%-- onclick="getFollowingList('${member.ID}' , '${page_id}')" --%>
 						id="getfollowing_Btn">

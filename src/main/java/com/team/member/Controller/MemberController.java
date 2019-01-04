@@ -23,6 +23,7 @@ import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
+import com.team.message.Service.MessageService;
 
 @Controller
 @SessionAttributes("member")
@@ -30,6 +31,9 @@ public class MemberController {
 
 	@Autowired
 	MemberServiceImpl memberService;
+	
+	@Autowired
+	MessageService messageService;
 	
 	@Autowired
 	FollowService followService;
@@ -69,7 +73,7 @@ public class MemberController {
 	@RequestMapping("{ID}/mypage")
 	public String mypageMember(@PathVariable String ID, HttpSession session, Model model) {
 		MemberVO vo = memberService.getMember(ID);
-		model.addAttribute("profile",vo);
+		
 		
 		MemberVO sessionVO = (MemberVO)session.getAttribute("member");
 		
@@ -78,13 +82,15 @@ public class MemberController {
 			return "redirect:/main";
 		}
 		//model.addAttribute("member",vo);
-		
-		return "member/mypage";
+		model.addAttribute("profile",vo);
+		return "main.jsp?center=member/mypage";
 	}
 	
 	@RequestMapping("/mypageOk")
-	public String mypageOk(@Valid MemberVO member,BindingResult result, Map<String, BindingResult> model) {
+	public String mypageOk(@Valid MemberVO member,BindingResult result, Map<String, BindingResult> model, Model mo, HttpSession session) {
 		
+		MemberVO proMem = (MemberVO)session.getAttribute("member");
+		mo.addAttribute("profile", proMem);
 		model.put(BindingResult.class.getName()+".member", result);
 		if(result.hasErrors()) {
 			System.out.println(result.toString());
@@ -98,9 +104,21 @@ public class MemberController {
 	
 	//search?keyword=~~~ 로 요청시 처리
 	@RequestMapping("/search")
-	public String getSearchList(@RequestParam String keyword, HttpSession session ,Model model) {
-		model.addAttribute("profile", (MemberVO) session.getAttribute("member"));
+	public String getSearchList(@RequestParam String keyword, HttpSession session ,Model model) throws Exception {
+	
+		
+		
+		// 로그인 여부 체크하기 위해 세션값 받아옴.
+		MemberVO memVO = (MemberVO)session.getAttribute("member");
+		
+		// 로그인 되어있는 상태에서만 값을 보내준다.
+		if(memVO != null) {		
+			int count = messageService.countList(memVO);
+			model.addAttribute("profile", memVO);
+			model.addAttribute("messageCount", count);
+		}
 		model.addAttribute("keyword", keyword);
+		
 		
 		return "main.jsp?center=member/search";
 	}
@@ -125,6 +143,8 @@ public class MemberController {
 		// 로그인 여부 체크하기 위해 세션값 받아옴.
 		MemberVO memVO = (MemberVO)session.getAttribute("member");
 		
+		
+		
 		// 팔로우 여부를 맵으로 저장. <아이디, 팔로우여부>
 		List<Map<String, String>> searchInfoList = new ArrayList<>();
 		
@@ -133,20 +153,22 @@ public class MemberController {
 		for (MemberVO temp : member) {
 			Map<String, String> tempMap = new HashMap<>();
 			String isFollowed = "";
+			
+			
+				
 			// 세션 member가 존재할때. = 로그인 되어있을때만.
 			if (memVO != null) {
-				
+				// temp의 ID가 로그인된 ID와 같으면 무시한다.
+				if (memVO.getID().equals(temp.getID()))
+					continue;
 				
 
 				FollowVO fVo = new FollowVO();
 				fVo.setFollower_id(memVO.getID());
 				fVo.setFollowing_id(temp.getID());
+				isFollowed = String.valueOf(followService.IsFollowing(fVo));
+				
 
-				// temp의 ID가 로그인된 ID와 같으면 팔로우 여부를 체크 할 필요없다.
-				if (memVO.getID().equals(temp.getID()))
-					tempMap.put("isFollowed", "");
-				else
-					isFollowed = String.valueOf(followService.IsFollowing(fVo));
 			}
 
 
@@ -161,6 +183,7 @@ public class MemberController {
 			tempMap.put("isfollowed", isFollowed);
 			searchInfoList.add(tempMap);
 		}
+		
 		
 		
 		

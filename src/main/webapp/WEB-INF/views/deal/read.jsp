@@ -60,11 +60,10 @@
 <tr><td>조회수</td><td>${data.DEAL_READCOUNT }</td></tr>
 
 </table>
-<a href="${path }/deal/updatepage?DEAL_NUM=${data.DEAL_NUM}">수정</a>
-<a href="${path }/deal/delete.do?DEAL_NUM=${data.DEAL_NUM}">삭제</a>
-<input type="button" value="목록" onclick="location.href='${path}/deal/list.do'">
-
-<input type="button" value="글쓰기" onclick="location.href='${path}/deal/write'">
+<a href="${path}/${member.ID}/deal/updatepage?DEAL_NUM=${data.DEAL_NUM}">수정</a>
+<a href="${path}/${member.ID}/deal/delete?DEAL_NUM=${data.DEAL_NUM}">삭제</a>
+<input type="button" value="목록" onclick="location.href='${path}/${member.ID}/deal/list'">
+<input type="button" value="글쓰기" onclick="location.href='${path}/${member.ID}/deal/write'">
 		</div>
             </div>
           </div>

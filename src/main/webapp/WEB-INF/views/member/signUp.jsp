@@ -54,10 +54,7 @@ temp = input;
 document.getElementById("PIC").value = temp;
 }
 </script>
-
 </head>
-
-
 <body class="main">
 <!-- Header -->
 	<jsp:include page="../layout/header.jsp"/>
@@ -70,14 +67,14 @@ document.getElementById("PIC").value = temp;
 					<form:form action="insertOk" method="post" commandName="member" >		
 							<tbody style="width: 100%;">
 								<tr>
-									<th scope="row">이름</th>
+									<th scope="row" >이름</th>
 									<td>
 										<form:input class="signupInput" path="NAME" maxlength="13"/>
 									</td>
 								</tr>
 								<tr>
 									<td></td>
-									<td colspan="2">
+									<td colspan="3">
 										<form:errors path="NAME" cssClass="msg"/>
 									</td>
 								</tr>
@@ -143,12 +140,11 @@ document.getElementById("PIC").value = temp;
 									</td>
 								</tr>
 								<tr>
+									<td></td>
 									<td class="imgfile">
 										<input type="file" class = "file">
-									</td>
-								</tr>						
-								<tr>
-									<td>
+
+		
 										<ul class = "uploadedFileList"></ul>
 										<form:hidden path="PIC" id="PIC"/>
 									</td>

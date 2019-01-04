@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.team.deal.DAO.DealDAO;
-import com.team.deal.DTO.Criteria;
 import com.team.deal.DTO.DealDTO;
 
 @Service
@@ -45,7 +44,4 @@ public class DealServiceImpl implements DealService{
 		
 	}
 
-
-	
-	
 }

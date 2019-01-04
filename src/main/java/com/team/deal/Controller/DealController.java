@@ -23,23 +23,23 @@ public class DealController {
 	public String dealList(Model model) throws Exception{
 		List<DealDTO> list =dealService.dealList();
 		model.addAttribute("list", list);
-		return "deal/deal_list";
+		return "main.jsp?center=deal/deal_list";
 	}
 
 	//�۾�����������
 	@RequestMapping("write")
 	public String writePage() {
-		return "deal/write";
+		return "main.jsp?center=deal/write";
 	}
 	//�۾���
-	@RequestMapping(value="insert.do", method=RequestMethod.POST)
+	@RequestMapping(value="insert", method=RequestMethod.POST)
 	public String dealWriter(DealDTO ddto) throws Exception{
 		dealService.writerDeal(ddto);
-		return "redirect:list.do";
+		return "redirect:list";
 	}
 	
 	//�� �� ����
-	@RequestMapping(value="read.do", method=RequestMethod.GET)
+	@RequestMapping(value="read", method=RequestMethod.GET)
 	public String dealRead(@RequestParam int DEAL_NUM,Model model) throws Exception{
 		DealDTO data=dealService.dealRead(DEAL_NUM);
 		model.addAttribute("data", data);
@@ -54,16 +54,16 @@ public class DealController {
 		return "deal/update";
 	}
 	//�������Ѵ�
-	@RequestMapping(value="update.do",method=RequestMethod.POST)
+	@RequestMapping(value="update",method=RequestMethod.POST)
 	public String dealUpdateDo(DealDTO ddto)throws Exception{
 		dealService.updateDeal(ddto);
-		return "redirect:list.do";
+		return "redirect:list";
 	}
 	//�Խñ� ����
-	@RequestMapping(value="delete.do",method=RequestMethod.GET)
+	@RequestMapping(value="delete",method=RequestMethod.GET)
 	public String dealDelte(@RequestParam int DEAL_NUM)throws Exception{
 		dealService.deleteDeal(DEAL_NUM);
-		return "redirect:list.do";
+		return "redirect:list";
 	}
 	
 

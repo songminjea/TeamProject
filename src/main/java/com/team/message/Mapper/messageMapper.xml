@@ -3,12 +3,19 @@
 						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.message.Mapper.messageMapper">
 	
-	<!-- 쪽지 전체 목록(받은 쪽지) -->
+	<!-- 쪽지 전체 목록 -->
 	<select id="listAll" resultType="MessageVO">
-		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME, MESSAGE_READVAL
+		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_CONTENT, MESSAGE_SENDTIME, MESSAGE_READTIME, MESSAGE_READVAL 
 		FROM TB_MESSAGE
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
+
+	<!-- 읽지 않은 쪽지 수 -->
+	<select id="count" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM TB_MESSAGE
+		WHERE MESSAGE_RECEIVER = #{message_id} 
+		AND MESSAGE_READVAL IS NULL
+	</select>	
 
 	<!-- 쪽지 작성 -->
 	<insert id="insert">

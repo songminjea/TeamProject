@@ -41,7 +41,6 @@
 </div>
 <!-- END Header -->
 	<div class="w3-col m3" id="loginArea" style="max-width: 400px;" align="center">
-      <!-- Profile -->
       	<div class="w3-card w3-round w3-white padding_area">
         	<div class="w3-container">
          		<h4 class="w3-center h4_font" style="font-weight: 700; color: #1d2c52; font-size: 20px;">

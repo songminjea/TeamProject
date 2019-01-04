@@ -9,11 +9,11 @@
 <script type="text/javascript" src="../resourses/js/sockjs.js"></script>
 </head>
 <body>
-	<div id="positionLayer" style="overflow-y: auto; width: 370px; height: 450px; position: fixed; right: 0; bottom: 0; z-index: 10000; border: 2px solid #000000; text-align: center;">
+	<div id="positionLayer" style="overflow-y: auto; width: 370px; height: 450px; position: fixed; right: 0; bottom: 0; z-index: 10000; border: none; text-align: center;">
 	<!-- 레이어팝업 -->
 	<table align="center" bgcolor="#FFFFFF">
 		<tr>
-			<td bgcolor="#D75E00" align="center" height="30"><font style="font-size: 18px; font-weight:bold" color="#FFFFFF">자유채팅</font></td>
+			<td bgcolor="#D75E00" align="center" height="30"><font style="font-size: 18px; font-weight:bold" color="#FFFFFF">채팅</font></td>
 		</tr>
 		<tr>
 			<td>

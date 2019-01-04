@@ -1,27 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
 <style type="text/css">
 .searchTemplateStyle{
 width: 30%; 
 margin: 0px 10px 10px 10px;
-
 }
-
 </style>
-
 </head>
 <body>
-
-
-<!-- Profile -->
 	<div class=" w3-row-padding" style="text-align: left;">
 		<c:if test="${empty search_Mem}">
 			<div class="w3-col m12 w3-card w3-round w3-white">
@@ -30,12 +21,13 @@ margin: 0px 10px 10px 10px;
 				</div>
 			</div>
 		</c:if>
-	
 		<c:forEach var="search_mem" items="${search_Mem}">
+			<%-- 본인 아이디를 제외하고 검색한다. --%>
+			<c:if test="${member.ID ne search_mem.ID}">
 			<c:set var="s_id" value="${search_mem.ID}"></c:set>
 			<div class="w3-col w3-card w3-round w3-white searchTemplateStyle">
 				<div class="w3-container">
-					<br />
+					<br/>
 					<div class="w3-center image_wrapper">
 						<%-- 만약 회원 프로필 이미지가 없을 경우에는 기본 이미지를 띄운다. --%>
 						<c:choose>
@@ -65,8 +57,6 @@ margin: 0px 10px 10px 10px;
 							<c:set var="followhide" value="fbhide"/>
 							<c:set var="followinghide" value="fbhide"/>
 						</c:otherwise>
-						
-						
 					</c:choose>
 						<span class="w3-right smallSizeFont">
 							<button type="button"
@@ -90,11 +80,8 @@ margin: 0px 10px 10px 10px;
 					</div>
 				</div>
 			</div>
+			</c:if>
 		</c:forEach>
 	</div>
-	
-
-
-
 </body>
 </html>

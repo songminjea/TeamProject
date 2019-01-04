@@ -31,10 +31,13 @@ public class MessageController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
 		List<MessageVO>mlist = messageService.listAll();		
 		model.addAttribute("mlist", mlist);
 		
-		return "message/messageList";
+		return "main.jsp?center=message/messageList";
 	}
 	
 	//내가 보낸 쪽지
@@ -43,10 +46,13 @@ public class MessageController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
 		List<SendMessageVO>mslist = messageService.sendListAll();
 		model.addAttribute("mslist", mslist);
 		
-		return "message/messageSendList";
+		return "main.jsp?center=message/messageSendList";
 	}
 	
 	//쪽지 작성

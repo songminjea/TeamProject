@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -21,6 +20,7 @@ import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
+import com.team.message.Service.MessageService;
 
 @Controller
 @SessionAttributes("member")
@@ -28,6 +28,9 @@ public class MemberController {
 
 	@Autowired
 	MemberServiceImpl memberService;
+	
+	@Autowired
+	MessageService messageService;
 	
 	@Autowired
 	FollowService followService;
@@ -63,16 +66,20 @@ public class MemberController {
 	}
 	
 	@RequestMapping("{ID}/mypage")
-	public String mypageMember(@PathVariable String ID,Model model) {
+	public String mypageMember(@PathVariable String ID, HttpSession session, Model model) {
 		
+		MemberVO memVO = (MemberVO)session.getAttribute("member");
+		model.addAttribute("profile", memVO);
 		model.addAttribute("member",memberService.getMember(ID));
 		
 		return "member/mypage";
 	}
 	
 	@RequestMapping("/mypageOk")
-	public String mypageOk(@Valid MemberVO member,BindingResult result, Map<String, BindingResult> model) {
+	public String mypageOk(@Valid MemberVO member,BindingResult result, Map<String, BindingResult> model, Model mo, HttpSession session) {
 		
+		MemberVO proMem = (MemberVO)session.getAttribute("member");
+		mo.addAttribute("profile", proMem);
 		model.put(BindingResult.class.getName()+".member", result);
 		if(result.hasErrors()) {
 			System.out.println(result.toString());
@@ -85,7 +92,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/search")
-	public String MemberSearch(@RequestParam String keyword, HttpSession session ,Model model) {
+	public String MemberSearch(@RequestParam String keyword, HttpSession session, Model model) throws Exception {
 		//System.out.println(keyword);
 
 		
@@ -94,6 +101,8 @@ public class MemberController {
 		
 		// 로그인 여부 체크하기 위해 세션값 받아옴.
 		MemberVO memVO = (MemberVO)session.getAttribute("member");
+		
+		int count = messageService.countList(memVO);
 		
 		// 팔로우 여부를 맵으로 저장. <아이디, 팔로우여부>
 		Map<String, Boolean> isFollowedList = new HashMap<>();
@@ -117,6 +126,8 @@ public class MemberController {
 			}
 		}
 		
+		model.addAttribute("profile", memVO);
+		model.addAttribute("messageCount", count);
 		//System.out.println(isFollowedList.get("aaaa"));
 		model.addAttribute("isfollowed", isFollowedList);
 		model.addAttribute("keyword", keyword);

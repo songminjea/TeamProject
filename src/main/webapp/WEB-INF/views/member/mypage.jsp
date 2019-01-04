@@ -19,6 +19,22 @@
 <style type="text/css">		
 	.errMsg{font-size: 9pt; color: red}	
 </style>
+<script id="template" type="text/x-handlebars-template">
+{{#each .}}
+<span class="imageList">
+	<a href="{{getView ID}}">
+		<span id="{{ID}}">
+			<img src="${pageContext.request.contextPath}/mypage/display?imageName={{PIC}}" alt="view" />
+		</span>
+	</a>
+</span>
+{{/each}}
+</script>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
+	<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/imglogin.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 </head>
 <!-- body -->
 <body class="w3-theme-l5">
@@ -80,7 +96,18 @@
 									<form:input path="EMAIL" maxlength="50" class="mypage_input"/>
 									<form:errors path="EMAIL" cssClass="errMsg"/>
 								</td>				
-							</tr>				
+							</tr>
+							<tr>
+									<td class="imgfile">
+										<input type="file" class = "file">
+									</td>
+								</tr>						
+								<tr>
+									<td>
+										<ul class = "uploadedFileList"></ul>
+										<form:hidden path="PIC" id="PIC"/>
+									</td>
+								</tr>				
 							<tr>
 								<td colspan="2" align="center">
 									<input type="submit" value="회원정보수정"/> &nbsp;&nbsp;&nbsp;
@@ -105,8 +132,6 @@
 </div>
 <!-- End Page Container -->	
 <!-- js 파일 -->
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+
 </body>
 </html>

@@ -15,7 +15,7 @@
 					<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="defaultImage">					
 				</c:when>
 				<c:otherwise>
-					<img src="${profile.PIC}">
+					<img src="${pageContext.request.contextPath}/${profile.PIC}">
 				</c:otherwise>
 			</c:choose>
          </div>

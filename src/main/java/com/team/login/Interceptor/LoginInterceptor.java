@@ -53,7 +53,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		// member 세션이 없을때
 		if (session.getAttribute(LOGIN) == null) {
-			response.sendRedirect("login");
+			response.sendRedirect("/TeamPro/login");
 			return false;
 		}
 		

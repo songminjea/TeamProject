@@ -32,7 +32,8 @@
 	<select id="GetSearchMemberList" resultType="com.team.member.VO.MemberVO">
 		select *
 		from MEMBER
-		where ID like CONCAT("%",#{id},"%")
+		where ID like CONCAT("%",#{keyword},"%")
+		limit ${pageNum} , 12
 	</select>
 	
 	

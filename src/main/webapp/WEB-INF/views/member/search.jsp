@@ -1,87 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
+
 <style type="text/css">
 .searchTemplateStyle{
 width: 30%; 
 margin: 0px 10px 10px 10px;
+
 }
+
 </style>
+
 </head>
 <body>
-	<div class=" w3-row-padding" style="text-align: left;">
-		<c:if test="${empty search_Mem}">
-			<div class="w3-col m12 w3-card w3-round w3-white" style="padding: 50px 30px;">
-				<div class="w3-container" align="center">
-					<h4 style="font-weight: 500; color: #1d2c52;">${keyword}로 검색한 결과가 없습니다.</h4>
-				</div>
-			</div>
-		</c:if>
-		<c:forEach var="search_mem" items="${search_Mem}">
-			<%-- 본인 아이디를 제외하고 검색한다. --%>
-			<c:if test="${member.ID ne search_mem.ID}">
-			<c:set var="s_id" value="${search_mem.ID}"></c:set>
+<input type="hidden" id="keyword" value="${keyword}">
+
+<!-- Profile -->
+	<div class=" w3-row-padding" id="search_list" style="text-align: left; min-height : 1px">
+
+	
+	</div>
+
+<script id="search-template" type="text/x-handlebars-template">
+{{#search}}
 			<div class="w3-col w3-card w3-round w3-white searchTemplateStyle">
 				<div class="w3-container">
-					<br/>
+					<br />
 					<div class="w3-center image_wrapper">
 						<%-- 만약 회원 프로필 이미지가 없을 경우에는 기본 이미지를 띄운다. --%>
-						<c:choose>
-							<c:when test="${empty profile.PIC}">
-								<img
-									src="${pageContext.request.contextPath}/resources/img/baby.jpg"
-									alt="defaultImage">
-							</c:when>
-							<c:otherwise>
-								<img src="${search_mem.PIC}">
-							</c:otherwise>
-						</c:choose>
+						<img src="${pageContext.request.contextPath}/{{sMem_pic}}">
 					</div>
 					<hr>
 					<%-- 회원 정보 --%>
 					<div class="member_icon" style="font-weight: 500; font-size: 15px;">
-					<c:choose>
-						<c:when test="${isfollowed[s_id] eq false}">
-							<c:set var="followhide" value=""/>
-							<c:set var="followinghide" value="fbhide"/>
-						</c:when>
-						<c:when test="${isfollowed[s_id] eq true}">
-							<c:set var="followhide" value="fbhide"/>
-							<c:set var="followinghide" value=""/>						
-						</c:when>
-						<c:otherwise>
-							<c:set var="followhide" value="fbhide"/>
-							<c:set var="followinghide" value="fbhide"/>
-						</c:otherwise>
-					</c:choose>
 						<span class="w3-right smallSizeFont">
 							<button type="button"
-								class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn ${followhide} fbtn_${search_mem.ID}"
-								value='${search_mem.ID}'>팔로우</button>
+								class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn {{#SetBtnState isfollowed 'follow'}}{{/SetBtnState}} fbtn_{{sMem_id}}"
+								value='{{sMem_id}}'>팔로우</button>
 							<button type="button"
-								class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn ${followinghide} fbtn_${search_mem.ID}"
-								value='${search_mem.ID}'>
+								class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn {{#SetBtnState isfollowed 'following'}}{{/SetBtnState}} fbtn_{{sMem_id}}"
+								value='{{sMem_id}}'>
 								<span>팔로잉</span> <span>언팔로우</span>
 							</button>
 						</span>
 						<p style="padding-top: 5px; margin-bottom: 7px;">
-							<a href="${pageContext.request.contextPath}/${search_mem.ID}/gallery"> ${search_mem.ID} </a>
+							<a href="${pageContext.request.contextPath}/{{sMem_id}}/gallery"> {{sMem_id}} </a>
 						</p>
 						<br>
 						
 						<p>
 							<i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i>
-							${search_mem.EMAIL}
+							{{sMem_email}}
 						</p>
 					</div>
 				</div>
 			</div>
-			</c:if>
-		</c:forEach>
-	</div>
+{{/search}}
+</script>
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/search.js"></script>
+
 </body>
 </html>

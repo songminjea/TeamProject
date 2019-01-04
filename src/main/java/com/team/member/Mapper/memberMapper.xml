@@ -8,7 +8,7 @@
       FOLLOWING, BIRTH)
     values (#{ID,jdbcType=VARCHAR}, #{PWD,jdbcType=VARCHAR}, #{NAME,jdbcType=VARCHAR}, 
       #{PHONE,jdbcType=VARCHAR}, #{EMAIL,jdbcType=VARCHAR}, #{PIC,jdbcType=VARCHAR}, 
-      #{DATE,jdbcType=DATE}, #{MODDATE,jdbcType=DATE}, #{FOLLOWER,jdbcType=INTEGER}, 
+      NOW(), #{MODDATE,jdbcType=DATE}, #{FOLLOWER,jdbcType=INTEGER}, 
       #{FOLLOWING,jdbcType=INTEGER}, #{BIRTH,jdbcType=VARCHAR})
   </insert>
   
@@ -19,14 +19,14 @@
 	
 	<update id="updateMember" parameterType="com.team.member.VO.MemberVO">		
 		UPDATE MEMBER SET
-		PWD=#{PWD,jdbcType=VARCHAR}, NAME=#{NAME,jdbcType=VARCHAR}, PHONE=#{PHONE,jdbcType=VARCHAR}, EMAIL=#{EMAIL,jdbcType=VARCHAR}
+		PWD=#{PWD,jdbcType=VARCHAR}, NAME=#{NAME,jdbcType=VARCHAR}, PHONE=#{PHONE,jdbcType=VARCHAR}, EMAIL=#{EMAIL,jdbcType=VARCHAR}, MODDATE=NOW()
 		WHERE ID=#{ID,jdbcType=VARCHAR}
 	</update>
 	
 	<update id="changePic">
 		UPDATE TB_MEMBER
-		SET MEM_PIC = #{mem_pic}
-		WHERE MEM_SEQ = #{mem_seq}
+		SET PIC = #{PIC}
+		WHERE ID = #{ID}
 	</update>
   
 </mapper>

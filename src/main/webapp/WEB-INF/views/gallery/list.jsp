@@ -18,7 +18,6 @@
 
 <script id="gallery-template" type="text/x-handlebars-template">
 
-
 {{#gall}}
 	<span class="profileImg">
 		<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="Avatar"

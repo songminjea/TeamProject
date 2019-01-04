@@ -17,13 +17,47 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet"> 
+<!-- 핸들바 기능 -->
+<script id ="imgLogin" type="text/x-handlebars-template">
+	<li>
+		<img src="{{imgSrc}}" alt = "Attachment" class ="view">
+		<input type="hidden" name="PIC1" id="PIC1" value ="{{originalFileUrl}}">
+		<div class = "mailbox-attachment-info">
+			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
+				<i class = "fa fa-paperclip"></i>{{originalFileName}}
+			</a>
+			<a href="{{fullName}}" class = "btn btn-default btn-xs pull-right delBtn">
+				<i class="fa fa-fw fa-remove"></i>
+			</a>
+		</div>
+	</li>
+</script>
+
 	<script type="text/javascript">
 	 // 취소 버튼 클릭시 첫화면으로 이동
     function goFirstForm() {
         location.href="login";
     }
 	</script>
+	<!-- imgupload -->
+	<script  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
+	<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/imglogin.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script type="text/javascript">
+var temp; 
+
+function input(){
+var input = document.getElementById("PIC1").value; 
+temp = input;
+document.getElementById("PIC").value = temp;
+}
+</script>
+
 </head>
+
+
 <body class="main">
 <!-- Header -->
 	<jsp:include page="../layout/header.jsp"/>
@@ -33,7 +67,7 @@
       	<div class="w3-card w3-round w3-white" style="width:550px; padding: 30px 0 30px 30px;">
         	<div class="w3-container">
 				<table id="signupTable">
-					<form:form action="insertOk" method="post" commandName="member">		
+					<form:form action="insertOk" method="post" commandName="member" >		
 							<tbody style="width: 100%;">
 								<tr>
 									<th scope="row">이름</th>
@@ -107,7 +141,18 @@
 									<td colspan="2">
 										<form:errors path="BIRTH" cssClass="msg"/>
 									</td>
+								</tr>
+								<tr>
+									<td class="imgfile">
+										<input type="file" class = "file">
+									</td>
 								</tr>						
+								<tr>
+									<td>
+										<ul class = "uploadedFileList"></ul>
+										<form:hidden path="PIC" id="PIC"/>
+									</td>
+								</tr>
 							</tbody>
 							<tfoot>
 								<tr>
@@ -119,12 +164,9 @@
 							</tfoot>
 					</form:form>
 				</table>
+				<button onclick="input()">이미지 전송</button>
 		   	</div>
 		</div>
-	</div>
-<!-- js 파일 -->
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	</div>	
 </body>
 </html>

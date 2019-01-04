@@ -43,10 +43,12 @@ public class MemberController {
 		model.put(BindingResult.class.getName()+".member", result);
 		if(result.hasErrors()) { //에러가 있으면
 			System.out.println(result.toString());
-			System.out.println("회원가입시 오류가 발생했습니다.");		
+			System.out.println("회원가입시 오류가 발생했습니다.");
 			return "member/signUp";
 		}else {
 			//에러가 없으면 DB에 작성한 내용 insert
+			System.out.println(member.getPIC()); 
+			
 			memberService.InsertMember(member);
 			return "login";
 		}

@@ -2,6 +2,7 @@ package com.team.member.DAO;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public List<MemberVO> GetSearchMember(String ID) {
-		return sqlSession.selectList("GetSearchMemberList", ID);
+	public List<MemberVO> GetSearchMember(Map<String, String> searchInfo) {
+		return sqlSession.selectList("GetSearchMemberList", searchInfo);
 	}
 	
 	

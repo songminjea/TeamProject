@@ -2,6 +2,7 @@ package com.team.member.Service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.team.member.VO.MemberVO;
 
@@ -13,5 +14,5 @@ public interface MemberService {
 	
 	public void updateMember(MemberVO vo);
 	
-	public List<MemberVO> GetSearchMember(String ID);
+	public List<MemberVO> GetSearchMember(Map<String, String> searchInfo);
 }

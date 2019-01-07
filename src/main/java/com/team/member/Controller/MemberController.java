@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -42,7 +44,36 @@ public class MemberController {
 	public String check() {
 		return "member/check";
 	}
+	
+	@RequestMapping("/delete.do")
+	public String memberDelete(@RequestParam String ID, @RequestParam String PWD, Model model,HttpServletRequest request) {
+		boolean result = memberService.checkPw(ID,PWD);
 		
+		if(result) {
+			memberService.deleteMember(ID);
+			request.getSession().removeAttribute("member");
+			model.addAttribute("msg","탈퇴 되었습니다.");
+			return "login";
+		}else {
+			model.addAttribute("message","비밀번호 불일치");
+			model.addAttribute("member",memberService.getMember(ID));
+			return "/mypage";
+		}
+	}
+	
+	@RequestMapping(value = "/checkSignup", method = RequestMethod.POST)
+	public @ResponseBody String AjaxView(  
+		        @RequestParam("ID") String ID){
+		String str = "";
+		int idcheck = memberService.idCheck(ID);
+		if(idcheck==1){ //이미 존재하는 계정
+			str = "NO";	
+		}else{	//사용 가능한 계정
+			str = "YES";	
+		}
+		return str;
+	}
+	
 	@RequestMapping("/signUp")
 	public String insertMember(Model model) {
 		model.addAttribute("member", new MemberVO());

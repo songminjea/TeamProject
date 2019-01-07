@@ -50,7 +50,7 @@ document.getElementById("PIC").value = temp;
 <script type="text/javascript">
 		$(document).ready(function() {
 			$("#btnDelete").click(function() {
-			if(confirm("탈퇴하시겠습니까?")){
+			if(confirm("정말 탈퇴하시겠습니까?")){
 				document.member.action="${pageContext.request.contextPath}/delete.do";
 				document.member.submit();
 			}	

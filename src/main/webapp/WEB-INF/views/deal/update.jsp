@@ -19,7 +19,7 @@
 </head>
 <!-- body -->
 <body class="w3-theme-l5">
-<div class="main">
+<div class="main" style="overflow-y:auto;">
 <!-- Header -->
 	<jsp:include page="../layout/header.jsp"/>
 <!-- END Header -->

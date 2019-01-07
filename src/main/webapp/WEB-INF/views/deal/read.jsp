@@ -17,6 +17,8 @@
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
+<%-- 로그인된 아이디 --%>
+<input type="hidden" id="mem_id" value="${member.ID}">
 <!-- body -->
 <body class="w3-theme-l5">
 <div class="main" style="overflow-y:auto;">
@@ -60,32 +62,13 @@
 <tr><td>조회수</td><td>${data.DEAL_READCOUNT }</td></tr>
 
 </table>
-<a href="${path }/deal/updatepage?DEAL_NUM=${data.DEAL_NUM}">수정</a>
-<a href="${path }/deal/delete.do?DEAL_NUM=${data.DEAL_NUM}">삭제</a>
-<input type="button" value="목록" onclick="location.href='${path}/deal/list.do'">
 
-<input type="button" value="글쓰기" onclick="location.href='${path}/deal/write'">
-<div id="disqus_thread"></div>
-<script>
-
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://babyparent.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                             
+<a href="${path}/${member.ID}/deal/updatepage?DEAL_NUM=${data.DEAL_NUM}">수정</a>
+<a href="${path}/${member.ID}/deal/delete?DEAL_NUM=${data.DEAL_NUM}">삭제</a>
+<input type="button" value="목록" onclick="location.href='${path}/${member.ID}/deal/list'">
+<input type="button" value="글쓰기" onclick="location.href='${path}/${member.ID}/deal/write'">
+
 		</div>
             </div>
           </div>

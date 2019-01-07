@@ -14,6 +14,8 @@
 
 </style>
 </head>
+<%-- 로그인된 아이디 --%>
+<input type="hidden" id="mem_id" value="${member.ID}">
 					<div class="w3-row-padding">
 						<div class="w3-col m12">
 							<div class="w3-card w3-round w3-white">
@@ -63,7 +65,6 @@
 														<td><a
 															href="${path}/${member.ID}/deal/read?DEAL_NUM=${row.DEAL_NUM}"
 															class="ablack">${row.DEAL_SUBJECT}</a></td>
-														<!-- 내용은 나중에 list페이지에서 삭제 -->
 														<td>${row.DEAL_ID}</td>
 
 														<!-- 만약 오늘이면 HH:mm:ss만 그 밖이면 yyyy-MM-dd만 상세 보기에서는 yyyy-MM-dd HH:mm:ss -->
@@ -101,7 +102,7 @@
 																	<h4 class="card-title">${row.DEAL_SUBJECT}</h4>
 																	<p class="card-text">일단은 실험..</p>
 																	<a
-																		href="${path }/deal/read.do?DEAL_NUM=${row.DEAL_NUM}"
+																		href="${path }/${member.ID}/deal/read.do?DEAL_NUM=${row.DEAL_NUM}"
 																		class="btn btn-primary">자세히보기</a>
 																</div>
 															</div>

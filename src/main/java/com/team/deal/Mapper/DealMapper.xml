@@ -20,28 +20,29 @@
 	
 	<!-- 게시글 상세 내용 조회 -->
 	<select id="dealRead" resultType="DealDTO">
-		select deal_num,deal_id,deal_subject,deal_content,deal_region,deal_img,deal_readcount,deal_datetime
-		from tb_deal where deal_num = #{DEAL_NUM}
+		SELECT DEAL_NUM,DEAL_ID,DEAL_SUBJECT,DEAL_CONTENT,DEAL_REGION,DEAL_IMG,DEAL_READCOUNT,DEAL_DATETIME
+		FROM TB_DEAL WHERE DEAL_NUM = #{DEAL_NUM}
 	</select>
 	
 	<!-- 게시글 수정하기 -->
 	<update id="dealUpdate">
-		update tb_deal set deal_subject=#{DEAL_SUBJECT},deal_content=#{DEAL_CONTENT},deal_region=#{DEAL_REGION},
-		deal_img=#{DEAL_IMG} where deal_num=#{DEAL_NUM}
+		UPDATE TB_DEAL SET DEAL_SUBJECT = #{DEAL_SUBJECT},DEAL_CONTENT=#{DEAL_CONTENT},DEAL_REGION=#{DEAL_REGION},
+		DEAL_IMG=#{DEAL_IMG} WHERE DEAL_NUM=#{DEAL_NUM}
+		
 	</update>
 	
 	<!-- 게시글 삭제 -->
 	<delete id="dealDelete">
-		delete from tb_deal where deal_num=#{DEAL_NUM}
+		DELETE FROM TB_DEAL WHERE DEAL_NUM=#{DEAL_NUM}
 	</delete>
 	
 	<select id="dealListWithPaging" resultType="DealDTO">
 		<![CDATA[
-			select deal_num,deal_id,deal_subject,deal_content,deal_region,deal_img,deal_readcount,deal_datetime
-			from tb_deal
-			where deal_num>0
-			order by deal_num desc, deal_datetime desc
-			limit #{pageNum},#{amount}
+			SELECT DEAL_NUM,DEAL_ID,DEAL_SUBJECT,DEAL_CONTENT,DEAL_REGION,DEAL_IMG,DEAL_READCOUNT,DEAL_DATETIME
+			FROM TB_DEAL
+			WHERE DEAL_NUM>0
+			ORDER BY DEAL_NUM DESC,DEAL_DATETIME DESC
+			LIMIT #{PAGENUM},#{AMOUNT}
 		]]>
 		
 	</select>

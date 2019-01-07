@@ -102,11 +102,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping("{ID}/mypage")
-	public String mypageMember(@PathVariable String ID, HttpSession session, Model model) {
+	public String mypageMember(@PathVariable String ID, HttpSession session, Model model) throws Exception {
 		MemberVO vo = memberService.getMember(ID);
 		
 		
 		MemberVO sessionVO = (MemberVO)session.getAttribute("member");
+		
+		int count = messageService.countList(vo);
+		model.addAttribute("messageCount", count);
 		
 		// uri의 ID값과 로그인 정보랑 다를때 main으로 이동하게 변경
 		if(!ID.equals(sessionVO.getID())) {
@@ -126,7 +129,7 @@ public class MemberController {
 		if(result.hasErrors()) {
 			System.out.println(result.toString());
 			System.out.println("회원정보 수정시 오류가 발생");
-			return "member/mypage";
+			return "main.jsp?center=member/mypage";
 		}else {
 			memberService.updateMember(member);
 			return "login";

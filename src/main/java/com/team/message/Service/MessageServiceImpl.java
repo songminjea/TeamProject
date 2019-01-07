@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team.member.VO.MemberVO;
 import com.team.message.DAO.MessageDAO;
 import com.team.message.VO.MessageVO;
 import com.team.message.VO.SendMessageVO;
@@ -27,6 +28,13 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.sendListAll();
 	}
 		
+	//쪽지 개수
+	@Override
+	public int countList(MemberVO memberVO)throws Exception{
+		String message_id = memberVO.getID();
+		return messageDao.countList(message_id);
+	}
+	
 	//쪽지 작성
 	@Override
 	public void create(MessageVO mvo)throws Exception{

@@ -16,67 +16,37 @@
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
-<script type="text/javascript">
-	function messageCheck(){
-		var subject = document.messageSendOk.MESSAGE_SUBJECT.value;
-		var content = document.messageSendOk.MESSAGE_CONTENT.value;
-		var receiver = document.messageSendOk.MESSAGE_RECEIVER.value;
-		
-		if(receiver == ""){
-			alert("받는 사람을 입력하세요.");
-			document.messageSendOk.MESSAGE_RECEIVER.focus();
-			return false;
-		}else{
-			if(subject == ""){
-				alert("제목을 입력하세요.");
-				document.messageSendOk.MESSAGE_SUBJECT.focus();
-				return false;
-			}
-			else {
-				if(content == ""){
-					alert("내용을 입력하세요.");
-					document.messageSendOk.MESSAGE_CONTENT.focus();
-					return false;
-				}
-			}			
-		}
-		
-		document.messageSendOk.method = "POST";
-		document.messageSendOk.submit();
-	}
-</script>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
 <div id="sendTitle" align="center" style="background-color: #4497fd; width: 100%; height: 50px;">
-	<font color="white" id="send_text" style="font-weight: 600; font-size: 18px;">쪽지 보내기</font>
+	<font color="white" id="send_text" style="font-weight: 600; font-size: 18px;">받은 쪽지 확인</font>
 </div>
 <c:if test="${member.ID!= null}">
-	<div id="sendForm" title="메세지 확인">
-		<form method="post" name="messageView" id="messageView" onsubmit="return messageCheck();">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<tr bgcolor="white">
-					<td>보낸 사람</td>
-					<td>${mdto.MESSAGE_SENDER}</td>
-				</tr>
-				<tr>
-					<td>제목</td>
-					<td>${mdto.MESSAGE_SUBJECT}</td>
-				</tr>
-				<tr>
-					<td>받은 날짜</td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${mdto.MESSAGE_SENDTIME}"/></td>
-				</tr>
-				<tr>
-					<td>내용</td>
-					<td>${mdto.MESSAGE_CONTENT}</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="submit" value="답장" id="sendBtn" onclick = "location.href='${pageContext.request.contextPath}/${member.ID}/messageSend?MESSAGE_RECEIVER=${message.MESSAGE_SENDER}'">
-						<input type="button" value="창닫기" onclick="window.close()">
-					</td>
-				</tr>
-			</table>
-		</form>
+	<div id="viewForm" title="메세지 확인">
+		<input type="hidden" value="${mdto.MESSAGE_NO}" id="MESSAGE_NO" name="MESSAGE_NO">
+		<table id="viewTable" align="center" width="90%" cellpadding="0" cellspacing="0" border="0">
+			<tr bgcolor="white">
+				<th>보낸 사람</th>
+				<td>${mdto.MESSAGE_SENDER}</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>${mdto.MESSAGE_SUBJECT}</td>
+			</tr>
+			<tr>
+				<th>받은 날짜</th>
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${mdto.MESSAGE_SENDTIME}"/></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>${mdto.MESSAGE_CONTENT}</td>
+			</tr>
+			<tr align="center">
+				<td colspan="2">
+					<input type="submit" value="답장" id="sendBtn" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageResend?MESSAGE_NO=${mdto.MESSAGE_NO}'">
+					<input type="button" value="창닫기" id="closeBtn" onclick="window.close()">
+				</td>
+			</tr>
+		</table>
 	</div>
 </c:if>
 <!-- js 파일 -->

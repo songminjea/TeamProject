@@ -26,10 +26,21 @@
 </head>
 <body class="main">
 <!-- Header -->
-	<jsp:include page="layout/header.jsp"/>
+	<div class="top-bar" style="text-align: center; height: 70px;">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 col-xs-6">
+				<div class="babylogo">
+					<a href="/TeamPro/login" style="position: absolute; z-index: 1;"> 
+						<img src="/TeamPro/resources/img/logo2.png" height="50px">
+					</a>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
 <!-- END Header -->
 	<div class="w3-col m3" id="loginArea" style="max-width: 400px;" align="center">
-      <!-- Profile -->
       	<div class="w3-card w3-round w3-white padding_area">
         	<div class="w3-container">
          		<h4 class="w3-center h4_font" style="font-weight: 700; color: #1d2c52; font-size: 20px;">

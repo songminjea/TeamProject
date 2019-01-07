@@ -24,17 +24,20 @@ public class MessageController {
 	
 	@Autowired
 	MessageService messageService;
-	
+		
 	//쪽지 전체 목록
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
 	public String messageList(@PathVariable String id, HttpSession session, Model model)throws Exception{
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
 		List<MessageVO>mlist = messageService.listAll();		
 		model.addAttribute("mlist", mlist);
 		
-		return "message/messageList";
+		return "main.jsp?center=message/messageList";
 	}
 	
 	//내가 보낸 쪽지
@@ -43,10 +46,13 @@ public class MessageController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
 		List<SendMessageVO>mslist = messageService.sendListAll();
 		model.addAttribute("mslist", mslist);
 		
-		return "message/messageSendList";
+		return "main.jsp?center=message/messageSendList";
 	}
 	
 	//쪽지 작성
@@ -63,6 +69,26 @@ public class MessageController {
 		
 		return "message/messageSendOk";
 	}
+	
+	//쪽지 답장
+	@RequestMapping(value="{id}/messageResend", method=RequestMethod.GET)
+	public String messageResend(@ModelAttribute("MessageVO")MessageVO mvo, Model model, HttpSession session, HttpServletRequest request)throws Exception{
+		int MESSAGE_NO = Integer.parseInt(request.getParameter("MESSAGE_NO"));
+		mvo.setMESSAGE_NO(MESSAGE_NO);
+		MessageVO resultVO = messageService.read(mvo);
+		messageService.updateRead(MESSAGE_NO);
+		model.addAttribute("mdto", resultVO);
+		return "message/messageResend";
+	}
+	
+	//쪽지 답장 보내기
+		@RequestMapping(value="{id}/messageResend", method=RequestMethod.POST)
+		public String messageResendOk(MessageVO mvo, Model model)throws Exception{
+			
+			messageService.create(mvo);
+			
+			return "message/messageSendOk";
+		}
 	
 	//쪽지 상세내용 조회
 	//쪽지 조회시 읽음으로 변경되고, 읽은 날짜가 변경된다.(이후 변경되지는 않음)

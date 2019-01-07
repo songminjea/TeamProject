@@ -1,7 +1,6 @@
 package com.team.gallery.DAO;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.team.gallery.VO.galleryVO;
-import com.team.member.VO.MemberVO;
 
 @Repository
 public class GalleryDAOImpl implements GalleryDAO {

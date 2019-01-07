@@ -25,7 +25,13 @@ public class MessageDAOImpl implements MessageDAO{
 	//내가 보낸 쪽지
 	@Override
 	public List<SendMessageVO>sendListAll()throws Exception{
-		return sqlSession.selectList(namespace+".sendListAll");
+		return sqlSession.selectList(namespace+".listAll");
+	}
+	
+	//쪽지 개수
+	@Override
+	public int countList(String message_id)throws Exception{
+		return sqlSession.selectOne(namespace+".count", message_id);
 	}
 	
 	//쪽지 작성

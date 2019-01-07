@@ -13,6 +13,9 @@ public interface MessageDAO {
 	//내가 보낸 쪽지
 	public List<SendMessageVO>sendListAll()throws Exception;
 	
+	//쪽지 개수
+	public int countList(String message_id)throws Exception;
+	
 	//쪽지 작성
 	public void create(MessageVO mvo)throws Exception;
 	

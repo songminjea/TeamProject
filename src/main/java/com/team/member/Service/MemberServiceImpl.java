@@ -1,5 +1,8 @@
 package com.team.member.Service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +11,7 @@ import com.team.member.VO.MemberVO;
 
 
 @Service
-public class MemberServiceImpl {
+public class MemberServiceImpl{
 	
 	@Autowired
 	MemberDAO memberDAO;
@@ -23,5 +26,23 @@ public class MemberServiceImpl {
 
 	public void updateMember(MemberVO vo) {
 		memberDAO.updateMember(vo);
+	}
+
+	public List<MemberVO> GetSearchMember(Map<String, String> searchInfo) {
+		// TODO Auto-generated method stub
+		return memberDAO.GetSearchMember(searchInfo);
+	}
+	public int idCheck(String ID) {
+		// TODO Auto-generated method stub
+		return memberDAO.idcheck(ID);
+	}
+	
+	public boolean checkPw(String ID, String PWD) {
+		return memberDAO.checkPw(ID,PWD);
+	}
+
+	public void deleteMember(String ID) {
+		memberDAO.deleteMember(ID);
+		
 	}
 }

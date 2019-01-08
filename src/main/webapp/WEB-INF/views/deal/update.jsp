@@ -17,9 +17,11 @@
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
+<%-- 로그인된 아이디 --%>
+<input type="hidden" id="mem_id" value="${member.ID}">
 <!-- body -->
 <body class="w3-theme-l5">
-<div class="main">
+<div class="main" style="overflow-y:auto;">
 <!-- Header -->
 	<jsp:include page="../layout/header.jsp"/>
 <!-- END Header -->
@@ -40,7 +42,7 @@
 <h2>수정</h2>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<form name="updateForm" method="POST" action="${path}/deal/update.do" class="table">
+<form name="updateForm" method="POST" action="${path}/${member.ID}/deal/update" class="table">
 	<div>글번호</div>
 	<div><input name="DEAL_NUM" value="${data.DEAL_NUM }" type="text" readonly="readonly"></div>
 	<div>작성자</div>
@@ -56,7 +58,7 @@
 	<div>
 		<input type="submit" value="글수정">
 		<input type="reset" value="리셋">
-		<input type="button" value="목록" onclick="location.href='${path}/deal/list.do'">
+		<input type="button" value="목록" onclick="location.href='${path}/${member.ID}/deal/list'">
 	</div>
 	</form>
 			</div>

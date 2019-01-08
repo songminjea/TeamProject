@@ -16,8 +16,10 @@ body{font-family:'Nanum Gothic', sans-serif;}
 }
 
 /* header */
-#header{width: 100%;
-		z-index: 999;}
+.header{width: 100%;
+		z-index: 999;
+		position: fixed;
+		border-bottom: solid 1px #4497fd;}
 .top-bar {background: white;
     	  border-bottom: 1px solid white;
     	  padding: 10px 2px;}		  
@@ -87,4 +89,9 @@ a{
 /* 버튼 크기 조절 할 때. */
 .smallSizeFont{
 	font-size: 12px;
+}
+
+
+a:hover{
+	text-decoration: none !important;
 }

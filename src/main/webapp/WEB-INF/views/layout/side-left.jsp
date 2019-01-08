@@ -15,7 +15,7 @@
 					<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="defaultImage">					
 				</c:when>
 				<c:otherwise>
-					<img src="${profile.PIC}">
+					<img src="${pageContext.request.contextPath}/${profile.PIC}">
 				</c:otherwise>
 			</c:choose>
          </div>
@@ -25,7 +25,11 @@
 	         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${profile.NAME}</p>
 	         <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> ${profile.EMAIL}</p>
 	         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> ${profile.BIRTH}</p>
-	         <p align="center"><input type="button" class="uploadBtn"onclick="location.href='${pageContext.request.contextPath}/imgupload'" value="게시물 올리기"></p>
+	         <%-- 로그인 했을때만 글쓰기 버튼 보인다 --%>
+	         <c:if test="${!empty member.ID}"> 
+	         	<p align="center"><input type="button" class="uploadBtn"
+	         	onclick="location.href='${pageContext.request.contextPath}/imgupload'" value="게시물 올리기"></p>
+	         </c:if>
         </div>
         </div>
       </div>
@@ -54,7 +58,7 @@
 <script id="s_recom_follow-template" type="text/x-handlebars-template">
 {{#s_r_list}}
 	<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" 
-	        	alt="defaultImage" class="w3-left w3-circle w3-margin-right" style="max-width: 100%; max-height: 50px;">
+	        	alt="defaultImage" class="w3-left w3-circle" style="max-width: 100%; max-height: 50px;">
 	        	<span class="w3-right smallSizeFont">
 					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn fbtn_{{following_id}}"
 						value='{{following_id}}'>팔로우

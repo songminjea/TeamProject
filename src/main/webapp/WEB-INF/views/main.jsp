@@ -8,13 +8,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/> 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main2.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css"/> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gallery.css"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css"/> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css"/>
+<!-- 썸머노트 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
@@ -25,7 +34,7 @@
 	<c:if test="${empty center}"> 
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
-<body class="w3-theme-l5 main" style="overflow-x: hidden;">
+<body class="w3-theme-l5 main" style="overflow-x: hidden; overflow-y:auto;">
 
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>
@@ -48,6 +57,7 @@
     <!-- Right Column -->
     <jsp:include page="layout/side-right.jsp"></jsp:include>      
     <!-- End Right Column -->
+    <jsp:include page="layout/top-slide.jsp"></jsp:include>  
     
   <!-- End Grid -->
   </div>
@@ -55,7 +65,7 @@
 <!-- End Page Container -->
 
 <br>
-<script>
+<script type="text/javascript">
 // Accordion
 function myFunction(id) {
     var x = document.getElementById(id);
@@ -85,10 +95,57 @@ $(document).ready(function(){
 		location.href="${pageContext.request.contextPath}/search?keyword="+keyword;
 	});
 });
-
+//게시판
+$(document).ready(
+	function() {
+		$("#image").hide();
+			$("#choice").change(function() {
+				if ($("#choice").val() == 'image') {
+					$("#small").hide();
+					$("#image").show();
+				} else {
+					$("#image").hide()
+					$("#small").show();
+				}
+			});
+		$("#myInput").on(
+			"keyup",
+				function() {
+					var value = $(this).val().toLowerCase();
+					$("#small tr").filter(
+						function() {
+							$(this).toggle(
+								$(this).text().toLowerCase().indexOf(value) > -1)
+						});
+					$("#image tr").filter(
+						function() {
+							$(this).toggle(
+								$(this).text().toLowerCase().indexOf(value) > -1)
+						});
+				});	
+})
+//썸머노트
+$('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 100
+});
+//쪽지 검색
+$(function() {
+	$('.disabled').on('click', function(event) {
+		event.preventDefault();
+	});
+	$('#searchConfirm').on("click", function(event) {
+		var searchType = $("select[name=searchType]").val();
+		var keyword = $("input[name=keyword]").val();
+		self.location = "${pageContext.request.contextPath}/${member.ID}/messageList${pageMaker.makeQuery(1)}&searchType=" + searchType + "&keyword=" + encodeURI(keyword);
+	});
+});
 </script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<!-- js 파일 -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script>
 </body>

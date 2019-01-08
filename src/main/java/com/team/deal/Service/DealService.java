@@ -1,25 +1,28 @@
 package com.team.deal.Service;
 
 import java.util.List;
+import java.util.Map;
 
-import com.team.deal.DTO.Criteria;
 import com.team.deal.DTO.DealDTO;
 
 public interface DealService {
 
-	// °Ô½Ã¹° ¸ñ·Ï Á¶È¸
-	public List<DealDTO> dealList() throws Exception;
+	// ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+	/*public List<DealDTO> dealList() throws Exception;*/
+	
+	public List<DealDTO> getList(Map<String, Object> map)throws Exception;
+	public int totalCount()throws Exception;
 
-	// °Ô½Ã¹° ÀÛ¼º
+	// ï¿½Ô½Ã¹ï¿½ ï¿½Û¼ï¿½
 	public void writerDeal(DealDTO ddto) throws Exception;
 
-	// °Ô½Ã¹° »ó¼¼ ³»¿ë Á¶È¸
+	// ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public DealDTO dealRead(int DEAL_NUM)throws Exception;
 	
-	// °Ô½Ã¹° ¼öÁ¤ÇÏ±â
+	// ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	public void updateDeal(DealDTO ddto) throws Exception;
 	
-	//°Ô½Ã¹° »èÁ¦
+	//ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void deleteDeal(int DEAL_NUM)throws Exception;
 
 	

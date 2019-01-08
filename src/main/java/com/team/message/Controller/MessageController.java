@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
+import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
+import com.team.message.VO.PageMaker;
 import com.team.message.VO.SendMessageVO;
 
 @Controller
@@ -31,22 +33,47 @@ public class MessageController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
-		List<MessageVO>mlist = messageService.listAll();		
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
+		List<MessageVO>mlist = messageService.listAll(memberVO);		
 		model.addAttribute("mlist", mlist);
 		
-		return "message/messageList";
+		return "main.jsp?center=message/messageList";
 	}
 	
+	//검색
+	@RequestMapping(value="{id}/messageList", method=RequestMethod.POST)
+	public String messageSearch(@PathVariable String id, HttpSession session, MessageSearchVO msvo, Model model)throws Exception{
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		model.addAttribute("profile", memberVO);
+		
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
+		int count_full = messageService.listCount(memberVO, msvo);
+		model.addAttribute("count", count_full);
+		model.addAttribute("searchlist", messageService.listAll(memberVO, msvo));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(msvo);
+		pageMaker.setTotalCount(messageService.listCount(memberVO, msvo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "main.jsp?center=message/messageList";
+	}
+		
 	//내가 보낸 쪽지
 	@RequestMapping(value="{id}/messageSendList", method=RequestMethod.GET)
 	public String messageSendList(@PathVariable String id, HttpSession session, Model model)throws Exception{
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
-		List<SendMessageVO>mslist = messageService.sendListAll();
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
+		List<SendMessageVO>mslist = messageService.sendListAll(memberVO);
 		model.addAttribute("mslist", mslist);
 		
-		return "message/messageSendList";
+		return "main.jsp?center=message/messageSendList";
 	}
 	
 	//쪽지 작성
@@ -66,9 +93,23 @@ public class MessageController {
 	
 	//쪽지 답장
 	@RequestMapping(value="{id}/messageResend", method=RequestMethod.GET)
-	public String messageResend(Model model)throws Exception{
+	public String messageResend(@ModelAttribute("MessageVO")MessageVO mvo, Model model, HttpSession session, HttpServletRequest request)throws Exception{
+		int MESSAGE_NO = Integer.parseInt(request.getParameter("MESSAGE_NO"));
+		mvo.setMESSAGE_NO(MESSAGE_NO);
+		MessageVO resultVO = messageService.read(mvo);
+		messageService.updateRead(MESSAGE_NO);
+		model.addAttribute("mdto", resultVO);
 		return "message/messageResend";
 	}
+	
+	//쪽지 답장 보내기
+		@RequestMapping(value="{id}/messageResend", method=RequestMethod.POST)
+		public String messageResendOk(MessageVO mvo, Model model)throws Exception{
+			
+			messageService.create(mvo);
+			
+			return "message/messageSendOk";
+		}
 	
 	//쪽지 상세내용 조회
 	//쪽지 조회시 읽음으로 변경되고, 읽은 날짜가 변경된다.(이후 변경되지는 않음)

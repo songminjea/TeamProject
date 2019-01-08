@@ -5,11 +5,6 @@
 <input type="hidden" id="isMyGall" value="${isMyGall}">
 <%-- url 아이디 --%>
 <input type="hidden" id="pageid" value="${pageid}">
-
-
-
-
-
 <div class="w3-row-padding">
 	<div class="w3-col m12">
 		<div class="w3-card w3-round w3-white" style="padding: 20px 30px;">

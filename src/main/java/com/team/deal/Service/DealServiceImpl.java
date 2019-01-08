@@ -1,13 +1,13 @@
 package com.team.deal.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.team.deal.DAO.DealDAO;
-import com.team.deal.DTO.Criteria;
 import com.team.deal.DTO.DealDTO;
 
 @Service
@@ -16,11 +16,13 @@ public class DealServiceImpl implements DealService{
 	@Inject
 	DealDAO dealDao;
 
-	@Override
+/*	@Override
 	public List<DealDTO> dealList() throws Exception {
 		
 		return dealDao.dealList();
-	}
+	}*/
+	
+
 
 	@Override
 	public void writerDeal(DealDTO ddto) throws Exception {
@@ -45,7 +47,18 @@ public class DealServiceImpl implements DealService{
 		
 	}
 
+	@Override
+	public List<DealDTO> getList(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return dealDao.getListWithPaging(map);
+	}
 
-	
-	
+	@Override
+	public int totalCount() throws Exception {
+		// TODO Auto-generated method stub
+		return dealDao.totalCount();
+	}
+
+
+
 }

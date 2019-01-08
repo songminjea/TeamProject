@@ -1,27 +1,29 @@
 package com.team.deal.DAO;
 
 import java.util.List;
+import java.util.Map;
 
-import com.team.deal.DTO.Criteria;
+
 import com.team.deal.DTO.DealDTO;
 
 
 public interface DealDAO {
-	//°Ô½Ã¹° ¸ñ·Ïº¸±â
-	public List<DealDTO> dealList() throws Exception;
-
-	//°Ô½Ã¹° ÀÛ¼º
+	//ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½Ïºï¿½ï¿½ï¿½
+	/*public List<DealDTO> dealList() throws Exception;*/
+	public List<DealDTO> getListWithPaging(Map<String, Object> map)throws Exception;
+	public int totalCount()throws Exception;
+	//ï¿½Ô½Ã¹ï¿½ ï¿½Û¼ï¿½
 	public void writerDeal(DealDTO ddto)throws Exception;
-	// °Ô½Ã¹° »ó¼¼ ³»¿ë Á¶È¸
+	// ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public DealDTO dealRead(int DEAL_NUM)throws Exception;
 	
-	// °Ô½Ã¹° ¼öÁ¤ÇÏ±â
-		public void dealUpdate(DealDTO ddto) throws Exception;
+	// ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+	public void dealUpdate(DealDTO ddto) throws Exception;
 		
-		//»èÁ¦
-		public void dealDelete(int DEAL_NUM) throws Exception;
+	//ï¿½ï¿½ï¿½ï¿½
+	public void dealDelete(int DEAL_NUM) throws Exception;
 
-		/*public List<DealDTO> dealListWithPaging(Criteria cri);*/
+	/*public List<DealDTO> dealListWithPaging(Criteria cri);*/
 		
 		
 }

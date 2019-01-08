@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -48,7 +49,9 @@ public class galleryController {
 	
 	
 	@RequestMapping(value = "imgupload", method=RequestMethod.GET)
-	public String imgupload() {
+	public String imgupload(HttpSession session, Model model) {
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		model.addAttribute("profile", memberVO);
 		
 		return "main.jsp?center=gallery/imgupload";
 	}
@@ -152,7 +155,7 @@ public class galleryController {
 	public List<galleryVO> GetSpecGallery(@PathVariable String id, Model model) {
 		//System.out.println("GetSpecGallery 호출 " + id);
 		List<galleryVO> vo = gbService.GetSpecGalleryList(id);
-
+			
 		return vo;
 	}
 	

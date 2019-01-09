@@ -1,16 +1,38 @@
 pageNum = 0;
 isDetach = true;
 
+function regHelper(){
+	Handlebars.registerHelper('SetActive', function(index, options) {
+		  
+		  if (index == "0") {
+		    return "active";
+		  } else {
+		    return "";
+		  }
+	});
+	
+	
+	// 이미지 수에 따라 캐러셀 사용 여부를 리턴
+	Handlebars.registerHelper('setCarousel', function(length, options) {
+			console.log(length);
+		  // 이미지가 한개일때
+		  if (length == "1") {
+			  return options.inverse(this);
+		  } else { // 이미지가 없거나, 한개 이상 일때.
+			 return options.fn(this);
+		  }
+	});
+}
 
 function ShowGallery(id, isMyGall){
 	var GotoUrl = "";
 	// 내가 쓴 글만 출력할때 = main 으로 접근
 	if(isMyGall == 'true'){
-		GotoUrl = "/TeamPro/" + id + "/getMyGallery";
+		GotoUrl = "/TeamPro/getMyGallery";
 	}
 	// 대상 id가 쓴 글을 출력할때 = {id}/gallery 로 접근
 	else{
-		GotoUrl = "/TeamPro/" + id + "/getSpecGallery"
+		GotoUrl = "/TeamPro/getSpecGallery"
 	}
 	if(isDetach == true)
 		$("#gallery_list").children().detach();
@@ -32,14 +54,7 @@ function ShowGallery(id, isMyGall){
 						gall : result,
 				}
 				
-				Handlebars.registerHelper('SetActive', function(index, options) {
-					  
-					  if (index == "0") {
-					    return "active";
-					  } else {
-					    return "";
-					  }
-				});
+				regHelper();
 				
 				console.log(data);
 				var html = template(data);
@@ -101,7 +116,9 @@ $('body').scroll(function(){
 	if ($('body').scrollTop() == $(document).height() - $(window).height()) {
     	isDetach = false;
     	
+    	// 내 갤러리인지 아닌지
     	var isMyGall = $("#isMyGall").val()
+    	// 스크롤링에 사용되는 페이지 번호 
     	var pageid = $("#pageid").val();
 
     	ShowGallery(pageid, isMyGall);

@@ -29,24 +29,29 @@
 	<p>{{gallery/gb_Content}}</p>
 	</span>
 
+	
 	<div id="carouselControls_{{gallery/gb_Num}}" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			{{#file}}
 				<div class="carousel-item {{#SetActive @index}}{{/SetActive}}">
-					<img class="d-block w-100" src="${pageContext.request.contextPath}/{{gb_File}}" alt="이미지">
+					<img class="carousel_Img d-block w-100" src="${pageContext.request.contextPath}/{{gb_File}}" alt="이미지">
 				</div>
 			{{/file}}		
-		
+	
 		</div>
-		<a class="carousel-control-prev" href="#carouselControls_{{gallery/gb_Num}}" role="button" data-slide="prev"> 
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="carousel-control-next" href="#carouselControls_{{gallery/gb_Num}}" role="button" data-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span> 
-			<span class="sr-only">Next</span>
-		</a>
-	</div>
+		{{#setCarousel file.length}}
+			<a class="carousel-control-prev" href="#carouselControls_{{gallery/gb_Num}}" role="button" data-slide="prev"> 
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carouselControls_{{gallery/gb_Num}}" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span> 
+				<span class="sr-only">Next</span>
+			</a>
+		{{/setCarousel}}
+	</div>		
+
+	
 
 	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
 		<i class="fa fa-thumbs-up" id="like_i"></i><font class="listFont">Like</font>

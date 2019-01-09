@@ -28,7 +28,7 @@
 	         <%-- 로그인 했을때만 글쓰기 버튼 보인다 --%>
 	         <c:if test="${!empty member.ID}"> 
 	         	<p align="center"><input type="button" class="uploadBtn"
-	         	onclick="location.href='${pageContext.request.contextPath}/imgupload'" value="게시물 올리기"></p>
+	         	onclick="location.href='${pageContext.request.contextPath}/gallWrite'" value="게시물 올리기"></p>
 	         </c:if>
         </div>
         </div>

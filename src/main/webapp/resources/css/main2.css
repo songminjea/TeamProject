@@ -69,15 +69,19 @@ a{
 }
 .uploadBtn{
 		  width: 250px;
+		  max-width : 100%;
 		  height: 50px;
 		  border-radius: 5px;
-		  background-color: #cbcbcd;
+		  background-color: #6494ff;
 		  border: none;
 		  padding: 2px;
 		  color: white;
-		  font-weight: 600;	
+		  font-weight: 600;
+		  	
 }		
-
+.uploadBtn:hover{
+	background-color: #3b74f7;
+}
 
 /* 검색창 */
 #search_keyword{
@@ -94,4 +98,11 @@ a{
 
 a:hover{
 	text-decoration: none !important;
+}
+
+
+.carousel_Img{
+	min-height: 300px;
+	max-height: 300px;
+	object-fit : contain;
 }

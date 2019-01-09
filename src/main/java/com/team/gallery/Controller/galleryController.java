@@ -2,11 +2,14 @@ package com.team.gallery.Controller;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -26,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.team.gallery.Service.FUploadService;
 import com.team.gallery.Service.GBService;
 import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
@@ -38,19 +40,17 @@ import com.team.member.VO.MemberVO;
 @Controller
 public class galleryController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(galleryController.class);
 	
 	@Autowired
 	private GBService gbService;
-	
-	@Autowired
-	private FUploadService fuService;
-	
-	
-	@RequestMapping(value = "imgupload", method=RequestMethod.GET)
-	public String imgupload() {
 		
-		return "main.jsp?center=gallery/imgupload";
+	
+	@RequestMapping(value = "gallWrite", method=RequestMethod.GET)
+	public String imgupload(HttpSession session, Model model) {
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		model.addAttribute("profile", memberVO);
+		
+		return "main.jsp?center=gallery/gallWrite";
 	}
 	
 	@RequestMapping("/galleryWrite")
@@ -65,7 +65,7 @@ public class galleryController {
 		
 		fvo.setGb_Num(Num);
 		
-		fuService.insert(fvo);
+		gbService.FileInsert(fvo);
 		
 		ra.addFlashAttribute("msg", "success");
 		
@@ -146,27 +146,56 @@ public class galleryController {
 		return "main.jsp?center=gallery/list";
 	}
 	
-	// {id} 에 해당하는 사용자가 쓴 글을 가져온다.
-	@RequestMapping(value = "{id}/getSpecGallery")
-	@ResponseBody
-	public List<galleryVO> GetSpecGallery(@PathVariable String id, Model model) {
-		//System.out.println("GetSpecGallery 호출 " + id);
-		List<galleryVO> vo = gbService.GetSpecGalleryList(id);
+	
+	public List<Map<String, Object>> ShowGallery(@RequestBody Map<String, String> galleryInfo, int type)
+			throws Exception {
+		// 맵은 <id, pageNum> 로 구성
+		// 어떤 ID가 쓴 글인지, 스크롤링 페이지가 몇번째인지
+		
 
-		return vo;
+		// 글 8개씩 불러옴.
+		String pageNum = String.valueOf(Integer.parseInt(galleryInfo.get("pageNum")) * 8);
+		galleryInfo.put("pageNum", pageNum);
+
+		// 갤러리 정보 가져온다.
+		List<galleryVO> gall;
+		if(type == 0) {
+			gall = gbService.GetSpecGalleryList(galleryInfo);
+		}else {
+			gall = gbService.GetMyGalleryList(galleryInfo);
+		}
+
+		// 리턴해줄 맵 생성
+		List<Map<String, Object>> galleryInfoList = new ArrayList<>();
+
+		for (galleryVO gtemp : gall) {
+			Map<String, Object> temp = new HashMap<>();
+
+			List<galleryVO> file = gbService.GetImgList(gtemp.getGb_Num());
+
+			// 글 정보
+			temp.put("gallery", gtemp);
+			// 해당 글의 이미지 파일 정보 리스트
+			temp.put("file", file);
+			galleryInfoList.add(temp);
+
+		}
+
+		return galleryInfoList;
+	}
+	
+	// 특정 사용자가 쓴 글을 가져온다.
+	@RequestMapping(value = "/getSpecGallery")
+	@ResponseBody
+	public List<Map<String, Object>> GetSpecGallery(@RequestBody Map<String, String> galleryInfo, Model model) throws Exception {
+		// Map<String, String> galleryInfo 은 (id, pageNum)로 구성 
+		return ShowGallery(galleryInfo, 0);
 	}
 	
 	// 내가 팔로우 한 사람들의 글을 가져옴.
-	@RequestMapping(value = "{id}/getMyGallery")
+	@RequestMapping(value = "/getMyGallery")
 	@ResponseBody
-	public List<galleryVO> GetMyGallery(@PathVariable String id, Model model) {
-		//System.out.println("GetMyGallery 호출 " + id);
-		List<galleryVO> vo = gbService.GetMyGalleryList(id);
-
-		/*for (galleryVO vv : vo) {
-			System.out.println("ShowGallery " + vv.getGb_Content() + " " + vv.getMb_ID() + " " + vv.getGb_Date());
-		}*/
-
-		return vo;
+	public List<Map<String, Object>> GetMyGallery(@RequestBody Map<String, String> galleryInfo, Model model) throws Exception {
+		return ShowGallery(galleryInfo, 1);
 	}
 }

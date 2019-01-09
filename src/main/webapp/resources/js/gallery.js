@@ -1,44 +1,79 @@
-/**
- * 
- */
+pageNum = 0;
+isDetach = true;
 
+function regHelper(){
+	Handlebars.registerHelper('SetActive', function(index, options) {
+		  
+		  if (index == "0") {
+		    return "active";
+		  } else {
+		    return "";
+		  }
+	});
+	
+	
+	// 이미지 수에 따라 캐러셀 사용 여부를 리턴
+	Handlebars.registerHelper('setCarousel', function(length, options) {
+			console.log(length);
+		  // 이미지가 한개일때
+		  if (length == "1") {
+			  return options.inverse(this);
+		  } else { // 이미지가 없거나, 한개 이상 일때.
+			 return options.fn(this);
+		  }
+	});
+}
 
 function ShowGallery(id, isMyGall){
 	var GotoUrl = "";
 	// 내가 쓴 글만 출력할때 = main 으로 접근
 	if(isMyGall == 'true'){
-		GotoUrl = "/TeamPro/" + id + "/getMyGallery";
+		GotoUrl = "/TeamPro/getMyGallery";
 	}
 	// 대상 id가 쓴 글을 출력할때 = {id}/gallery 로 접근
 	else{
-		GotoUrl = "/TeamPro/" + id + "/getSpecGallery"
+		GotoUrl = "/TeamPro/getSpecGallery"
 	}
+	if(isDetach == true)
+		$("#gallery_list").children().detach();
 	
-	$("#gallery_list").children().detach();
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
+		data : JSON.stringify({
+			id : id ,
+			pageNum : pageNum
+		}),
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			//console.log(result.length);
-			if(result.length != 0){		
+			if(result.length != 0){
 				var source = $("#gallery-template").html();
 				var template = Handlebars.compile(source);
 				var data = {
-					gall : result
+						gall : result,
 				}
+				
+				regHelper();
+				
+				console.log(data);
 				var html = template(data);
 				$("#gallery_list").append(html);
 				TimeFormat();
+				
+				pageNum++;
 			} else{
-				$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+				if(isDetach == true)
+					$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+				
 			}
+			//console.log(result.length);
 		}
 		
 	});
 	
 }
+	
 
 // 시간 처리 ex)1분전 , 10초전 작성 등등
 function TimeFormat(){
@@ -74,6 +109,22 @@ function TimeFormat(){
 	
 	
 }
+
+
+$('body').scroll(function(){
+	
+	if ($('body').scrollTop() == $(document).height() - $(window).height()) {
+    	isDetach = false;
+    	
+    	// 내 갤러리인지 아닌지
+    	var isMyGall = $("#isMyGall").val()
+    	// 스크롤링에 사용되는 페이지 번호 
+    	var pageid = $("#pageid").val();
+
+    	ShowGallery(pageid, isMyGall);
+    	
+    }	
+});
 
 $(document).ready(function(){
 	var isMyGall = $("#isMyGall").val()

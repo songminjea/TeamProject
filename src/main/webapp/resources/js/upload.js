@@ -70,13 +70,17 @@ $(document).ready(function(){
 			datatype : "text",
 			success : function(result){
 				if(result == "DELETED"){
-					alert("삭제되었습니다.");
+					//alert("삭제되었습니다.");
 					that.parents("li").remove();
 				}
 			}
 		});
 		
 	});	
+	
+	$("#file-click").on("click",function(){
+		$("#file_btn").trigger("click");
+	});
 });
 
 

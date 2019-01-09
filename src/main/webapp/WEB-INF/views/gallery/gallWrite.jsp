@@ -17,21 +17,13 @@
 	#space{
 		margin-bottom: 3%;
 	}
-.file-click{
-    width: 100%;
-    position: relative;
+#file-click{
+    color : #5385ff;
+    cursor : pointer;
 }
 
-.file-click input[type=file] {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    cursor: pointer;
+#file-click:hover{
+	color : #1942a6;
 }
 
 .file-area .file-dummy {
@@ -69,34 +61,39 @@
 </head>
 <body>
 <div class="w3-container w3-card w3-white w3-round w3-margin" ><br>
-	<h4>사진 업로드</h4>
+	<h4>글쓰기</h4>
 	<form role = "form" method = "post" action="galleryWrite">
+	<input type="hidden" name="mb_ID" value="${member.ID}">
+	
 	<div id="space">
 		<select name="gb_Privacy">
 			<option value="N" selected="selected">친구공개</option>
 			<option value="Y">미공개</option>
 		</select>
 	</div>
+	<textarea rows="5" cols="40" class="w3-col m12" id="space" name="gb_Content" 
+	placeholder="하고싶은 말을 적어보세요!" style="resize: none;"></textarea>
+
+	<%-- 이미지 열기 버튼 --%>
+	<span id="file-click">
+		<i class="fa fa-camera" aria-hidden="true" style=" font-size: 30px;"></i>
+	</span>
+	<input type="file" id="file_btn" style=" display: none;">
 	
-	<div class="w3-col m3" id="space">ID</div>
-	<div class="w3-col m9" id="space"><input type="text" name="mb_ID" value ="${member.ID}"></div>
-	<div class="w3-col m3" id="space">내용</div>
-	<textarea rows="5" cols="40" class="w3-col m9" id="space" name="gb_Content"></textarea>
-	<div>
-		<span class="file-click">Click & Drag Zone
-			<input type="file">
-		</span>
-	</div>
+
+	
 	<div class="file-area w3-col m12" >
-	    <div class="file-dummy" id="space">
-	       <div class = "box-footer">
-	       		<ul class = "mailbox-attachments clearfix uploadedFileList"></ul>	       
-	       </div>
-	    </div>
+		<div id="upload-area">
+		    <div class="file-dummy" id="space">
+		       <div class = "box-footer">
+		       		<ul class = "mailbox-attachments clearfix uploadedFileList"></ul>	       
+		       </div>
+		    </div>
+		</div>
 	</div>
-	<div id ="space">
-		<input type ="submit" value="등록">
-		<input type ="reset" value="다시작성">
+	<div id ="space" style="text-align: center;">
+		<input type ="submit" class="uploadBtn" value="등록">
+		<input type ="reset"  class="uploadBtn" value="다시작성">
 	</div>
 	</form>
 </div>

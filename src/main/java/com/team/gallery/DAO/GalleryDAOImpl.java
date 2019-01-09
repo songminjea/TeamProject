@@ -1,12 +1,15 @@
 package com.team.gallery.DAO;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
 
 @Repository
@@ -32,14 +35,37 @@ public class GalleryDAOImpl implements GalleryDAO {
 	}
 
 	@Override
-	public List<galleryVO> GetMyGalleryList(String my_id) {
+	public List<galleryVO> GetMyGalleryList(Map<String, String> galleryInfo) {
 		
-		return sqlSession.selectList("GetMyGalleryList", my_id);
+		return sqlSession.selectList("GetMyGalleryList", galleryInfo);
 	}
 
 	@Override
-	public List<galleryVO> GetSpecGalleryList(String id) {
-		return sqlSession.selectList("GetSpecGalleryList", id);
+	public List<galleryVO> GetSpecGalleryList(Map<String, String> galleryInfo) {
+		return sqlSession.selectList("GetSpecGalleryList", galleryInfo);
+	}
+
+	@Override
+	public void FileInsert(fileVO fvo) {
+		// TODO Auto-generated method stub
+		String[] Image = fvo.getGb_Image();
+		int Num = fvo.getGb_Num();
+		
+		//System.out.println(Image);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		for(String s : Image) {
+			paramMap.put("Image", s);
+			paramMap.put("Num",Num);
+			sqlSession.insert("fileInsert",paramMap);
+		}
+		
+	}
+
+	@Override
+	public List<galleryVO> GetImgList(int GB_Num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("selectImgList", GB_Num);
 	}
 	
 	

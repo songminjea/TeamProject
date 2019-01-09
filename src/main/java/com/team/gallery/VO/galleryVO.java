@@ -10,7 +10,10 @@ public class galleryVO {
 	private Timestamp gb_Date;
 	private String gb_IP;
 	private String gb_Privacy;
-	private String gb_File;
+	
+	String gb_File;
+	
+	
 	
 	
 	public String getGb_File() {

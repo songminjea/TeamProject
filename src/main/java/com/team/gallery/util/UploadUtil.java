@@ -148,6 +148,11 @@ public class UploadUtil {
 		String rootPath = getRootPath(originalFileName, request);	//기본경로 추출(이미지 or 일반 파일)
 		String datePath = getDatePath(rootPath);
 		
+		//2-1. 폴더 경로가 없으면 만든다.
+		File exist = new File(rootPath);
+		if(!exist.exists())
+			exist.mkdir();
+		
 		//3.서버에 파일 저장
 		File target = new File(rootPath + datePath,uuidFileName);
 		FileCopyUtils.copy(fileData, target);

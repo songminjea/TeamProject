@@ -1,5 +1,5 @@
-
-
+pageNum = 0;
+isDetach = true;
 
 
 function ShowGallery(id, isMyGall){
@@ -12,109 +12,51 @@ function ShowGallery(id, isMyGall){
 	else{
 		GotoUrl = "/TeamPro/" + id + "/getSpecGallery"
 	}
+	if(isDetach == true)
+		$("#gallery_list").children().detach();
 	
-	$("#gallery_list").children().detach();
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
+		data : JSON.stringify({
+			id : id ,
+			pageNum : pageNum
+		}),
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
 			if(result.length != 0){
-				mutiImgCheck(result);
-	//			var mutiImg = false;
-	//			$.each(result,function(i){
-	//				var j = i+1;
-	//				var firstNum = result[i].gb_Num;
-	//				$.each(result,function(j){
-	//					var secondNum = result[j].gb_Num;
-	//					if(firstNum != secondNum){
-	//						multiImg = true;
-	//					}
-	//				})
-	//			})
-	//			if(!multiImg){
-	//			
-	//			var source = $("#gallery-template").html();
-	//			var template = Handlebars.compile(source);
-	//			console.log(result);
-	//			var data = {gall : result}
-	//			var html = template(data);
-	//			$("#gallery_list").append(html);
-	//			TimeFormat();
-	//			}else{
-	//				console.log(result);
-	//			}
+				var source = $("#gallery-template").html();
+				var template = Handlebars.compile(source);
+				var data = {
+						gall : result,
+				}
+				
+				Handlebars.registerHelper('SetActive', function(index, options) {
+					  
+					  if (index == "0") {
+					    return "active";
+					  } else {
+					    return "";
+					  }
+				});
+				
+				console.log(data);
+				var html = template(data);
+				$("#gallery_list").append(html);
+				TimeFormat();
+				
+				pageNum++;
 			} else{
-				$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+				if(isDetach == true)
+					$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+				
 			}
 			//console.log(result.length);
 		}
 		
 	});
 	
-}
-
-function mutiImgCheck(data){
-	var mutiImg = false;
-	var start = 0;
-	var end = 0;
-	//console.log(data);
-	for(var i = 0; i< data.length; i++){
-		for(var j=i+1; j< data.length; j++){
-			if(data[i].gb_Num == data[j].gb_Num){
-				start = i;
-				end = j;
-			}
-			else{
-				start = i;
-				end = j-1;
-				break;
-			} // if 끝
-			
-		} // for j 끝
-
-		// 이미지가 한개
-		if(start == end){
-			var source = $("#gallery-template").html();
-			var template = Handlebars.compile(source);
-			var html = template(data[start]);
-			$("#gallery_list").append(html);
-			TimeFormat();
-		} else{ // 이미지 여러개
-			var imguri = [];
-			var index = 0;
-			for(var k=start; k<=end; k++){
-				imguri[index] = {"imguri" : data[k].gb_File};
-				index++;
-			}
-			var source = $("#gallery-template2").html();
-			var result = {
-					gall : data[start],
-					img_file : imguri
-			}	
-			
-			Handlebars.registerHelper('SetActive', function(index, options) {
-				  
-				  if (index == "0") {
-				    return "active";
-				  } else {
-				    return "";
-				  }
-			});
-			
-			//console.log(result);
-			
-			var template = Handlebars.compile(source);
-			var html = template(result);
-			$("#gallery_list").append(html);
-			TimeFormat();
-			
-		}		
-		
-		
-		i = end;
-	} // for i 끝
 }
 	
 
@@ -152,6 +94,20 @@ function TimeFormat(){
 	
 	
 }
+
+
+$('body').scroll(function(){
+	
+	if ($('body').scrollTop() == $(document).height() - $(window).height()) {
+    	isDetach = false;
+    	
+    	var isMyGall = $("#isMyGall").val()
+    	var pageid = $("#pageid").val();
+
+    	ShowGallery(pageid, isMyGall);
+    	
+    }	
+});
 
 $(document).ready(function(){
 	var isMyGall = $("#isMyGall").val()

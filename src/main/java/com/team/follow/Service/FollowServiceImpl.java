@@ -46,6 +46,21 @@ public class FollowServiceImpl implements FollowService {
 	public List<FollowVO> getNotFollowingList(String id) {
 		return followDAO.getNotFollowingList(id);
 	}
+
+	@Override
+	public int getCountFollowing(String id) {
+		// TODO Auto-generated method stub
+		return followDAO.getCountFollowing(id);
+	}
+
+	@Override
+	public int getCountFollower(String id) {
+		// TODO Auto-generated method stub
+		return followDAO.getCountFollower(id);
+	}
+	
+	
+	
 	
 	
 	

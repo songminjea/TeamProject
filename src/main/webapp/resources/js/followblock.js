@@ -75,7 +75,7 @@ function getFollowList(my_id, page_id, pageType) {
 					follow : result,
 					type : pageType
 				}	
-				//console.log(data);
+				console.log(data);
 				var html = template(data);
 				$("#follow_list").append(html);
 				

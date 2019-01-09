@@ -25,5 +25,10 @@ public interface FollowService {
 	// 팔로우 하지않은 목록 얻어오기
 	public List<FollowVO> getNotFollowingList(String id);
 	
+	// 팔로잉 수 얻어오기
+	public int getCountFollowing(String id);
+	
+	// 팔로워 수 얻어오기
+	public int getCountFollower(String id);
 	
 }

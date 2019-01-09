@@ -25,6 +25,13 @@ public interface FollowDAO {
 	// 팔로잉 하고 있는지 체크
 	public boolean IsFollowing(FollowVO vo);
 
+	// 팔로우 하지않은 사람들 목록
 	public List<FollowVO> getNotFollowingList(String follower_id);
+
+	// 팔로잉수 얻어오기.
+	public int getCountFollowing(String id);
+
+	// 팔로워수 얻어오기
+	public int getCountFollower(String id);
 		
 }

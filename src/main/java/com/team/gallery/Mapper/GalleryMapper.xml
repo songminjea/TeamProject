@@ -14,23 +14,33 @@
 	</select>
 	
 	<select id="GetMyGalleryList" resultType="com.team.gallery.VO.galleryVO">
-		select  f.follower_id, g.GB_Num, g.MB_ID, g.GB_Content, g.GB_Date, g.GB_IP, g.GB_Privacy, fi.gb_File
-		from TB_FOLLOW f , TB_gallery g, TB_FILE fi
-		where f.following_id = g.MB_ID and f.follower_id = #{my_id} and g.gb_Num = fi.gb_Num
-		order by g.GB_Num desc; 
+		select  f.follower_id, g.GB_Num, g.MB_ID, g.GB_Content, g.GB_Date, g.GB_IP, g.GB_Privacy
+		from TB_FOLLOW f , TB_gallery g
+		where f.following_id = g.MB_ID and f.follower_id = #{id}
+		order by g.GB_Num desc
+		limit ${pageNum} , 8; 
 	</select>
 	
 	<select id="GetSpecGalleryList" resultType="com.team.gallery.VO.galleryVO">
-		select g.gb_Num,g.mb_ID,g.gb_Content,g.gb_Date,g.gb_Privacy,f.gb_File
-		from TB_gallery g, TB_FILE f
-		where g.MB_ID = #{id} and g.gb_Num = f.gb_Num
-		order by GB_Num desc;
+		select g.gb_Num,g.mb_ID,g.gb_Content,g.gb_Date,g.gb_Privacy
+		from TB_gallery g
+		where g.MB_ID = #{id}
+		order by GB_Num desc
+		limit ${pageNum}, 8;
 	</select>
 	
-	<select id="GetImgList" parameterType="com.team.gallery.VO.galleryVO" resultType="com.team.gallery.VO.galleryVO">
-		select i.IM_Num, i.IM_File
-		from TB_gallery g, TB_image i
-		where g.GB_Num = i.IM_Num and g.mb_id = #{mb_ID} and IM_Num = #{im_Num};
+
+
+	<insert id="fileInsert">
+		insert into TB_FILE (gb_Num,gb_file)
+		VALUES(#{Num},#{Image})
+	</insert>
+	
+	
+	<select id="selectImgList" resultType="com.team.gallery.VO.galleryVO">
+		select *
+		from TB_FILE
+		where GB_Num = #{GB_Num}
 	</select>
 	
 </mapper>

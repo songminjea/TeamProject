@@ -47,7 +47,17 @@
 		                    where follower_id = #{following_id})
 		order by rand() limit 5;
 	</select>
-
-
+	
+	<select id="getCountFollowing" resultType="int">
+		select count(*)
+		from TB_FOLLOW
+		where follower_id = #{id}
+	</select>
+	
+	<select id="getCountFollower" resultType="int">
+		select count(*)
+		from TB_FOLLOW
+		where following_id = #{id}
+	</select>
 
 </mapper>

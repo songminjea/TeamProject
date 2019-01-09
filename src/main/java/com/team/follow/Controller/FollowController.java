@@ -161,6 +161,13 @@ public class FollowController {
 			followlist.add(tempMap);
 
 		}
+		String pageID = FollowInfo.get("id");
+		/*
+		if(Type == 0)
+			followlist.add(new HashMap<String, String>().put("countList", followService.getCountFollower(pageID)));
+		else
+			tempMap.put("countList", followService.getCountFollower(pageID));
+		*/
 
 		return followlist;
 	}

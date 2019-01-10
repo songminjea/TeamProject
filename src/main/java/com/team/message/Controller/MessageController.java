@@ -2,6 +2,7 @@ package com.team.message.Controller;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
 import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
-import com.team.message.VO.PageMaker;
+import com.team.message.VO.MessagePageMaker;
 import com.team.message.VO.SendMessageVO;
 
 @Controller
@@ -26,6 +29,11 @@ public class MessageController {
 	
 	@Autowired
 	MessageService messageService;
+	
+	@Inject
+	public MessageController(MessageService messageService) {
+		this.messageService = messageService;
+	}
 		
 	//쪽지 전체 목록
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
@@ -44,20 +52,21 @@ public class MessageController {
 	
 	//검색
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.POST)
-	public String messageSearch(@PathVariable String id, HttpSession session, MessageSearchVO msvo, Model model)throws Exception{
+	public String messageSearch(@ModelAttribute("messageSearchVO")MessageSearchVO messageSearchVO, 
+								 @PathVariable String id, HttpSession session, Model model)throws Exception{
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
 		
-		int count_full = messageService.listCount(memberVO, msvo);
-		model.addAttribute("count", count_full);
-		model.addAttribute("searchlist", messageService.listAll(memberVO, msvo));
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(msvo);
-		pageMaker.setTotalCount(messageService.listCount(memberVO, msvo));
-		model.addAttribute("pageMaker", pageMaker);
+		MessagePageMaker messagePageMaker = new MessagePageMaker();
+		messagePageMaker.setCri(messageSearchVO);
+		messagePageMaker.setTotalCount(messageService.countSearchedArticles(memberVO, messageSearchVO));
+		
+		model.addAttribute("messageSearchList", messageService.listSearch(memberVO, messageSearchVO));
+		model.addAttribute("messagePageMaker", messagePageMaker);
+		
 		return "main.jsp?center=message/messageList";
 	}
 		
@@ -80,6 +89,21 @@ public class MessageController {
 	@RequestMapping(value="{id}/messageSend", method=RequestMethod.GET)
 	public String messageSend(MessageVO mvo, Model model) {		
 		return "message/messageSend";
+	}
+	
+	//쪽지 보낼 때 아이디 여부 체크
+	@ResponseBody
+	@RequestMapping(value="{id}/messageIdCheck", method=RequestMethod.POST)	
+	public int messageIdCheck(HttpServletRequest request) throws Exception{
+		String MESSAGE_RECEIVER = request.getParameter("MESSAGE_RECEIVER");
+		MemberVO messageIdCheck = messageService.messageIdCheck(MESSAGE_RECEIVER);
+		
+		int result = 0;		
+		if (messageIdCheck != null) {
+			result = 1;
+		}
+		
+		return result;
 	}
 	
 	//쪽지 보내기
@@ -114,12 +138,17 @@ public class MessageController {
 	//쪽지 상세내용 조회
 	//쪽지 조회시 읽음으로 변경되고, 읽은 날짜가 변경된다.(이후 변경되지는 않음)
 	@RequestMapping(value="{id}/messageView", method=RequestMethod.GET)
-	public String messageView(@ModelAttribute("MessageVO")MessageVO mvo, Model model, HttpServletRequest request)throws Exception{
-		int MESSAGE_NO = Integer.parseInt(request.getParameter("MESSAGE_NO"));
+	public String messageView(@RequestParam("MESSAGE_NO") int MESSAGE_NO,
+							   @ModelAttribute("MessageVO")MessageVO mvo, 
+							   Model model, HttpServletRequest request)throws Exception{
+		
 		mvo.setMESSAGE_NO(MESSAGE_NO);
 		MessageVO resultVO = messageService.read(mvo);
+
 		messageService.updateRead(MESSAGE_NO);
+		
 		model.addAttribute("mdto", resultVO);
+		
 		return "message/messageView";
 	}
 
@@ -135,8 +164,17 @@ public class MessageController {
 
 	//쪽지 삭제
 	@RequestMapping(value="{id}/messageDelete")
-	public String messageDelete(@RequestParam int MESSAGE_NO)throws Exception{
+	public String messageDelete(@RequestParam("MESSAGE_NO") int MESSAGE_NO,
+								MessageSearchVO messageSearchVO,
+								RedirectAttributes redirectAttributes)throws Exception{
+		
 		messageService.delete(MESSAGE_NO);
+		
+		redirectAttributes.addAttribute("page", messageSearchVO.getPage());
+		redirectAttributes.addAttribute("perPageNum", messageSearchVO.getPerPageNum());
+		redirectAttributes.addAttribute("searchType", messageSearchVO.getSearchType());
+		redirectAttributes.addAttribute("keyword", messageSearchVO.getKeyword());
+		
 		return "redirect:messageList";
 	}
 	

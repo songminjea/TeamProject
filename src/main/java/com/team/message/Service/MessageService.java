@@ -13,10 +13,10 @@ public interface MessageService {
 	public List<MessageVO>listAll(MemberVO memberVO)throws Exception;
 	
 	//검색한 쪽지 리스트
-	public List<MessageVO>listAll(MemberVO memberVO, MessageSearchVO msvo)throws Exception;
+	public List<MessageVO>listSearch(MemberVO memberVO, MessageSearchVO msvo)throws Exception;
 	
 	//페이징을 위한 카운트
-	public Integer listCount(MemberVO memberVO, MessageSearchVO msvo)throws Exception;
+	public int countSearchedArticles(MemberVO memberVO, MessageSearchVO msvo)throws Exception;
 	
 	//내가 보낸 쪽지
 	public List<SendMessageVO> sendListAll(MemberVO memberVO)throws Exception;
@@ -26,6 +26,9 @@ public interface MessageService {
 		
 	//쪽지 작성
 	public void create(MessageVO mvo)throws Exception;
+	
+	//쪽지 작성시 상대 아이디 여부 체크
+	public MemberVO messageIdCheck(String MESSAGE_RECEIVER)throws Exception;
 	
 	//쪽지 상세 내용 
 	public MessageVO read(MessageVO mvo)throws Exception;

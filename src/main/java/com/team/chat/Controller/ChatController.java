@@ -1,5 +1,10 @@
 package com.team.chat.Controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.team.chat.Service.ChatService;
-import com.team.chat.VO.ChatPageMaker;
 import com.team.chat.VO.ChatSearchVO;
 import com.team.chat.VO.ChatVO;
 import com.team.member.Service.MemberServiceImpl;
@@ -50,31 +54,64 @@ public class ChatController {
 	@RequestMapping(value="{id}/chatSearch", method=RequestMethod.GET)
 	public String chatSearch(@PathVariable String id, HttpSession session, Model model)throws Exception{
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
-		model.addAttribute("profile", memberVO);
-				
+		model.addAttribute("profile", memberVO);	
+		
+		int count = messageService.countList(memberVO);
+		model.addAttribute("messageCount", count);
+		
 		return "chat/chatSearch";
 	}
 	
-	//검색 결과 
-	@RequestMapping(value="{id}/chatSearchList", method=RequestMethod.GET)
-	public String chat_search(@ModelAttribute("ChatSearchVO")ChatSearchVO chatSearchVO, @PathVariable String id, HttpSession session, Model model)throws Exception{
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
-		
-		if(memberVO != null) {		
-			int count = messageService.countList(memberVO);
+	//검색 결과
+	@RequestMapping(value="{id}/chatSearch", method=RequestMethod.POST)
+	public List<Map<String, String>> chatSearch(@PathVariable String id, HttpServletRequest request, 
+								  @ModelAttribute("ChatSearchVO")ChatSearchVO chatSearchVO, 
+								  HttpSession session, Model model,
+								  Map<String, String>searchInfo){
+
+			List<MemberVO>member = chatService.listAll(searchInfo);
+			
+			MemberVO memberVO = (MemberVO) session.getAttribute("member");			
 			model.addAttribute("profile", memberVO);
-			model.addAttribute("messageCount", count);
+			
+			List<Map<String, String>> searchInfoList = new ArrayList<>();
+			
+			for(MemberVO temp:member) {
+				Map<String, String> tempMap = new HashMap<>();
+				
+				if (memberVO != null) {
+					// temp의 ID가 로그인된 ID와 같으면 무시한다.
+					if (memberVO.getID().equals(temp.getID()))
+						continue;
+				}
+				if(temp.getPIC() == null || temp.getPIC().equals("")) {
+					temp.setPIC("/resources/img/baby.jpg");
+				}
+				
+				tempMap.put("sMem_id", temp.getID());
+				tempMap.put("sMem_pic", temp.getPIC());
+				tempMap.put("sMem_name", temp.getNAME());
+				searchInfoList.add(tempMap);
+			
+			}
+			return searchInfoList;
 		}
-		
-		ChatPageMaker chatPageMaker = new ChatPageMaker();
-		chatPageMaker.setCri(chatSearchVO);
-		chatPageMaker.setTotalCount(chatService.count(chatSearchVO));
-		
-		model.addAttribute("chatlist", chatService.list(chatSearchVO));
-		model.addAttribute("chatPageMaker", chatPageMaker);
-					
-		return "chat/chatSearchList";
-	}
+	
+//	//검색 결과 
+//	@RequestMapping(value="{id}/chatSearch", method=RequestMethod.POST)
+//	public ModelAndView chatSearchList(@RequestParam(defaultValue="")String keyword, HttpSession session)throws Exception{
+//		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("profile", memberVO);
+//		
+//		List<MemberVO>clist = chatService.listAll(keyword);
+//		
+//		mav.addObject("keyword", keyword);
+//		mav.addObject("clist", clist);
+//		mav.setViewName("chat/chatSearch");
+//		
+//		return mav;
+//	}
 	
 	//채팅 접속
 	@RequestMapping(value="{id}/multiChat", method=RequestMethod.GET)

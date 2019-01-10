@@ -1,22 +1,22 @@
 package com.team.message.VO;
 
 //쪽지 검색을 위한 메서드
-public class MessageSearchVO extends Criteria{
-	private String searchKey;
-	private String searchValue;
+public class MessageSearchVO extends MessageCriteria{
+	private String searchType;
+	private String keyword;
 	
 	//getter, setter 메서드
-	public String getSearchKey() {
-		return searchKey;
+	public String getSearchType() {
+		return searchType;
 	}
-	public void setSearchKey(String searchKey) {
-		this.searchKey = searchKey;
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
-	public String getSearchValue() {
-		return searchValue;
+	public String getKeyword() {
+		return keyword;
 	}
-	public void setSearchValue(String searchValue) {
-		this.searchValue = searchValue;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 }

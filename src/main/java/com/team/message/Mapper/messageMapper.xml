@@ -5,35 +5,44 @@
 	
 	<!-- 쪽지 전체 목록 -->
 	<select id="listAll" resultType="MessageVO" parameterType="String">
-		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_SUBJECT, MESSAGE_SENDTIME, MESSAGE_READVAL
+		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_SUBJECT, MESSAGE_SENDTIME, 
+			   MESSAGE_READVAL, MESSAGE_RECEIVER
 		FROM TB_MESSAGE
-		WHERE MESSAGE_RECEIVER = #{message_id}
+		WHERE MESSAGE_NO > 0
+		AND MESSAGE_RECEIVER = #{message_id}
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
 	
 	<!-- 검색한 쪽지 리스트 -->
 	<select id="searchList" resultType="MessageVO">
-		SELECT *
-		FROM TB_MESSAGE
-			<!-- 검색 옵션이 전체 검색일 경우 -->
-			<if test="searchKey!=null">
-				WHERE MESSAGE_SENDER LIKE CONCAT("%" , #{keyword} , "%")
-				OR MESSAGE_SUBJECT LIKE CONCAT("%" , #{keyword} , "%")
-				OR MESSAGE_CONTENT LIKE CONCAT("%" , #{keyword} , "%")
-			</if>
+		<include refid="select"/>
+		<![CDATA[
+		WHERE MESSAGE_RECEIVER = #{message_id}
+		]]>
+		<include refid="search"/>	
+		<![CDATA[
 		ORDER BY MESSAGE_SENDTIME DESC
+		LIMIT #{pageStart}, #{perPageNum}
+		]]>
 	</select>
 	
-	<select id="pagingCount" resultType="Integer">
-		SELECT COUNT(*)
+	<!-- 페이징 처리 -->
+	<select id="pagingCount" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*) 
 		FROM TB_MESSAGE
+		WHERE MESSAGE_NO = #{MESSAGE_NO}
+		]]>
+		<include refid="search"/>	
 	</select>
 	
 	<!-- 내가 보낸 쪽지 전체 목록 -->
 	<select id="sendListAll" resultType="SendMessageVO" parameterType="String">
-		SELECT *
+		SELECT MESSAGE_NO, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_SENDTIME,
+			   MESSAGE_READTIME, MESSAGE_READVAL
 		FROM TB_MESSAGE
-		WHERE MESSAGE_SENDER = #{message_id}
+		WHERE MESSAGE_NO > 0
+		AND MESSAGE_SENDER = #{message_id}
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
 
@@ -53,11 +62,18 @@
 		(#{MESSAGE_SENDER}, #{MESSAGE_RECEIVER}, #{MESSAGE_SUBJECT}, #{MESSAGE_CONTENT}, NOW())
 	</insert>
 	
+	<!-- 쪽지 작성 시 상대 아이디 여부 체크 -->
+	<select id="messageIdCheck" resultType="MemberVO">
+		SELECT ID FROM MEMBER
+		WHERE ID = #{MESSAGE_RECEIVER}
+	</select>
+	
 	<!-- 쪽지 상세 내용 -->
 	<select id="view" resultType="MessageVO" parameterType="MessageVO">
-		SELECT * 
-		FROM TB_MESSAGE
+		<include refid="select"/>
+		<![CDATA[
 		WHERE MESSAGE_NO = #{MESSAGE_NO}
+		]]>
 	</select>
 	
 	<!-- 쪽지를 읽을 시, 읽지않음이 읽은 날짜로 변경된다. -->
@@ -71,9 +87,10 @@
 	
 	<!-- 내가 보낸 쪽지 상세 내용 -->
 	<select id="sendView" resultType="MessageVO" parameterType="MessageVO">
-		SELECT * 
-		FROM TB_MESSAGE
+		<include refid="select"/>
+		<![CDATA[
 		WHERE MESSAGE_NO = #{MESSAGE_NO}
+		]]>
 	</select>
 	
 	<!-- 쪽지 삭제 -->
@@ -83,4 +100,25 @@
 		WHERE MESSAGE_NO = #{MESSAGE_NO}
 	</delete>
 	
+	<!-- select절 재사용 가능하게 함. -->
+	<sql id="select">
+		SELECT *
+		FROM TB_MESSAGE
+	</sql>
+	
+	<!-- search 재사용 -->
+	<sql id="search">
+		<!-- 검색 옵션이 전체 검색일 경우 -->
+		<if test="searchType!=null">
+			<if test="searchType == 'MESSAGE_SENDER'.toString()">
+				AND MESSAGE_SENDER LIKE CONCAT('%' , #{keyword} , '%')
+			</if>
+			<if test="searchType == 'MESSAGE_SUBJECT'.toString()">
+				AND MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%')
+			</if>
+			<if test="searchType == 'MESSAGE_CONTENT'.toString()">
+				AND MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%')
+			</if>
+		</if>
+	</sql>
 </mapper>

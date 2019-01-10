@@ -23,6 +23,10 @@
 <c:if test="${member.ID!= null}">
 	<div id="viewForm" title="메세지 확인" style="padding: 55px 30px; font-size: 15px; line-height: 200%;">
 		<input type="hidden" value="${mdto.MESSAGE_NO}" id="MESSAGE_NO" name="MESSAGE_NO">
+		<input type="hidden" value="${messageSearchVO.page}" name="page">
+		<input type="hidden" value="${messageSearchVO.perPageNum}" name="perPageNum">
+		<input type="hidden" value="${messageSearchVO.searchType}" name="searchType">
+		<input type="hidden" value="${messageSearchVO.keyword}" name="keyword">
 		<table id="viewTable" align="center" width="90%" cellpadding="0" cellspacing="0" border="0">
 			<tr bgcolor="white">
 				<th>보낸 사람</th>

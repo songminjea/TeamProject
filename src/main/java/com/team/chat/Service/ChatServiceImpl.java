@@ -1,16 +1,27 @@
 package com.team.chat.Service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.chat.DAO.ChatDAO;
+import com.team.chat.VO.ChatSearchVO;
 import com.team.chat.VO.ChatVO;
+import com.team.member.VO.MemberVO;
 
 @Service
 public class ChatServiceImpl implements ChatService{
 	
 	@Autowired
 	ChatDAO chatDao;
+	
+	//채팅 아이디 검색 목록
+	@Override
+	public List<MemberVO>listAll(Map<String, String> searchInfo){
+		return chatDao.listAll(searchInfo);
+	}
 	
 	@Override
 	public void chatSend(ChatVO cvo) throws Exception{

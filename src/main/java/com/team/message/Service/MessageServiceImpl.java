@@ -26,16 +26,16 @@ public class MessageServiceImpl implements MessageService{
 	
 	//검색한 쪽지 리스트
 	@Override
-	public List<MessageVO>listAll(MemberVO memberVO, MessageSearchVO msvo)throws Exception{
+	public List<MessageVO>listSearch(MemberVO memberVO, MessageSearchVO msvo)throws Exception{
 		String message_id = memberVO.getID();
-		return messageDao.listAll(message_id, msvo);
+		return messageDao.listSearch(message_id, msvo);
 	}
 	
 	//페이징을 위한 카운트
 	@Override
-	public Integer listCount(MemberVO memberVO, MessageSearchVO msvo)throws Exception{
+	public int countSearchedArticles(MemberVO memberVO, MessageSearchVO msvo)throws Exception{
 		String message_id = memberVO.getID();
-		return messageDao.listCount(message_id, msvo);
+		return messageDao.countSearchedArticles(message_id, msvo);
 	}
 	
 	//내가 보낸 쪽지
@@ -83,6 +83,11 @@ public class MessageServiceImpl implements MessageService{
 		mvo.setMESSAGE_SENDER(MESSAGE_SENDER);
 		
 		messageDao.create(mvo);
+	}
+	
+	//쪽지 작성시 상대 아이디 여부 체크
+	public MemberVO messageIdCheck(String MESSAGE_RECEIVER)throws Exception{
+		return messageDao.messageIdCheck(MESSAGE_RECEIVER);
 	}
 	
 	//쪽지 상세 내용

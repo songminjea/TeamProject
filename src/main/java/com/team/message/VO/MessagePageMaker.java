@@ -1,4 +1,4 @@
-package com.team.chat.VO;
+package com.team.message.VO;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -6,9 +6,9 @@ import java.net.URLEncoder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class ChatPageMaker {
+public class MessagePageMaker {
 	
-	private ChatCriteria cri; //page, perPageNum
+	private MessageCriteria cri; //page, perPageNum
 	private Integer totalCount; //총 게시물 수
 	
 	private Integer startPage; //시작 페이지
@@ -22,11 +22,13 @@ public class ChatPageMaker {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 									  .queryParam("page", page)
 									  .queryParam("perPageNum", cri.getPerPageNum())
-									  .queryParam("keyword", encoding(((ChatSearchVO)cri).getKeyword()))
+									  .queryParam("searchType", ((MessageSearchVO)cri).getSearchType())
+									  .queryParam("keyword", encoding(((MessageSearchVO)cri).getKeyword()))
 									  .build();
 		return uriComponents.toUriString();
 	}
-	//검색 키워드의 인코딩 처리를 위한 메서드
+	
+	//검색 키워드의 인코딩 처리
 	private String encoding(String keyword) {
 		if (keyword == null || keyword.trim().length() == 0) {
 			return "";
@@ -36,7 +38,9 @@ public class ChatPageMaker {
 		} catch (UnsupportedEncodingException e) {
 			return "";
 		}
+		
 	}
+	
 	public String makeQuery(Integer page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 									  .queryParam("page", page)
@@ -62,10 +66,10 @@ public class ChatPageMaker {
 		next = (tempEndPage > endPage? true:false);
 	}
 	//getter, setter 메서드
-	public ChatCriteria getCri() {
+	public MessageCriteria getCri() {
 		return cri;
 	}
-	public void setCri(ChatCriteria cri) {
+	public void setCri(MessageCriteria cri) {
 		this.cri = cri;
 	}
 	public Integer getStartPage() {

@@ -62,8 +62,15 @@
 		    <tr>
 		   	 	<td class="send_text_td">받는 사람</td>
 		   	 	<td>
-		   	 		<input class="messageText" type="text" name="MESSAGE_RECEIVER" id="MESSAGE_RECEIVER" readonly="readonly">
-		   	 		<button type="button" value="검색" onclick="" class="closeBtn"></button>
+		   	 		<input class="messageText" type="text" name="MESSAGE_RECEIVER" id="MESSAGE_RECEIVER">
+		   	 		<!-- 아이디 존재 여부 확인 -->
+		   	 		<input type="button" class="idCheckBtn closeBtn" value="아이디 확인">
+		   	 	</td>
+		   	 </tr>
+		   	 <tr>
+		   	 	<td></td>
+		   	 	<td class="result" colspan="2">
+		   	 		<span class="msg"></span>
 		   	 	</td>
 		    </tr>
 		    <tr>
@@ -76,7 +83,7 @@
 	      	</tr>
 	      	<tr align="center">
 	      		<td colspan="2">
-	      			<input type="submit" value="보내기" id="sendBtn">
+	      			<input type="submit" value="보내기" id="sendBtn" disabled="disabled">
 					<input type="button" value="창닫기" class="closeBtn" onclick="window.close()">
 				</td>
 	      	</tr>	      
@@ -86,6 +93,7 @@
 </c:if>
 <!-- js 파일 -->
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/messageIdSearch.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 </body>

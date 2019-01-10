@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BabyParent | Upload</title>
 <style>
 	.fileDrop{
 		height : 100px;
@@ -17,6 +16,10 @@
 	#space{
 		margin-bottom: 3%;
 	}
+.write_area{
+	border-radius: 5px;
+	border: 1px solid #4497fd;
+}
 #file-click{
     color : #5385ff;
     cursor : pointer;
@@ -60,18 +63,22 @@
 </script>
 </head>
 <body>
-<div class="w3-container w3-card w3-white w3-round w3-margin" ><br>
-	<h4>글쓰기</h4>
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+          <div class="w3-card w3-round w3-white">
+            <div class="w3-container w3-padding">
+<div><br>
+	<h4 style="font-weight: 600; color: #1d2c52;" align="center">글쓰기</h4>
+	<hr class="w3-clear" style="margin: 5px 0 20px;">
 	<form role = "form" method = "post" action="galleryWrite">
-	<input type="hidden" name="mb_ID" value="${member.ID}">
-	
+	<input type="hidden" name="mb_ID" value="${member.ID}">	
 	<div id="space">
 		<select name="gb_Privacy">
 			<option value="N" selected="selected">친구공개</option>
 			<option value="Y">미공개</option>
 		</select>
 	</div>
-	<textarea rows="5" cols="40" class="w3-col m12" id="space" name="gb_Content" 
+	<textarea rows="5" cols="40" class="w3-col m12 write_area" id="space" name="gb_Content" 
 	placeholder="하고싶은 말을 적어보세요!" style="resize: none;"></textarea>
 
 	<%-- 이미지 열기 버튼 --%>
@@ -96,6 +103,10 @@
 		<input type ="reset"  class="uploadBtn" value="다시작성">
 	</div>
 	</form>
+</div>
+</div>
+</div>
+</div>
 </div>
 </body>
 <!-- js파일 -->

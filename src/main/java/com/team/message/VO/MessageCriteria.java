@@ -1,16 +1,16 @@
-package com.team.chat.VO;
+package com.team.message.VO;
 
 //페이징용
-public class ChatCriteria {
+public class MessageCriteria {
 	private Integer page;
 	private Integer perPageNum;
 	
-	public ChatCriteria() {
+	public MessageCriteria() {
 		this.page = 1;
 		this.perPageNum  = 10;
 	}
 
-	public int getPage() {
+	public Integer getPage() {
 		return page;
 	}
 
@@ -19,7 +19,7 @@ public class ChatCriteria {
 		this.page = (page < 1)? 1: page;
 	}
 
-	public int getPerPageNum() {
+	public Integer getPerPageNum() {
 		return perPageNum;
 	}
 
@@ -29,6 +29,6 @@ public class ChatCriteria {
 	}
 	
 	public int getPageStart() {
-		return (this.page - 1)*perPageNum;
+		return (this.page - 1)*10;
 	}
 }

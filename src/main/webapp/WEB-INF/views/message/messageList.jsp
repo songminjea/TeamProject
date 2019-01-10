@@ -49,49 +49,39 @@
 						</c:choose>
 					</c:forEach>
 				</table>
-				<form name="searchForm" onsubmit="search();" method="get">
-					<select name="searchKey" size="1">
-						<option value="MESSAGE_SENDER" <c:if test="${'MESSAGE_SENDER' == search.searchKey}">selected</c:if>>아이디</option>
-						<option value="MESSAGE_SUBJECT"<c:if test="${'MESSAGE_SUBJECT' == search.searchKey}">selected</c:if>>제목</option>
-						<option value="MESSAGE_CONTENT"<c:if test="${'MESSAGE_CONTENT' == search.searchKey}">selected</c:if>>내용</option>
+				<%-- 검색 --%>
+				<form name="searchForm" onsubmit="search();" method="post">
+					<select name="searchType" size="1" id="searchType">
+						<option value="n" <c:out value="${messageSearchVO.searchType == null ? 'selected' : ''}"/>>선택</option>
+						<option value="MESSAGE_SENDER" <c:out value="${messageSearchVO.searchType eq 'MESSAGE_SENDER' ? 'selected' : ''}"/>>아이디</option>
+						<option value="MESSAGE_SUBJECT"<c:out value="${messageSearchVO.searchType eq 'MESSAGE_SUBJECT' ? 'selected' : ''}"/>>제목</option>
+						<option value="MESSAGE_CONTENT"<c:out value="${messageSearchVO.searchType eq 'MESSAGE_CONTENT' ? 'selected' : ''}"/>>내용</option>
 					</select>
-					<input type="text" id="search_keyword" name="keyword" value="${pageMaker.cri.keyword}" style="margin-top: 10px;"> 
-						<a href="#" id="searchConfirm">
+					<input type="text" id="search_keyword" name="keyword" value="${messageSearchVO.keyword}" style="margin-top: 10px;"> 
+						<button type="button" id="searchConfirm">
 							<i class="fa fa-search fa-fw w3-margin-right w3-text-theme" style="color:#4497fd;"></i>
-						</a>
+						</button>
 					<%-- 페이징 처리 --%>
 					<div>
-						<c:choose>
-							<c:when test="${pageMaker.prev}">              
-		                        <a class="paginate_button previous" href="${pageContext.request.contextPath}/${member.ID}/messageList${pageMaker.makeSearch(pageMaker.startPage-1)}">     
-		                       		<i class="fa fa-chevron-left" aria-hidden="true"></i>
+						<ul>
+							<c:if test="${messagePageMaker.prev}">  
+								<li>            
+			                        <a href="${pageContext.request.contextPath}/${member.ID}/messageList${messagePageMaker.makeSearch(messagePageMaker.startPage-1)}">     
+			                       		<i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp;
+			                        </a>
+		                        </li>
+	               		 	</c:if>
+							<c:forEach end="${messagePageMaker.endPage}" begin="${messagePageMaker.startPage}" var="idx">
+			                    <a href="${messagePageMaker.request.contextPath}/${member.ID}/messageList${messagePageMaker.makeSearch(idx)}"> 
+			                    [${idx+1}]  
+			                    </a>		
+							</c:forEach>
+							<c:if test="${messagePageMaker.next}">              
+		                        <a href="${pageContext.request.contextPath}/${member.ID}/messageList${messagePageMaker.makeSearch(messagePageMaker.endPage+1)}">     
+		                        	&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i> 
 		                        </a>
-	               		 	</c:when>
-							<c:otherwise>              
-		                        <a class="paginate_button previous disabled" href="${pageContext.request.contextPath}/${member.ID}/messageList${pageMaker.makeSearch(pageMaker.startPage-1)}">     
-		                        	<i class="fa fa-chevron-left" aria-hidden="true"></i> 
-		                        </a>
-	               		 	</c:otherwise>
-               			</c:choose>
-               			&nbsp;&nbsp;
-						<c:forEach end="${pageMaker.endPage}" begin="${pageMaker.startPage}" var="idx">
-		                    <a href="${pageContext.request.contextPath}/${member.ID}/messageList${pageMaker.makeSearch(idx)}"> 
-		                    [${idx+1}]  
-		                    </a>		
-						</c:forEach>
-						&nbsp;&nbsp;
-						<c:choose>
-							<c:when test="${pageMaker.next}">              
-		                        <a class="paginate_button next" href="${pageContext.request.contextPath}/${member.ID}/messageList${pageMaker.makeSearch(pageMaker.endPage+1)}">     
-		                        	<i class="fa fa-chevron-right" aria-hidden="true"></i> 
-		                        </a>
-	               		 	</c:when>
-							<c:otherwise>              
-		                        <a class="paginate_button next disabled" href="${pageContext.request.contextPath}/${member.ID}/messageList${pageMaker.makeSearch(pageMaker.endPage+1)}">     
-		                        	<i class="fa fa-chevron-right" aria-hidden="true"></i>  
-		                        </a>
-	               		 	</c:otherwise>
-               			</c:choose>
+	               		 	</c:if>
+               			</ul>
 					</div>
 				</form>
 				<div class="btn_Message" align="right" style="margin-right: 20px;">

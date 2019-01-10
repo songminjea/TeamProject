@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
+import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
 
 @Controller
@@ -27,6 +28,9 @@ public class FollowController {
 
 	@Autowired
 	private FollowService followService;
+	
+	@Autowired
+	private MemberServiceImpl memberService;
 
 	// 팔로우 버튼 눌렀을때.
 	@RequestMapping(value = "/follow", method = RequestMethod.POST)
@@ -96,8 +100,7 @@ public class FollowController {
 	// 팔로워 목록
 	@RequestMapping(value = "/getFollowerList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Map<String, String>> getFollowerList(@RequestBody Map<String, String> FollowInfo ) {
-		
+	public List<Map<String, Object>> getFollowerList(@RequestBody Map<String, String> FollowInfo) {
 		return getFollowList(FollowInfo,0);
 
 	}
@@ -105,13 +108,14 @@ public class FollowController {
 	// 팔로잉 목록
 	@RequestMapping(value = "/getFollowingList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Map<String, String>> getFollowingList(@RequestBody Map<String, String> FollowInfo ) {
-
+	public List<Map<String, Object>> getFollowingList(@RequestBody Map<String, String> FollowInfo) {
+		
+		
 		return getFollowList(FollowInfo,1);
 
 	}
 	
-	public List<Map<String, String>> getFollowList(Map<String, String> FollowInfo, int Type) {
+	public List<Map<String, Object>> getFollowList(Map<String, String> FollowInfo, int Type) {
 											// map(my_id로그인 아이디, id페이지 아이디, pageNum페이지 번호), 
 											// Type = 0일때 follower 목록 / 1일때 following 목록
 		
@@ -128,24 +132,38 @@ public class FollowController {
 		else
 			follow = followService.GetAllFollowing(FollowInfo);
 		
+		// 팔로워, 팔로잉 수 가져오기.
+		String pageID = FollowInfo.get("id");
+		String followerNum = String.valueOf(followService.getCountFollower(pageID));
+		String followingNum = String.valueOf(followService.getCountFollowing(pageID));
+		
+		
+		
 		// 팔로워 id,팔로우여부 담을 리스트 맵 생성
-		List<Map<String, String>> followlist = new ArrayList<>();
-
+		List<Map<String, Object>> followlist = new ArrayList<>();
+		
+		int index = 0;
+		
+		// 리스트의 값들을 하나씩 체크.
 		for (FollowVO temp : follow) {
 			//System.out.println(aa.getFollower_id() + " " + aa.getFollowing_id());
 			// 임시 맵
-			Map<String, String> tempMap = new HashMap<>();
-
+			Map<String, Object> tempMap = new HashMap<>();
+			
+			String target_id = "";
+			if(Type == 0)
+				target_id = temp.getFollower_id();
+			else
+				target_id = temp.getFollowing_id();
+				
 			// 팔로우 여부 체크하기 위해서 (내아이디, 대상 아이디) 담을 FollowVO 생성
 
 			if (!FollowInfo.get("my_id").equals("")) {
+				
 				FollowVO vo = new FollowVO();
 				vo.setFollower_id(FollowInfo.get("my_id"));
-				
-				if(Type == 0)
-					vo.setFollowing_id(temp.getFollower_id());
-				else
-					vo.setFollowing_id(temp.getFollowing_id());
+				vo.setFollowing_id(target_id);
+
 
 				// 팔로우 여부 확인
 				String isfollowing = String.valueOf(followService.IsFollowing(vo));
@@ -153,22 +171,30 @@ public class FollowController {
 			} else {
 				tempMap.put("isfollowed", "");
 			}
-			if(Type == 0)
-				tempMap.put("target_id", temp.getFollower_id());
-			else
-				tempMap.put("target_id", temp.getFollowing_id());
 
+			tempMap.put("target_id", target_id);
+
+
+			// 멤버의 프로필 값을 가져온다.
+			MemberVO memVO = memberService.getMember(target_id);
+			
+			tempMap.put("memVO", memVO);
+			
+			
+			
+			// 팔로워, 팔로잉 수
+			if(index == 0) {
+				tempMap.put("followerNum", followerNum);
+				tempMap.put("followingNum", followingNum);
+			}
+			
+			index++;
+			
 			followlist.add(tempMap);
 
 		}
-		String pageID = FollowInfo.get("id");
-		/*
-		if(Type == 0)
-			followlist.add(new HashMap<String, String>().put("countList", followService.getCountFollower(pageID)));
-		else
-			tempMap.put("countList", followService.getCountFollower(pageID));
-		*/
 
+		
 		return followlist;
 	}
 

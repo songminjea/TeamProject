@@ -9,37 +9,52 @@ function getContextPath() { // ContextPath 얻어오는 함수
 			hostIndex + 1));
 
 }
-// 
-Handlebars.registerHelper('getType', function(type,follower,following,options) {
-	  if (type == "follower") {
-	    return follower;
-	  } else {
-	    return following;
-	  }
-});
 
-Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
-	//console.log(isfollowed);
-	if(isfollowed == ""){
-		return 'fbhide';
-	}
-	if (type == "follow") {
-		if(isfollowed == 'true'){
+function getFollowHelper(){
+	Handlebars.registerHelper('getType', function(type,follower,following,options) {
+		  if (type == "follower") {
+		    return follower;
+		  } else {
+		    return following;
+		  }
+	});
+
+	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
+		//console.log(isfollowed);
+		if(isfollowed == ""){
+			return 'fbhide';
+		}
+		if (type == "follow") {
+			if(isfollowed == 'true'){
+			
+				return 'fbhide';
+			}else{
+				return;
+			}
+		  
+		} else if(type =="following"){
+			if(isfollowed == 'true'){
+				return;
+			}else{
+				return 'fbhide';
+			}
+		}
 		
-			return 'fbhide';
-		}else{
-			return;
-		}
-	  
-	} else if(type =="following"){
-		if(isfollowed == 'true'){
-			return;
-		}else{
-			return 'fbhide';
-		}
-	}
-	
-});
+	});
+
+
+	Handlebars.registerHelper('GetImgSrc', function(src ,options) {
+		//console.log(src);
+		
+		if(src == null || src == ""){
+			return "resources/img/baby.jpg";
+		}else
+			return src;
+		
+	});
+}
+// 
+
 
 //팔로우 목록을 출력 (로그인된 아이디, 페이지 아이디, 팔로워,팔로잉 목록 확인)
 function getFollowList(my_id, page_id, pageType) {
@@ -61,7 +76,14 @@ function getFollowList(my_id, page_id, pageType) {
 		}),
 		url : url,
 		success : function(result) {
-			//console.log();
+			//console.log(result);
+			getFollowHelper();
+			
+			if(result.length > 0){
+				$("#getfollower_Btn > span").html("팔로워 <br>" + result[0].followerNum);
+				$("#getfollowing_Btn > span").html("팔로잉 <br>" + result[0].followingNum);
+			}
+			
 			if(isDetach == true)
 				$("#follow_list").children().detach();
 			
@@ -75,7 +97,7 @@ function getFollowList(my_id, page_id, pageType) {
 					follow : result,
 					type : pageType
 				}	
-				console.log(data);
+				//console.log(data);
 				var html = template(data);
 				$("#follow_list").append(html);
 				

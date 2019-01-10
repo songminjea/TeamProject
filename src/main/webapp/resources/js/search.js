@@ -5,28 +5,32 @@
 pageNum = 0;
 isDetach = true;
 
-Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
-	//console.log(isfollowed);
-	if(isfollowed == ""){
-		return 'fbhide';
-	}
-	if (type == "follow") {
-		if(isfollowed == 'true'){
+
+function getSearchHelper(){
+	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
+		//console.log(isfollowed);
+		if(isfollowed == ""){
+			return 'fbhide';
+		}
+		if (type == "follow") {
+			if(isfollowed == 'true'){
+			
+				return 'fbhide';
+			}else{
+				return;
+			}
+		  
+		} else if(type =="following"){
+			if(isfollowed == 'true'){
+				return;
+			}else{
+				return 'fbhide';
+			}
+		}
 		
-			return 'fbhide';
-		}else{
-			return;
-		}
-	  
-	} else if(type =="following"){
-		if(isfollowed == 'true'){
-			return;
-		}else{
-			return 'fbhide';
-		}
-	}
-	
-});
+	});
+
+}
 
 function getSearchList(keyword){
 	
@@ -41,6 +45,8 @@ function getSearchList(keyword){
 		url : url,
 		success : function(result) {
 			//console.log(result);
+			getSearchHelper();
+			
 			if(isDetach == true)
 				$("#search_list").children().detach();
 			

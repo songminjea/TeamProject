@@ -34,6 +34,7 @@ import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
 import com.team.gallery.util.IPUtill;
 import com.team.gallery.util.UploadUtil;
+import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
 
 
@@ -44,6 +45,8 @@ public class galleryController {
 	@Autowired
 	private GBService gbService;
 		
+	@Autowired
+	private MemberServiceImpl memberService;
 	
 	@RequestMapping(value = "gallWrite", method=RequestMethod.GET)
 	public String imgupload(HttpSession session, Model model) {
@@ -63,9 +66,10 @@ public class galleryController {
 		
 		int Num = gbService.maxNum(gvo);
 		
-		fvo.setGb_Num(Num);
-		
-		gbService.FileInsert(fvo);
+		if(fvo.getGb_Image() != null) {
+			fvo.setGb_Num(Num);			
+			gbService.FileInsert(fvo);
+		}
 		
 		ra.addFlashAttribute("msg", "success");
 		
@@ -173,13 +177,20 @@ public class galleryController {
 
 			List<galleryVO> file = gbService.GetImgList(gtemp.getGb_Num());
 
+			MemberVO memVO = memberService.getMember(gtemp.getMb_ID());
 			// 글 정보
 			temp.put("gallery", gtemp);
 			// 해당 글의 이미지 파일 정보 리스트
 			temp.put("file", file);
+			// 갤러리 글 ID의 정보
+			temp.put("memVO", memVO);
+			
+			
 			galleryInfoList.add(temp);
 
 		}
+		
+		
 
 		return galleryInfoList;
 	}

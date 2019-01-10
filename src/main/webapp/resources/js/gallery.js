@@ -14,13 +14,23 @@ function regHelper(){
 	
 	// 이미지 수에 따라 캐러셀 사용 여부를 리턴
 	Handlebars.registerHelper('setCarousel', function(length, options) {
-			console.log(length);
+		  //console.log(length);
 		  // 이미지가 한개일때
 		  if (length == "1") {
 			  return options.inverse(this);
 		  } else { // 이미지가 없거나, 한개 이상 일때.
 			 return options.fn(this);
 		  }
+	});
+	
+	Handlebars.registerHelper('GetImgSrc', function(src ,options) {
+		//console.log(src);
+		
+		if(src == null || src == ""){
+			return "resources/img/baby.jpg";
+		}else
+			return src;
+		
 	});
 }
 
@@ -56,7 +66,7 @@ function ShowGallery(id, isMyGall){
 				
 				regHelper();
 				
-				console.log(data);
+				//console.log(data);
 				var html = template(data);
 				$("#gallery_list").append(html);
 				TimeFormat();

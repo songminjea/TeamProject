@@ -18,7 +18,7 @@
 <script id="gallery-template" type="text/x-handlebars-template">
 {{#gall}}
 	<span class="profileImg">
-		<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" alt="Avatar"
+		<img src="${pageContext.request.contextPath}/{{#GetImgSrc memVO/pic}}{{/GetImgSrc}}" alt="Avatar"
 			class="w3-left w3-circle w3-margin-right" style="width: 60px">
 	</span>
 	<span class="writeTime w3-right w3-opacity">{{gallery/gb_Date}}</span>

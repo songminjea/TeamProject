@@ -207,7 +207,7 @@ public class MemberController {
 
 
 			// 이미지 비어있을때 기본 이미지로 변경.
-			if(temp.getPIC() == null) {
+			if(temp.getPIC() == null || temp.getPIC().equals("")) {
 				temp.setPIC("/resources/img/baby.jpg");
 			}
 			

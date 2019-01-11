@@ -15,6 +15,24 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<style type="text/css">
+.messageCloseBtn{
+		  width: 200px;
+		  max-width : 100%;
+		  height: 50px;
+		  border-radius: 5px;	  
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;		  	
+}	
+.blue{
+	background-color: #6494ff;
+}	
+.gray{
+	background-color: #cbcbcd;
+}
+</style>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
 <div id="sendTitle" align="center" style="background-color: #4497fd; width: 100%; height: 50px;">
@@ -45,9 +63,9 @@
 				<td>${mdto.MESSAGE_CONTENT}</td>
 			</tr>
 		</table>
-		<div align="center" style="line-height: 150%; margin-top: 50px;">
-			<input type="submit" value="답장" id="sendBtn" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageResend?MESSAGE_NO=${mdto.MESSAGE_NO}'">
-			<input type="button" value="창닫기" id="closeBtn" onclick="window.close()">
+		<div align="center" style="position: absolute; bottom: 60px; margin-top: 20px; width:100%; left:0; right:0; margin-left:auto; margin-right:auto;">
+			<input type="submit" value="답장" class="messageCloseBtn blue" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageResend?MESSAGE_NO=${mdto.MESSAGE_NO}'">
+			<input type="button" value="창닫기" class="messageCloseBtn gray" onclick="window.close()">
 		</div>
 	</div>
 </c:if>

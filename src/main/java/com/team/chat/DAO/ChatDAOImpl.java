@@ -7,7 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.team.chat.VO.ChatSearchVO;
 import com.team.chat.VO.ChatVO;
 import com.team.member.VO.MemberVO;
 
@@ -25,6 +24,11 @@ public class ChatDAOImpl implements ChatDAO{
 	
 	public void sendMessage(ChatVO cvo) throws Exception{
 		sqlSession.insert(namespace+".insert", cvo);
+	}
+	
+	//채팅 아이디 자신인지 체크
+	public int chatIdCheck(String CHAT_SENDER) throws Exception{
+		return sqlSession.selectOne(namespace+".chatIdCheck", CHAT_SENDER);
 	}
 	
 	public ChatVO sendRead(ChatVO cvo)throws Exception{

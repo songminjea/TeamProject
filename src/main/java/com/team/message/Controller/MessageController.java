@@ -22,7 +22,6 @@ import com.team.message.Service.MessageService;
 import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
 import com.team.message.VO.MessagePageMaker;
-import com.team.message.VO.SendMessageVO;
 
 @Controller
 public class MessageController {
@@ -44,7 +43,7 @@ public class MessageController {
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
 		
-		List<MessageVO>mlist = messageService.listAll(memberVO);		
+		List<MessageVO>mlist = messageService.listAll();		
 		model.addAttribute("mlist", mlist);
 		
 		return "main.jsp?center=message/messageList";
@@ -62,9 +61,9 @@ public class MessageController {
 		
 		MessagePageMaker messagePageMaker = new MessagePageMaker();
 		messagePageMaker.setCri(messageSearchVO);
-		messagePageMaker.setTotalCount(messageService.countSearchedArticles(memberVO, messageSearchVO));
+		messagePageMaker.setTotalCount(messageService.countSearchedArticles(messageSearchVO));
 		
-		model.addAttribute("messageSearchList", messageService.listSearch(memberVO, messageSearchVO));
+		model.addAttribute("mlist", messageService.listSearch(messageSearchVO));
 		model.addAttribute("messagePageMaker", messagePageMaker);
 		
 		return "main.jsp?center=message/messageList";
@@ -79,7 +78,7 @@ public class MessageController {
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
 		
-		List<SendMessageVO>mslist = messageService.sendListAll(memberVO);
+		List<MessageVO>mslist = messageService.sendListAll();
 		model.addAttribute("mslist", mslist);
 		
 		return "main.jsp?center=message/messageSendList";
@@ -94,16 +93,18 @@ public class MessageController {
 	//쪽지 보낼 때 아이디 여부 체크
 	@ResponseBody
 	@RequestMapping(value="{id}/messageIdCheck", method=RequestMethod.POST)	
-	public int messageIdCheck(HttpServletRequest request) throws Exception{
-		String MESSAGE_RECEIVER = request.getParameter("MESSAGE_RECEIVER");
-		MemberVO messageIdCheck = messageService.messageIdCheck(MESSAGE_RECEIVER);
+	public String messageIdCheck(@RequestParam("MESSAGE_RECEIVER") String MESSAGE_RECEIVER) throws Exception{
 		
-		int result = 0;		
-		if (messageIdCheck != null) {
-			result = 1;
+		String str = "";
+		int idcheck = messageService.messageIdCheck(MESSAGE_RECEIVER);
+		//상대방의 계정이 존재할 경우 
+		if (idcheck == 1) {
+			str = "YES";
+		}else {
+			str = "NO";
 		}
 		
-		return result;
+		return str;
 	}
 	
 	//쪽지 보내기

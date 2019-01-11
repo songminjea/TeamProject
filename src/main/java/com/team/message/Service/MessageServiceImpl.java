@@ -9,7 +9,6 @@ import com.team.member.VO.MemberVO;
 import com.team.message.DAO.MessageDAO;
 import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
-import com.team.message.VO.SendMessageVO;
 
 @Service
 public class MessageServiceImpl implements MessageService{
@@ -19,30 +18,26 @@ public class MessageServiceImpl implements MessageService{
 	
 	//쪽지 전체 목록 
 	@Override
-	public List<MessageVO>listAll(MemberVO memberVO)throws Exception{
-		String message_id = memberVO.getID();
-		return messageDao.listAll(message_id);
+	public List<MessageVO>listAll()throws Exception{
+		return messageDao.listAll();
 	}
 	
 	//검색한 쪽지 리스트
 	@Override
-	public List<MessageVO>listSearch(MemberVO memberVO, MessageSearchVO msvo)throws Exception{
-		String message_id = memberVO.getID();
-		return messageDao.listSearch(message_id, msvo);
+	public List<MessageVO>listSearch(MessageSearchVO msvo)throws Exception{
+		return messageDao.listSearch(msvo);
 	}
 	
 	//페이징을 위한 카운트
 	@Override
-	public int countSearchedArticles(MemberVO memberVO, MessageSearchVO msvo)throws Exception{
-		String message_id = memberVO.getID();
-		return messageDao.countSearchedArticles(message_id, msvo);
+	public int countSearchedArticles(MessageSearchVO msvo)throws Exception{
+		return messageDao.countSearchedArticles(msvo);
 	}
 	
 	//내가 보낸 쪽지
 	@Override
-	public List<SendMessageVO>sendListAll(MemberVO memberVO)throws Exception{
-		String message_id = memberVO.getID();
-		return messageDao.sendListAll(message_id);
+	public List<MessageVO>sendListAll()throws Exception{
+		return messageDao.sendListAll();
 	}
 		
 	//쪽지 개수
@@ -86,7 +81,7 @@ public class MessageServiceImpl implements MessageService{
 	}
 	
 	//쪽지 작성시 상대 아이디 여부 체크
-	public MemberVO messageIdCheck(String MESSAGE_RECEIVER)throws Exception{
+	public int messageIdCheck(String MESSAGE_RECEIVER)throws Exception{
 		return messageDao.messageIdCheck(MESSAGE_RECEIVER);
 	}
 	

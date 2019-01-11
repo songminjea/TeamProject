@@ -2,6 +2,7 @@ package com.team.message.VO;
 
 //쪽지 검색을 위한 메서드
 public class MessageSearchVO extends MessageCriteria{
+	
 	private String searchType;
 	private String keyword;
 	

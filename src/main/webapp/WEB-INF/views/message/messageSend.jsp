@@ -14,6 +14,24 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<style type="text/css">
+.messageCloseBtn{
+		  width: 200px;
+		  max-width : 100%;
+		  height: 50px;
+		  border-radius: 5px;	  
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;		  	
+}	
+.blue{
+	background-color: #6494ff;
+}	
+.gray{
+	background-color: #cbcbcd;
+}
+</style>
 </head>
 <script type="text/javascript">
 	function messageCheck(){
@@ -21,11 +39,7 @@
 		var content = document.messageSendOk.MESSAGE_CONTENT.value;
 		var receiver = document.messageSendOk.MESSAGE_RECEIVER.value;
 		
-		if(receiver == ""){
-			alert("받는 사람을 입력하세요.");
-			document.messageSendOk.MESSAGE_RECEIVER.focus();
-			return false;
-		}else{
+		
 			if(subject == ""){
 				alert("제목을 입력하세요.");
 				document.messageSendOk.MESSAGE_SUBJECT.focus();
@@ -38,7 +52,7 @@
 					return false;
 				}
 			}			
-		}
+		
 		
 		document.messageSendOk.method = "POST";
 		document.messageSendOk.submit();
@@ -81,20 +95,20 @@
 	      		<td class="send_text_td">내용</td>
 	      		<td><textarea id = "messageArea" rows="15" cols="48" name="MESSAGE_CONTENT" id="MESSAGE_CONTENT" placeholder="1000자 이내로 입력해 주세요." maxlength="1000"></textarea></td>
 	      	</tr>
-	      	<tr align="center">
-	      		<td colspan="2">
-	      			<input type="submit" value="보내기" id="sendBtn" disabled="disabled">
-					<input type="button" value="창닫기" class="closeBtn" onclick="window.close()">
-				</td>
-	      	</tr>	      
 	    </table>
+	    <div>
+		    <div align="center" style="position: absolute; bottom: 30px; margin-top: 20px; width:100%; left:0; right:0; margin-left:auto; margin-right:auto;">
+		      	<input type="submit" value="보내기" class="messageCloseBtn blue" id="sendBtn" disabled="disabled">
+				<input type="button" value="창닫기" class="messageCloseBtn gray" onclick="window.close()">
+			</div>
+		</div>
 	  </form>
 	</div>
 </c:if>
 <!-- js 파일 -->
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/messageIdSearch.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/messageIdSearch.js"></script>
 </body>
 </html>

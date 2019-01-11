@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.chat.Service.ChatService;
 import com.team.chat.VO.ChatSearchVO;
@@ -52,18 +56,36 @@ public class ChatController {
 	
 	//채팅할 사람 검색
 	@RequestMapping(value="{id}/chatSearch", method=RequestMethod.GET)
-	public String chatSearch(@PathVariable String id, HttpSession session, Model model)throws Exception{
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
+	public String chatSearch(@PathVariable String id, HttpSession session, Model model, HttpServletRequest request)throws Exception{
+		// uri 에서 id/~~~ 에서 ~~~ 값을 뽑아내는 부분
+			String uri = request.getRequestURI();
+			String type = "";
+			Pattern pattern = Pattern.compile("(?<=" + id + "\\/)\\w+");
+			Matcher data = pattern.matcher(uri);
+			if (data.find()) {
+				type = data.group();
+			}
+				/// ---------
+				
+				// id에 해당하는 프로필을 가져온다. 
+				// MemberInterceptor에서 처리 한 후 가져오는것.
+			MemberVO memberVo = (MemberVO)request.getAttribute("vo");
+			model.addAttribute("profile",memberVo);
+			model.addAttribute("type", type); // 팔로우 페이지인지 팔로잉 페이지인지
+			model.addAttribute("page_id", id); // 보여줄 페이지의 아이디값
+		
+		
+		/*MemberVO memberVO = (MemberVO) session.getAttribute("member");			
 		model.addAttribute("profile", memberVO);	
 		
 		int count = messageService.countList(memberVO);
-		model.addAttribute("messageCount", count);
+		model.addAttribute("messageCount", count);*/
 		
 		return "chat/chatSearch";
 	}
 	
 	//검색 결과
-	@RequestMapping(value="{id}/chatSearch", method=RequestMethod.POST)
+	/*@RequestMapping(value="{id}/chatSearch", method=RequestMethod.POST)
 	public List<Map<String, String>> chatSearch(@PathVariable String id, HttpServletRequest request, 
 								  @ModelAttribute("ChatSearchVO")ChatSearchVO chatSearchVO, 
 								  HttpSession session, Model model,
@@ -95,23 +117,7 @@ public class ChatController {
 			
 			}
 			return searchInfoList;
-		}
-	
-//	//검색 결과 
-//	@RequestMapping(value="{id}/chatSearch", method=RequestMethod.POST)
-//	public ModelAndView chatSearchList(@RequestParam(defaultValue="")String keyword, HttpSession session)throws Exception{
-//		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("profile", memberVO);
-//		
-//		List<MemberVO>clist = chatService.listAll(keyword);
-//		
-//		mav.addObject("keyword", keyword);
-//		mav.addObject("clist", clist);
-//		mav.setViewName("chat/chatSearch");
-//		
-//		return mav;
-//	}
+		}*/
 	
 	//채팅 접속
 	@RequestMapping(value="{id}/multiChat", method=RequestMethod.GET)
@@ -123,13 +129,17 @@ public class ChatController {
 		return "chat/multiChat";
 	}
 	
-	@RequestMapping(value="{id}/multiChatSend", method = {RequestMethod.POST, RequestMethod.GET})
-	public String chatSend(ChatVO cvo, Model model, HttpServletRequest request)throws Exception{
+	//채팅 메세지 보내기
+	@ResponseBody
+	@RequestMapping(value="{id}/multiChat", method = RequestMethod.POST)
+	public void chatSend(ChatVO cvo, Model model, HttpServletRequest request)throws Exception{
+		
 		chatService.chatSend(cvo);
+
+		String CHAT_SENDCONTENT = request.getParameter("CHAT_SENDCONTENT");
+		cvo.setCHAT_SENDCONTENT(CHAT_SENDCONTENT);
 		ChatVO resultVO = chatService.sendRead(cvo);
 		model.addAttribute("cvo", resultVO);
-		
-		return "redirect:/chat/multiChat";
 	}
 
 }

@@ -2,24 +2,22 @@ package com.team.message.DAO;
 
 import java.util.List;
 
-import com.team.member.VO.MemberVO;
 import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
-import com.team.message.VO.SendMessageVO;
 
 public interface MessageDAO {
 	
 	//쪽지 전체 목록
-	public List<MessageVO>listAll(String message_id)throws Exception;
+	public List<MessageVO>listAll()throws Exception;
 	
 	//검색한 쪽지 리스트
-	public List<MessageVO>listSearch(String message_id, MessageSearchVO msvo)throws Exception;
+	public List<MessageVO>listSearch(MessageSearchVO msvo)throws Exception;
 	
 	//페이징을 위한 카운트
-	public int countSearchedArticles(String message_id, MessageSearchVO msvo)throws Exception;
+	public int countSearchedArticles(MessageSearchVO msvo)throws Exception;
 	
 	//내가 보낸 쪽지
-	public List<SendMessageVO>sendListAll(String message_id)throws Exception;
+	public List<MessageVO>sendListAll()throws Exception;
 	
 	//쪽지 개수
 	public int countList(String message_id)throws Exception;
@@ -28,7 +26,7 @@ public interface MessageDAO {
 	public void create(MessageVO mvo)throws Exception;
 	
 	//쪽지 작성시 상대 아이디 여부 체크
-	public MemberVO messageIdCheck(String MESSAGE_RECEIVER)throws Exception;
+	public int messageIdCheck(String MESSAGE_RECEIVER)throws Exception;
 	
 	//쪽지 상세 내용
 	public MessageVO read(MessageVO mvo)throws Exception;

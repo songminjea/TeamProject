@@ -8,7 +8,7 @@
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
               <div align="center" style="padding: 30px;">
-				<h4 style="font-weight: 600; color: #1d2c52; margin-bottom: 20px;">보낸 쪽지</h4>
+				<h4 style="font-weight: 600; color: #1d2c52; margin-bottom: 30px;">보낸 쪽지</h4>
 				<table width="95%" cellpadding="0" cellspacing="0" border="0">
 					<colgroup bgcolor="#4497fd">
 						<col width="5%">
@@ -25,7 +25,7 @@
 						<td>확인 여부</td>
 					</tr>
 					<c:forEach items="${mslist}" var="message">
-<%-- 					 	<c:if test="${member.ID eq message.MESSAGE_SENDER}">   --%>
+					 	<c:if test="${member.ID eq message.MESSAGE_SENDER}">   
 							<tr bgcolor="white" align="center" height="40px" style="font-weight: 500; font-size: 16px;">
 								<td><input type="hidden" value="${message.MESSAGE_NO}"></td>
 								<td>${message.MESSAGE_RECEIVER}</td>
@@ -45,7 +45,7 @@
 								</c:choose>
 								</td>
 							</tr>
-<%-- 		 				</c:if>   --%>
+ 		 				</c:if>  
 					</c:forEach>
 				</table>
 					<div class="btn_Message">

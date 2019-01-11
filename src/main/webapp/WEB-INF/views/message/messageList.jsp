@@ -2,12 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<input type="hidden" name="page" value="${messageSearchVO.page}">
+<input type="hidden" name="perPageNum" value="${messageSearchVO.perPageNum}">
+<input type="hidden" name="searchType" value="${messageSearchVO.searchType}">
+<input type="hidden" name="keyword" value="${messageSearchVO.keyword}">
       <div class="w3-row-padding">
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
               <div align="center" style="padding: 30px;">
-				<h4 style="font-weight: 600; color: #1d2c52; margin-bottom: 20px;">받은 쪽지</h4>
+				<h4 style="font-weight: 600; color: #1d2c52; margin-bottom: 30px;">받은 쪽지</h4>
 				<table width="95%" cellpadding="0" cellspacing="0" border="0">
 					<colgroup bgcolor="#4497fd">
 						<col width="5%">
@@ -29,7 +33,7 @@
 								받은 쪽지가 없습니다.
 							</c:when>
 							<c:otherwise>	
-						<%-- 	<c:if test="${member.ID eq message.MESSAGE_RECEIVER}">   --%>
+								<c:if test="${member.ID eq message.MESSAGE_RECEIVER}">
 								<tr bgcolor="white" align="center" height="40px" style="font-weight: 500; font-size: 16px;">
 									<td><input type="hidden" value="${message.MESSAGE_NO}" id="MESSAGE_NO" name="MESSAGE_NO"></td>
 									<td>${message.MESSAGE_SENDER}</td>
@@ -44,11 +48,11 @@
 										<a href="${pageContext.request.contextPath}/${member.ID}/messageDelete?MESSAGE_NO=${message.MESSAGE_NO}" onclick="return confirm('정말로 쪽지를 삭제하시겠습니까?')"><i class="fa fa-times" aria-hidden="true"></i></a>
 									</td>
 								</tr>
-	<%-- 		 				</c:if>   --%>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</table>
+	 		 				</c:if>   
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</table>
 				<%-- 검색 --%>
 				<form name="searchForm" onsubmit="search();" method="post">
 					<select name="searchType" size="1" id="searchType">
@@ -57,10 +61,10 @@
 						<option value="MESSAGE_SUBJECT"<c:out value="${messageSearchVO.searchType eq 'MESSAGE_SUBJECT' ? 'selected' : ''}"/>>제목</option>
 						<option value="MESSAGE_CONTENT"<c:out value="${messageSearchVO.searchType eq 'MESSAGE_CONTENT' ? 'selected' : ''}"/>>내용</option>
 					</select>
-					<input type="text" id="search_keyword" name="keyword" value="${messageSearchVO.keyword}" style="margin-top: 10px;"> 
-						<button type="button" id="searchConfirm">
-							<i class="fa fa-search fa-fw w3-margin-right w3-text-theme" style="color:#4497fd;"></i>
-						</button>
+					<input type="text" id="messageSearchkeyword" name="keyword" value="${messageSearchVO.keyword}" style="margin-top: 10px; border: 2px solid #6297ff; border-radius: 4px;"> 
+						<a href="" onclick="return false;" id="messageSearchBtn">
+ 				   			<i class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i>
+ 				  		</a>
 					<%-- 페이징 처리 --%>
 					<div>
 						<ul>
@@ -76,7 +80,7 @@
 			                    [${idx+1}]  
 			                    </a>		
 							</c:forEach>
-							<c:if test="${messagePageMaker.next}">              
+							<c:if test="${messagePageMaker.next && messagePageMaker.endpage > 0}">              
 		                        <a href="${pageContext.request.contextPath}/${member.ID}/messageList${messagePageMaker.makeSearch(messagePageMaker.endPage+1)}">     
 		                        	&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i> 
 		                        </a>
@@ -93,3 +97,12 @@
           </div>
         </div>
       </div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#messageSearchBtn").on("click", function(){
+		var keyword = $("#messageSearchkeyword").val();
+		
+		location.href="${pageContext.request.contextPath}/${member.ID}/messageList?keyword="+keyword;
+	});
+});
+</script>

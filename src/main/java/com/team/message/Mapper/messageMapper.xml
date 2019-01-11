@@ -4,12 +4,9 @@
 <mapper namespace="com.team.message.Mapper.messageMapper">
 	
 	<!-- 쪽지 전체 목록 -->
-	<select id="listAll" resultType="MessageVO" parameterType="String">
-		SELECT MESSAGE_NO, MESSAGE_SENDER, MESSAGE_SUBJECT, MESSAGE_SENDTIME, 
-			   MESSAGE_READVAL, MESSAGE_RECEIVER
+	<select id="listAll" resultType="MessageVO">
+		SELECT *
 		FROM TB_MESSAGE
-		WHERE MESSAGE_NO > 0
-		AND MESSAGE_RECEIVER = #{message_id}
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
 	
@@ -17,7 +14,7 @@
 	<select id="searchList" resultType="MessageVO">
 		<include refid="select"/>
 		<![CDATA[
-		WHERE MESSAGE_RECEIVER = #{message_id}
+		WHERE MESSAGE_NO > 0
 		]]>
 		<include refid="search"/>	
 		<![CDATA[
@@ -31,18 +28,17 @@
 		<![CDATA[
 		SELECT COUNT(*) 
 		FROM TB_MESSAGE
-		WHERE MESSAGE_NO = #{MESSAGE_NO}
+		WHERE MESSAGE_NO > 0
 		]]>
 		<include refid="search"/>	
 	</select>
 	
 	<!-- 내가 보낸 쪽지 전체 목록 -->
-	<select id="sendListAll" resultType="SendMessageVO" parameterType="String">
+	<select id="sendListAll" resultType="MessageVO">
 		SELECT MESSAGE_NO, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_SENDTIME,
 			   MESSAGE_READTIME, MESSAGE_READVAL
 		FROM TB_MESSAGE
 		WHERE MESSAGE_NO > 0
-		AND MESSAGE_SENDER = #{message_id}
 		ORDER BY MESSAGE_SENDTIME DESC
 	</select>
 
@@ -63,8 +59,8 @@
 	</insert>
 	
 	<!-- 쪽지 작성 시 상대 아이디 여부 체크 -->
-	<select id="messageIdCheck" resultType="MemberVO">
-		SELECT ID FROM MEMBER
+	<select id="messageIdCheck" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM MEMBER
 		WHERE ID = #{MESSAGE_RECEIVER}
 	</select>
 	

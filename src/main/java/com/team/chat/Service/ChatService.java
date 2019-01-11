@@ -13,6 +13,9 @@ public interface ChatService {
 	
 	//채팅 보내기
 	public void chatSend(ChatVO cvo) throws Exception;
+	
+	//채팅 아이디 자신인지 체크
+	public int chatIdCheck(String CHAT_SENDER) throws Exception;
 
 	//채팅 내용 불러오기
 	public ChatVO sendRead(ChatVO cvo)throws Exception;

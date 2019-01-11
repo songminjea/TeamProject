@@ -15,21 +15,21 @@
 <!-- JS 파일 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resourses/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resourses/js/sockjs.js"></script>
+<script src="/${pageContext.request.contextPath}/resourses/js/chat.js"></script>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
 	<div id="positionLayer">
 	<!-- 레이어팝업 -->
-	<form method="post" action="${pageContext.request.contextPath}/${member.ID}/multiChatSend">
-	<table align="center" bgcolor="#FFFFFF">
+	<table align="center" bgcolor="#FFFFFF" width="100%">
 		<tr>
-			<td bgcolor="#4497fd" align="center" height="40px" width="100%" style="border: solid 1px #4497fd;">
+			<td bgcolor="#4497fd" align="center" height="50px" width="100%" style="border: solid 1px #4497fd;">
 				<font style="font-size: 18px; font-weight:bold" color="#FFFFFF">님과의 대화</font>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<div style="padding: 20px 0; overflow: auto; height: 400px;" align="left">
-				<ul id="discussion"></ul>
+				<div style="padding: 20px 0; overflow: auto; width: 90%; height: 390px;" align="left" id="chatArea" >
+					<ul id="discussion"></ul>
 				</div>
  			<ul id="discussion"></ul>
 			<br/>
@@ -59,7 +59,6 @@
 			</td>
 		</tr>	
 	</table>
-	</form>
 	<br/>
 <!-- 채팅 API -->
 	<script src="http://demo.dongledongle.com/Scripts/jquery-1.10.2.min.js"></script>
@@ -76,16 +75,12 @@
 					chat.on('addNewMessageToPage', function(memID, message) {
 						var memName = document.getElementById('memName');
 						var list_ID = "<li class='listId'><strong>"+htmlEncode(memID)+"("+memName.innerHTML+")"+"</strong></li>"
-
-						if (sender == '${member.ID}') {
-							var list_route = "<li class='balloon right'>"+htmlEncode(message)+"</li><br/>";
-							return false;
-						}else{
-							var list_route = "<li class='balloon left'>"+htmlEncode(message)+"</li><br/>";
-							return false;
-						}
+						var list_route = "<li class='balloon'><span name='CHAT_SENDCONTENT' id='CHAT_SENDCONTENT'>"+htmlEncode(message)+"</span></li><br/>";
 						
 						$('#discussion').append(list_ID+list_route);
+						var chatAreaHeight = $('#chatArea').height();
+						var maxScroll = $('#discussion').height() - chatAreaHeight;
+						$('#chatArea').scrollTop(maxScroll);
 					});
 					$('#message').focus();
 				

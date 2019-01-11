@@ -14,10 +14,16 @@
 	<!-- 채팅 내용 DB에 삽입 -->
 	<insert id="insert">
 		INSERT INTO TB_CHAT
-		(CHAT_SENDER, CHAT_SENDTIME)
+		(CHAT_SENDER, CHAT_SENDCONTENT, CHAT_SENDTIME)
 		VALUES
-		(#{CHAT_SENDER}, NOW())
+		(#{CHAT_SENDER}, #{CHAT_SENDCONTENT}, NOW())
 	</insert>
+	
+	<!-- 채팅 아이디 자신 건지 체크 -->
+	<select id="chatIdCheck" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE ID = #{CHAT_SENDER}
+	</select>
 	
 	<select id="read" resultType="ChatVO" parameterType="ChatVO">
 		SELECT * 

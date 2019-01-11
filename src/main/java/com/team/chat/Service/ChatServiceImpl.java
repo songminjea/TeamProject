@@ -55,4 +55,8 @@ public class ChatServiceImpl implements ChatService{
 		ChatVO resultVO = chatDao.sendRead(cvo);
 		return resultVO;
 	}
+	
+	public int chatIdCheck(String CHAT_SENDER)throws Exception{
+		return chatDao.chatIdCheck(CHAT_SENDER);
+	}
 }

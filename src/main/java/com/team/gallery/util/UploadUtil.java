@@ -100,7 +100,7 @@ public class UploadUtil {
 	//파일 삭제 처리
 	public static void deleteFile(String fileName,HttpServletRequest request) {
 		String rootPath = getRootPath(fileName, request);
-		
+		System.out.println("uploadUtil " + fileName);
 		//1.원본 이미지 파일 삭제
 		MediaType mediaType = MediaUtil.getMediaType(fileName);
 		if(mediaType !=null) {
@@ -149,9 +149,12 @@ public class UploadUtil {
 		String datePath = getDatePath(rootPath);
 		
 		//2-1. 폴더 경로가 없으면 만든다.
-		File exist = new File(rootPath);
-		if(!exist.exists())
-			exist.mkdir();
+		File exist = new File(rootPath + datePath);
+		if(!exist.exists()) {
+			//System.out.println(rootPath + " UploadUtil.java 파일 경로 없다.");
+			exist.mkdirs();
+		}
+			
 		
 		//3.서버에 파일 저장
 		File target = new File(rootPath + datePath,uuidFileName);

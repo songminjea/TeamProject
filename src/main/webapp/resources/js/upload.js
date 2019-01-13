@@ -16,7 +16,7 @@ $(document).ready(function(){
 				
 		formData.append("file",file);
 		
-		console.log(formData);
+		//console.log(formData);
 		
 		$.ajax({
 			type : "POST",
@@ -63,9 +63,11 @@ $(document).ready(function(){
 	$(".uploadedFileList").on("click",".delBtn", function(e) {
 		e.preventDefault();
 		var that = $(this);
+		that.parents("li").remove();
+		/*
 		$.ajax({
 			type : "POST",
-			url :"/TeamPro/gallery/delete",
+			url :"/TeamPro/gallery/imgDelete",
 			data : {fileName: that.attr("href")},
 			datatype : "text",
 			success : function(result){
@@ -75,6 +77,7 @@ $(document).ready(function(){
 				}
 			}
 		});
+		*/
 		
 	});	
 	

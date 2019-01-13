@@ -53,6 +53,29 @@ public class GBServiceImpl implements GBService {
 		// TODO Auto-generated method stub
 		return gdao.GetImgList(gbNum);
 	}
+
+	@Override
+	public void Update(galleryVO gvo) {
+		// TODO Auto-generated method stub
+		gdao.Update(gvo);
+	}
+
+	@Override
+	public void FileUpdate(fileVO fvo) {
+
+		gdao.ClearFile(fvo.getGb_Num());
+		gdao.FileInsert(fvo);
+	}
+
+	@Override
+	public void Delete(int gB_Num) {
+		// TODO Auto-generated method stub
+		gdao.ClearFile(gB_Num);
+		gdao.Delete(gB_Num);
+	}
+	
+	
+	
 	
 	
 	

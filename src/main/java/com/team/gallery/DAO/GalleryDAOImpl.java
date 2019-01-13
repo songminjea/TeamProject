@@ -52,12 +52,14 @@ public class GalleryDAOImpl implements GalleryDAO {
 		int Num = fvo.getGb_Num();
 		
 		//System.out.println(Image);
-		
-		Map<String, Object> paramMap = new HashMap<>();
-		for(String s : Image) {
-			paramMap.put("Image", s);
-			paramMap.put("Num",Num);
-			sqlSession.insert("fileInsert",paramMap);
+		if(Image !=  null) {
+			Map<String, Object> paramMap = new HashMap<>();
+			
+			for(String s : Image) {
+				paramMap.put("Image", s);
+				paramMap.put("Num",Num);
+				sqlSession.insert("fileInsert",paramMap);
+			}
 		}
 		
 	}
@@ -66,6 +68,25 @@ public class GalleryDAOImpl implements GalleryDAO {
 	public List<galleryVO> GetImgList(int GB_Num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("selectImgList", GB_Num);
+	}
+
+	@Override
+	public void Update(galleryVO gvo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("GalleryUpdate", gvo);
+		
+	}
+
+	@Override
+	public void ClearFile(int GB_Num) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("clearImgFile", GB_Num);
+	}
+
+	@Override
+	public void Delete(int GB_Num) {
+		// TODO Auto-generated method stub
+		sqlSession.delete("GalleryDelete", GB_Num);
 	}
 	
 	

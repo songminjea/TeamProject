@@ -60,6 +60,15 @@ public class galleryVO {
 	}
 
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "gb_Num : " + gb_Num + 
+				" mb_ID : " + mb_ID + 
+				"\n gb_Content : " + gb_Content +
+				" gb_Date : " + gb_Date +
+				"\n gb_IP : " + gb_IP +
+				" gb_Privacy : " + gb_Privacy ;
+	}
 	
 }

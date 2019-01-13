@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- CSS -->
-<link rel="stylesheet"
+<%-- <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/main2.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> --%>
 <!-- font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean"
@@ -126,6 +126,6 @@
 			</div>
 		</div>
 	</div>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<%-- <script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
 </div>

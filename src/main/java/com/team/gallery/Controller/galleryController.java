@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -66,14 +68,77 @@ public class galleryController {
 		
 		int Num = gbService.maxNum(gvo);
 		
-		if(fvo.getGb_Image() != null) {
-			fvo.setGb_Num(Num);			
-			gbService.FileInsert(fvo);
-		}
+		fvo.setGb_Num(Num);			
+		gbService.FileInsert(fvo);
+
+		ra.addFlashAttribute("msg", "success");
+		
+		return "redirect:main";
+	}
+	
+	@RequestMapping("/galleryModifyOk")
+	public String galleryModifyOk(@ModelAttribute galleryVO gvo,fileVO fvo, RedirectAttributes ra, HttpServletRequest request) throws Exception {
+		System.out.println(gvo.toString());
+				
+		gvo.setGb_IP(IPUtill.getClientIpAddr(request));
+		
+		gbService.Update(gvo);
+		
+		int Num = gvo.getGb_Num();
+		
+		fvo.setGb_Num(Num);			
+		gbService.FileUpdate(fvo);
+
 		
 		ra.addFlashAttribute("msg", "success");
 		
 		return "redirect:main";
+	}
+	
+	@RequestMapping(value = "/galleryModify" , method=RequestMethod.POST)
+	public String galleryModify(@ModelAttribute galleryVO gvo,fileVO fvo, RedirectAttributes ra, HttpServletRequest request, Model model) throws Exception {
+		
+				
+		
+
+		List<Map<String, String>> mod_imgSrc = new ArrayList<>();
+		
+		if(fvo.getGb_Image() != null) {
+			int length = fvo.getGb_Image().length;
+			for(String temp : fvo.getGb_Image()) {
+				// 이미지 파일 이름 얻어오기				
+				String filePath = temp.substring(0, 29);
+				String DatePath = temp.substring(17,29);
+				String fileName = temp.split("\\/\\d{4}\\/\\d{2}\\/\\d{2}\\/")[1];
+
+				Map<String, String> map_temp = new HashMap<>();
+				
+				map_temp.put("imgSrc", filePath + "s_" + fileName);
+				map_temp.put("originalFileUrl", temp);
+				map_temp.put("fullName", DatePath + "s_" + fileName);
+
+				mod_imgSrc.add(map_temp);
+				
+			}
+		}
+		model.addAttribute("gvo", gvo);
+		model.addAttribute("mod_imgSrc", mod_imgSrc);
+		
+		ra.addFlashAttribute("msg", "success");
+		
+		return "main.jsp?center=gallery/gallModify";
+	}
+	
+	// 갤러리 글 삭제
+	@RequestMapping(value="/galleryDelete", method=RequestMethod.POST)
+	@ResponseBody
+	public void galleryDelete(@RequestBody Map<String, String> GB_Num) throws Exception {
+		
+		System.out.println("galleryDelete 호출 " + GB_Num.get("GB_Num") );
+		gbService.Delete(Integer.parseInt(GB_Num.get("GB_Num")));
+		
+
+
 	}
 	
 	
@@ -116,10 +181,9 @@ public class galleryController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "gallery/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "gallery/imgDelete", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteImage (String fileName, HttpServletRequest request) {
 		
-				
 		ResponseEntity<String> entity = null;
 		
 		try {

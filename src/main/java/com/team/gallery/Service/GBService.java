@@ -24,4 +24,10 @@ public interface GBService {
 	
 	// 이미지 리스트 불러오기
 	public List<galleryVO> GetImgList(int gbNum) throws Exception;
+
+	public void Update(galleryVO gvo);
+
+	public void FileUpdate(fileVO fvo);
+
+	public void Delete(int gB_Num);
 }

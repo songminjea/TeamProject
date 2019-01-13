@@ -8,6 +8,19 @@
 		VALUES(#{gb_Num},#{mb_ID},#{gb_Content},#{gb_Date},#{gb_IP},#{gb_Privacy})
 	</insert>
 	
+	<update id="GalleryUpdate" parameterType="com.team.gallery.VO.galleryVO">
+		update TB_gallery
+		set GB_Content = #{gb_Content} ,
+		GB_Date = now(),
+		GB_Privacy = #{gb_Privacy}
+		where GB_Num = #{gb_Num};
+	</update>
+	
+	<delete id="GalleryDelete">
+		delete from TB_gallery
+		where GB_Num = #{GB_Num}
+	</delete> 
+	
 	<select id="maxNum" resultType="int">
 		select Max(GB_Num)
 		from TB_gallery
@@ -42,5 +55,13 @@
 		from TB_FILE
 		where GB_Num = #{GB_Num}
 	</select>
+	
+	
+	<delete id="clearImgFile">
+		delete from TB_FILE
+		where GB_Num = #{GB_Num}
+	</delete> 
+	
+	
 	
 </mapper>

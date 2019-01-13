@@ -33,6 +33,7 @@
 		<interceptor>
 			<mapping path="/main"/>
 			<mapping path="/**/mypage"/>
+			<mapping path="/galleryModify"/>
 			<beans:ref bean = "loginInterceptor"/>
 		</interceptor>
 		<interceptor>

@@ -4,47 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-	.fileDrop{
-		height : 100px;
-		border: 2px dotted gray;
-	}
-	small{
-		margin-left : 3px;
-		font-weight: bold;
-	}
-	#space{
-		margin-bottom: 3%;
-	}
-.write_area{
-	border-radius: 5px;
-	border: 1px solid #4497fd;
-}
-#file-click{
-    color : #5385ff;
-    cursor : pointer;
-}
 
-#file-click:hover{
-	color : #1942a6;
-}
-
-.file-area .file-dummy {
-    width: 100%;
-    padding: 20px 10px;
-    border: 2px dashed #ccc;
-    background-color: #fff;
-    text-align: left;
-    transition: background 0.3s ease-in-out;
-}
-.view{
-	height : 80px;
-}
-
-.mailbox-attachment-info{
-	width: 150px;
-}
-</style>
 
 <!-- 핸들바 기능 -->
 <script id ="fileTemplate" type="text/x-handlebars-template">
@@ -114,5 +74,5 @@
 <!-- image upload -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/upload.js"></script>
-<script  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<!-- <script  src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 </html>

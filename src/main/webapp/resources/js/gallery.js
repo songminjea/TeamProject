@@ -144,7 +144,9 @@ function galleryDelete(GB_Num){
 			countGallery--;
 			
 			if(countGallery == 0){
-				$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+				$("#gallery_list").append("<div align='center' style='line-height: 200%;'><h4 style='color: #1d2c52; font-weight: 500;'>" +
+										  "<img src='../resources/img/logo_oops.png'style='width: 30%; margin-bottom: 30px;'/>"+
+										  "아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 			}
 			
 		},

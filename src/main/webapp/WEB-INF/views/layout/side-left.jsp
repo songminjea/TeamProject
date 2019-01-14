@@ -6,7 +6,7 @@
       <!-- Profile -->
       <div class="w3-card w3-round w3-white" style="padding: 20px;">
         <div class="w3-container">
-         <h4 class="w3-center" style="color: #1d2c52;">Profile</h4>
+         <h4 class="w3-center" style="color: #1d2c52; font-weight: 600;">Profile</h4>
          <br/>
          <div class="w3-center image_wrapper">
          	<%-- 만약 회원 프로필 이미지가 없을 경우에는 기본 이미지를 띄운다. --%>
@@ -34,20 +34,10 @@
         </div>
       </div>
       <br>
-      <!-- Accordion -->
-      <div class="w3-card w3-round w3-white" style="padding: 10px; border-radius: 4px;">
-        <div class="w3-white">
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
-          <div id="Demo2" class="w3-hide w3-container">
-            <p>Some other text..</p>
-          </div>
-        </div>      
-      </div>
-      <br>     
       <!-- 팔로우 추천 목록 -->
       <c:if test="${!empty member.ID}"> 
 	      <div class="w3-card w3-round w3-white w3-hide-small" style="padding: 30px 10px;">
-	      	<h4 style="text-align: center; color: #1d2c52; margin-bottom: 10px;">Recommend Follow</h4>
+	      	<h4 style="text-align: center; color: #1d2c52; margin-bottom: 10px; font-weight: 600;">Recommend Follow</h4>
 	        <hr class="w3-clear" style="margin: 5px 20px 20px;">
 	        <div class="w3-container" id="small_recommend_list">	        	
 	        </div>
@@ -57,8 +47,8 @@
     </div>
 <script id="s_recom_follow-template" type="text/x-handlebars-template">
 {{#s_r_list}}
-	<img src="${pageContext.request.contextPath}/resources/img/baby.jpg" 
-	        	alt="defaultImage" class="w3-left w3-circle" style="max-width: 100%; max-height: 50px;">
+	<img src="${pageContext.request.contextPath}/resources/img/logo_noFlower.png" 
+	        	alt="defaultImage" class="w3-left w3-circle" style="max-width: 100%; max-height: 40px;">
 	        	<span class="w3-right smallSizeFont">
 					<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn followbtn_{{following_id}}"
 						value='{{following_id}}'>팔로우
@@ -68,7 +58,7 @@
 						<span>팔로잉</span> <span>언팔로우</span>
 					</button>
 				</span>
-	        	<font style="font-size: 18px; font-weight: 600; margin: 0 10px;">
+	        	<font style="font-size: 17px; font-weight: 600; color: #1d2c52; margin: 10px 10px;">
 					<a href="${pageContext.request.contextPath}/{{following_id}}/gallery"><span class="writerId">{{following_id}}</span></a>
 				</font>	        	
 				<br><div class="w3-clear" style="margin: 5px 20px 10px;"></div>

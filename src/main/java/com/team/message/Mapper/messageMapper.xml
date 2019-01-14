@@ -5,42 +5,76 @@
 	
 	<!-- 쪽지 전체 목록 -->
 	<select id="listAll" resultType="MessageVO">
-		SELECT *
-		FROM TB_MESSAGE
-		ORDER BY MESSAGE_SENDTIME DESC
+<!-- 		<include refid="pagingHeader"></include> -->
+			SELECT *
+			FROM TB_MESSAGE
+			WHERE MESSAGE_RECEIVER = #{MESSAGE_RECEIVER}
+			<choose>
+				<when test="searchOption == 'all'">
+					AND (MESSAGE_SENDER LIKE CONCAT('%' , #{keyword} , '%')
+					OR MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%')
+					OR MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%'))
+				</when>
+				<otherwise>
+					AND ${searchOption} LIKE CONCAT('%' , #{keyword} , '%')
+				</otherwise>
+			</choose>
+			ORDER BY MESSAGE_SENDTIME DESC
+<!-- 		<include refid="pagingFooter"></include> -->
 	</select>
 	
-	<!-- 검색한 쪽지 리스트 -->
-	<select id="searchList" resultType="MessageVO">
-		<include refid="select"/>
-		<![CDATA[
-		WHERE MESSAGE_NO > 0
-		]]>
-		<include refid="search"/>	
-		<![CDATA[
-		ORDER BY MESSAGE_SENDTIME DESC
-		LIMIT #{pageStart}, #{perPageNum}
-		]]>
+	<select id="sendListAll" resultType="MessageVO">
+<!-- 		<include refid="pagingHeader"></include> -->
+			SELECT *
+			FROM TB_MESSAGE
+			WHERE MESSAGE_SENDER = #{MESSAGE_SENDER}
+			<choose>
+				<when test="searchOption == 'all'">
+					AND (MESSAGE_RECEIVER LIKE CONCAT('%' , #{keyword} , '%')
+					OR MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%')
+					OR MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%'))
+				</when>
+				<otherwise>
+					AND ${searchOption} LIKE CONCAT('%' , #{keyword} , '%')
+				</otherwise>
+			</choose>
+			ORDER BY MESSAGE_SENDTIME DESC
+<!-- 		<include refid="pagingFooter"></include> -->
 	</select>
 	
 	<!-- 페이징 처리 -->
-	<select id="pagingCount" resultType="int">
-		<![CDATA[
-		SELECT COUNT(*) 
-		FROM TB_MESSAGE
-		WHERE MESSAGE_NO > 0
-		]]>
-		<include refid="search"/>	
-	</select>
+<!-- 	<select id="pagingCount" resultType="int"> -->
+<!-- 		SELECT COUNT(*)  -->
+<!-- 		FROM TB_MESSAGE -->
+<!-- 		WHERE MESSAGE_RECEIVER = #{MESSAGE_RECEIVER} -->
+<!-- 			<choose> -->
+<!-- 				<when test="searchOption == 'all'"> -->
+<!-- 					AND (MESSAGE_SENDER LIKE CONCAT('%' , #{keyword} , '%') -->
+<!-- 					OR MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%') -->
+<!-- 					OR MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%')) -->
+<!-- 				</when> -->
+<!-- 				<otherwise> -->
+<!-- 					AND ${searchOption} LIKE CONCAT('%' , #{keyword} , '%') -->
+<!-- 				</otherwise> -->
+<!-- 			</choose> -->
+<!-- 	</select> -->
 	
-	<!-- 내가 보낸 쪽지 전체 목록 -->
-	<select id="sendListAll" resultType="MessageVO">
-		SELECT MESSAGE_NO, MESSAGE_RECEIVER, MESSAGE_SUBJECT, MESSAGE_SENDTIME,
-			   MESSAGE_READTIME, MESSAGE_READVAL
-		FROM TB_MESSAGE
-		WHERE MESSAGE_NO > 0
-		ORDER BY MESSAGE_SENDTIME DESC
-	</select>
+	
+<!-- 	<select id="pagingSendCount" resultType="int"> -->
+<!-- 		SELECT COUNT(*)  -->
+<!-- 		FROM TB_MESSAGE -->
+<!-- 		WHERE MESSAGE_SENDER = #{MESSAGE_SENDER} -->
+<!-- 			<choose> -->
+<!-- 				<when test="searchOption == 'all'"> -->
+<!-- 					AND (MESSAGE_RECEIVER LIKE CONCAT('%' , #{keyword} , '%') -->
+<!-- 					OR MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%') -->
+<!-- 					OR MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%')) -->
+<!-- 				</when> -->
+<!-- 				<otherwise> -->
+<!-- 					AND ${searchOption} LIKE CONCAT('%' , #{keyword} , '%') -->
+<!-- 				</otherwise> -->
+<!-- 			</choose> -->
+<!-- 	</select> -->
 
 	<!-- 읽지 않은 쪽지 수 -->
 	<select id="count" resultType="int" parameterType="String">
@@ -103,18 +137,13 @@
 	</sql>
 	
 	<!-- search 재사용 -->
-	<sql id="search">
-		<!-- 검색 옵션이 전체 검색일 경우 -->
-		<if test="searchType!=null">
-			<if test="searchType == 'MESSAGE_SENDER'.toString()">
-				AND MESSAGE_SENDER LIKE CONCAT('%' , #{keyword} , '%')
-			</if>
-			<if test="searchType == 'MESSAGE_SUBJECT'.toString()">
-				AND MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%')
-			</if>
-			<if test="searchType == 'MESSAGE_CONTENT'.toString()">
-				AND MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%')
-			</if>
-		</if>
-	</sql>
+<!-- 	<sql id="pagingHeader"> -->
+<!-- 		SET @rownum:=0; -->
+<!-- 		SELECT A.* FROM( -->
+<!-- 			SELECT @rownum:=@rownum+1 as rn, S.* FROM( -->
+<!-- 	</sql> -->
+<!-- 	<sql id="pagingFooter"> -->
+<!-- 			)S -->
+<!-- 		)A WHERE rn BETWEEN #{start} AND #{end} -->
+<!-- 	</sql> -->
 </mapper>

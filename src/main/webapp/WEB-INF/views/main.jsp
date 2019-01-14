@@ -130,6 +130,14 @@ $('#summernote').summernote({
         tabsize: 2,
         height: 100
 });
+
+$(document).ready(function(){ 
+ 	$("#messageSearchBtn").on("click", function(){ 
+		var keyword = $("#messageSearchkeyword").val(); 
+ 		 
+ 		location.href="${pageContext.request.contextPath}/${member.ID}/messageList?keyword="+keyword; 
+ 	}); 
+ }); 
 </script>
 <!-- js 파일 -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>

@@ -10,17 +10,16 @@ public class BlockVO {
 	String blocking_id; // 블락 당하는 아이디
 	Date block_date; // 블락 날짜
 	
-	
 	public String getBlocker_id() {
 		return blocker_id;
 	}
 	public void setBlocker_id(String blocker_id) {
 		this.blocker_id = blocker_id;
 	}
-	public String getblocking_id() {
+	public String getBlocking_id() {
 		return blocking_id;
 	}
-	public void setblocking_id(String blocking_id) {
+	public void setBlocking_id(String blocking_id) {
 		this.blocking_id = blocking_id;
 	}
 	public Date getBlock_date() {
@@ -29,6 +28,8 @@ public class BlockVO {
 	public void setBlock_date(Date block_date) {
 		this.block_date = block_date;
 	}
+	
+	
 	
 	
 }

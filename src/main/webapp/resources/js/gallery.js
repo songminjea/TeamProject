@@ -96,28 +96,31 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			if(result.length != 0){
-				var source = $("#gallery-template").html();
-				var template = Handlebars.compile(source);
-				var data = {
-						gall : result,
+			// 차단되어있을때 화면 잠금.
+			if(result == ""){
+				screenLock();
+			}else{
+				if(result.length != 0){
+					var source = $("#gallery-template").html();
+					var template = Handlebars.compile(source);
+					var data = {
+							gall : result,
+					}
+					
+					regHelper();
+					
+					countGallery = countGallery + result.length;
+					//console.log(countGallery);
+					var html = template(data);
+					$("#gallery_list").append(html);
+					TimeFormat();
+					
+					pageNum++;
+				} else{
+					if(isDetach == true)
+						$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+					
 				}
-				
-				regHelper();
-				
-				countGallery = countGallery + result.length;
-				//console.log(countGallery);
-				var html = template(data);
-				$("#gallery_list").append(html);
-				TimeFormat();
-				
-				pageNum++;
-			} else{
-				if(isDetach == true)
-					$("#gallery_list").append("<div align='center' style='line-height: 200%;'><h4 style='color: #1d2c52; font-weight: 500;'>" +
-												"<img src='../resources/img/logo_oops.png'style='width: 30%; margin-bottom: 30px;'/>"+
-												"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
-				
 			}
 			//console.log(result.length);
 		}
@@ -253,6 +256,16 @@ function TimeFormat(){
 	
 }
 
+function screenLock(){ 
+    var obj = document.getElementById("screenLock"); 
+    obj.style.width = document.body.Width + 'px'; 
+    obj.style.height = document.body.scrollHeight + 'px';
+
+    obj.style.filter = "alpha(opacity=80)"; 
+    obj.style.opacity = "0.8"; 
+    obj.style.visibility = "visible"; 
+}
+
 
 $('body').scroll(function(){
 	
@@ -297,3 +310,4 @@ $(document).ready(function(){
 	
 	
 });
+

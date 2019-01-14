@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
+  
 <mapper namespace="com.team.block.DAO.BlockDAO">
-
-	<select id="GetAllBlocker" resultType="com.team.block.VO.BlockVO">
-		select blocker_id select *
-		from Block from Block
-		where blocking_id = #{blocking_id} where blocker_id = #{blocker_id}
+	
+	<select id="GetAllBlocking" resultType="com.team.block.VO.BlockVO">
+		select *
+		from TB_BLOCK
+		where blocker_id = #{id}
+		limit ${pageNum} , 10
 	</select>
-
-	<select id="GetAllblocking" resultType="com.team.block.VO.BlockVO">
-		select blocking_id select *
-		from Block from Block
-		where blocker_id = #{blocker_id} where blocking_id = #{blocking_id}
-	</select>
-
-
-	<delete id="Deleteblocking"
-		parameterType="com.team.block.VO.BlockVO">
-		delete from Block
-		where blocking_id = #{blocking_id} and
-		blocker_id = #{blocker_id}
+	
+	<delete id="DeleteBlocking" parameterType="com.team.block.VO.BlockVO">
+		delete from TB_BLOCK
+		where blocking_id = #{blocking_id} and blocker_id = #{blocker_id}
 	</delete>
-
-
-	<insert id="Insertblocking"
-		parameterType="com.team.block.VO.BlockVO">
-		insert into Block (blocker_id, blocking_id, Block_date)
-		values (#{blocker_id}, #{blocking_id}, now())
+	
+	
+	<insert id="InsertBlocking" parameterType="com.team.block.VO.BlockVO">
+		insert into TB_BLOCK (blocker_id, blocking_id, block_date)
+		values (#{blocker_id}, #{blocking_id}, now())	
 	</insert>
-
-
-	<select id="Isblocking"
-		parameterType="com.team.block.VO.BlockVO" resultType="int">
+	
+	
+	<select id="IsBlocking" parameterType="com.team.block.VO.BlockVO" resultType="int">
 		select count(*)
-		from Block a
+		from TB_BLOCK a
 		where exists(select *
-		from Block b
-		where b.blocking_id =
-		#{blocking_id} and b.blocker_id = #{blocker_id})
-
+					from TB_BLOCK b
+					where b.blocking_id = #{blocking_id} and b.blocker_id = #{blocker_id})
+	
 	</select>
-
+	
+	<select id="IsBlocked" parameterType="com.team.block.VO.BlockVO" resultType="int">
+		select count(*)
+		from TB_BLOCK a
+		where exists(select *
+					from TB_BLOCK
+					where (blocker_id = #{blocker_id} and blocking_id = #{blocking_id}) or 
+					(blocker_id = #{blocking_id} and blocking_id = #{blocker_id}))
+	</select>
+	
+	
+	
+	
+	<select id="getCountBlocking" resultType="int">
+		select count(*)
+		from TB_BLOCK
+		where blocker_id = #{id}
+	</select>
+	
+	
+	
 
 
 </mapper>

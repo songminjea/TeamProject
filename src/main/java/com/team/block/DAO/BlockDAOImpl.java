@@ -1,6 +1,7 @@
 package com.team.block.DAO;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,17 @@ public class BlockDAOImpl implements BlockDAO {
 	
 	
 	@Override
-	public List<BlockVO> GetAllBlocker(String Blocking_id) {
+	public List<BlockVO> GetAllBlocker(Map<String, String> BlockInfo) {
 		// 해당 아이디의 모든 blocker 목록 리턴(Blocker_id, Block_date)
 		
-		return sqlSession.selectList("GetAllBlocker", Blocking_id);
+		return sqlSession.selectList("GetAllBlocker", BlockInfo);
 	}
 
 	@Override
-	public List<BlockVO> GetAllBlocking(String Blocker_id) {
+	public List<BlockVO> GetAllBlocking(Map<String, String> BlockInfo) {
 		// 해당 아이디의 모든 blocking 목록 리턴(Blocking_id, Block_date)
 
-		return sqlSession.selectList("GetAllBlocking", Blocker_id);
+		return sqlSession.selectList("GetAllBlocking", BlockInfo);
 	}
 
 	@Override
@@ -58,4 +59,23 @@ public class BlockDAOImpl implements BlockDAO {
 
 	}
 
+	@Override
+	public int getCountBlocking(String pageID) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getCountBlocking", pageID);
+	}
+
+	@Override
+	public boolean IsBlocked(BlockVO vo) {
+		// TODO Auto-generated method stub
+		int result = sqlSession.selectOne("IsBlocked", vo);
+		
+		
+		if(result >= 1)
+			return true;
+		else
+			return false;
+	}
+	
+	
 }

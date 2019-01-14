@@ -38,7 +38,7 @@
 								title="Send Message"><i class="fa fa-envelope"
 								id="message_i"></i></a> <a href="#"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/multiChat', 'multiChat', 'width=450, height=650')"
+								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatSearch', 'multiChat', 'width=450, height=650')"
 								title="Chat"><i class="fa fa-weixin" id="chat_i"
 								aria-hidden="true"></i></a>
 							<%-- 새 글 알림 --%>
@@ -86,7 +86,7 @@
 					<input type="text" id="search_keyword" value="${keyword}"
 						placeholder="검색할 아이디를 입력" style="margin-top: 10px;"> <a
 						href="" onclick="return false;" id="search_confirm"><i
-						class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i></a>
+						class="fa fa-search fa-fw w3-margin-right w3-text-theme" style="color: #6297ff;"></i></a>
 					<%-- 검색창 끝 --%>
 
 					<%-- 로그인이 되어 있을 경우 회원 정보 아이콘이 뜬다. --%>
@@ -95,7 +95,7 @@
 							<%-- 		<c:if test="${!empty member.ID}"> --%>
 							<button
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-white"
-								style="text-decoration: none; font-weight: 500; font-size: 18px;">
+								style="text-decoration: none; font-weight: 600; font-size: 16px;">
 								<font color="#1d2c52">${member.ID}(${member.NAME})</font> &nbsp;
 								<i class="fa fa-user-circle" aria-hidden="true" id="user_i"></i>
 							</button>

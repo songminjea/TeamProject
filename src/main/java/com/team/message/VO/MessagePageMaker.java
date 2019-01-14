@@ -1,105 +1,143 @@
 package com.team.message.VO;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
 public class MessagePageMaker {
 	
-	private MessageCriteria cri; //page, perPageNum
-	private Integer totalCount; //총 게시물 수
+	//페이지당 쪽지 개수
+	private int PAGE_SCALE = 10;
+	//화면당 페이지 수
+	private int BLOCK_SCALE = 10;
+	private int curPage = 1; //현재 페이지
+	private int prevPage; //이전 페이지
+	private int nextPage; //다음 페이지
+	private int totPage; //전체 페이지 개수
+	private int totBlock; //전체 페이지 블록 개수
+	private int curBlock = 1; //현재 페이지 블록
 	
-	private Integer startPage; //시작 페이지
-	private Integer endPage; //끝 페이지
-	private boolean prev; //이전
-	private boolean next; //이후
+	private int countAll; //총 쪽지 수
 	
-	private Integer displayPageNum = 10;
+	private int startPage = 1; //시작 페이지
+	private int endPage = 1; //끝 페이지
+	private int startIndex = 0; //시작 인덱스
 	
-	public String makeSearch(int page) {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-									  .queryParam("page", page)
-									  .queryParam("perPageNum", cri.getPerPageNum())
-									  .queryParam("searchType", ((MessageSearchVO)cri).getSearchType())
-									  .queryParam("keyword", encoding(((MessageSearchVO)cri).getKeyword()))
-									  .build();
-		return uriComponents.toUriString();
+	
+	//생성자
+	//레코드 개수, 현재 페이지 번호
+	public MessagePageMaker(int countAll, int curPage) {
+		setCurPage(curPage);
+		setCountAll(countAll);
+		//총 페이지 수
+		setTotPage(countAll);
+		setTotBlock(totPage);
+		rangeSetting(curPage);
+		setStartIndex(curPage);
 	}
-	
-	//검색 키워드의 인코딩 처리
-	private String encoding(String keyword) {
-		if (keyword == null || keyword.trim().length() == 0) {
-			return "";
-		}
-		try {
-			return URLEncoder.encode(keyword, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			return "";
-		}
 		
+	//getter, setter
+	public int getCurPage() {
+		return curPage;
+	}
+
+	public void setCurPage(int curPage) {
+		this.curPage = curPage;
+	}
+
+	public int getPrevPage() {
+		return prevPage;
+	}
+
+	public void setPrevPage(int prevPage) {
+		this.prevPage = prevPage;
+	}
+
+	public int getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
+	}
+
+	public int getTotPage() {
+		return totPage;
+	}
+
+	public void setTotPage(int countAll) {
+		this.totPage = (int)Math.ceil(countAll*1.0/PAGE_SCALE);
+	}
+
+	public int getTotBlock() {
+		return totBlock;
+	}
+	//페이지 블록의 개수 계산
+	public void setTotBlock(int totPage) {
+		this.totBlock = (int)Math.ceil(totPage*1.0/BLOCK_SCALE);
 	}
 	
-	public String makeQuery(Integer page) {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-									  .queryParam("page", page)
-									  .queryParam("perPageNum", cri.getPerPageNum())
-									  .build();
-		return uriComponents.toUriString();
-	}
-	public Integer getTotalCount() {
-		return totalCount;
-	}
-	public void setTotalCount(Integer totalCount) {
-		this.totalCount = totalCount;
-		calcData();
-	}
-	private void calcData() {
-		endPage = (int)Math.ceil((double)cri.getPage()/displayPageNum)*displayPageNum;
-		startPage = (endPage - displayPageNum) + 1;
-		int tempEndPage = (int)Math.ceil((double)totalCount/displayPageNum);
-		if (endPage > tempEndPage) {
-			endPage = tempEndPage;
+	public void rangeSetting(int curPage) {
+		setCurBlock(curPage);
+		this.startPage = (curPage - 1)*BLOCK_SCALE+1;
+		this.endPage = startPage + BLOCK_SCALE-1;
+		if (endPage > totPage) {
+			this.endPage = totPage;
 		}
-		prev = (startPage == 1? false:true);
-		next = (tempEndPage > endPage? true:false);
+		this.prevPage = curPage - 1;
+		this.nextPage = curPage + 1;
 	}
-	//getter, setter 메서드
-	public MessageCriteria getCri() {
-		return cri;
+
+	public int getCurBlock() {
+		return curBlock;
 	}
-	public void setCri(MessageCriteria cri) {
-		this.cri = cri;
+
+	public void setCurBlock(int curPage) {
+		this.curBlock = (int)((curPage-1)/BLOCK_SCALE)+1;
 	}
-	public Integer getStartPage() {
+
+	public int getStartPage() {
 		return startPage;
 	}
-	public void setStartPage(Integer startPage) {
+
+	public void setStartPage(int startPage) {
 		this.startPage = startPage;
 	}
-	public Integer getEndPage() {
+
+	public int getEndPage() {
 		return endPage;
 	}
-	public void setEndPage(Integer endPage) {
+
+	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	public boolean isPrev() {
-		return prev;
+
+	public int getPAGE_SCALE() {
+		return PAGE_SCALE;
 	}
-	public void setPrev(boolean prev) {
-		this.prev = prev;
+
+	public void setPAGE_SCALE(int pAGE_SCALE) {
+		PAGE_SCALE = pAGE_SCALE;
 	}
-	public boolean isNext() {
-		return next;
+
+	public int getBLOCK_SCALE() {
+		return BLOCK_SCALE;
 	}
-	public void setNext(boolean next) {
-		this.next = next;
+
+	public void setBLOCK_SCALE(int bLOCK_SCALE) {
+		BLOCK_SCALE = bLOCK_SCALE;
 	}
-	public Integer getDisplayPageNum() {
-		return displayPageNum;
+
+	public int getCountAll() {
+		return countAll;
 	}
-	public void setDisplayPageNum(Integer displayPageNum) {
-		this.displayPageNum = displayPageNum;
+
+	public void setCountAll(int countAll) {
+		this.countAll = countAll;
 	}
+	
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int curPage) {
+		this.startIndex = (curPage-1)*PAGE_SCALE;
+	}
+	
 }

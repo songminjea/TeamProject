@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.team.member.VO.MemberVO;
 import com.team.message.DAO.MessageDAO;
-import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
 
 @Service
@@ -18,26 +17,28 @@ public class MessageServiceImpl implements MessageService{
 	
 	//쪽지 전체 목록 
 	@Override
-	public List<MessageVO>listAll()throws Exception{
-		return messageDao.listAll();
+	public List<MessageVO>listAll(int start, int end, String searchOption, String keyword, MemberVO mvo)throws Exception{
+		String MESSAGE_RECEIVER = mvo.getID();
+		return messageDao.listAll(start, end, searchOption, keyword, MESSAGE_RECEIVER);
 	}
-	
-	//검색한 쪽지 리스트
-	@Override
-	public List<MessageVO>listSearch(MessageSearchVO msvo)throws Exception{
-		return messageDao.listSearch(msvo);
-	}
-	
+
 	//페이징을 위한 카운트
 	@Override
-	public int countSearchedArticles(MessageSearchVO msvo)throws Exception{
-		return messageDao.countSearchedArticles(msvo);
+	public int countArticles(String searchOption, String keyword)throws Exception{
+		return messageDao.countArticles(searchOption, keyword);
 	}
 	
 	//내가 보낸 쪽지
 	@Override
-	public List<MessageVO>sendListAll()throws Exception{
-		return messageDao.sendListAll();
+	public List<MessageVO>sendListAll(int start, int end, String searchOption, String keyword, MemberVO mvo)throws Exception{
+		String MESSAGE_SENDER = mvo.getID();
+		return messageDao.sendListAll(start, end, searchOption, keyword, MESSAGE_SENDER);
+	}
+		
+	//페이징을 위한 카운트
+	@Override
+	public int sendCountArticles(String searchOption, String keyword)throws Exception{
+		return messageDao.sendCountArticles(searchOption, keyword);
 	}
 		
 	//쪽지 개수

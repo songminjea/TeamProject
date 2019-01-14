@@ -59,11 +59,8 @@
 
 	<%-- 드랍다운 버튼 끝 --%>
 	<%-- 글쓴이, 작성시간 --%>
-	<h5>
-		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><span class="writerId" style="color: #1d2c52;">{{gallery/mb_ID}}</span></a>
-		<span class="writeTime w3-opacity">{{gallery/gb_Date}}</span>
-	</h5>
-	<br><br>
+		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><h5 class="writerId" style="color: #1d2c52; font-weight: 600;">{{gallery/mb_ID}}</h5></a>
+		<h6 class="writeTime w3-opacity">{{gallery/gb_Date}}</h6><br/>
 
 	<%-- 글 내용 --%>
 	<span id="Gall_Content"><p>{{#SetContentLine gallery/gb_Content}}{{/SetContentLine}}</p></span>
@@ -92,11 +89,11 @@
 
 	
 
-	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
-		<i class="fa fa-thumbs-up" id="like_i"></i><font class="listFont">Like</font>
+	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom w3-hover-white">
+		<i class="fa fa-thumbs-up" id="like_i"></i><font class="listFont" style="font-size: 14px;">Like</font>
 	</button>
-	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
-		<i class="fa fa-comment" id="comment_i"></i><font class="listFont">Comment</font>
+	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom w3-hover-white">
+		<i class="fa fa-comment" id="comment_i"></i><font class="listFont" style="font-size: 14px;">Comment</font>
 	</button>
 	
 	<hr class="w3-clear" style="margin: 5px 0 20px;">

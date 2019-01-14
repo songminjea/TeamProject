@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.chat.DAO.ChatDAO;
-import com.team.chat.VO.ChatSearchVO;
 import com.team.chat.VO.ChatVO;
 import com.team.member.VO.MemberVO;
 

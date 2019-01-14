@@ -1,12 +1,13 @@
 package com.team.message.DAO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
 
 @Repository
@@ -18,27 +19,45 @@ public class MessageDAOImpl implements MessageDAO{
 	
 	//쪽지 전체 목록
 	@Override
-	public List<MessageVO>listAll()throws Exception{
-		return sqlSession.selectList(namespace+".listAll");
+	public List<MessageVO>listAll(String searchOption, String keyword, String MESSAGE_RECEIVER)throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("MESSAGE_RECEIVER", MESSAGE_RECEIVER);
+//		map.put("start", start);
+//		map.put("end", end);
+		return sqlSession.selectList(namespace+".listAll", map);
 	}
-	
-	//검색한 쪽지 리스트
-	@Override
-	public List<MessageVO>listSearch(MessageSearchVO msvo)throws Exception{
-		return sqlSession.selectList(namespace+".searchList", msvo);
-	}
-	
+
 	//페이징을 위한 카운트
-	@Override
-	public int countSearchedArticles(MessageSearchVO msvo)throws Exception{
-		return sqlSession.selectOne(namespace+".pagingCount", msvo);
-	}
+//	@Override
+//	public int countArticles(String searchOption, String keyword)throws Exception{
+//		Map<String, String> map = new HashMap<String, String>(); 
+//	 	map.put("searchOption", searchOption); 
+//		map.put("keyword", keyword); 
+//		return sqlSession.selectOne(namespace+".pagingCount", map);
+//	}
 	
 	//내가 보낸 쪽지
 	@Override
-	public List<MessageVO>sendListAll()throws Exception{
-		return sqlSession.selectList(namespace+".listAll");
+	public List<MessageVO>sendListAll(String searchOption, String keyword, String MESSAGE_SENDER)throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("MESSAGE_SENDER", MESSAGE_SENDER);
+//		map.put("start", start);
+//		map.put("end", end);
+		return sqlSession.selectList(namespace+".sendListAll", map);
 	}
+	
+	//페이징을 위한 카운트
+//	@Override
+//	public int sendCountArticles(String searchOption, String keyword)throws Exception{
+//		Map<String, String> map = new HashMap<String, String>(); 
+//		map.put("searchOption", searchOption); 
+//		map.put("keyword", keyword); 
+//		return sqlSession.selectOne(namespace+".pagingSendCount", map);
+//	}
 	
 	//안 읽은 쪽지 개수
 	@Override

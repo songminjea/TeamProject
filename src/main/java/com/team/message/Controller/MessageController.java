@@ -1,6 +1,8 @@
 package com.team.message.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
-import com.team.message.VO.MessageSearchVO;
 import com.team.message.VO.MessageVO;
 import com.team.message.VO.MessagePageMaker;
 
@@ -36,52 +38,78 @@ public class MessageController {
 		
 	//쪽지 전체 목록
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
-	public String messageList(@PathVariable String id, HttpSession session, Model model)throws Exception{
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+	public ModelAndView messageList(@PathVariable String id, @RequestParam(defaultValue="all")String searchOption, 
+						 			 @RequestParam(defaultValue="")String keyword,
+						 			 Model model,
+						 			 HttpSession session,
+									 MemberVO memberVO)throws Exception{
+		memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
+		//안 읽은 쪽지 개수 알림
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
 		
-		List<MessageVO>mlist = messageService.listAll();		
-		model.addAttribute("mlist", mlist);
+		//레코드 개수 계산
+//		int countAll = messageService.countArticles(searchOption, keyword);
 		
-		return "main.jsp?center=message/messageList";
-	}
-	
-	//검색
-	@RequestMapping(value="{id}/messageList", method=RequestMethod.POST)
-	public String messageSearch(@ModelAttribute("messageSearchVO")MessageSearchVO messageSearchVO, 
-								 @PathVariable String id, HttpSession session, Model model)throws Exception{
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		model.addAttribute("profile", memberVO);
+		//페이지 나누기 관련 처리
+//		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
+//		int start = messagePageMaker.getStartPage();
+//		int end = messagePageMaker.getEndPage();
 		
-		int count = messageService.countList(memberVO);
-		model.addAttribute("messageCount", count);
+		List<MessageVO>mlist = messageService.listAll(searchOption, keyword, memberVO);		
 		
-		MessagePageMaker messagePageMaker = new MessagePageMaker();
-		messagePageMaker.setCri(messageSearchVO);
-		messagePageMaker.setTotalCount(messageService.countSearchedArticles(messageSearchVO));
+		//데이터를 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mlist", mlist);
+//		map.put("countAll", countAll);
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+//		map.put("messagePageMaker", messagePageMaker);
 		
-		model.addAttribute("mlist", messageService.listSearch(messageSearchVO));
-		model.addAttribute("messagePageMaker", messagePageMaker);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("map", map);
+		mav.setViewName("main.jsp?center=message/messageList");
 		
-		return "main.jsp?center=message/messageList";
+		return mav;
 	}
 		
 	//내가 보낸 쪽지
 	@RequestMapping(value="{id}/messageSendList", method=RequestMethod.GET)
-	public String messageSendList(@PathVariable String id, HttpSession session, Model model)throws Exception{
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+	public ModelAndView messageSendList(@PathVariable String id, @RequestParam(defaultValue="all")String searchOption, 
+									 @RequestParam(defaultValue="")String keyword,
+									 HttpSession session, Model model,
+									 MemberVO memberVO)throws Exception{
+		memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
 		
-		List<MessageVO>mslist = messageService.sendListAll();
-		model.addAttribute("mslist", mslist);
+		//레코드 개수 계산
+//		int countAll = messageService.sendCountArticles(searchOption, keyword);
+				
+		//페이지 나누기 관련 처리
+//		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
+//		int start = messagePageMaker.getStartPage();
+//		int end = messagePageMaker.getEndPage();
+				
+		List<MessageVO>mslist = messageService.sendListAll(searchOption, keyword, memberVO);		
+				
+		//데이터를 맵에 저장
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("mslist", mslist);
+//		map2.put("countAll", countAll);
+		map2.put("searchOption", searchOption);
+		map2.put("keyword", keyword);
+//		map2.put("messagePageMaker", messagePageMaker);
+				
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("map", map2);
+		mav.setViewName("main.jsp?center=message/messageSendList");
 		
-		return "main.jsp?center=message/messageSendList";
+		return mav;
 	}
 	
 	//쪽지 작성
@@ -166,15 +194,9 @@ public class MessageController {
 	//쪽지 삭제
 	@RequestMapping(value="{id}/messageDelete")
 	public String messageDelete(@RequestParam("MESSAGE_NO") int MESSAGE_NO,
-								MessageSearchVO messageSearchVO,
 								RedirectAttributes redirectAttributes)throws Exception{
 		
 		messageService.delete(MESSAGE_NO);
-		
-		redirectAttributes.addAttribute("page", messageSearchVO.getPage());
-		redirectAttributes.addAttribute("perPageNum", messageSearchVO.getPerPageNum());
-		redirectAttributes.addAttribute("searchType", messageSearchVO.getSearchType());
-		redirectAttributes.addAttribute("keyword", messageSearchVO.getKeyword());
 		
 		return "redirect:messageList";
 	}

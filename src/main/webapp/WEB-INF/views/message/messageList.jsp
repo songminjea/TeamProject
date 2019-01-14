@@ -4,11 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
 	//원하는 페이지로 이동시 검색조건, 키워드 값 유지
-	function list(curPage) {
-		location.href="${messagePageMaker.request.contextPath}/${member.ID}/messageList?curPage="+curPage+"&searchOption=${map.searchOption}"+
-					  "&keyword=${map.keyword}"
-	}
+// 	function messageList(page) {
+// 		location.href="${pageContext.request.contextPath}/${member.ID}/messageList?&searchOption=${map.searchOption}"+
+// 					  "&keyword=${map.keyword}";
+// 	}
 </script>
+	<input type="hidden" name="searchType" value="${map.searchOption}"> 
+	<input type="hidden" name="keyword" value="${map.keyword}">
       <div class="w3-row-padding">
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
@@ -60,7 +62,7 @@
 				<%-- 검색 --%>
 				<form name="searchForm" onsubmit="search();">
 					<select name="searchOption" size="1" id="searchOption">
-						<option value="all" <c:out value="${map.searchOption == 'all' ? 'selected' : ''}"/> selected="selected">선택</option>
+						<option value="all" <c:out value="${map.searchOption == 'all' ? 'selected' : ''}"/>>선택</option>
 						<option value="MESSAGE_SENDER" <c:out value="${map.searchOption eq 'MESSAGE_SENDER' ? 'selected' : ''}"/>>아이디</option>
 						<option value="MESSAGE_SUBJECT"<c:out value="${map.searchOption eq 'MESSAGE_SUBJECT' ? 'selected' : ''}"/>>제목</option>
 						<option value="MESSAGE_CONTENT"<c:out value="${map.searchOption eq 'MESSAGE_CONTENT' ? 'selected' : ''}"/>>내용</option>
@@ -70,59 +72,52 @@
  				   			<i style="color: #6297ff;" class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i>
  				  		</a>
 					<%-- 페이징 처리 --%>
-					<div>
-						<ul>
-							<c:if test="${map.messagePageMaker.curBlock ne 1}">
-								<a href="#" onclick="list(1)">[처음]</a>
-							</c:if>
-							<c:if test="${map.messagePageMaker.curPage ne 1}">  
-								<li>            
-			                        <a href="#" onclick="list('${map.messagePageMaker.prevPage}')">     
-			                       		<i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp;
-			                        </a>
-		                        </li>
-	               		 	</c:if>
-	               		 	<!-- 하나의 블럭에서 반복문 수행 시작페이지부터 끝페이지까지 -->
-							<c:forEach end="${map.messagePageMaker.endPage}" begin="${map.messagePageMaker.startPage}" var="idx">
-								<c:choose>
-									<c:when test="${idx eq map.messagePageMaker.curPage}">
-										<a href="#" onclick="list('${idx}')"> 
-											<font style="font-weight: bold; color: #1d2c52;">[${idx}]</font>
-										</a>
-									</c:when>
-									<c:otherwise>
-										 <a href="#" onclick="list('${idx}')"> 
-						                    <font style="color: #1d2c52;">[${idx}] </font> 
-						                 </a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${map.messagePageMaker.curPage ne map.messagePageMaker.totPage && map.messagePageMaker.totPage > 0}">              
-		                        <a href="#" onclick="list('${map.messagePageMaker.nextPage}')">     
-		                        	&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i> 
-		                        </a>
-	               		 	</c:if>
-	               		 	<c:if test="${map.messagePageMaker.curBlock ne map.messagePageMaker.totBlock && map.messagePageMaker.totBlock > 0}">
-								<a href="#" onclick="list('${map.messagePageMaker.totPage}')">[끝]</a>
-							</c:if>
-               			</ul>
-					</div>
+<!-- 					<div> -->
+<!-- 						<ul> -->
+<%-- 							<c:if test="${map.messagePageMaker.curPage > 1}"> --%>
+<!-- 								<a href="messageList('1')"> -->
+<!-- 									<i class="fa fa-angle-double-left" aria-hidden="true"></i>&nbsp;&nbsp; -->
+<!-- 								</a> -->
+<%-- 							</c:if> --%>
+<%-- 							<c:if test="${map.messagePageMaker.curBlock > 1}">   --%>
+<!-- 								<li>             -->
+<%-- 			                        <a href="messageList('${map.messagePageMaker.prevPage}')">      --%>
+<!-- 			                       		<i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp;&nbsp; -->
+<!-- 			                        </a> -->
+<!-- 		                        </li> -->
+<%-- 	               		 	</c:if> --%>
+<!-- 	               		 	하나의 블럭에서 반복문 수행 시작페이지부터 끝페이지까지 -->
+<%-- 							<c:forEach end="${map.messagePageMaker.blockEnd}" begin="${map.messagePageMaker.blockBegin}" var="idx"> --%>
+<%-- 								<c:choose> --%>
+<%-- 									<c:when test="${idx eq map.messagePageMaker.curPage}"> --%>
+<%-- 										<font style="font-weight: bold; color: #1d2c52;">[${idx}]</font> --%>
+<%-- 									</c:when> --%>
+<%-- 									<c:otherwise> --%>
+<%-- 										 <a href="messageList('${idx}')">  --%>
+<%-- 						                    <font style="color: #1d2c52;">[${idx}] </font>  --%>
+<!-- 						                 </a> -->
+<%-- 									</c:otherwise> --%>
+<%-- 								</c:choose> --%>
+<%-- 							</c:forEach> --%>
+<%-- 							<c:if test="${map.messagePageMaker.curBlock <= map.messagePageMaker.totBlock">               --%>
+<%-- 		                        <a href="#" onclick="messageList('${map.messagePageMaker.nextPage}')">      --%>
+<!-- 		                        	&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> -->
+<!-- 		                        </a> -->
+<%-- 	               		 	</c:if> --%>
+<%-- 	               		 	<c:if test="${map.messagePageMaker.curPage <= map.messagePageMaker.totPage}"> --%>
+<%-- 								<a href="#" onclick="messageList('${map.messagePageMaker.totPage}')"> --%>
+<!-- 									&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true"></i> -->
+<!-- 								</a> -->
+<%-- 							</c:if> --%>
+<!--                			</ul> -->
+<!-- 					</div> -->
 				</form>
 				<div class="btn_Message" align="right" style="margin-right: 20px;">
 					<input id="messageSend" type="button" value="쪽지보내기" id="messageSend" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageSend', 'messageSend', 'width=500, height=650')">
-					<input class="sendMessageList" type="button" value="보낸 쪽지 확인" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageSendList'">
+					<input style="border-radius: 5px; background-color: #cbcbcd; border: none;padding: 5px 10px;color: white;font-weight: 600;" class="sendMessageList" type="button" value="보낸 쪽지 확인" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageSendList'">
 				</div>
 				</div>
             </div>
           </div>
         </div>
       </div>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#messageSearchBtn").on("click", function(){
-		var keyword = $("#messageSearchkeyword").val();
-		
-		location.href="${pageContext.request.contextPath}/${member.ID}/messageList?keyword="+keyword;
-	});
-});
-</script>

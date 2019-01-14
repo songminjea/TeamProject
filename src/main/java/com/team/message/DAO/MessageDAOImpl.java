@@ -19,45 +19,45 @@ public class MessageDAOImpl implements MessageDAO{
 	
 	//쪽지 전체 목록
 	@Override
-	public List<MessageVO>listAll(int start, int end, String searchOption, String keyword, String MESSAGE_RECEIVER)throws Exception{
+	public List<MessageVO>listAll(String searchOption, String keyword, String MESSAGE_RECEIVER)throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		map.put("MESSAGE_RECEIVER", MESSAGE_RECEIVER);
-		map.put("start", start);
-		map.put("end", end);
+//		map.put("start", start);
+//		map.put("end", end);
 		return sqlSession.selectList(namespace+".listAll", map);
 	}
 
 	//페이징을 위한 카운트
-	@Override
-	public int countArticles(String searchOption, String keyword)throws Exception{
-		Map<String, String> map = new HashMap<String, String>(); 
-	 	map.put("searchOption", searchOption); 
-		map.put("keyword", keyword); 
-		return sqlSession.selectOne(namespace+".pagingCount", map);
-	}
+//	@Override
+//	public int countArticles(String searchOption, String keyword)throws Exception{
+//		Map<String, String> map = new HashMap<String, String>(); 
+//	 	map.put("searchOption", searchOption); 
+//		map.put("keyword", keyword); 
+//		return sqlSession.selectOne(namespace+".pagingCount", map);
+//	}
 	
 	//내가 보낸 쪽지
 	@Override
-	public List<MessageVO>sendListAll(int start, int end, String searchOption, String keyword, String MESSAGE_SENDER)throws Exception{
+	public List<MessageVO>sendListAll(String searchOption, String keyword, String MESSAGE_SENDER)throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
-		map.put("MESSAGE_RECEIVER", MESSAGE_SENDER);
-		map.put("start", start);
-		map.put("end", end);
+		map.put("MESSAGE_SENDER", MESSAGE_SENDER);
+//		map.put("start", start);
+//		map.put("end", end);
 		return sqlSession.selectList(namespace+".sendListAll", map);
 	}
 	
 	//페이징을 위한 카운트
-	@Override
-	public int sendCountArticles(String searchOption, String keyword)throws Exception{
-		Map<String, String> map = new HashMap<String, String>(); 
-		map.put("searchOption", searchOption); 
-		map.put("keyword", keyword); 
-		return sqlSession.selectOne(namespace+".pagingSendCount", map);
-	}
+//	@Override
+//	public int sendCountArticles(String searchOption, String keyword)throws Exception{
+//		Map<String, String> map = new HashMap<String, String>(); 
+//		map.put("searchOption", searchOption); 
+//		map.put("keyword", keyword); 
+//		return sqlSession.selectOne(namespace+".pagingSendCount", map);
+//	}
 	
 	//안 읽은 쪽지 개수
 	@Override

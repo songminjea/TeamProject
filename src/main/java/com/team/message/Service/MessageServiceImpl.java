@@ -17,29 +17,29 @@ public class MessageServiceImpl implements MessageService{
 	
 	//쪽지 전체 목록 
 	@Override
-	public List<MessageVO>listAll(int start, int end, String searchOption, String keyword, MemberVO mvo)throws Exception{
+	public List<MessageVO>listAll(String searchOption, String keyword, MemberVO mvo)throws Exception{
 		String MESSAGE_RECEIVER = mvo.getID();
-		return messageDao.listAll(start, end, searchOption, keyword, MESSAGE_RECEIVER);
+		return messageDao.listAll(searchOption, keyword, MESSAGE_RECEIVER);
 	}
 
 	//페이징을 위한 카운트
-	@Override
-	public int countArticles(String searchOption, String keyword)throws Exception{
-		return messageDao.countArticles(searchOption, keyword);
-	}
+//	@Override
+//	public int countArticles(String searchOption, String keyword)throws Exception{
+//		return messageDao.countArticles(searchOption, keyword);
+//	}
 	
 	//내가 보낸 쪽지
 	@Override
-	public List<MessageVO>sendListAll(int start, int end, String searchOption, String keyword, MemberVO mvo)throws Exception{
+	public List<MessageVO>sendListAll(String searchOption, String keyword, MemberVO mvo)throws Exception{
 		String MESSAGE_SENDER = mvo.getID();
-		return messageDao.sendListAll(start, end, searchOption, keyword, MESSAGE_SENDER);
+		return messageDao.sendListAll(searchOption, keyword, MESSAGE_SENDER);
 	}
 		
 	//페이징을 위한 카운트
-	@Override
-	public int sendCountArticles(String searchOption, String keyword)throws Exception{
-		return messageDao.sendCountArticles(searchOption, keyword);
-	}
+//	@Override
+//	public int sendCountArticles(String searchOption, String keyword)throws Exception{
+//		return messageDao.sendCountArticles(searchOption, keyword);
+//	}
 		
 	//쪽지 개수
 	@Override

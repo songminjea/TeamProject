@@ -40,10 +40,9 @@ public class MessageController {
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
 	public ModelAndView messageList(@PathVariable String id, @RequestParam(defaultValue="all")String searchOption, 
 						 			 @RequestParam(defaultValue="")String keyword,
-						 			 @RequestParam(defaultValue="1")int curPage, Model model,
-						 			 HttpServletRequest request,
+						 			 Model model,
+						 			 HttpSession session,
 									 MemberVO memberVO)throws Exception{
-		HttpSession session = request.getSession();
 		memberVO = (MemberVO) session.getAttribute("member");
 		model.addAttribute("profile", memberVO);
 		
@@ -52,22 +51,22 @@ public class MessageController {
 		model.addAttribute("messageCount", count);
 		
 		//레코드 개수 계산
-		int countAll = messageService.countArticles(searchOption, keyword);
+//		int countAll = messageService.countArticles(searchOption, keyword);
 		
 		//페이지 나누기 관련 처리
-		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
-		int start = messagePageMaker.getStartPage();
-		int end = messagePageMaker.getEndPage();
+//		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
+//		int start = messagePageMaker.getStartPage();
+//		int end = messagePageMaker.getEndPage();
 		
-		List<MessageVO>mlist = messageService.listAll(start, end, searchOption, keyword, memberVO);		
+		List<MessageVO>mlist = messageService.listAll(searchOption, keyword, memberVO);		
 		
 		//데이터를 맵에 저장
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mlist", mlist);
-		map.put("countAll", countAll);
+//		map.put("countAll", countAll);
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
-		map.put("messagePageMaker", messagePageMaker);
+//		map.put("messagePageMaker", messagePageMaker);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("map", map);
@@ -80,7 +79,6 @@ public class MessageController {
 	@RequestMapping(value="{id}/messageSendList", method=RequestMethod.GET)
 	public ModelAndView messageSendList(@PathVariable String id, @RequestParam(defaultValue="all")String searchOption, 
 									 @RequestParam(defaultValue="")String keyword,
-									 @RequestParam(defaultValue="1")int curPage,
 									 HttpSession session, Model model,
 									 MemberVO memberVO)throws Exception{
 		memberVO = (MemberVO) session.getAttribute("member");
@@ -90,22 +88,22 @@ public class MessageController {
 		model.addAttribute("messageCount", count);
 		
 		//레코드 개수 계산
-		int countAll = messageService.sendCountArticles(searchOption, keyword);
+//		int countAll = messageService.sendCountArticles(searchOption, keyword);
 				
 		//페이지 나누기 관련 처리
-		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
-		int start = messagePageMaker.getStartPage();
-		int end = messagePageMaker.getEndPage();
+//		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
+//		int start = messagePageMaker.getStartPage();
+//		int end = messagePageMaker.getEndPage();
 				
-		List<MessageVO>mslist = messageService.sendListAll(start, end, searchOption, keyword, memberVO);		
+		List<MessageVO>mslist = messageService.sendListAll(searchOption, keyword, memberVO);		
 				
 		//데이터를 맵에 저장
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("mslist", mslist);
-		map2.put("countAll", countAll);
+//		map2.put("countAll", countAll);
 		map2.put("searchOption", searchOption);
 		map2.put("keyword", keyword);
-		map2.put("messagePageMaker", messagePageMaker);
+//		map2.put("messagePageMaker", messagePageMaker);
 				
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("map", map2);

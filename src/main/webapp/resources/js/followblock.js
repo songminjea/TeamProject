@@ -89,7 +89,8 @@ function getFollowList(my_id, page_id, pageType) {
 			
 			if(result.length == 0){
 				if(isDetach == true)
-					$("#follow_list").append("<h4 style='color: #1d2c52;'>저런! 친구가 없으시네요!</h4>");
+					$("#follow_list").append("<img src='../resources/img/logo_sad.png'style='width: 30%; margin-bottom: 30px;'/>"+
+							"				<h4 style='color: #1d2c52;'>저런! 친구가 없으시네요!</h4>");
 			}else{
 				var source = $("#follow-template").html();
 				var template = Handlebars.compile(source);

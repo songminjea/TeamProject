@@ -41,7 +41,7 @@ public class FollowController {
 	@RequestMapping(value = "/follow", method = RequestMethod.POST)
 	@ResponseBody
 	public int Follow(@RequestBody FollowVO vo, Model model) {
-		System.out.println("follow 호출");
+		//System.out.println("follow 호출");
 
 		int result = 0;
 
@@ -69,7 +69,7 @@ public class FollowController {
 	@RequestMapping(value = "/unfollow", method = RequestMethod.POST)
 	@ResponseBody
 	public int UnFollow(@RequestBody FollowVO vo, Model model) {
-		System.out.println("UnFollow 호출");
+		//System.out.println("UnFollow 호출");
 		int result = 0;
 
 		if (followService.IsFollowing(vo)) {

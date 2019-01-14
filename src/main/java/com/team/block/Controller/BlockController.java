@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,7 @@ public class BlockController {
 			System.out.println("이미 차단 되어있음.");
 			result = 0;
 			
-		} else {
+		} else { // 양쪽 팔로우 제거
 			FollowVO fvo = new FollowVO();
 			fvo.setFollower_id(vo.getBlocker_id());
 			fvo.setFollowing_id(vo.getBlocking_id());
@@ -86,14 +87,14 @@ public class BlockController {
 	}
 	
 	
-	// 팔로우 목록 페이지 요청 처리
+	// 블락 목록 페이지 요청 처리
 	@RequestMapping(value = "{id}/blocking")
-	public String ShowBlockingList(@PathVariable String id, Model model, HttpServletRequest request) {
+	public String ShowBlockingList(@PathVariable String id, Model model, HttpSession session) {
 
 		// id에 해당하는 프로필을 가져온다.
 		// MemberInterceptor에서 처리 한 후 가져오는것.
-		MemberVO memberVo = (MemberVO) request.getAttribute("vo");
-		
+		MemberVO memberVo = (MemberVO) session.getAttribute("member");
+		//System.out.println(memberVo.getID() + " " + id);
 		
 		if(memberVo == null || !memberVo.getID().equals(id)) {			
 			return "redirect:/main";

@@ -38,7 +38,7 @@
 		where exists(select *
 					from TB_BLOCK
 					where (blocker_id = #{blocker_id} and blocking_id = #{blocking_id}) or 
-					(blocker_id = #{blocking_id} and blocking_id = #{blocker_id});)
+					(blocker_id = #{blocking_id} and blocking_id = #{blocker_id}))
 	</select>
 	
 	

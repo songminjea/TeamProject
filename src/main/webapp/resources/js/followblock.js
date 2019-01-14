@@ -187,7 +187,7 @@ function FBProc(target_id, url, type) {
 		url : url,
 		success : function(result) {
 			if(result == -1){ // 차단 된 상태일때.
-				alert("차단 된 상대입니다.\n 팔로우 할 수 없습니다.")
+				alert("차단 된 상대입니다.\n팔로우 할 수 없습니다.")
 			}
 			else if (result == 1) { // 잘 처리 되었을때
 				// alert("성공!");

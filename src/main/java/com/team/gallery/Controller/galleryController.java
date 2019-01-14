@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.block.Service.BlockService;
+import com.team.block.VO.BlockVO;
 import com.team.gallery.Service.GBService;
 import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
@@ -45,6 +46,8 @@ public class galleryController {
 	@Autowired
 	private MemberServiceImpl memberService;
 	
+	@Autowired
+	private BlockService blockService;
 	
 	@RequestMapping(value = "gallWrite", method=RequestMethod.GET)
 	public String imgupload(HttpSession session, Model model) {
@@ -203,6 +206,8 @@ public class galleryController {
 		// id에 해당하는 프로필을 가져온다. 
 		// MemberInterceptor에서 처리 한 후 가져오는것.
 		MemberVO memberVo = (MemberVO)request.getAttribute("vo");
+		
+		
 		model.addAttribute("profile",memberVo);
 		model.addAttribute("isMyGall" , false);
 		model.addAttribute("pageid", id);
@@ -211,10 +216,29 @@ public class galleryController {
 	}
 	
 	
-	public List<Map<String, Object>> ShowGallery(@RequestBody Map<String, String> galleryInfo, int type)
+	public List<Map<String, Object>> ShowGallery(@RequestBody Map<String, String> galleryInfo, int type, HttpSession session)
 			throws Exception {
 		// 맵은 <id, pageNum> 로 구성
 		// 어떤 ID가 쓴 글인지, 스크롤링 페이지가 몇번째인지
+		
+		// 차단 처리
+		MemberVO sessionVO = (MemberVO) session.getAttribute("member");
+		String galleryID = galleryInfo.get("id");
+		
+		if(sessionVO != null && !galleryID.equals(sessionVO.getID())) {
+			BlockVO bvo = new BlockVO();
+			bvo.setBlocker_id(sessionVO.getID());
+			bvo.setBlocking_id(galleryID);
+			
+			// 차단 되어있는 상태일때.
+			if(blockService.IsBlocked(bvo)) {
+				return null;
+			}
+			
+		}
+		
+		// 차단 처리 끝
+		
 		
 
 		// 글 8개씩 불러옴.
@@ -258,15 +282,15 @@ public class galleryController {
 	// 특정 사용자가 쓴 글을 가져온다.
 	@RequestMapping(value = "/getSpecGallery")
 	@ResponseBody
-	public List<Map<String, Object>> GetSpecGallery(@RequestBody Map<String, String> galleryInfo, Model model) throws Exception {
+	public List<Map<String, Object>> GetSpecGallery(@RequestBody Map<String, String> galleryInfo, HttpSession session) throws Exception {
 		// Map<String, String> galleryInfo 은 (id, pageNum)로 구성 
-		return ShowGallery(galleryInfo, 0);
+		return ShowGallery(galleryInfo, 0, session);
 	}
 	
 	// 내가 팔로우 한 사람들의 글을 가져옴.
 	@RequestMapping(value = "/getMyGallery")
 	@ResponseBody
-	public List<Map<String, Object>> GetMyGallery(@RequestBody Map<String, String> galleryInfo, Model model) throws Exception {
-		return ShowGallery(galleryInfo, 1);
+	public List<Map<String, Object>> GetMyGallery(@RequestBody Map<String, String> galleryInfo, HttpSession session) throws Exception {
+		return ShowGallery(galleryInfo, 1, session);
 	}
 }

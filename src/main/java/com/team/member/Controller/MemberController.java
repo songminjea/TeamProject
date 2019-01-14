@@ -163,7 +163,7 @@ public class MemberController {
 		// 맵에 담긴 정보 <검색어, 페이지번호>
 		
 		// 리턴 해줘야 하는 정보 (아이디,이메일,프로필사진,팔로우여부)
-		System.out.println("getSeachList 호출완료.");
+		//System.out.println("getSeachList 호출완료.");
 		//System.out.println("getSearchList " + searchInfo.get("keyword") + " " + searchInfo.get("pageNum"));
 		
 		// 정보를 12개씩 표현하겠다는 뜻.

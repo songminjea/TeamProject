@@ -106,3 +106,12 @@ a:hover{
 	max-height: 300px;
 	object-fit : contain;
 }
+
+.gall_DropBtn{
+	
+}
+
+.gall_DropBtn:Hover{
+	color : #6591fe !important;  
+	
+}

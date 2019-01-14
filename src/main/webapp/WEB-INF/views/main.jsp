@@ -18,10 +18,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css"/> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css"/>
 <!-- 썸머노트 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script> -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 <!-- font -->
@@ -130,6 +130,14 @@ $('#summernote').summernote({
         tabsize: 2,
         height: 100
 });
+
+$(document).ready(function(){ 
+ 	$("#messageSearchBtn").on("click", function(){ 
+		var keyword = $("#messageSearchkeyword").val(); 
+ 		 
+ 		location.href="${pageContext.request.contextPath}/${member.ID}/messageList?keyword="+keyword; 
+ 	}); 
+ }); 
 </script>
 <!-- js 파일 -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>

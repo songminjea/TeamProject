@@ -6,20 +6,26 @@
 		font-size: 10pt; color: #2f29fc;
 	}
 	#checkBtn{
-			  border-radius: 5px;
-			  background-color: #4497fd;
-			  border: none;
-			  padding: 5px 10px;
-			  color: white;
-			  font-weight: 600;
+			  width: 120px;
+		  max-width : 100%;
+		  height: 40px;
+		  border-radius: 5px;
+		  background-color: #6494ff;
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;
 	}
 	#cancelBtn{
-			  border-radius: 5px;
-			  background-color: #cbcbcd;
-			  border: none;
-			  padding: 5px 10px;
-			  color: white;
-			  font-weight: 600;
+			   width: 120px;
+		  max-width : 100%;
+		  height: 40px;
+		  border-radius: 5px;
+		  background-color: #cbcbcd;
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;
 	}
 </style>
 <script id ="imgLogin" type="text/x-handlebars-template">
@@ -64,11 +70,11 @@ document.getElementById("PIC").value = temp;
               <div align="center" class="mypage_area">
 				<h4 style="font-weight: 600; color: #1d2c52;">회원정보 수정페이지</h4><br/>	
 				<hr class="w3-clear" style="margin: 5px 0 20px;">	
-					<table border="0" width="350" >
-						<form:form commandName="member"
+					<form:form commandName="member"
 								   method="post" 
 								   action="${pageContext.request.contextPath}/mypageOk"
 								   name="member"> 
+						<table border="0" width="400" style="margin-left: 80px;">
 							<tr>
 								<th>아이디</th>
 								<td>
@@ -137,15 +143,15 @@ document.getElementById("PIC").value = temp;
 									<form:hidden path="PIC" id="PIC"/>
 								</td>
 							</tr>	
-							<tr>
-								<td colspan="3" align="center" style="margin-top: 10px;">
-									<input type="submit" id="checkBtn" value="수정"/>
-									<input type="button" id="cancelBtn" value="취소" onclick="history.back();">
-									<input type="button" value="회원 탈퇴" id="btnDelete">
-								</td>
-							</tr>
+							</table>
+							<div align="center" style="margin-right: 50px;">
+								<input type="submit" id="checkBtn" value="수정"/>
+								<input type="button" id="cancelBtn" value="취소" onclick="history.back();">
+								<br/>
+								<a href="#" id="btnDelete" style="margin-left: 50px;"><font style="font-size: 10pt; color: #78787c;">회원 탈퇴를 하고 싶습니다.</font></a>
+								<br/>
+							</div>
 						</form:form>
-					</table>
 					<button onclick="input()">이미지 전송</button>
 				</div>
 			</div>

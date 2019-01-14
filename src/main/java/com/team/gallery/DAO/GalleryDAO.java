@@ -20,5 +20,11 @@ public interface GalleryDAO {
 	public void FileInsert(fileVO fvo);
 
 	public List<galleryVO> GetImgList(int gbNum);
+
+	public void Update(galleryVO gvo);
+
+	public void ClearFile(int GB_Num);
+
+	public void Delete(int gB_Num);
 	
 }

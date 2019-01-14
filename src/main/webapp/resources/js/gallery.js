@@ -1,5 +1,17 @@
 pageNum = 0;
+countGallery = 0; // 표시된 글 수
 isDetach = true;
+
+function getContextPath() { // ContextPath 얻어오는 함수 (/TeamPro)
+
+	var hostIndex = location.href.indexOf(location.host) + location.host.length;
+
+	return location.href.substring(hostIndex, location.href.indexOf('/',
+			hostIndex + 1));
+
+}
+
+
 
 function regHelper(){
 	Handlebars.registerHelper('SetActive', function(index, options) {
@@ -31,6 +43,33 @@ function regHelper(){
 		}else
 			return src;
 		
+	});
+	
+	
+	// Content 글 출력할때 줄바꿈 처리
+	Handlebars.registerHelper('SetContentLine', function(content ,options) {
+		//console.log(src);
+		
+		return content.replace(/\n/g, "<br/>")
+		
+	});
+	
+	
+	// 드랍다운 버튼 결정. 
+	// 세션아이디와 글쓴 아이디가 같은지 다른지.
+	Handlebars.registerHelper('GetDropdownBtn', function(writerID , options) {
+		  var sessionID = $("#mem_id").val();
+		  //console.log(sessionID + " " + writerID);
+		  //console.log(sessionID == writerID);
+		  // 해당 글이 내가 쓴글일때.
+		  if(sessionID == "" || sessionID == null){
+			  return "";
+		  }
+		  else if (sessionID == writerID) {
+			  return options.fn(this);
+		  } else { // 내가 쓴 글이 아닐때.
+			  return options.inverse(this);
+		  }
 	});
 }
 
@@ -66,7 +105,8 @@ function ShowGallery(id, isMyGall){
 				
 				regHelper();
 				
-				//console.log(data);
+				countGallery = countGallery + result.length;
+				//console.log(countGallery);
 				var html = template(data);
 				$("#gallery_list").append(html);
 				TimeFormat();
@@ -74,7 +114,7 @@ function ShowGallery(id, isMyGall){
 				pageNum++;
 			} else{
 				if(isDetach == true)
-					$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+					$("#gallery_list").append("<div align='center' style='line-height: 200%;'><h4 style='color: #1d2c52; font-weight: 500;'>아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 				
 			}
 			//console.log(result.length);
@@ -83,7 +123,96 @@ function ShowGallery(id, isMyGall){
 	});
 	
 }
+function galleryDelete(GB_Num){
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		//DataType : "json",
+		data : JSON.stringify({GB_Num : GB_Num}),
+		url : "/TeamPro/galleryDelete",
+		
+		success : function() {
+			//console.log($("#gallery_"+GB_Num));
+			
+			$("#gallery_"+GB_Num).remove();
+			
+			countGallery--;
+			
+			if(countGallery == 0){
+				$("#gallery_list").append("<div align='center' style='line-height: 200%;'><h4 style='color: #1d2c52; font-weight: 500;'>아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
+			}
+			
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+		
+		
+		
+	});
 	
+}
+// 갤러리 수정
+function modifyGallery(gb_Num){
+	// 갤러리 글 번호 받아온다.
+	
+	var form = document.createElement("form");
+    form.setAttribute("charset", "UTF-8");
+    form.setAttribute("method", "Post");  //Post 방식
+    form.setAttribute("action", getContextPath()+"/galleryModify"); //요청 보낼 주소
+
+    
+    
+
+    var mb_id = $("#gallery_"+gb_Num).find(".writerId").text();
+    var gb_content = $("#gallery_"+gb_Num).children("#Gall_Content").text();
+    var gb_Image = $("#gallery_"+gb_Num).children("#carouselControls_"+gb_Num).find(".carousel_Img")
+
+
+    
+    
+    
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", "gb_Num");
+    hiddenField.setAttribute("value", gb_Num);
+    form.appendChild(hiddenField);
+    
+    
+    hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", "mb_ID");
+    hiddenField.setAttribute("value", mb_id);
+    form.appendChild(hiddenField);
+
+    hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", "gb_Content");
+    hiddenField.setAttribute("value", gb_content);
+    form.appendChild(hiddenField);
+    
+    var contextLen = getContextPath().length;
+    
+    for(var i=0; i<gb_Image.length; i++){
+    	
+    	var imgSrc = gb_Image.eq(i).attr("src");
+    	imgSrc = imgSrc.substring(contextLen+1,imgSrc.length);
+    	//console.log(imgSrc);
+    	
+    	hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "gb_Image");
+        hiddenField.setAttribute("value", imgSrc);
+        form.appendChild(hiddenField);
+    }
+    
+    
+    document.body.appendChild(form);
+
+    form.submit();
+	
+}
 
 // 시간 처리 ex)1분전 , 10초전 작성 등등
 function TimeFormat(){
@@ -141,4 +270,26 @@ $(document).ready(function(){
 	var pageid = $("#pageid").val();
 
 	ShowGallery(pageid, isMyGall);
+	
+	
+	$(document).on("click", ".gall_DropBtn", function(){
+		if($(this).hasClass("w3-theme-d1") == false){
+			$(this).addClass("w3-theme-d1");
+			$(this).next().addClass("w3-show");
+		}else{
+			$(this).removeClass("w3-theme-d1");
+			$(this).next().removeClass("w3-show");
+		}
+	});
+	
+	/*$(document).on("blur", ".gall_DropBtn", function(){
+		setTimeout(function () {
+			$(this).delay(300).removeClass("w3-theme-d1");
+			$(this).next().delay(300).removeClass("w3-show");
+		},300);
+	});*/
+	
+	
+	
+	
 });

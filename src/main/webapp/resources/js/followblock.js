@@ -82,6 +82,7 @@ function getFollowList(my_id, page_id, pageType) {
 			if(result.length > 0){
 				$("#getfollower_Btn > span").html("팔로워 <br>" + result[0].followerNum);
 				$("#getfollowing_Btn > span").html("팔로잉 <br>" + result[0].followingNum);
+				$("#getblocking_Btn > span").html("차단 <br>" + result[0].blockingNum);
 			}
 			
 			if(isDetach == true)
@@ -111,28 +112,92 @@ function getFollowList(my_id, page_id, pageType) {
 	});
 }
 
-// 팔로우 눌렀을때 처리
-function follow(following_id) {
-	var follower_id = $("#mem_id").val();
-	
+
+// 차단 목록을 출력 (로그인된 아이디)
+function getBlockingList(my_id) {
+
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
 		data : JSON.stringify({
-			follower_id : follower_id,
-			following_id : following_id
+			id : my_id,
+			pageNum : pageNum
 		}),
-		url : "/TeamPro/follow",
+		url : "/TeamPro/getBlockingList",
 		success : function(result) {
-			if (result == 1) { // 팔로우 되었을때
+			//console.log(result);
+			getFollowHelper();
+			
+			if(result.length > 0){
+				$("#getfollower_Btn > span").html("팔로워 <br>" + result[0].followerNum);
+				$("#getfollowing_Btn > span").html("팔로잉 <br>" + result[0].followingNum);
+				$("#getblocking_Btn > span").html("차단 <br>" + result[0].blockingNum);
+			}
+			
+			if(isDetach == true)
+				$("#follow_list").children().detach();
+			
+			if(result.length == 0){
+				if(isDetach == true)
+					$("#follow_list").append("<h4 style='color: #1d2c52;'>차단한 사람이 없으시네요!</h4>");
+			}else{
+				var source = $("#block-template").html();
+				var template = Handlebars.compile(source);
+				var data = {
+					block : result,
+				}	
+				console.log(data);
+				var html = template(data);
+				$("#follow_list").append(html);
+				
+				pageNum++;
+			}
+		},
+		error : function(request, status, error) {
+			console.log("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+	});
+}
+
+
+// 팔로우,차단 눌렀을때 처리
+function FBProc(target_id, url, type) {
+	// 대상 아이디, 이동할 주소, follow인지 block인지
+	var mem_id = $("#mem_id").val();
+	
+	var data;
+	
+	if(type == 'follow'){
+		data = JSON.stringify({
+			follower_id : mem_id,
+			following_id : target_id
+		})
+	}else if(type == 'block'){
+		data = JSON.stringify({
+			blocker_id : mem_id,
+			blocking_id : target_id
+		})
+	}
+	
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		data : data,
+		url : url,
+		success : function(result) {
+			if(result == -1){ // 차단 된 상태일때.
+				alert("차단 된 상대입니다.\n 팔로우 할 수 없습니다.")
+			}
+			else if (result == 1) { // 잘 처리 되었을때
 				// alert("성공!");
-				console.log("팔로우 성공 - ajax")
-				$('.fbtn_'+ following_id).filter('.followBtn').addClass(
+				console.log("처리 성공 - ajax")
+				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'Btn').addClass(
 				'fbhide');
-				$('.fbtn_'+ following_id).filter('.followingBtn').removeClass(
+				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'ingBtn').removeClass(
 				'fbhide');
-			} else { // 언팔로우 안되었을때
-				console.log("팔로우 실패! 이미 팔로우 되어있음.")
+			} else { // 처리 안되었을때
+				console.log("처리 실패! 이미 처리 되어있음.")
 			}
 
 		},
@@ -144,29 +209,40 @@ function follow(following_id) {
 	});
 }
 
-// 언팔로우 버튼 눌렀을때.
-function unfollow(following_id) {
+//언팔로우,차단 해제 눌렀을때 처리
+function UnFBProc(target_id, url, type) {
+	// 대상 아이디, 이동할 주소, follow인지 block인지
+	var mem_id = $("#mem_id").val();
 	
-	var follower_id = $("#mem_id").val();
+	var data;
+	
+	if(type == 'follow'){
+		data = JSON.stringify({
+			follower_id : mem_id,
+			following_id : target_id
+		})
+	}else if(type == 'block'){
+		data = JSON.stringify({
+			blocker_id : mem_id,
+			blocking_id : target_id
+		})
+	}
+	
 	$.ajax({
 		type : "POST",
 		contentType : "application/json",
-		// dataType: "json",
-		data : JSON.stringify({
-			follower_id : follower_id,
-			following_id : following_id
-		}),
-		url : "/TeamPro/unfollow",
+		data : data,
+		url : url,
 		success : function(result) {
-			if (result == 1) { // 언팔로우 되었을때
+			if (result == 1) { // 언팔로우or차단 해제 되었을때
 				// alert("성공!");
-				console.log("언팔로우 성공 - ajax")
-				$('.fbtn_'+ following_id).filter('.followBtn').removeClass(
+				console.log("처리 성공 - ajax")
+				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'Btn').removeClass(
 				'fbhide');
-				$('.fbtn_'+ following_id).filter('.followingBtn').addClass(
+				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'ingBtn').addClass(
 				'fbhide');
-			} else { // 언팔로우 안되었을때
-				console.log("언팔로우 실패! 팔로우 되어있는 사람이 아님!")
+			} else { // 언팔로우or차단 해제 안되었을때
+				console.log("처리 실패! 이미 처리 되어있음.")
 			}
 
 		},
@@ -176,8 +252,8 @@ function unfollow(following_id) {
 		}
 
 	});
-
 }
+
 
 // 팔로우 추천 목록 얻어오기.
 function getSuggestionFollowList(my_id){
@@ -192,7 +268,6 @@ function getSuggestionFollowList(my_id){
 			data : my_id,
 			url : "/TeamPro/SuggestionFollow",
 			success : function(result) {
-				//console.log(result);
 				if(result.length > 0){
 					var source = $("#s_recom_follow-template").html();
 					var template = Handlebars.compile(source);
@@ -208,7 +283,7 @@ function getSuggestionFollowList(my_id){
 						isFollowed(my_id , result[i].following_id);
 					})*/
 				}else{
-					$("#small_recommend_list").append("더 이상 추천 할 회원이 없습니다.");
+					$("#small_recommend_list").append("<h4 style='color: #1d2c52;'>더 이상 추천 할 회원이 없습니다.</h4>");
 				}
 			}
 		})
@@ -232,8 +307,10 @@ $('body').scroll(function() {
     	var page_type = $("#page_type").val();
 
     	// follow 페이지에서 호출했을때.
-    	if(page_id != null){
+    	if(page_id != null && page_type != "blocking"){
     		getFollowList(my_id, page_id, page_type);
+    	}else if(page_id != null && page_type == "blocking"){
+    		getBlockingList(my_id);
     	}
     	
     }
@@ -259,16 +336,43 @@ function BtnClickEvent(){
 		
 	});
 	
+	// 차단 목록 버튼 클릭이벤트.
+	$(document).on("click", "#getblocking_Btn" , function(){
+		
+		var id = $("#page_id").val()
+		url = getContextPath() + "/" + id + "/blocking/";
+		location.href = url;
+		
+	});
+	
 	
 	$(document).on("click", ".followBtn" , function(){
 		var following_id = $(this).val();
-		follow(following_id);
-		
+		FBProc(following_id, "/TeamPro/follow", "follow");
 	});
 	
 	$(document).on("click", ".followingBtn" , function(){
 		var following_id = $(this).val();
-		unfollow(following_id)
+		UnFBProc(following_id, "/TeamPro/unfollow", "follow");
+	});
+	
+	
+	$(document).on("click", ".blockBtn" , function(){
+		var txt;
+		var r = confirm("정말 차단 하시겠습니까? \n대상의 글이 더이상 보이지 않게 됩니다.");
+		if (r == true) {
+			var blocking_id = $(this).val();
+			FBProc(blocking_id, "/TeamPro/block", "block");
+		} else {
+			
+		}
+		
+		
+	});
+	
+	$(document).on("click", ".blockingBtn" , function(){
+		var blocking_id = $(this).val();
+		UnFBProc(blocking_id, "/TeamPro/unblock", "block")
 		
 	});
 
@@ -288,12 +392,14 @@ $(document).ready(function(){
 	var page_type = $("#page_type").val();
 
 	// follow 페이지에서 호출했을때.
-	if(page_id != null){
+	if(page_id != null && page_type != "blocking"){
 		getFollowList(my_id, page_id, page_type);
+	}else if(page_id != null && page_type == "blocking"){
+		getBlockingList(my_id);
 	}
 	// 로그인 되어있지않으면 팔로우 추천목록을 호출하지 않음.
 	if(my_id != null){
-		$("#small_recommend_list").children().detach();
+		//$("#small_recommend_list").children().detach();
 		getSuggestionFollowList(my_id);
 	}
 	

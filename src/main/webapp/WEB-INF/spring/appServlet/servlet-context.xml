@@ -39,7 +39,8 @@
 		<interceptor>
 			<mapping path="/**/follower"/>
 			<mapping path="/**/following"/>
-			<mapping path="/**/gallery"/>
+			<mapping path="/**/blocking"/>
+			<mapping path="/**/gallery"/>			
 			<beans:ref bean = "MemberInterceptor"/>
 		</interceptor>
 	</interceptors>

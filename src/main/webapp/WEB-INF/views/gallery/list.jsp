@@ -40,18 +40,24 @@
 			</div>
 		</div>
 	</span>
-	<%--{{else}}
-	<!-- 다른 사람이 쓴 글일때 --!>
+	{{else}}
+	<%-- 다른 사람이 쓴 글일때 --%>
 	 <span class="w3-right">
 		<div class="w3-dropdown-click">
 			<button class="gall_DropBtn w3-button w3-white w3-hover-white">
 				<i class="fa fa-check" aria-hidden="true"></i>
 			</button>
 			<div id="gallDrop_{{gallery/gb_Num}}" class="w3-dropdown-content w3-bar-block w3-border">
-				<a href="#" class="w3-bar-item w3-button">aaa</a> 
+				<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/follower" class="w3-bar-item w3-button">팔로우 목록</a>
+				<button class="w3-bar-item w3-button blockBtn blockbtn_{{gallery/mb_ID}}" value="{{gallery/mb_ID}}">차단 하기</button>
+				
+				<button type="button" class="w3-bar-item w3-button blockingBtn blockbtn_{{gallery/mb_ID}} fbhide"
+					value='{{gallery/mb_ID}}'>
+					<span>차단 중</span> <span>차단 해제</span>
+				</button>
 			</div>
 		</div>
-	</span> --%>
+	</span>
 	
 	{{/GetDropdownBtn}} 
 	
@@ -60,7 +66,7 @@
 	<%-- 드랍다운 버튼 끝 --%>
 	<%-- 글쓴이, 작성시간 --%>
 	<h5>
-		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><span class="writerId" style="color: #1d2c52;">{{gallery/mb_ID}}</span></a>
+		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><span class="writerId" style="font-weight: bolder;color: #1d2c52;">{{gallery/mb_ID}}</span></a>
 		<span class="writeTime w3-opacity">{{gallery/gb_Date}}</span>
 	</h5>
 	<br><br>

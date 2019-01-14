@@ -87,8 +87,21 @@
 	color: white !important;
 	background-color: #fd5f5f !important;
 }
+
+.blockingBtn span:nth-child(2){
+	display : none;
+}
+
+.blockingBtn:hover span:nth-child(1){
+	display : none;
+}
+
+.blockingBtn:hover span:nth-child(2){
+	display : inherit;
+}
+
 .fbhide{
-	display: none;
+	display: none !important;
 }
 
 

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.block.Service.BlockService;
+import com.team.block.VO.BlockVO;
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
@@ -31,6 +33,9 @@ public class FollowController {
 	
 	@Autowired
 	private MemberServiceImpl memberService;
+	
+	@Autowired
+	private BlockService blockService;
 
 	// 팔로우 버튼 눌렀을때.
 	@RequestMapping(value = "/follow", method = RequestMethod.POST)
@@ -40,11 +45,18 @@ public class FollowController {
 
 		int result = 0;
 
+		// 블락된 상태면 팔로우 할 수 없음.
+		BlockVO bvo = new BlockVO();
+		bvo.setBlocker_id(vo.getFollower_id());
+		bvo.setBlocking_id(vo.getFollowing_id());
+		if(blockService.IsBlocked(bvo) == true)
+			return -1;
+		
 		if (followService.IsFollowing(vo)) {
 			System.out.println("이미 팔로우 되어있음.");
 			result = 0;
 
-		} else {
+		}else {
 			followService.InsertFollowing(vo);
 			//System.out.println("컨트롤러에서 팔로우 처리 완료");
 			result = 1;
@@ -52,7 +64,8 @@ public class FollowController {
 
 		return result;
 	}
-
+	
+	
 	@RequestMapping(value = "/unfollow", method = RequestMethod.POST)
 	@ResponseBody
 	public int UnFollow(@RequestBody FollowVO vo, Model model) {
@@ -132,11 +145,11 @@ public class FollowController {
 		else
 			follow = followService.GetAllFollowing(FollowInfo);
 		
-		// 팔로워, 팔로잉 수 가져오기.
+		// 팔로워, 팔로잉, 차단 수 가져오기.
 		String pageID = FollowInfo.get("id");
 		String followerNum = String.valueOf(followService.getCountFollower(pageID));
 		String followingNum = String.valueOf(followService.getCountFollowing(pageID));
-		
+		String blockingNum = String.valueOf(blockService.getCountBlocking(pageID));
 		
 		
 		// 팔로워 id,팔로우여부 담을 리스트 맵 생성
@@ -186,6 +199,7 @@ public class FollowController {
 			if(index == 0) {
 				tempMap.put("followerNum", followerNum);
 				tempMap.put("followingNum", followingNum);
+				tempMap.put("blockingNum", blockingNum);
 			}
 			
 			index++;
@@ -231,4 +245,5 @@ public class FollowController {
 	}
 
 	
+
 }

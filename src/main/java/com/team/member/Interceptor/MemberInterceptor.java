@@ -27,6 +27,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 		/*
 		 * {id}/follower
 		 * {id}/following
+		 * {id}/blocking
 		 * {id}/gallery
 		 * 에서 {id} 값 뽑아내기.
 		 */

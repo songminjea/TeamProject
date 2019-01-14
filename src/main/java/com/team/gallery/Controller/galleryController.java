@@ -6,16 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team.block.Service.BlockService;
 import com.team.gallery.Service.GBService;
 import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
@@ -49,6 +44,7 @@ public class galleryController {
 		
 	@Autowired
 	private MemberServiceImpl memberService;
+	
 	
 	@RequestMapping(value = "gallWrite", method=RequestMethod.GET)
 	public String imgupload(HttpSession session, Model model) {
@@ -242,13 +238,13 @@ public class galleryController {
 			List<galleryVO> file = gbService.GetImgList(gtemp.getGb_Num());
 
 			MemberVO memVO = memberService.getMember(gtemp.getMb_ID());
+			
 			// 글 정보
 			temp.put("gallery", gtemp);
 			// 해당 글의 이미지 파일 정보 리스트
 			temp.put("file", file);
 			// 갤러리 글 ID의 정보
-			temp.put("memVO", memVO);
-			
+			temp.put("memVO", memVO);	
 			
 			galleryInfoList.add(temp);
 

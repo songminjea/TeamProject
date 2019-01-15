@@ -19,18 +19,16 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resourses/js/sockjs.js"></script>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
-	<%-- 현재 봐야하는 페이지의 아이디 --%>
-	<input type="hidden" id="page_id" value="${page_id}">
 	<div id="positionLayer">
-		<div align="center" style="border: solid 1px #4497fd; background-color:#4497fd; height: 50px; width: 100%;">
-			<font style="font-size: 18px; font-weight:bold; line-height: 50px;" color="#FFFFFF">채팅 목록</font>
-		</div>
-		<span id="chatListArea">
-			<a href="${pageContext.request.contextPath}/${member.ID}/multiChatList">채팅 중인 목록</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="${pageContext.request.contextPath}/${member.ID}/chatSearch">아이디 검색</a>
-		</span>
-		<hr>
-		<div>
+		<div align="left" style="border: solid 1px #4497fd; background-color:#4497fd; height: 55px; width: 100%;">
+			<span id="chatListArea" style="font-size: 25px; margin-left: 30px; padding: 0; line-height: 55px; padding-top: 10px;">
+				<a href="${pageContext.request.contextPath}/${member.ID}/multiChatList">
+					<i class="fa fa-comments" aria-hidden="true" style="color:white;"></i>
+				</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${pageContext.request.contextPath}/${member.ID}/chatFollower">
+					<i class="fa fa-user" aria-hidden="true" style="color:white;"></i>
+				</a>
+			</span>
 		</div>
 	</div>
 </body>

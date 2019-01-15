@@ -1,6 +1,8 @@
 /* 채팅용 JS */
 
-//채팅 아이디 자신인지 판단함
+pageNum = 0;
+isDetach = true;
+
 $("#btnSend").click(function() {
         $.ajax({
             type : "POST",
@@ -18,9 +20,6 @@ $("#btnSend").click(function() {
         });
     });
 
-
-isDetach = true;
-
 function getContextPath() { // ContextPath 얻어오는 함수
 
 	var hostIndex = location.href.indexOf(location.host) + location.host.length;
@@ -31,11 +30,11 @@ function getContextPath() { // ContextPath 얻어오는 함수
 }
 
 function getFollowHelper(){
-	Handlebars.registerHelper('getType', function(type,follower,following,options) {
-		  if (type == "follower") {
-		    return follower;
+	Handlebars.registerHelper('getType', function(type,chatFollower,chatFollowing,options) {
+		  if (type == "chatFollower") {
+		    return chatFollower;
 		  } else {
-		    return following;
+		    return chatFollowing;
 		  }
 	});
 
@@ -44,7 +43,7 @@ function getFollowHelper(){
 		if(isfollowed == ""){
 			return 'fbhide';
 		}
-		if (type == "follow") {
+		if (type == "chatFollow") {
 			if(isfollowed == 'true'){
 			
 				return 'fbhide';
@@ -52,7 +51,7 @@ function getFollowHelper(){
 				return;
 			}
 		  
-		} else if(type =="following"){
+		} else if(type =="chatFollowing"){
 			if(isfollowed == 'true'){
 				return;
 			}else{
@@ -79,10 +78,10 @@ function getFollowHelper(){
 //팔로우 목록을 출력 (로그인된 아이디, 페이지 아이디, 팔로워,팔로잉 목록 확인)
 function getFollowList(my_id, page_id, pageType) {
 	
-	if(pageType == 'follower'){
-		url = "/TeamPro/getFollowerList"
+	if(pageType == 'chatFollower'){
+		url = "/TeamPro/getChatFollowerList"
 	}else{
-		url = "/TeamPro/getFollowingList"
+		url = "/TeamPro/getChatFollowingList"
 	}
 	
 	
@@ -109,12 +108,13 @@ function getFollowList(my_id, page_id, pageType) {
 			
 			if(result.length == 0){
 				if(isDetach == true)
-					$("#chatFollow_list").append("<h4 style='color: #1d2c52;'>저런! 친구가 없으시네요!</h4>");
+					$("#chatFollow_list").append("<img src='/resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px;'/>"+
+												 "<h5 style='color: #1d2c52;'>저런! 친구가 없으시네요!</h5>");
 			}else{
 				var source = $("#chatFollow-template").html();
 				var template = Handlebars.compile(source);
 				var data = {
-					follow : result,
+					chat : result,
 					type : pageType
 				}	
 				//console.log(data);

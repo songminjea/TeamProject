@@ -103,7 +103,7 @@ public class galleryController {
 		List<Map<String, String>> mod_imgSrc = new ArrayList<>();
 		
 		if(fvo.getGb_Image() != null) {
-			int length = fvo.getGb_Image().length;
+			
 			for(String temp : fvo.getGb_Image()) {
 				// 이미지 파일 이름 얻어오기				
 				String filePath = temp.substring(0, 29);
@@ -232,7 +232,11 @@ public class galleryController {
 			
 			// 차단 되어있는 상태일때.
 			if(blockService.IsBlocked(bvo)) {
-				return null;
+				List<Map<String, Object>> tempList = new ArrayList<>();
+				Map<String, Object> tempMap = new HashMap<>();
+				tempMap.put("isblocked", "true");
+				tempList.add(tempMap);
+				return tempList;
 			}
 			
 		}

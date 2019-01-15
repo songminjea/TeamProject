@@ -18,7 +18,7 @@ $("#btnSend").click(function() {
         });
     });
 
-
+/*
 isDetach = true;
 
 function getContextPath() { // ContextPath 얻어오는 함수
@@ -172,3 +172,4 @@ $(document).ready(function(){
 	}
 
 })
+*/

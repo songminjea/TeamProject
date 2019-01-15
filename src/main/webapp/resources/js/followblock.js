@@ -76,7 +76,7 @@ function getFollowList(my_id, page_id, pageType) {
 		}),
 		url : url,
 		success : function(result) {
-			//console.log(result);
+			console.log(result);
 			getFollowHelper();
 			
 			if(result.length > 0){
@@ -168,17 +168,20 @@ function FBProc(target_id, url, type) {
 	var mem_id = $("#mem_id").val();
 	
 	var data;
+	var reverse_type;
 	
 	if(type == 'follow'){
 		data = JSON.stringify({
 			follower_id : mem_id,
 			following_id : target_id
 		})
+		reverse_type = 'block';
 	}else if(type == 'block'){
 		data = JSON.stringify({
 			blocker_id : mem_id,
 			blocking_id : target_id
 		})
+		reverse_type = 'follow';
 	}
 	
 	$.ajax({
@@ -197,6 +200,8 @@ function FBProc(target_id, url, type) {
 				'fbhide');
 				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'ingBtn').removeClass(
 				'fbhide');
+				galleryBtnExtends(target_id, type, 1);
+				searchBtnExtends(target_id, type, 1);
 			} else { // 처리 안되었을때
 				console.log("처리 실패! 이미 처리 되어있음.")
 			}
@@ -242,6 +247,7 @@ function UnFBProc(target_id, url, type) {
 				'fbhide');
 				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'ingBtn').addClass(
 				'fbhide');
+				searchBtnExtends(target_id, type, 0);
 			} else { // 언팔로우or차단 해제 안되었을때
 				console.log("처리 실패! 이미 처리 되어있음.")
 			}
@@ -391,7 +397,7 @@ $(document).ready(function(){
 	
 	// follower 페이지인지 following 페이지 인지.
 	var page_type = $("#page_type").val();
-
+	
 	// follow 페이지에서 호출했을때.
 	if(page_id != null && page_type != "blocking"){
 		getFollowList(my_id, page_id, page_type);

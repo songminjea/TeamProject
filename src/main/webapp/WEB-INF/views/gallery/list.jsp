@@ -18,14 +18,15 @@
 	
 </div>
 
-<div id="screenLock" style="width:100%; height:100%; top:0px; left:0px; position:absolute; z-index:1; background:#1B1B1B; visibility:hidden;">
-	<div style="position: relative; top: 50%; text-align: center; color: red; font-size: 20px; font-weight: bold; opacity: 1.0;">
-		차단 된 페이지에는 접근 할 수 없습니다.<br><br>
-		<a href="javascript:history.back();" style=" border: 1px solid white; color: white; border-radius: 20px; padding: 5px;">
-		돌아가기
-		</a>
-	</div> 
-</div>
+<%-- 임시 주석 처리 --%>
+<!-- <div id="screenLock" style="width:100%; height:100%; top:0px; left:0px; position:absolute; z-index:1; background:#1B1B1B; visibility:hidden;"> -->
+<!-- 	<div style="position: relative; top: 50%; text-align: center; color: red; font-size: 20px; font-weight: bold; opacity: 1.0;"> -->
+<!-- 		차단된 페이지에는 접근할 수 없습니다!<br><br> -->
+<!-- 		<a href="javascript:history.back();" style=" border: 1px solid white; color: white; border-radius: 20px; padding: 5 10px;"> -->
+<!-- 		돌아가기 -->
+<!-- 		</a> -->
+<!-- 	</div>  -->
+<!-- </div> -->
 
 
 <script id="gallery-template" type="text/x-handlebars-template">
@@ -41,7 +42,7 @@
 	<span class="w3-right">
 		<div class="w3-dropdown-click">
 			<button class="gall_DropBtn w3-button w3-white w3-hover-white">
-				<i class="fa fa-check" aria-hidden="true"></i>
+				<i class="fa fa-check" aria-hidden="true" style="font-size: 15px; color: #78787c;"></i>
 			</button>
 			<div id="gallDrop_{{gallery/gb_Num}}" class="w3-dropdown-content w3-bar-block w3-border">
 				<a href="#" onclick="modifyGallery({{gallery/gb_Num}})" class="w3-bar-item w3-button">수정</a> 

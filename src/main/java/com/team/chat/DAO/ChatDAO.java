@@ -1,21 +1,21 @@
 package com.team.chat.DAO;
 
 import java.util.List;
-import java.util.Map;
 
 import com.team.chat.VO.ChatVO;
-import com.team.member.VO.MemberVO;
+import com.team.chat.VO.ChatroomVO;
 
 public interface ChatDAO {
 	
 	//채팅 아이디 검색 목록
-	public List<MemberVO>listAll(Map<String, String> searchInfo);
+	public List<ChatroomVO>listAll(String my_id);
 	
-	//채팅 보낸 메시지
-	public void sendMessage(ChatVO cvo) throws Exception;
+	//채팅방 생성
+	public void create(ChatroomVO cvo)throws Exception;
 	
-	//채팅 아이디 자신인지 체크
-	public int chatIdCheck(String CHAT_SENDER) throws Exception;
+	//채팅 내용
+	public ChatVO read(ChatroomVO cvo)throws Exception;
 	
-	public ChatVO sendRead(ChatVO cvo)throws Exception;
+	//이미 있는 채팅방 입장
+	public ChatroomVO areadyRead(ChatroomVO cvo2)throws Exception;
 }

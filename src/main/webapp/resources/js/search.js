@@ -70,8 +70,8 @@ function getSearchList(keyword){
 					$("#search_list").append(
 					"<div class='w3-col m12 w3-card w3-round w3-white' style='padding: 50px 30px;'>" +
 						"<div class='w3-container'  align='center'>" +
-						"<img src='./resources/img/logo_oops.png'style='width: 30%; margin-bottom: 30px;'/>"+
-					"<h4 style='font-weight: 500; color: #1d2c52;'>" + keyword + "로 검색한 결과가 없습니다!</h4> </div> </div>"
+						"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/>"+
+					"<h4 style='font-weight: 600; color: #1d2c52;'>" + keyword + "로 검색한 결과가 없습니다!</h4> </div> </div>"
 					);
 			}else{
 				var source = $("#search-template").html();

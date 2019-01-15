@@ -26,7 +26,7 @@ function getFollowHelper(){
 	});
 
 	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
-		console.log(isfollowed);
+		//console.log(isfollowed);
 		if(isfollowed == ""){
 			return 'fbhide';
 		}
@@ -53,7 +53,7 @@ function getFollowHelper(){
 		//console.log(src);
 		
 		if(src == null || src == ""){
-			return "resources/img/baby.jpg";
+			return "resources/img/logo_noFlower.png";
 		}else
 			return src;
 		
@@ -82,7 +82,7 @@ function getFollowList(my_id, page_id, pageType) {
 		}),
 		url : url,
 		success : function(result) {
-			console.log(result);
+			//console.log(result);
 			getFollowHelper();
 			
 			if(result.length > 0){
@@ -96,8 +96,9 @@ function getFollowList(my_id, page_id, pageType) {
 			
 			if(result.length == 0){
 				if(isDetach == true)
-					$("#follow_list").append("<img src='../resources/img/logo_sad.png'style='width: 30%; margin-bottom: 30px;'/>"+
-							"				<h4 style='color: #1d2c52;'>저런! 친구가 없으시네요!</h4>");
+					$("#follow_list").append("<div align='center'>" +
+											"<img src='../resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px; padding-left:20px;'/>"+
+											"<h4 style='font-weight: 600; color: #1d2c52;'>저런! 친구가 없으시네요!</h4></div>");
 			}else{
 				var source = $("#follow-template").html();
 				var template = Handlebars.compile(source);
@@ -197,7 +198,7 @@ function FBProc(target_id, url, type) {
 		url : url,
 		success : function(result) {
 			if(result == -1){ // 차단 된 상태일때.
-				alert("차단 된 상대입니다.\n팔로우 할 수 없습니다.")
+				alert("차단된 상대입니다.\n팔로우 할 수 없습니다.")
 			}
 			else if (result == 1) { // 잘 처리 되었을때
 				// alert("성공!");
@@ -301,7 +302,7 @@ function getSuggestionFollowList(my_id){
 						isFollowed(my_id , result[i].following_id);
 					})*/
 				}else{
-					$("#small_recommend_list").append("<h4 style='color: #1d2c52;'>더 이상 추천 할 회원이 없습니다.</h4>");
+					$("#small_recommend_list").append("<h4 style='color: #1d2c52;'>더 이상 추천할 회원이 없습니다.</h4>");
 				}
 			}
 		})

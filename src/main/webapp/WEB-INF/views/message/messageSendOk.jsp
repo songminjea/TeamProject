@@ -37,7 +37,7 @@
 </div>
 <div align="center">
 	<div style="position: absolute; top: 0; bottom: 0; height: 50%; right:0; left: 0; margin: auto;">
-		<img style="width: 30%; margin-bottom: 30px;" src="${pageContext.request.contextPath}/resources/img/logo_success.png"><br/>
+		<img style="width: 30%; margin-bottom: 30px; padding-left: 20px;" src="${pageContext.request.contextPath}/resources/img/logo_success.png"><br/>
 		<font style="font-weight: 600; font-size: 16px; color: #1d2c52;">쪽지를 성공적으로 보냈습니다.</font>
 		<div align="center" style="bottom: 60px; margin-top: 20px; width:100%;">
 			<input type="button" value="창닫기" class="messageCloseBtn gray" onclick="window.close()">

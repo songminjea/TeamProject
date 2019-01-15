@@ -4,30 +4,35 @@
 <mapper namespace="com.team.chat.Mapper.chatMapper">
 
 	<!-- 채팅 아이디 검색 결과 -->
-	<select id="listAll" resultType="MemberVO">
+	<select id="listAll" resultType="ChatroomVO" parameterType="String">
 		SELECT *
-		FROM MEMBER
-		WHERE ID LIKE CONCAT('%', #{keyword}, '%')
-		ORDER BY ID
+		FROM TB_CHATROOM
+		WHERE CHATROOM_SENDER = #{my_id}
+		OR CHATROOM_RECEIVER = #{my_id}		
+		GROUP BY #{my_id}
+		ORDER BY CHATROOM_MAKETIME DESC
 	</select>
 	
-	<!-- 채팅 내용 DB에 삽입 -->
+	<!-- 채팅방 생성 -->
 	<insert id="insert">
-		INSERT INTO TB_CHAT
-		(CHAT_SENDER, CHAT_SENDCONTENT, CHAT_SENDTIME)
+		INSERT INTO TB_CHATROOM
+		(CHATROOM_SENDER, CHATROOM_RECEIVER, CHATROOM_MAKETIME)
 		VALUES
-		(#{CHAT_SENDER}, #{CHAT_SENDCONTENT}, NOW())
+		(#{CHATROOM_SENDER}, #{CHATROOM_RECEIVER}, NOW())
 	</insert>
 	
-	<!-- 채팅 아이디 자신 건지 체크 -->
-	<select id="chatIdCheck" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM MEMBER
-		WHERE ID = #{CHAT_SENDER}
-	</select>
-	
-	<select id="read" resultType="ChatVO" parameterType="ChatVO">
+	<!-- 채팅 내용 -->
+	<select id="view" resultType="ChatVO">
 		SELECT * 
 		FROM TB_CHAT
-		ORDER BY CHAT_SENDTIME DESC limit 1
+		ORDER BY CHAT_SENDTIME DESC
+		<!--  limit 1 -->
+	</select>
+	
+	<!-- 이미 존재하는 채팅방 입장 -->
+	<select id="aready" resultType="ChatroomVO" parameterType="ChatroomVO">
+		SELECT *
+		FROM TB_CHATROOM
+		WHERE CHATROOM_NO = #{CHATROOM_NO}
 	</select>
 </mapper>

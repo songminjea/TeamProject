@@ -32,6 +32,11 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	<!-- js 파일 처리 -->
+	<servlet-mapping>
+		 <servlet-name>default</servlet-name>
+		 <url-pattern>*.js</url-pattern>
+	</servlet-mapping>
 
 	<!-- 한글처리 하는 부분 세팅 -->
 	<filter>

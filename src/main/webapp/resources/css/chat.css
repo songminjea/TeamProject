@@ -1,7 +1,4 @@
 @charset "UTF-8";
-#chatListArea{
-	padding-top: 20px;
-}
 #positionLayer{ 
 	overflow: auto;
 	-ms-overflow-style: none;

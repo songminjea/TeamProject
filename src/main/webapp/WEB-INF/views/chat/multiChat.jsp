@@ -23,7 +23,7 @@
 	<table align="center" bgcolor="#FFFFFF" width="100%">
 		<tr>
 			<td bgcolor="#4497fd" align="center" height="50px" width="100%" style="border: solid 1px #4497fd;">
-				<font style="font-size: 18px; font-weight:bold" color="#FFFFFF">님과의 대화</font>
+				<font style="font-size: 18px; font-weight:bold" color="#FFFFFF">${cvo2.CHATROOM_RECEIVER}님과의 대화</font>
 			</td>
 		</tr>
 		<tr>
@@ -37,7 +37,6 @@
 	<c:choose>
 		<%-- 로그인 되어 있을 경우 --%>
 		<c:when test="${member.ID != null}">
-			<p align="left" style="font-weight: 600; color: #1d2c52;">&nbsp;&nbsp;${member.ID}(${member.NAME})님이 입장하셨습니다.</p>
 			<input type="hidden" id="memID" name="CHAT_SENDER" width="110" value="${member.ID}" readonly="readonly">
 			<span style="display: none;" id="memName" width="110" value="${member.NAME}" readonly="readonly">${member.NAME}</span>
 		</c:when>

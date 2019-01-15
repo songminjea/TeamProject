@@ -260,7 +260,8 @@ function TimeFormat(){
 	
 }
 
-function screenLock(){ 
+//임시 주석처리
+/*function screenLock(){ 
     var obj = document.getElementById("screenLock"); 
     obj.style.width = document.body.Width + 'px'; 
     obj.style.height = document.body.scrollHeight + 'px';
@@ -268,7 +269,7 @@ function screenLock(){
     obj.style.filter = "alpha(opacity=80)"; 
     obj.style.opacity = "0.8"; 
     obj.style.visibility = "visible"; 
-}
+}*/
 
 
 $('body').scroll(function(){
@@ -309,9 +310,5 @@ $(document).ready(function(){
 			$(this).next().delay(300).removeClass("w3-show");
 		},300);
 	});*/
-	
-	
-	
-	
 });
 

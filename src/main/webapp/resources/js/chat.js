@@ -108,8 +108,8 @@ function getFollowList(my_id, page_id, pageType) {
 			
 			if(result.length == 0){
 				if(isDetach == true)
-					$("#chatFollow_list").append("<img src='/resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px;'/>"+
-												 "<h5 style='color: #1d2c52;'>저런! 친구가 없으시네요!</h5>");
+					$("#chatFollow_list").append("<img src='../resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px;'/>"+
+												 "<h5 style='font-weight: 600; color: #1d2c52;'>저런! 친구가 없으시네요!</h5>");
 			}else{
 				var source = $("#chatFollow-template").html();
 				var template = Handlebars.compile(source);
@@ -157,7 +157,7 @@ $(document).ready(function(){
 	BtnClickEvent();
 	
 	// 로그인된 아이디 (main.jsp에 hidden값)
-	var my_id = $("#mem_id").val();
+	var my_id = $("#CHATROOM_SENDER").val();
 	
 	// 현재 봐야하는 페이지의 아이디
 	var page_id = $("#page_id").val();

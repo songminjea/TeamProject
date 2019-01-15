@@ -1,13 +1,13 @@
 package com.team.chat.Service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.chat.DAO.ChatDAO;
 import com.team.chat.VO.ChatVO;
+import com.team.chat.VO.ChatroomVO;
 import com.team.member.VO.MemberVO;
 
 @Service
@@ -18,44 +18,41 @@ public class ChatServiceImpl implements ChatService{
 	
 	//채팅 아이디 검색 목록
 	@Override
-	public List<MemberVO>listAll(Map<String, String> searchInfo){
-		return chatDao.listAll(searchInfo);
+	public List<ChatroomVO>listAll(MemberVO mvo){
+		String my_id = mvo.getID();
+		return chatDao.listAll(my_id);
 	}
 	
+	//채팅방 생성
 	@Override
-	public void chatSend(ChatVO cvo) throws Exception{
+	public void create(ChatroomVO cvo)throws Exception{
+		String CHATROOM_SENDER = cvo.getCHATROOM_SENDER();
+		String CHATROOM_RECEIVER = cvo.getCHATROOM_RECEIVER();
 		
-		String CHAT_SENDER = cvo.getCHAT_SENDER();
-//		String CHAT_RECEIVER = cvo.getCHAT_RECEIVER();
-//		String CHAT_SENDCONTENT = cvo.getCHAT_SENDCONTENT();
-	
-		//태그문자 처리
-		CHAT_SENDER = CHAT_SENDER.replace("<", "&lt;");
-		CHAT_SENDER = CHAT_SENDER.replace(">", "&gt;");
-//		CHAT_RECEIVER = CHAT_RECEIVER.replace("<", "&lt;");
-//		CHAT_RECEIVER = CHAT_RECEIVER.replace(">", "&gt;");
+		CHATROOM_SENDER = CHATROOM_SENDER.replace("<", "&lt;");
+		CHATROOM_SENDER = CHATROOM_SENDER.replace(">", "&gt;");
+		CHATROOM_RECEIVER = CHATROOM_RECEIVER.replace("<", "&lt;");
+		CHATROOM_RECEIVER = CHATROOM_RECEIVER.replace(">", "&gt;");
 		
-		//공백문자 처리
-		CHAT_SENDER = CHAT_SENDER.replace(" ", "&nbsp;&nbsp;");
-//		CHAT_RECEIVER = CHAT_RECEIVER.replace(" ", "&nbsp;&nbsp;");
+		CHATROOM_SENDER = CHATROOM_SENDER.replace(" ", "&nbsp;&nbsp;");
+		CHATROOM_RECEIVER = CHATROOM_RECEIVER.replace(" ", "&nbsp;&nbsp;");
 		
-		//줄바꿈 문자 처리
-//		CHAT_SENDCONTENT = CHAT_SENDCONTENT.replace("\n", "<br>");
-//		
-//		cvo.setCHAT_SENDCONTENT(CHAT_SENDCONTENT);
-//		cvo.setCHAT_RECEIVER(CHAT_RECEIVER);
-		cvo.setCHAT_SENDER(CHAT_SENDER);
+		cvo.setCHATROOM_SENDER(CHATROOM_SENDER);
+		cvo.setCHATROOM_RECEIVER(CHATROOM_RECEIVER);
 		
-		chatDao.sendMessage(cvo);
+		chatDao.create(cvo);
 	}
-	
+		
+	//채팅 내용
 	@Override
-	public ChatVO sendRead(ChatVO cvo)throws Exception{
-		ChatVO resultVO = chatDao.sendRead(cvo);
-		return resultVO;
+	public ChatVO read(ChatroomVO cvo)throws Exception{
+		ChatVO chvo = chatDao.read(cvo);
+		return chvo;
 	}
 	
-	public int chatIdCheck(String CHAT_SENDER)throws Exception{
-		return chatDao.chatIdCheck(CHAT_SENDER);
+	//이미 있는 채팅방 입장
+	public ChatroomVO areadyRead(ChatroomVO cvo)throws Exception{
+		ChatroomVO cvo2 = chatDao.areadyRead(cvo);
+		return cvo2;
 	}
 }

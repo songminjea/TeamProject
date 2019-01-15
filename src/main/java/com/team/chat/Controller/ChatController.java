@@ -14,14 +14,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.chat.Service.ChatService;
 import com.team.chat.VO.ChatVO;
+import com.team.chat.VO.ChatroomVO;
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
@@ -49,18 +52,23 @@ public class ChatController {
 	}
 	
 	//채팅 리스트
-	@RequestMapping(value="{id}/multiChatList", method=RequestMethod.GET)
+	@RequestMapping(value="{id}/chatList", method=RequestMethod.GET)
 	public String multiChatList(@PathVariable String id, HttpSession session, Model model)throws Exception{
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
 		model.addAttribute("profile", memberVO);
-			
-		return "chat/chat-ing";
+		
+		List<ChatroomVO>clist = chatService.listAll(memberVO);
+		model.addAttribute("clist", clist);
+		
+		return "chat/chatList";
 	}
 	
 	// 팔로우 목록 페이지 요청 처리
-	@RequestMapping(value = { "{id}/chatFollower", "{id}/chatFollowing" })
-	public String ShowChatFollowList(@PathVariable String id, Model model, HttpServletRequest request) {
-
+	@RequestMapping(value = { "{id}/chatFollower", "{id}/chatFollowing"})
+	public String ShowChatFollowList(@PathVariable String id, Model model, HttpServletRequest request, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
+		model.addAttribute("me", memberVO);
+		
 		// uri 에서 id/~~~ 에서 ~~~ 값을 뽑아내는 부분
 		String uri = request.getRequestURI();
 		String type = "";
@@ -142,6 +150,7 @@ public class ChatController {
 		vo.setFollower_id(FollowInfo.get("my_id"));
 		vo.setFollowing_id(target_id);
 		
+		tempMap.put("my_id", FollowInfo.get("my_id"));
 		
 		// 팔로우 여부 확인
 		String isfollowing = String.valueOf(followService.IsFollowing(vo));
@@ -177,25 +186,30 @@ public class ChatController {
 	
 	//채팅 접속
 	@RequestMapping(value="{id}/multiChat", method=RequestMethod.GET)
-	public String multiChat(@PathVariable String id, HttpSession session, Model model)throws Exception{
+	public String multiChat(@PathVariable String id, ChatroomVO cvo, HttpSession session, Model model)throws Exception{
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		
 		model.addAttribute("profile", memberVO);
 		
+		chatService.create(cvo);
+		ChatVO chvo = chatService.read(cvo);
+		
+		model.addAttribute("chvo", chvo);
+		
 		return "chat/multiChat";
 	}
 	
-	//채팅 메세지 보내기
-	@ResponseBody
-	@RequestMapping(value="{id}/multiChat", method = RequestMethod.POST)
-	public void chatSend(ChatVO cvo, Model model, HttpServletRequest request)throws Exception{
-		
-		chatService.chatSend(cvo);
-
-		String CHAT_SENDCONTENT = request.getParameter("CHAT_SENDCONTENT");
-		cvo.setCHAT_SENDCONTENT(CHAT_SENDCONTENT);
-		ChatVO resultVO = chatService.sendRead(cvo);
-		model.addAttribute("cvo", resultVO);
+	//존재하는 채팅방 접속
+	@RequestMapping(value="{id}/multiAreadyChat", method=RequestMethod.GET)
+	public String multiAreadyChat(@PathVariable String id, @RequestParam("CHATROOM_NO") int CHATROOM_NO, 
+								  @ModelAttribute("ChatroomVO")ChatroomVO cvo, HttpSession session, Model model)throws Exception{
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");	
+		model.addAttribute("profile", memberVO);
+			
+		cvo.setCHATROOM_NO(CHATROOM_NO);
+		ChatroomVO cvo2 = chatService.areadyRead(cvo);	
+		model.addAttribute("cvo2", cvo2);
+			
+		return "chat/multiChat";
 	}
-
 }

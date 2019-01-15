@@ -21,7 +21,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/chat.js"></script>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
-<input type="hidden" id="mem_id" value="${member.ID}">
 <%-- 팔로워 페이지인지 팔로잉 페이지인지 --%>
 <input type="hidden" id="page_type" value="${type}">
 <%-- 현재 봐야하는 페이지의 아이디 --%>
@@ -29,7 +28,7 @@
 	<div id="positionLayer">
 		<div align="left" style="border: solid 1px #4497fd; background-color:#4497fd; height: 55px; width: 100%;">
 			<span id="chatListArea" style="font-size: 25px; margin-left: 30px; padding: 0; line-height: 55px; padding-top: 10px;">
-				<a href="${pageContext.request.contextPath}/${member.ID}/multiChatList">
+				<a href="${pageContext.request.contextPath}/${member.ID}/chatList">
 					<i class="fa fa-comments" aria-hidden="true" style="color:white;"></i>
 				</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="${pageContext.request.contextPath}/${member.ID}/chatFollower">
@@ -50,23 +49,25 @@
 			</button>
 		</span>
 		<hr class="w3-clear" style="margin: 5px 0 10px;">			
+		<input type="hidden" id="CHATROOM_SENDER" name="CHATROOM_SENDER" value="${member.ID}">
 		<span id="chatFollow_list"> <%-- 팔로우 정보 리스트 영역 --%>				
 		</span>
 	</div>
 <script id="chatFollow-template" type="text/x-handlebars-template">
 {{#chat}}	
 	<div id="list_{{target_id}}" style="padding: 10px 30px;">
-		<img src=${pageContext.request.contextPath}/{{#GetImgSrc memVO/pic}}{{/GetImgSrc}} alt="프로필 사진" class="w3-left w3-circle w3-margin-right" style="width: 50px">
+		<img src=${pageContext.request.contextPath}/{{#GetImgSrc memVO/pic}}{{/GetImgSrc}} alt="프로필 사진" class="w3-left w3-circle w3-margin-right" style="width: 50px; padding-bottom: 20px;">
 		<span id="span_fBtn" class="w3-right">
-			<button onclick="location.href='${pageContext.request.contextPath}/{{memVO/id}}/multiChat'" type="button" class="w3-button w3-theme-d1 w3-margin-bottom chatfollowingBtn fbBtn {{#SetBtnState isfollowed 'chatFollowing'}}{{/SetBtnState}} followbtn_{{target_id}}"
-				value='{{target_id}}'>
+			<button onclick="location.href='${pageContext.request.contextPath}/{{my_id}}/multiChat?CHATROOM_SENDER={{my_id}}&CHATROOM_RECEIVER={{target_id}}'" 
+					type="button" class="w3-button w3-theme-d1 w3-margin-bottom chatfollowingBtn fbBtn {{#SetBtnState isfollowed 'chatFollowing'}}{{/SetBtnState}} followbtn_{{target_id}}"
+					value='{{target_id}}' style="color: #4569c2; border: solid 1px #4569c2;">
 				<span>채팅</span>
 			</button>
 		</span>				
-		<h5 style="font-weight: bold; color:#1d2c52;">{{target_id}}</h5>
+			<div align="left"><h5 style="font-weight: 600; color:#1d2c52;">{{target_id}}<input type="hidden" id="CHATROOM_RECEIVER" name="CHATROOM_RECEIVER" value='{{target_id}}'></h5></div>
 		<br>	
 		<hr class="w3-clear" style="margin: 5px 0 10px;">
-	</div>
+	</div>	
 {{/chat}}
 </script>
 </html>

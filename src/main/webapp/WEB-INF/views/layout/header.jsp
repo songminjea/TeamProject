@@ -38,7 +38,7 @@
 								title="Send Message"><i class="fa fa-envelope"
 								id="message_i"></i></a> <a href="#"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/multiChatList', 'multiChat', 'width=450, height=650')"
+								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatList', 'multiChat', 'width=450, height=650')"
 								title="Chat"><i class="fa fa-weixin" id="chat_i"
 								aria-hidden="true"></i></a>
 							<%-- 새 글 알림 --%>
@@ -51,12 +51,12 @@
 								<%-- 새 글 알림 드롭다운 --%>
 								<div class="w3-dropdown-content w3-card-4 w3-bar-block"
 									style="width: 300px; font-size: 14px; color: #1d2c52; font-weight: 600;">
-									<a href="${pageContext.request.contextPath}/main" class="w3-bar-item w3-button">새로 업로드된 게시물</a>
+									<a href="${pageContext.request.contextPath}/main" class="w3-bar-item w3-button">새로 업로드 된 게시물</a>
 									<a href="#"></a>
 									<a href="${pageContext.request.contextPath}/${member.ID}/messageList"
 										class="w3-bar-item w3-button"> 읽지 않은 쪽지가 ${messageCount}개
-										있습니다. </a> <a href="${pageContext.request.contextPath}/${member.ID}/multiChatList" class="w3-bar-item w3-button">채팅이 개
-										있습니다.</a>
+										있습니다. </a> <a href="${pageContext.request.contextPath}/${member.ID}/chatList" class="w3-bar-item w3-button">새로운 대화가 개
+										도착했습니다.</a>
 								</div>
 							</div>
 							<%-- 새 글 알림 끝 --%>

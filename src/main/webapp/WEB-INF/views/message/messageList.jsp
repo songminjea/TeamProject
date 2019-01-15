@@ -35,7 +35,8 @@
 					<c:forEach items="${map.mlist}" var="message">
 						<c:choose>
 							<c:when test="${empty message}">
-								받은 쪽지가 없습니다.
+								<img src="${pageContext.request.contextPath}/resourses/img/logo_oops.png">
+								받은 쪽지가 없습니다!
 							</c:when>
 							<c:otherwise>	
 <%-- 								<c:if test="${member.ID eq message.MESSAGE_RECEIVER}"> --%>

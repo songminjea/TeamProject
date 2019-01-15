@@ -59,8 +59,8 @@
 			<div id="gallDrop_{{gallery/gb_Num}}" class="w3-dropdown-content w3-bar-block w3-border">
 				<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/follower" class="w3-bar-item w3-button">팔로우 목록</a>
 				<%-- 팔로우 언팔로우 버튼 --%>
-				<button class="w3-bar-item w3-button followBtn followbtn_{{gallery/mb_ID}}" value='{{gallery/mb_ID}}'>팔로우</button>
-				<button class="w3-bar-item w3-button followingBtn followbtn_{{gallery/mb_ID}}"
+				<button class="w3-bar-item w3-button followBtn followbtn_{{gallery/mb_ID}} {{#SetBtnState isfollowed 'follow'}}{{/SetBtnState}}" value='{{gallery/mb_ID}}'>팔로우</button>
+				<button class="w3-bar-item w3-button followingBtn followbtn_{{gallery/mb_ID}} {{#SetBtnState isfollowed 'following'}}{{/SetBtnState}}"
 					value='{{gallery/mb_ID}}'>
 					<span>팔로잉</span> <span>언팔로우</span>
 				</button>

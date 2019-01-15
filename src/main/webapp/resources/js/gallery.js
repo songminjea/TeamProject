@@ -71,6 +71,29 @@ function regHelper(){
 			  return options.inverse(this);
 		  }
 	});
+	
+	
+	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
+		//console.log(isfollowed + " " + type);
+		if(isfollowed == ""){
+			return 'fbhide';
+		}
+		if (type == "follow") {
+			if(isfollowed == 'true'){
+				return 'fbhide';
+			}else{
+				return;
+			}
+		  
+		} else if(type =="following"){
+			if(isfollowed == 'true'){
+				return;
+			}else{
+				return 'fbhide';
+			}
+		}
+		
+	});
 }
 
 function ShowGallery(id, isMyGall){
@@ -96,8 +119,8 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			// 차단되어있을때 화면 잠금.
-			
+			console.log(result);
+			// 차단되어있을때 화면 잠금.			
 			if(result.length != 0){
 				if(result[0].isblocked == 'true'){
 					screenLock();
@@ -113,7 +136,6 @@ function ShowGallery(id, isMyGall){
 				regHelper();
 				
 				countGallery = countGallery + result.length;
-				//console.log(countGallery);
 				var html = template(data);
 				$("#gallery_list").append(html);
 				TimeFormat();
@@ -228,9 +250,9 @@ function galleryBtnExtends(target_id, type, state){
 	
 	
 	if(state == 1 && type == "block"){
-		$('.followbtn_'+ target_id).filter('.' + type + 'Btn').removeClass(
+		$('.followbtn_'+ target_id).filter('.followBtn').removeClass(
 		'fbhide');
-		$('.followbtn_'+ target_id).filter('.' + type + 'ingBtn').addClass(
+		$('.followbtn_'+ target_id).filter('.followingBtn').addClass(
 		'fbhide');
 	}
 		

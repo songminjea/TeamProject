@@ -10,6 +10,12 @@ function getContextPath() { // ContextPath 얻어오는 함수
 
 }
 
+// function이 존재하는지 체크 후 호출
+function existFunction(func){
+	return typeof func == "function";
+}
+
+
 function getFollowHelper(){
 	Handlebars.registerHelper('getType', function(type,follower,following,options) {
 		  if (type == "follower") {
@@ -20,7 +26,7 @@ function getFollowHelper(){
 	});
 
 	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
-		//console.log(isfollowed);
+		console.log(isfollowed);
 		if(isfollowed == ""){
 			return 'fbhide';
 		}
@@ -200,8 +206,13 @@ function FBProc(target_id, url, type) {
 				'fbhide');
 				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'ingBtn').removeClass(
 				'fbhide');
-				galleryBtnExtends(target_id, type, 1);
-				searchBtnExtends(target_id, type, 1);
+				
+				// 함수가 존재할때 호출한다.
+				if(typeof galleryBtnExtends == 'function')
+					galleryBtnExtends(target_id, type, 1);
+				if(typeof searchBtnExtends == 'function')
+					searchBtnExtends(target_id, type, 1);
+				
 			} else { // 처리 안되었을때
 				console.log("처리 실패! 이미 처리 되어있음.")
 			}

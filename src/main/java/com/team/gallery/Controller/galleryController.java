@@ -27,6 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.block.Service.BlockService;
 import com.team.block.VO.BlockVO;
+import com.team.follow.Service.FollowService;
+import com.team.follow.VO.FollowVO;
 import com.team.gallery.Service.GBService;
 import com.team.gallery.VO.fileVO;
 import com.team.gallery.VO.galleryVO;
@@ -48,6 +50,9 @@ public class galleryController {
 	
 	@Autowired
 	private BlockService blockService;
+	
+	@Autowired
+	private FollowService followService;
 	
 	@RequestMapping(value = "gallWrite", method=RequestMethod.GET)
 	public String imgupload(HttpSession session, Model model) {
@@ -103,7 +108,7 @@ public class galleryController {
 		List<Map<String, String>> mod_imgSrc = new ArrayList<>();
 		
 		if(fvo.getGb_Image() != null) {
-			
+			int length = fvo.getGb_Image().length;
 			for(String temp : fvo.getGb_Image()) {
 				// 이미지 파일 이름 얻어오기				
 				String filePath = temp.substring(0, 29);
@@ -260,6 +265,7 @@ public class galleryController {
 		// 리턴해줄 맵 생성
 		List<Map<String, Object>> galleryInfoList = new ArrayList<>();
 
+		// 갤러리 리스트 하나씩 체크
 		for (galleryVO gtemp : gall) {
 			Map<String, Object> temp = new HashMap<>();
 
@@ -267,6 +273,14 @@ public class galleryController {
 
 			MemberVO memVO = memberService.getMember(gtemp.getMb_ID());
 			
+			// 팔로우 여부 체크
+			if(sessionVO != null && !gtemp.getMb_ID().equals(sessionVO.getID())) {
+				FollowVO fVO = new FollowVO();
+				fVO.setFollower_id(sessionVO.getID());
+				fVO.setFollowing_id(gtemp.getMb_ID());
+				String isfollowed = String.valueOf(followService.IsFollowing(fVO));
+				temp.put("isfollowed", isfollowed); 
+			}
 			// 글 정보
 			temp.put("gallery", gtemp);
 			// 해당 글의 이미지 파일 정보 리스트

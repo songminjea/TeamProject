@@ -112,7 +112,8 @@ function searchBtnExtends(target_id, type, state){
 		reverse_type = "follow";
 	
 	if(state == 1){
-		$('.'+ reverse_type + 'btn_'+ target_id).addClass('fbhide');
+		if(type == 'block')
+			$('.'+ reverse_type + 'btn_'+ target_id).addClass('fbhide');
 	}else{
 		$('.'+ reverse_type + 'btn_'+ target_id).filter('.' + reverse_type + 'Btn').removeClass('fbhide');
 	}

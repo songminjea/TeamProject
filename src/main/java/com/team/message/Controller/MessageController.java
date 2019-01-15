@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
 import com.team.message.VO.MessageVO;
-import com.team.message.VO.MessagePageMaker;
 
 @Controller
 public class MessageController {

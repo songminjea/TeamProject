@@ -13,11 +13,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chat.css"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css">
+
 <!-- JS 파일 -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-<script src="/${pageContext.request.contextPath}/resourses/js/sockjs.js"></script>
-<script src="/${pageContext.request.contextPath}/resourses/js/chat.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/chat.js"></script>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
 <%-- 팔로워 페이지인지 팔로잉 페이지인지 --%>
@@ -25,14 +26,48 @@
 <%-- 현재 봐야하는 페이지의 아이디 --%>
 <input type="hidden" id="page_id" value="${page_id}">
 	<div id="positionLayer">
-		<div align="center" style="border: solid 1px #4497fd; background-color:#4497fd; height: 50px; width: 100%;">
-			<font style="font-size: 18px; font-weight:bold; line-height: 50px;" color="#FFFFFF">채팅 목록</font>
+		<div align="left" style="border: solid 1px #4497fd; background-color:#4497fd; height: 55px; width: 100%;">
+			<span id="chatListArea" style="font-size: 25px; margin-left: 30px; padding: 0; line-height: 55px; padding-top: 10px;">
+				<a href="${pageContext.request.contextPath}/${member.ID}/chatList">
+					<i class="fa fa-comments" aria-hidden="true" style="color:white;"></i>
+				</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="${pageContext.request.contextPath}/${member.ID}/chatFollower">
+					<i class="fa fa-user" aria-hidden="true" style="color:white;"></i>
+				</a>
+			</span>
 		</div>
-		<span id="chatListArea">
-			<a href="${pageContext.request.contextPath}/${member.ID}/multiChatList">채팅 중인 목록</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="${pageContext.request.contextPath}/${member.ID}/chatSearch">팔로우 리스트</a>
+		<span id="s_listArea"> <%-- 팔로워 팔로잉 목록 버튼 --%>
+			<button type="button" class="w3-button w3-theme-d1 w3-hover-white"
+					id="chatfollower_Btn">
+				<i class="fa fa-thumbs-up" style="color: #4497fd;"></i>
+				<span style="font-weight: bold; color:#1d2c52;">&nbsp;팔로워</span>
+			</button>
+			<button type="button" class="w3-button w3-theme-d1 w3-hover-white"
+					id="chatfollowing_Btn">
+				<i class="fa fa-thumbs-up" style="color: #597eff;"></i>
+				<span style="font-weight: bold; color:#1d2c52;">&nbsp;팔로잉</span>
+			</button>
 		</span>
-		<hr>
-		<jsp:include page="${center}"></jsp:include>
+		<hr class="w3-clear" style="margin: 5px 0 10px;">			
+		<input type="hidden" id="CHATROOM_SENDER" name="CHATROOM_SENDER" value="${member.ID}">
+		<span id="chatFollow_list"> <%-- 팔로우 정보 리스트 영역 --%>				
+		</span>
 	</div>
+<script id="chatFollow-template" type="text/x-handlebars-template">
+{{#chat}}	
+	<div id="list_{{target_id}}" style="padding: 10px 30px;">
+		<img src=${pageContext.request.contextPath}/{{#GetImgSrc memVO/pic}}{{/GetImgSrc}} alt="프로필 사진" class="w3-left w3-circle w3-margin-right" style="width: 50px; padding-bottom: 20px;">
+		<span id="span_fBtn" class="w3-right">
+			<button onclick="location.href='${pageContext.request.contextPath}/{{my_id}}/multiChat?CHATROOM_SENDER={{my_id}}&CHATROOM_RECEIVER={{target_id}}'" 
+					type="button" class="w3-button w3-theme-d1 w3-margin-bottom chatfollowingBtn fbBtn {{#SetBtnState isfollowed 'chatFollowing'}}{{/SetBtnState}} followbtn_{{target_id}}"
+					value='{{target_id}}' style="color: #4569c2; border: solid 1px #4569c2;">
+				<span>채팅</span>
+			</button>
+		</span>				
+			<div align="left"><h5 style="font-weight: 600; color:#1d2c52;">{{target_id}}<input type="hidden" id="CHATROOM_RECEIVER" name="CHATROOM_RECEIVER" value='{{target_id}}'></h5></div>
+		<br>	
+		<hr class="w3-clear" style="margin: 5px 0 10px;">
+	</div>	
+{{/chat}}
+</script>
 </html>

@@ -118,7 +118,10 @@ function ShowGallery(id, isMyGall){
 					pageNum++;
 				} else{
 					if(isDetach == true)
-						$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
+						$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
+								"<img src='../resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+								"<h4 style='color: #1d2c52; font-weight: 600;'>" +
+								"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 					
 				}
 			}
@@ -144,9 +147,10 @@ function galleryDelete(GB_Num){
 			countGallery--;
 			
 			if(countGallery == 0){
-				$("#gallery_list").append("<div align='center' style='line-height: 200%;'><h4 style='color: #1d2c52; font-weight: 500;'>" +
-										  "<img src='../resources/img/logo_oops.png'style='width: 30%; margin-bottom: 30px;'/>"+
-										  "아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
+				$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
+										"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+										"<h4 style='color: #1d2c52; font-weight: 500;'>" +
+										"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 			}
 			
 		},
@@ -256,7 +260,8 @@ function TimeFormat(){
 	
 }
 
-function screenLock(){ 
+//임시 주석처리
+/*function screenLock(){ 
     var obj = document.getElementById("screenLock"); 
     obj.style.width = document.body.Width + 'px'; 
     obj.style.height = document.body.scrollHeight + 'px';
@@ -264,7 +269,7 @@ function screenLock(){
     obj.style.filter = "alpha(opacity=80)"; 
     obj.style.opacity = "0.8"; 
     obj.style.visibility = "visible"; 
-}
+}*/
 
 
 $('body').scroll(function(){
@@ -305,9 +310,5 @@ $(document).ready(function(){
 			$(this).next().delay(300).removeClass("w3-show");
 		},300);
 	});*/
-	
-	
-	
-	
 });
 

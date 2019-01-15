@@ -71,6 +71,29 @@ function regHelper(){
 			  return options.inverse(this);
 		  }
 	});
+	
+	
+	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
+		//console.log(isfollowed + " " + type);
+		if(isfollowed == ""){
+			return 'fbhide';
+		}
+		if (type == "follow") {
+			if(isfollowed == 'true'){
+				return 'fbhide';
+			}else{
+				return;
+			}
+		  
+		} else if(type =="following"){
+			if(isfollowed == 'true'){
+				return;
+			}else{
+				return 'fbhide';
+			}
+		}
+		
+	});
 }
 
 function ShowGallery(id, isMyGall){
@@ -96,37 +119,39 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			// 차단되어있을때 화면 잠금.
-			if(result == ""){
-				screenLock();
-			}else{
-				if(result.length != 0){
-					var source = $("#gallery-template").html();
-					var template = Handlebars.compile(source);
-					var data = {
-							gall : result,
-					}
-					
-					regHelper();
-					
-					countGallery = countGallery + result.length;
-					//console.log(countGallery);
-					var html = template(data);
-					$("#gallery_list").append(html);
-					TimeFormat();
-					
-					pageNum++;
-				} else{
+			console.log(result);
+			// 차단되어있을때 화면 잠금.			
+			if(result.length != 0){
+				if(result[0].isblocked == 'true'){
+					screenLock();
+					return;
+				}
+				
+				var source = $("#gallery-template").html();
+				var template = Handlebars.compile(source);
+				var data = {
+						gall : result,
+				}
+				
+				regHelper();
+				
+				countGallery = countGallery + result.length;
+				var html = template(data);
+				$("#gallery_list").append(html);
+				TimeFormat();
+				
+				pageNum++;
+			} else{
 					if(isDetach == true)
 						$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
-								"<img src='../resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+								"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
 								"<h4 style='color: #1d2c52; font-weight: 600;'>" +
 								"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 					
-				}
 			}
-			//console.log(result.length);
 		}
+			//console.log(result.length);
+		
 		
 	});
 	
@@ -225,6 +250,19 @@ function modifyGallery(gb_Num){
 	
 }
 
+function galleryBtnExtends(target_id, type, state){	
+	
+	
+	if(state == 1 && type == "block"){
+		$('.followbtn_'+ target_id).filter('.followBtn').removeClass(
+		'fbhide');
+		$('.followbtn_'+ target_id).filter('.followingBtn').addClass(
+		'fbhide');
+	}
+		
+	
+}
+
 // 시간 처리 ex)1분전 , 10초전 작성 등등
 function TimeFormat(){
 	
@@ -260,8 +298,7 @@ function TimeFormat(){
 	
 }
 
-//임시 주석처리
-/*function screenLock(){ 
+function screenLock(){ 
     var obj = document.getElementById("screenLock"); 
     obj.style.width = document.body.Width + 'px'; 
     obj.style.height = document.body.scrollHeight + 'px';
@@ -269,7 +306,7 @@ function TimeFormat(){
     obj.style.filter = "alpha(opacity=80)"; 
     obj.style.opacity = "0.8"; 
     obj.style.visibility = "visible"; 
-}*/
+}
 
 
 $('body').scroll(function(){
@@ -310,5 +347,9 @@ $(document).ready(function(){
 			$(this).next().delay(300).removeClass("w3-show");
 		},300);
 	});*/
+	
+	
+	
+	
 });
 

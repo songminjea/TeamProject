@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.team.block.Service.BlockService;
+import com.team.block.VO.BlockVO;
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
@@ -39,6 +41,9 @@ public class MemberController {
 	
 	@Autowired
 	FollowService followService;
+	
+	@Autowired
+	BlockService blockService;
 	
 	@RequestMapping("/check")
 	public String check() {
@@ -187,6 +192,7 @@ public class MemberController {
 		for (MemberVO temp : member) {
 			Map<String, String> tempMap = new HashMap<>();
 			String isFollowed = "";
+			String isBlocked = "";
 			
 			
 				
@@ -202,6 +208,10 @@ public class MemberController {
 				fVo.setFollowing_id(temp.getID());
 				isFollowed = String.valueOf(followService.IsFollowing(fVo));
 				
+				BlockVO bvo = new BlockVO();
+				bvo.setBlocker_id(memVO.getID());
+				bvo.setBlocking_id(temp.getID());
+				isBlocked = String.valueOf(blockService.IsBlocked(bvo));
 
 			}
 
@@ -215,6 +225,7 @@ public class MemberController {
 			tempMap.put("sMem_email", temp.getEMAIL());
 			tempMap.put("sMem_pic", temp.getPIC());
 			tempMap.put("isfollowed", isFollowed);
+			tempMap.put("isblocked", isBlocked);
 			searchInfoList.add(tempMap);
 		}
 		

@@ -1,4 +1,4 @@
-package com.team.recomment.Controller;
+package com.team.recomment.Service;
 
 import java.util.List;
 
@@ -19,5 +19,12 @@ public class RCServiceImpl implements RCService{
 	public List<RecommentVO> serchRecomment(int GB_Num) {
 	
 		return rdao.serchRecomment(GB_Num);
+	}
+	
+	@Override
+	public void recommentWrite(RecommentVO revo) {
+		
+		rdao.recommentWrite(revo);
+		
 	}
 }

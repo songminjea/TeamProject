@@ -206,9 +206,6 @@ function modifyGallery(gb_Num){
     var gb_Image = $("#gallery_"+gb_Num).children("#carouselControls_"+gb_Num).find(".carousel_Img")
 
 
-    
-    
-    
     var hiddenField = document.createElement("input");
     hiddenField.setAttribute("type", "hidden");
     hiddenField.setAttribute("name", "gb_Num");

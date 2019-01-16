@@ -8,4 +8,6 @@ public interface RCService {
 
 	public List<RecommentVO> serchRecomment(int GB_Num);
 
+	public void recommentWrite(RecommentVO revo);
+
 }

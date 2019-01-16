@@ -22,4 +22,11 @@ public class RecommentDAOImpl implements RecommentDAO{
 		return sqlSession.selectList("GetRecommentList", GB_Num);
 	}
 	
+	@Override
+	public void recommentWrite(RecommentVO revo) {
+		
+		sqlSession.insert("RecommentInsert", revo);
+		
+	}
+	
 }

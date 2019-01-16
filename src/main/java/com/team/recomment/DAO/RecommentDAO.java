@@ -8,6 +8,9 @@ public interface RecommentDAO {
 
 	List<RecommentVO> serchRecomment(int GB_Num);
 
+	void recommentWrite(RecommentVO revo);
+
+
 	
 
 }

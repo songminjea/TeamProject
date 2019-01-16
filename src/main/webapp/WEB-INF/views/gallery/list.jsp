@@ -28,6 +28,37 @@
 <!-- 	</div>  -->
 <!-- </div> -->
 
+<script id="writeTemplate" type="text/x-handlebars-template">
+<div class = "noAttach">
+	{{#write}}
+	<div>
+		<a href="${pageContext.request.contextPath}/{{mb_ID}}/gallery" class="w3-bar-item w3-button">
+			<strong>{{mb_ID}}</strong>
+		</a>			
+		{{cm_Content}}
+	</div>
+	{{/write}} 
+
+	<div class="container">
+    <form role = "form"  method="post" onsubmit="">
+    <br><br>
+        <div>
+            <div>
+                <span><strong>Comments</strong></span> <span id="cCnt"></span>
+            </div>
+            <div>
+                <textarea rows="5" cols="40" class="w3-col m12 write_area" id="space" name="CM_Content" 
+					placeholder="하고싶은 말을 적어보세요!" style="resize: none;"></textarea>
+            </div>
+        </div>
+        <input type="hidden" id="MB_ID" name="MB_ID" value="${member.ID}" />
+		<input type="hidden" id="GB_Num" name="GB_Num" value="{{gb_Num}}" />
+		<input type="submit" class="btn pull-right btn-success" value="등록">
+	</div>
+    </form>
+</div>
+</script>
+
 
 <script id="gallery-template" type="text/x-handlebars-template">
 {{#gall}}
@@ -110,7 +141,7 @@
 
 	<%-- 글 내용 --%>
 	<span id="Gall_Content"><p>{{#SetContentLine gallery/gb_Content}}{{/SetContentLine}}</p></span>
-	<span id ="recomment"></span>
+	<span id ="recomment_{{gallery/gb_Num}}"></span>
 
 	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom w3-hover-white">
 		<i class="fa fa-thumbs-up" id="like_i"></i><font class="listFont" style="font-size: 14px;">Like</font>

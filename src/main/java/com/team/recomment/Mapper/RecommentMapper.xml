@@ -6,6 +6,14 @@
 		select *
 		from TB_recomment
 		where GB_Num = #{GB_Num}
+		order by CM_Seq desc
 	</select>
+	
+	<insert id="RecommentInsert" parameterType="com.team.recomment.VO.RecommentVO">
+		insert into TB_recomment (GB_Num,MB_ID,CM_Content,CM_Date,CM_IP)
+		VALUES(#{GB_Num},#{MB_ID},#{CM_Content},#{CM_Date},#{CM_IP})
+	</insert>
+	
+	
 
 </mapper>

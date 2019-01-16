@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,7 @@ public class MessageController {
 		
 	//쪽지 전체 목록
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
+//	@ResponseBody
 	public ModelAndView messageList(@PathVariable String id, @RequestParam(defaultValue="all")String searchOption, 
 						 			 @RequestParam(defaultValue="")String keyword,
 						 			 Model model,
@@ -49,23 +51,16 @@ public class MessageController {
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
 		
-		//레코드 개수 계산
-//		int countAll = messageService.countArticles(searchOption, keyword);
-		
-		//페이지 나누기 관련 처리
-//		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
-//		int start = messagePageMaker.getStartPage();
-//		int end = messagePageMaker.getEndPage();
+//		int pageNum2 = Integer.parseInt("pageNum")*10;
 		
 		List<MessageVO>mlist = messageService.listAll(searchOption, keyword, memberVO);		
 		
 		//데이터를 맵에 저장
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mlist", mlist);
-//		map.put("countAll", countAll);
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
-//		map.put("messagePageMaker", messagePageMaker);
+//		map.put("pageNum", pageNum2);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("map", map);
@@ -85,24 +80,14 @@ public class MessageController {
 		
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
-		
-		//레코드 개수 계산
-//		int countAll = messageService.sendCountArticles(searchOption, keyword);
-				
-		//페이지 나누기 관련 처리
-//		MessagePageMaker messagePageMaker = new MessagePageMaker(countAll, curPage);
-//		int start = messagePageMaker.getStartPage();
-//		int end = messagePageMaker.getEndPage();
-				
+
 		List<MessageVO>mslist = messageService.sendListAll(searchOption, keyword, memberVO);		
 				
 		//데이터를 맵에 저장
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("mslist", mslist);
-//		map2.put("countAll", countAll);
 		map2.put("searchOption", searchOption);
 		map2.put("keyword", keyword);
-//		map2.put("messagePageMaker", messagePageMaker);
 				
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("map", map2);

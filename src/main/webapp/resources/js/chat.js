@@ -97,12 +97,7 @@ function getFollowList(my_id, page_id, pageType) {
 		success : function(result) {
 			//console.log(result);
 			getFollowHelper();
-			
-			if(result.length > 0){
-				$("#chatfollower_Btn > span").html("팔로워 <br>" + result[0].followerNum);
-				$("#chatfollowing_Btn > span").html("팔로잉 <br>" + result[0].followingNum);
-			}
-			
+
 			if(isDetach == true)
 				$("#chatFollow_list").children().detach();
 			
@@ -172,3 +167,25 @@ $(document).ready(function(){
 	}
 
 })
+
+// 스크롤 할때 처리
+// 내일 제대로 작동하는지 확인 필요
+$(window).scroll(function() {
+	
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+    	isDetach = false;
+    	
+    	// 로그인된 아이디 (main.jsp에 hidden값)
+    	var my_id = $("#mem_id").val();
+    	
+    	// 현재 봐야하는 페이지의 아이디
+    	var page_id = $("#page_id").val();
+    	//console.log(my_id + " " + page_id);
+    	
+    	// follower 페이지인지 following 페이지 인지.
+    	var page_type = $("#page_type").val();
+
+    	getFollowList(my_id, page_id, page_type);
+
+    }
+});

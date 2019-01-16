@@ -31,19 +31,21 @@
 						<td>보낸 날짜</td>
 						<td>확인 여부</td>
 					</tr>
+					<%-- 페이징 필요 --%>
 					<c:forEach items="${map.mslist}" var="message">
 						<c:choose>
 							<c:when test="${empty message}">
-								보낸 쪽지가 없습니다.
+								<img src="${pageContext.request.contextPath}/resourses/img/logo_oops.png" style="width: 20%; margin-bottom: 30px;">
+								<h4 style="color: #1d2c52; font-weight: 500;">보낸 쪽지가 없습니다!<br/>친구에게 쪽지를 보내주세요!</h4>
 							</c:when>
 							<c:otherwise>
-<%-- 					 	<c:if test="${member.ID eq message.MESSAGE_SENDER}">    --%>
 							<tr bgcolor="white" align="center" height="40px" style="font-weight: 600; font-size: 16px; color: #1d2c52;">
 								<td><input type="hidden" value="${message.MESSAGE_NO}"></td>
 								<td>${message.MESSAGE_RECEIVER}</td>
 								<td>
+									<!-- 위치 제대로 뜨는지 확인 필요 -->
 									<a href="#" id="messageSendView" 
-										onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageSendView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageSendView', 'width=500, height=600')">${message.MESSAGE_SUBJECT}</a>
+										onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageSendView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageSendView', 'width=500, height=600, top=100px, left=100px')">${message.MESSAGE_SUBJECT}</a>
 								</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${message.MESSAGE_SENDTIME}"/></td>
 								<td>
@@ -57,13 +59,11 @@
 								</c:choose>
 								</td>
 							</tr>
-<%--  		 				</c:if>   --%>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 				</table>
 				<br/>
-				<%-- 검색 --%>
 				<%-- 검색 --%>
 				<form name="searchForm" onsubmit="search();">
 					<select name="searchOption" size="1" id="searchOption">
@@ -72,48 +72,10 @@
 						<option value="MESSAGE_SUBJECT"<c:out value="${map.searchOption eq 'MESSAGE_SUBJECT' ? 'selected' : ''}"/>>제목</option>
 						<option value="MESSAGE_CONTENT"<c:out value="${map.searchOption eq 'MESSAGE_CONTENT' ? 'selected' : ''}"/>>내용</option>
 					</select>
-					<input type="text" id="messageSearchkeyword" name="keyword" value="${map.keyword}" style="margin-top: 10px; border: 2px solid #6297ff; border-radius: 4px;"> 
-						<a href="" onclick="return false;" id="messageSearchBtn">
+					<input type="text" id="messageSendSearchkeyword" name="keyword" value="${map.keyword}" style="margin-top: 10px; border: 2px solid #6297ff; border-radius: 4px;"> 
+						<a href="" onclick="return false;" id="messageSendSearchBtn">
  				   			<i style="color: #6297ff;" class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i>
  				  		</a>
-					<%-- 페이징 처리 --%>
-<!-- 					<div> -->
-<!-- 						<ul> -->
-<%-- 							<c:if test="${map.messagePageMaker.curBlock ne 1}"> --%>
-<!-- 								<a href="#" onclick="list(1)">[처음]</a> -->
-<%-- 							</c:if> --%>
-<%-- 							<c:if test="${map.messagePageMaker.curPage ne 1}">   --%>
-<!-- 								<li>             -->
-<%-- 			                        <a href="#" onclick="list('${map.messagePageMaker.prevPage}')">      --%>
-<!-- 			                       		<i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp; -->
-<!-- 			                        </a> -->
-<!-- 		                        </li> -->
-<%-- 	               		 	</c:if> --%>
-<!-- 	               		 	하나의 블럭에서 반복문 수행 시작페이지부터 끝페이지까지 -->
-<%-- 							<c:forEach end="${map.messagePageMaker.endPage}" begin="${map.messagePageMaker.startPage}" var="idx"> --%>
-<%-- 								<c:choose> --%>
-<%-- 									<c:when test="${idx eq map.messagePageMaker.curPage}"> --%>
-<%-- 										<a href="#" onclick="list('${idx}')">  --%>
-<%-- 											<font style="font-weight: bold; color: #1d2c52;">[${idx}]</font> --%>
-<!-- 										</a> -->
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<%-- 										 <a href="#" onclick="list('${idx}')">  --%>
-<%-- 						                    <font style="color: #1d2c52;">[${idx}] </font>  --%>
-<!-- 						                 </a> -->
-<%-- 									</c:otherwise> --%>
-<%-- 								</c:choose> --%>
-<%-- 							</c:forEach> --%>
-<%-- 							<c:if test="${map.messagePageMaker.curPage ne map.messagePageMaker.totPage && map.messagePageMaker.totPage > 0}">               --%>
-<%-- 		                        <a href="#" onclick="list('${map.messagePageMaker.nextPage}')">      --%>
-<!-- 		                        	&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>  -->
-<!-- 		                        </a> -->
-<%-- 	               		 	</c:if> --%>
-<%-- 	               		 	<c:if test="${map.messagePageMaker.curBlock ne map.messagePageMaker.totBlock && map.messagePageMaker.totBlock > 0}"> --%>
-<%-- 								<a href="#" onclick="list('${map.messagePageMaker.totPage}')">[끝]</a> --%>
-<%-- 							</c:if> --%>
-<!--                			</ul> -->
-<!-- 					</div> -->
 				</form>
 					<div class="btn_Message">
 						<input id="uploadBtn1" type="button" value="받은 쪽지 확인" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageList'">

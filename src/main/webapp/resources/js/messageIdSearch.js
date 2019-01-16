@@ -1,5 +1,5 @@
 /* 쪽지 전송시 아이디 존재 여부 확인을 위한 JS */
- 
+
     $(".idCheckBtn").click(function() {
         $.ajax({
             type : "POST",
@@ -18,4 +18,3 @@
             }
         });
     });
-

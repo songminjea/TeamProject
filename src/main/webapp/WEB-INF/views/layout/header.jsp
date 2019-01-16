@@ -38,7 +38,8 @@
 								title="Send Message"><i class="fa fa-envelope"
 								id="message_i"></i></a> <a href="#"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatList', 'multiChat', 'width=450, height=650')"
+								<%-- 위치 알맞게 뜨는지 확인 필요. 우측 하단에 띄울 예정--%>
+								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatList', 'multiChat', 'width=450, height=650, right=70px, bottom=70px')"
 								title="Chat"><i class="fa fa-weixin" id="chat_i"
 								aria-hidden="true"></i></a>
 							<%-- 새 글 알림 --%>
@@ -46,17 +47,21 @@
 								<button class="w3-button w3-padding-large" title="Notifications">
 									<i class="fa fa-bell" id="alarm_i"></i> <span
 										class="w3-badge w3-right w3-small"
+										<%--  쪽지, 채팅, 댓글 합할 것. --%>
 										style="background-color: #cbcbcd;">${messageCount}</span>
 								</button>
 								<%-- 새 글 알림 드롭다운 --%>
 								<div class="w3-dropdown-content w3-card-4 w3-bar-block"
 									style="width: 300px; font-size: 14px; color: #1d2c52; font-weight: 600;">
-									<a href="${pageContext.request.contextPath}/main" class="w3-bar-item w3-button">새로 업로드 된 게시물</a>
+									<a href="${pageContext.request.contextPath}/main" class="w3-bar-item w3-button">새로 업로드된 게시물</a>
+									<!-- 새글 알림 핸들러로 약 3~5개 최신글 간략히 요약내용 보여줄 예정.  -->
 									<a href="#"></a>
 									<a href="${pageContext.request.contextPath}/${member.ID}/messageList"
 										class="w3-bar-item w3-button"> 읽지 않은 쪽지가 ${messageCount}개
+										<%-- 읽지않은 채팅방 개수 띄우기  --%>
 										있습니다. </a> <a href="${pageContext.request.contextPath}/${member.ID}/chatList" class="w3-bar-item w3-button">새로운 대화가 개
 										도착했습니다.</a>
+									<%--댓글은 추가할 시간이나 될까. --%>
 								</div>
 							</div>
 							<%-- 새 글 알림 끝 --%>

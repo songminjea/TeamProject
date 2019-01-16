@@ -24,8 +24,6 @@ public class MessageDAOImpl implements MessageDAO{
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		map.put("MESSAGE_RECEIVER", MESSAGE_RECEIVER);
-//		map.put("start", start);
-//		map.put("end", end);
 		return sqlSession.selectList(namespace+".listAll", map);
 	}
 

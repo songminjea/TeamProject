@@ -52,7 +52,7 @@
 			<br/>
 			<input type="submit" id="btnSend" value="전송"/>
 			<input type="button" id="closeBtn" value="창닫기" onclick="window.close()">
-			<%-- 대화창 --%>
+			<%-- 대화창. chatContent로 이동시킨다. 위의 ul인가? 좀 헷깔림. 여기는 include center로 변경한다. --%>
 			<ul id="discussion">
 			</ul>
 			</td>

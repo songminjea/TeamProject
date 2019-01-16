@@ -8,15 +8,9 @@ public interface MessageDAO {
 	
 	//쪽지 전체 목록
 	public List<MessageVO>listAll(String searchOption, String keyword, String MESSAGE_RECEIVER)throws Exception;
-		
-	//페이징을 위한 카운트
-//	public int countArticles(String searchOption, String keyword)throws Exception;
-	
+			
 	//내가 보낸 쪽지
 	public List<MessageVO>sendListAll(String searchOption, String keyword, String MESSAGE_SENDER)throws Exception;
-	
-	//보낸거 페이징을 위한 카운트
-//	public int sendCountArticles(String searchOption, String keyword)throws Exception;
 	
 	//쪽지 개수
 	public int countList(String message_id)throws Exception;

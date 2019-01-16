@@ -96,6 +96,23 @@ $(document).ready(function(){
 		location.href="${pageContext.request.contextPath}/search?keyword="+keyword;
 	});
 });
+
+$(document).ready(function(){
+	$("#messageSearchBtn").on("click", function(){
+		var keyword = $("#messageSearchkeyword").val();
+		
+		location.href="${pageContext.request.contextPath}/${member.ID}/messageList?keyword="+keyword;
+	});
+});
+
+$(document).ready(function(){
+	$("#messageSendSearchBtn").on("click", function(){
+		var keyword = $("#messageSendSearchkeyword").val();
+		
+		location.href="${pageContext.request.contextPath}/${member.ID}/messageSendList?keyword="+keyword;
+	});
+});
+
 //게시판
 $(document).ready(
 	function() {
@@ -146,5 +163,6 @@ $(document).ready(function(){
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/message.js"></script>
 </body>
 </html> 

@@ -18,14 +18,15 @@
 	
 </div>
 
-<div id="screenLock" style="width:100%; height:100%; top:0px; left:0px; position:absolute; z-index:1; background:#1B1B1B; visibility:hidden;">
-	<div style="position: relative; top: 50%; text-align: center; color: red; font-size: 20px; font-weight: bold; opacity: 1.0;">
-		차단 된 페이지에는 접근 할 수 없습니다.<br><br>
-		<a href="javascript:history.back();" style=" border: 1px solid white; color: white; border-radius: 20px; padding: 5px;">
-		돌아가기
-		</a>
-	</div> 
-</div>
+<%-- 임시 주석 처리 --%>
+<!-- <div id="screenLock" style="width:100%; height:100%; top:0px; left:0px; position:absolute; z-index:1; background:#1B1B1B; visibility:hidden;"> -->
+<!-- 	<div style="position: relative; top: 50%; text-align: center; color: red; font-size: 20px; font-weight: bold; opacity: 1.0;"> -->
+<!-- 		차단된 페이지에는 접근할 수 없습니다!<br><br> -->
+<!-- 		<a href="javascript:history.back();" style=" border: 1px solid white; color: white; border-radius: 20px; padding: 5 10px;"> -->
+<!-- 		돌아가기 -->
+<!-- 		</a> -->
+<!-- 	</div>  -->
+<!-- </div> -->
 
 
 <script id="gallery-template" type="text/x-handlebars-template">
@@ -41,7 +42,7 @@
 	<span class="w3-right">
 		<div class="w3-dropdown-click">
 			<button class="gall_DropBtn w3-button w3-white w3-hover-white">
-				<i class="fa fa-check" aria-hidden="true"></i>
+				<i class="fa fa-check" aria-hidden="true" style="font-size: 15px; color: #78787c;"></i>
 			</button>
 			<div id="gallDrop_{{gallery/gb_Num}}" class="w3-dropdown-content w3-bar-block w3-border">
 				<a href="#" onclick="modifyGallery({{gallery/gb_Num}})" class="w3-bar-item w3-button">수정</a> 
@@ -58,8 +59,14 @@
 			</button>
 			<div id="gallDrop_{{gallery/gb_Num}}" class="w3-dropdown-content w3-bar-block w3-border">
 				<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/follower" class="w3-bar-item w3-button">팔로우 목록</a>
+				<%-- 팔로우 언팔로우 버튼 --%>
+				<button class="w3-bar-item w3-button followBtn followbtn_{{gallery/mb_ID}} {{#SetBtnState isfollowed 'follow'}}{{/SetBtnState}}" value='{{gallery/mb_ID}}'>팔로우</button>
+				<button class="w3-bar-item w3-button followingBtn followbtn_{{gallery/mb_ID}} {{#SetBtnState isfollowed 'following'}}{{/SetBtnState}}"
+					value='{{gallery/mb_ID}}'>
+					<span>팔로잉</span> <span>언팔로우</span>
+				</button>
+				<%-- 차단 차단해제 버튼 --%>
 				<button class="w3-bar-item w3-button blockBtn blockbtn_{{gallery/mb_ID}}" value="{{gallery/mb_ID}}">차단 하기</button>
-				
 				<button type="button" class="w3-bar-item w3-button blockingBtn blockbtn_{{gallery/mb_ID}} fbhide"
 					value='{{gallery/mb_ID}}'>
 					<span>차단 중</span> <span>차단 해제</span>
@@ -74,8 +81,8 @@
 
 	<%-- 드랍다운 버튼 끝 --%>
 	<%-- 글쓴이, 작성시간 --%>
-		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><h5 class="writerId" style="color: #1d2c52; font-weight: 600;">{{gallery/mb_ID}}</h5></a>
-		<h6 class="writeTime w3-opacity">{{gallery/gb_Date}}</h6><br/><br/>
+		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><font class="writerId" style="font-size: 18px; color: #1d2c52; font-weight: 600;">{{gallery/mb_ID}}</font></a>
+		<font class="writeTime w3-opacity">{{gallery/gb_Date}}</font><br/>
 
 	
 

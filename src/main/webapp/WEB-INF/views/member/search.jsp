@@ -41,23 +41,43 @@ margin: 0px 10px 10px 10px;
 					<div class="member_icon" style="font-weight: 500; font-size: 15px;">
 						<span class="w3-right smallSizeFont">
 							<button type="button"
-								class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn {{#SetBtnState isfollowed 'follow'}}{{/SetBtnState}} fbtn_{{sMem_id}}"
+								class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn {{#SetBtnState isfollowed isblocked 'follow'}}{{/SetBtnState}} followbtn_{{sMem_id}}"
 								value='{{sMem_id}}'>팔로우</button>
 							<button type="button"
-								class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn {{#SetBtnState isfollowed 'following'}}{{/SetBtnState}} fbtn_{{sMem_id}}"
+								class="w3-button w3-theme-d1 w3-margin-bottom followingBtn fbBtn {{#SetBtnState isfollowed isblocked 'following'}}{{/SetBtnState}} followbtn_{{sMem_id}}"
 								value='{{sMem_id}}'>
 								<span>팔로잉</span> <span>언팔로우</span>
 							</button>
+							<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom blockingBtn fbBtn {{#SetBtnState isfollowed isblocked 'blocking'}}{{/SetBtnState}} blockbtn_{{sMem_id}}"
+								value='{{sMem_id}}'>
+								<span>차단중</span> <span>차단 해제</span>
+							</button>
+							<%-- 드랍다운 버튼 --%>
+							<div class="w3-dropdown-click">
+							<button class="search_DropBtn w3-button w3-white w3-hover-white" style="padding: 0px 0px 15px 0px;">
+								<i class="fa fa-cog" aria-hidden="true"></i>
+							</button>
+								<div id="searchDrop_{{sMem_id}}" class="w3-dropdown-content w3-bar-block w3-border">
+									<a href="${pageContext.request.contextPath}/{{sMem_id}}/follower" class="w3-bar-item w3-button">팔로우 목록</a>
+									<button class="w3-bar-item w3-button blockBtn blockbtn_{{sMem_id}}" value="{{sMem_id}}">차단 하기</button>
+					
+									<button type="button" class="w3-bar-item w3-button blockingBtn blockbtn_{{sMem_id}} fbhide"
+										value='{{sMem_id}}'>
+										<span>차단 중</span> <span>차단 해제</span>
+									</button>
+								</div>
+							</div>
+
+							<%-- 드랍다운 버튼 끝 --%>
 						</span>
 						<p style="padding-top: 5px; margin-bottom: 7px;">
-							<a href="${pageContext.request.contextPath}/{{sMem_id}}/gallery"> {{sMem_id}} </a>
+							<font style="font-size: 17px; font-weight: bold;">
+								<a href="${pageContext.request.contextPath}/{{sMem_id}}/gallery">{{sMem_id}}</a>
+							</font>
 						</p>
 						<br>
-						
-						<p>
-							<i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i>
-							{{sMem_email}}
-						</p>
+						<%-- 이메일 --%>
+						<p><i class="fa fa-envelope fa-fw w3-text-theme"></i>{{sMem_email}}</p>
 					</div>
 				</div>
 			</div>

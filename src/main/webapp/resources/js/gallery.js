@@ -73,6 +73,29 @@ function regHelper(){
 			  return options.inverse(this);
 		  }
 	});
+	
+	
+	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
+		//console.log(isfollowed + " " + type);
+		if(isfollowed == ""){
+			return 'fbhide';
+		}
+		if (type == "follow") {
+			if(isfollowed == 'true'){
+				return 'fbhide';
+			}else{
+				return;
+			}
+		  
+		} else if(type =="following"){
+			if(isfollowed == 'true'){
+				return;
+			}else{
+				return 'fbhide';
+			}
+		}
+		
+	});
 }
 
 function ShowGallery(id, isMyGall){
@@ -98,34 +121,39 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			// 차단되어있을때 화면 잠금.
-			if(result == ""){
-				screenLock();
-			}else{
-				if(result.length != 0){
-					var source = $("#gallery-template").html();
-					var template = Handlebars.compile(source);
-					var data = {
-							gall : result,
-					}
-					
-					regHelper();
-					
-					countGallery = countGallery + result.length;
-					//console.log(countGallery);
-					var html = template(data);
-					$("#gallery_list").append(html);
-					TimeFormat();
-					
-					pageNum++;
-				} else{
-					if(isDetach == true)
-						$("#gallery_list").append("<h4 style='color: #1d2c52;'>글좀 써주세요... 싫음 말고</h4>");
-					
+			console.log(result);
+			// 차단되어있을때 화면 잠금.			
+			if(result.length != 0){
+				if(result[0].isblocked == 'true'){
+					screenLock();
+					return;
 				}
+				
+				var source = $("#gallery-template").html();
+				var template = Handlebars.compile(source);
+				var data = {
+						gall : result,
+				}
+				
+				regHelper();
+				
+				countGallery = countGallery + result.length;
+				var html = template(data);
+				$("#gallery_list").append(html);
+				TimeFormat();
+				
+				pageNum++;
+			} else{
+					if(isDetach == true)
+						$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
+								"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+								"<h4 style='color: #1d2c52; font-weight: 600;'>" +
+								"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
+					
 			}
-			//console.log(result.length);
 		}
+			//console.log(result.length);
+		
 		
 	});
 	
@@ -146,9 +174,10 @@ function galleryDelete(GB_Num){
 			countGallery--;
 			
 			if(countGallery == 0){
-				$("#gallery_list").append("<div align='center' style='line-height: 200%;'><h4 style='color: #1d2c52; font-weight: 500;'>" +
-										  "<img src='../resources/img/logo_oops.png'style='width: 30%; margin-bottom: 30px;'/>"+
-										  "아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
+				$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
+										"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+										"<h4 style='color: #1d2c52; font-weight: 500;'>" +
+										"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 			}
 			
 		},
@@ -218,6 +247,19 @@ function modifyGallery(gb_Num){
     document.body.appendChild(form);
 
     form.submit();
+	
+}
+
+function galleryBtnExtends(target_id, type, state){	
+	
+	
+	if(state == 1 && type == "block"){
+		$('.followbtn_'+ target_id).filter('.followBtn').removeClass(
+		'fbhide');
+		$('.followbtn_'+ target_id).filter('.followingBtn').addClass(
+		'fbhide');
+	}
+		
 	
 }
 

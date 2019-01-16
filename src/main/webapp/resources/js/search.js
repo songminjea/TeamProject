@@ -7,13 +7,17 @@ isDetach = true;
 
 
 function getSearchHelper(){
-	Handlebars.registerHelper('SetBtnState', function(isfollowed,type,options) {
-		//console.log(isfollowed);
+	Handlebars.registerHelper('SetBtnState', function(isfollowed,isblocked,type,options) {
+		//console.log(isfollowed + " " + isblocked);
 		if(isfollowed == ""){
 			return 'fbhide';
 		}
+		
 		if (type == "follow") {
-			if(isfollowed == 'true'){
+			if(isblocked == 'true'){
+				return 'fbhide';
+			}
+			else if(isfollowed == 'true'){
 			
 				return 'fbhide';
 			}else{
@@ -21,9 +25,20 @@ function getSearchHelper(){
 			}
 		  
 		} else if(type =="following"){
-			if(isfollowed == 'true'){
+			
+			if(isblocked == 'true'){
+				return 'fbhide';
+			}
+			else if(isfollowed == 'true'){
 				return;
 			}else{
+				return 'fbhide';
+			}
+		} else if(type == "blocking"){
+			if(isblocked == 'true'){
+				return;
+			}
+			else{
 				return 'fbhide';
 			}
 		}
@@ -55,8 +70,8 @@ function getSearchList(keyword){
 					$("#search_list").append(
 					"<div class='w3-col m12 w3-card w3-round w3-white' style='padding: 50px 30px;'>" +
 						"<div class='w3-container'  align='center'>" +
-						"<img src='../resources/img/logo_oops.png'style='width: 30%; margin-bottom: 30px;'/>"+
-					"<h4 style='font-weight: 500; color: #1d2c52;'>" + keyword + "로 검색한 결과가 없습니다!</h4> </div> </div>"
+						"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/>"+
+					"<h4 style='font-weight: 600; color: #1d2c52;'>" + keyword + "로 검색한 결과가 없습니다!</h4> </div> </div>"
 					);
 			}else{
 				var source = $("#search-template").html();
@@ -89,10 +104,37 @@ $('body').scroll(function(){
 	}
 });
 
+function searchBtnExtends(target_id, type, state){
+	var reverse_type;
+	if(type == "follow")
+		reverse_type = "block";
+	else
+		reverse_type = "follow";
+	
+	if(state == 1){
+		if(type == 'block')
+			$('.'+ reverse_type + 'btn_'+ target_id).addClass('fbhide');
+	}else{
+		$('.'+ reverse_type + 'btn_'+ target_id).filter('.' + reverse_type + 'Btn').removeClass('fbhide');
+	}
+	
+}
+
 $(document).ready(function(){
 	
 	var keyword = $("#keyword").val();
 	
 	getSearchList(keyword);
+	
+	$(document).on("click", ".search_DropBtn", function(){
+		if($(this).hasClass("w3-theme-d1") == false){
+			$(this).addClass("w3-theme-d1");
+			$(this).next().addClass("w3-show");
+		}else{
+			$(this).removeClass("w3-theme-d1");
+			$(this).next().removeClass("w3-show");
+		}
+	});
+	
 	
 });

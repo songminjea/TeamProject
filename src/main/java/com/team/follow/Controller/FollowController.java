@@ -207,8 +207,15 @@ public class FollowController {
 			followlist.add(tempMap);
 
 		}
-
 		
+		
+		if(followlist.size() == 0) {
+			Map<String, Object> tempMap = new HashMap<>();
+			tempMap.put("followerNum", followerNum);
+			tempMap.put("followingNum", followingNum);
+			tempMap.put("blockingNum", blockingNum);
+			followlist.add(tempMap);
+		}
 		return followlist;
 	}
 
@@ -236,10 +243,7 @@ public class FollowController {
 	@ResponseBody
 	public List<FollowVO> getSuggestionFollowList(@RequestBody String id){
 	
-		//System.out.println("suggesition " + id);
 		List<FollowVO> recommend = followService.getNotFollowingList(id);
-		
-		
 		return recommend;
 		
 	}

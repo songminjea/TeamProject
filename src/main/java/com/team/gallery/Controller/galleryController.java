@@ -136,11 +136,10 @@ public class galleryController {
 	// 갤러리 글 삭제
 	@RequestMapping(value="/galleryDelete", method=RequestMethod.POST)
 	@ResponseBody
-	public void galleryDelete(@RequestBody Map<String, String> GB_Num) throws Exception {
+	public void galleryDelete(@RequestBody String GB_Num) throws Exception {
 		
-		System.out.println("galleryDelete 호출 " + GB_Num.get("GB_Num") );
-		gbService.Delete(Integer.parseInt(GB_Num.get("GB_Num")));
-		
+		System.out.println("galleryDelete 호출 " + GB_Num );
+		gbService.Delete(Integer.parseInt(GB_Num));
 
 
 	}

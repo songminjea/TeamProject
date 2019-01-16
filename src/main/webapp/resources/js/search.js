@@ -104,6 +104,7 @@ $('body').scroll(function(){
 	}
 });
 
+// 팔로우, 차단 버튼 눌렀을때 추가 처리.
 function searchBtnExtends(target_id, type, state){
 	var reverse_type;
 	if(type == "follow")

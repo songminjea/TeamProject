@@ -77,8 +77,7 @@
 		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><h5 class="writerId" style="color: #1d2c52; font-weight: 600;">{{gallery/mb_ID}}</h5></a>
 		<h6 class="writeTime w3-opacity">{{gallery/gb_Date}}</h6><br/><br/>
 
-	<%-- 글 내용 --%>
-	<span id="Gall_Content"><p>{{#SetContentLine gallery/gb_Content}}{{/SetContentLine}}</p></span>
+	
 
 	<%-- 캐러셀 --%>
 	<div id="carouselControls_{{gallery/gb_Num}}" class="carousel slide" data-ride="carousel">
@@ -102,12 +101,14 @@
 		{{/setCarousel}}
 	</div>		
 
-	
+	<%-- 글 내용 --%>
+	<span id="Gall_Content"><p>{{#SetContentLine gallery/gb_Content}}{{/SetContentLine}}</p></span>
+	<span id ="recomment"></span>
 
 	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom w3-hover-white">
 		<i class="fa fa-thumbs-up" id="like_i"></i><font class="listFont" style="font-size: 14px;">Like</font>
 	</button>
-	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom w3-hover-white">
+	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom w3-hover-white" onclick ="recomment({{gallery/gb_Num}})">
 		<i class="fa fa-comment" id="comment_i"></i><font class="listFont" style="font-size: 14px;">Comment</font>
 	</button>
 	
@@ -120,3 +121,4 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript"	src="${pageContext.request.contextPath}/resources/js/gallery.js"></script>
+<script type="text/javascript"	src="${pageContext.request.contextPath}/resources/js/recomment.js"></script>

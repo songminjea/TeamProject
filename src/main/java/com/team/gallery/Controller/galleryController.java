@@ -88,7 +88,6 @@ public class galleryController {
 		fvo.setGb_Num(Num);			
 		gbService.FileUpdate(fvo);
 
-		
 		ra.addFlashAttribute("msg", "success");
 		
 		return "redirect:main";
@@ -97,9 +96,6 @@ public class galleryController {
 	@RequestMapping(value = "/galleryModify" , method=RequestMethod.POST)
 	public String galleryModify(@ModelAttribute galleryVO gvo,fileVO fvo, RedirectAttributes ra, HttpServletRequest request, Model model) throws Exception {
 		
-				
-		
-
 		List<Map<String, String>> mod_imgSrc = new ArrayList<>();
 		
 		if(fvo.getGb_Image() != null) {

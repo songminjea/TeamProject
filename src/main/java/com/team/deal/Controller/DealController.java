@@ -19,13 +19,13 @@ public class DealController {
 	@Inject
 	DealService dealService;
 	//�۸��
-	@RequestMapping("list")
+/*	@RequestMapping("list")
 	public String dealList(Model model) throws Exception{
-		List<DealDTO> list =dealService.dealList();
+//		List<DealDTO> list =dealService.dealList();
 		model.addAttribute("list", list);
 		return "main.jsp?center=deal/deal_list";
 	}
-
+*/
 	//�۾�����������
 	@RequestMapping("write")
 	public String writePage() {

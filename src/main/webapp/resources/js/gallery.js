@@ -5,7 +5,9 @@ isDetach = true;
 function getContextPath() { // ContextPath 얻어오는 함수 (/TeamPro)
 
 	var hostIndex = location.href.indexOf(location.host) + location.host.length;
-
+	
+	console.log(hostIndex);
+	
 	return location.href.substring(hostIndex, location.href.indexOf('/',
 			hostIndex + 1));
 
@@ -169,8 +171,6 @@ function modifyGallery(gb_Num){
     form.setAttribute("method", "Post");  //Post 방식
     form.setAttribute("action", getContextPath()+"/galleryModify"); //요청 보낼 주소
 
-    
-    
 
     var mb_id = $("#gallery_"+gb_Num).find(".writerId").text();
     var gb_content = $("#gallery_"+gb_Num).children("#Gall_Content").text();

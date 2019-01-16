@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gallery.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/message.css"/> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.css"/>
 <!-- 썸머노트 -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

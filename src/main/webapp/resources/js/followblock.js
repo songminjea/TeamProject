@@ -94,10 +94,10 @@ function getFollowList(my_id, page_id, pageType) {
 			if(isDetach == true)
 				$("#follow_list").children().detach();
 			
-			if(result.length == 0){
+			if(result[0].memVO == null){
 				if(isDetach == true)
 					$("#follow_list").append("<div align='center'>" +
-											"<img src='../resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px; padding-left:20px;'/>"+
+											"<img src='" + getContextPath() + "/resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px; padding-left:20px;'/>"+
 											"<h4 style='font-weight: 600; color: #1d2c52;'>저런! 친구가 없으시네요!</h4></div>");
 			}else{
 				var source = $("#follow-template").html();
@@ -145,7 +145,7 @@ function getBlockingList(my_id) {
 			if(isDetach == true)
 				$("#follow_list").children().detach();
 			
-			if(result.length == 0){
+			if(result[0].memVO == null){
 				if(isDetach == true)
 					$("#follow_list").append("<h4 style='color: #1d2c52;'>차단한 사람이 없으시네요!</h4>");
 			}else{
@@ -259,7 +259,10 @@ function UnFBProc(target_id, url, type) {
 				'fbhide');
 				$('.'+ type + 'btn_'+ target_id).filter('.' + type + 'ingBtn').addClass(
 				'fbhide');
-				searchBtnExtends(target_id, type, 0);
+				
+				if(typeof searchBtnExtends == 'function')
+					searchBtnExtends(target_id, type, 0);
+				
 			} else { // 언팔로우or차단 해제 안되었을때
 				console.log("처리 실패! 이미 처리 되어있음.")
 			}
@@ -287,6 +290,7 @@ function getSuggestionFollowList(my_id){
 			data : my_id,
 			url : "/TeamPro/SuggestionFollow",
 			success : function(result) {
+				//console.log(result);
 				if(result.length > 0){
 					var source = $("#s_recom_follow-template").html();
 					var template = Handlebars.compile(source);
@@ -336,7 +340,7 @@ $('body').scroll(function() {
 });
 
 // 버튼 클릭 이벤트 ~~
-function BtnClickEvent(){
+function FBBtnClickEvent(){
 	// 팔로워 버튼 메뉴 클릭 이벤트
 	$(document).on("click", "#getfollower_Btn" , function(){
 		
@@ -398,7 +402,7 @@ function BtnClickEvent(){
 }
 
 $(document).ready(function(){
-	BtnClickEvent();
+	FBBtnClickEvent();
 	
 	// 로그인된 아이디 (main.jsp에 hidden값)
 	var my_id = $("#mem_id").val();

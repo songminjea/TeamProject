@@ -119,7 +119,7 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			console.log(result);
+			//console.log(result);
 			// 차단되어있을때 화면 잠금.			
 			if(result.length != 0){
 				if(result[0].isblocked == 'true'){
@@ -144,7 +144,7 @@ function ShowGallery(id, isMyGall){
 			} else{
 					if(isDetach == true)
 						$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
-								"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+								"<img src='"+ getContextPath() + "/resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
 								"<h4 style='color: #1d2c52; font-weight: 600;'>" +
 								"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 					
@@ -158,10 +158,11 @@ function ShowGallery(id, isMyGall){
 }
 function galleryDelete(GB_Num){
 	$.ajax({
+		
 		type : "POST",
 		contentType : "application/json",
-		//DataType : "json",
-		data : JSON.stringify({GB_Num : GB_Num}),
+		// dataType: "json",
+		data : JSON.stringify(GB_Num),
 		url : "/TeamPro/galleryDelete",
 		
 		success : function() {
@@ -250,6 +251,7 @@ function modifyGallery(gb_Num){
 	
 }
 
+//팔로우, 차단 버튼 눌렀을때 추가 처리.
 function galleryBtnExtends(target_id, type, state){	
 	
 	

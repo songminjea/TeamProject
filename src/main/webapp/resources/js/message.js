@@ -1,7 +1,7 @@
-pageNum = 0;
+/*pageNum = 0;
 isDetach = false;
  
-	/* 스크롤 할때 처리 */  
+	 스크롤 할때 처리   
     $('body').scroll(function() {
     	if($('body').scrollTop() == $(document).height()-$(window).height()){
     		isDetach = false;
@@ -35,4 +35,4 @@ isDetach = false;
     					+ request.responseText + "\n" + "error:" + error);
     		}
     	});
-    }
+    }*/

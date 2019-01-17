@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.chat.Service.ChatService;
-import com.team.chat.VO.ChatVO;
 import com.team.chat.VO.ChatroomVO;
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
@@ -65,7 +64,8 @@ public class ChatController {
 	
 	// 팔로우 목록 페이지 요청 처리
 	@RequestMapping(value = { "{id}/chatFollower", "{id}/chatFollowing"})
-	public String ShowChatFollowList(@PathVariable String id, Model model, HttpServletRequest request, HttpSession session) {
+	public String ShowChatFollowList(@PathVariable String id, Model model, HttpServletRequest request, 
+									  HttpSession session) {
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
 		model.addAttribute("me", memberVO);
 		
@@ -184,26 +184,19 @@ public class ChatController {
 		return followlist;
 	}
 	
-	//채팅 접속 *현재 테이블 드랍시키고, chatroom과 동시에 chat 테이블 넘버값, 나와 상대방 넣기 필요.
+	//채팅 접속 
 	@RequestMapping(value="{id}/multiChat", method=RequestMethod.GET)
-	public String multiChat(@PathVariable String id, ChatroomVO cvo, ChatVO chvo, HttpSession session, Model model)throws Exception{
+	public String multiChat(@PathVariable String id, ChatroomVO cvo, HttpSession session, Model model)throws Exception{
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		
 		model.addAttribute("profile", memberVO);
-		
 		chatService.create(cvo);
-		//CHAT 테이블도 CREATE 필요
-		int CHATROOM_NO = cvo.getCHATROOM_NO();
-		chvo.setCHAT_NO(CHATROOM_NO);
-		//CHATROOM_NO와 동일한 CHAT_NO의 대화를 가져옴.
-		ChatVO resultVO = chatService.read(chvo);
-		
-		model.addAttribute("resultChatVO", resultVO);
+		model.addAttribute("cvo2", cvo);
 		
 		return "chat/multiChat";
 	}
 	
-	//존재하는 채팅방 접속(넘버값으로 구함) *지난 대화 내용 불러오기 필요.
+	//존재하는 채팅방 접속(넘버값으로 구함) 
 	@RequestMapping(value="{id}/multiAlreadyChat", method=RequestMethod.GET)
 	public String multiAreadyChat(@PathVariable String id, @RequestParam("CHATROOM_NO") int CHATROOM_NO, 
 								  @ModelAttribute("ChatroomVO")ChatroomVO cvo, HttpSession session, Model model)throws Exception{
@@ -211,23 +204,11 @@ public class ChatController {
 		model.addAttribute("profile", memberVO);
 			
 		cvo.setCHATROOM_NO(CHATROOM_NO);
-		ChatroomVO cvo2 = chatService.areadyRead(cvo);	
+		ChatroomVO cvo2 = chatService.read(cvo);	
+		
 		model.addAttribute("cvo2", cvo2);
 			
 		return "chat/multiChat";
 	}
-	
-	//채팅방 대화 내용 저장 후 띄움. 대화 내용 입력 시 SENDVAL -> true로 변경된다.
-	@RequestMapping(value="{id}/multiChat", method=RequestMethod.POST)
-	public String multiChatContent(@PathVariable String id, @RequestParam("CHATROOM_NO") int CHATROOM_NO,
-								   @ModelAttribute()ChatroomVO cvo, HttpSession session, Model model)throws Exception{
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
-		model.addAttribute("profile", memberVO);
-		
-		chatService.chatCreate();
-		List<ChatVO>contentList = chatService.contentListAll(CHATROOM_NO);
-		model.addAttribute("contentList", contentList);
-		
-		return "chat/multiChat.jsp?center=chat/chatContent";
-	}
+
 }

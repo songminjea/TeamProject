@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- CSS -->
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/follow.css"> --%>
 <%-- 팔로워 페이지인지 팔로잉 페이지인지 --%>
 <input type="hidden" id="page_type" value="${type}">
 <%-- 현재 봐야하는 페이지의 아이디 --%>
@@ -41,7 +39,7 @@
 <script id="follow-template" type="text/x-handlebars-template">
 {{#follow}}		
 	<div id="list_{{target_id}}">
-		<img src=${pageContext.request.contextPath}/{{#GetImgSrc memVO/pic}}{{/GetImgSrc}} alt="프로필 사진" class="w3-left w3-circle w3-margin-right" style="width: 70px">
+		<img src=${pageContext.request.contextPath}/{{#GetImgSrc memVO/pic}}{{/GetImgSrc}} alt="프로필 사진" class="w3-left w3-margin-right" style="width: 70px">
 		<span id="span_fBtn" class="w3-right">
 			<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom followBtn fbBtn {{#SetBtnState isfollowed 'follow'}}{{/SetBtnState}} followbtn_{{target_id}}"
 				value='{{target_id}}'>팔로우
@@ -52,7 +50,7 @@
 			</button>
 		</span>
 						
-		<h4>
+		<h4 style="color:#1d2c52;">
 			<a href="${pageContext.request.contextPath}/{{target_id}}/gallery">
 				{{target_id}}
 			</a>
@@ -61,7 +59,6 @@
 		<hr class="w3-clear">
 	</div>
 {{/follow}}
-
 </script>
 
 <script id="block-template" type="text/x-handlebars-template">

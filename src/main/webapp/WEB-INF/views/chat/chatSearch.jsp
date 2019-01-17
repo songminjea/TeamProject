@@ -21,6 +21,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/chat.js"></script>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
+<%-- <input type="hidden" name="keyword" value="${keyword}"> --%>
 <%-- 로그인된 아이디 --%>
 <input type="hidden" id="mem_id" value="${member.ID}">
 <%-- 팔로워 페이지인지 팔로잉 페이지인지 --%>
@@ -31,15 +32,20 @@
 		<div align="left" style="border: solid 1px #4497fd; background-color:#4497fd; height: 55px; width: 100%;">
 			<span id="chatListArea" style="font-size: 25px; margin-left: 30px; padding: 0; line-height: 55px; padding-top: 10px;">
 				<a href="${pageContext.request.contextPath}/${member.ID}/chatList">
-					<i class="fa fa-comments" aria-hidden="true" style="color:white;"></i>
+					<i class="fa fa-comments" aria-hidden="true" style="color:white;" title="chat_list"></i>
 				</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="${pageContext.request.contextPath}/${member.ID}/chatFollower">
-					<i class="fa fa-user" aria-hidden="true" style="color:white;"></i>
+					<i class="fa fa-user" aria-hidden="true" style="color:white;" title="follow_list"></i>
 				</a>
-				<%-- 아이디 검색바 추가 --%>
 			</span>
+<!-- 			<span style="margin-left: 110px; position: absolute; padding-top: 2px; width: 500px;"> -->
+<%-- 				<input class="w3-margin-right" type="text" id="chatSearchkeyword" name="keyword" value="${keyword}" style="width: 30%; height: 30px; margin-top: 10px; border: none; border-radius: 4px;">  --%>
+<!-- 					<a href="" onclick="return false;" id="chatSearchBtn"> -->
+<!--  				   		<i style="color: #fff; font-size: 20px;" class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i> -->
+<!--  				  	</a> -->
+<!--  			</span> -->
 		</div>
-		<span id="s_listArea"> <%-- 팔로워 팔로잉 목록 버튼. css 변경--%>
+		<span id="s_listArea"> <%-- 팔로워 팔로잉 목록 버튼. --%>
 			<button type="button" class="w3-button w3-theme-d1 w3-hover-white"
 					id="chatfollower_Btn">
 				<i class="fa fa-thumbs-up" style="color: #4497fd;"></i>
@@ -53,7 +59,7 @@
 		</span>
 		<hr class="w3-clear" style="margin: 5px 0 10px;">			
 		<input type="hidden" id="CHATROOM_SENDER" name="CHATROOM_SENDER" value="${member.ID}">
-		<span id="chatFollow_list"> <%-- 팔로우 정보 리스트 영역. 무한 스크롤링 필요 --%>				
+		<span id="chatFollow_list"> <%-- 팔로우 정보 리스트 영역. 무한 스크롤링 --%>				
 		</span>
 	</div>
 <script id="chatFollow-template" type="text/x-handlebars-template">

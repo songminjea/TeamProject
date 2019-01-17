@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.chat.DAO.ChatDAO;
-import com.team.chat.VO.ChatVO;
 import com.team.chat.VO.ChatroomVO;
 import com.team.member.VO.MemberVO;
 
@@ -42,17 +41,19 @@ public class ChatServiceImpl implements ChatService{
 		
 		chatDao.create(cvo);
 	}
-		
+
 	//채팅 내용
 	@Override
-	public ChatVO read(ChatroomVO cvo)throws Exception{
-		ChatVO chvo = chatDao.read(cvo);
-		return chvo;
-	}
-	
-	//이미 있는 채팅방 입장
-	public ChatroomVO areadyRead(ChatroomVO cvo)throws Exception{
-		ChatroomVO cvo2 = chatDao.areadyRead(cvo);
+	public ChatroomVO read(ChatroomVO cvo)throws Exception{
+		ChatroomVO cvo2 = chatDao.read(cvo);
 		return cvo2;
 	}
+	
+	//채팅 개수
+	@Override
+	public int countList(MemberVO memberVO)throws Exception{
+		String chat_id = memberVO.getID();
+		return chatDao.countList(chat_id);
+	}
+
 }

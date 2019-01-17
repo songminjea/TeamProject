@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.block.Service.BlockService;
 import com.team.block.VO.BlockVO;
+import com.team.chat.Service.ChatService;
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
+import com.team.message.Service.MessageService;
 
 @Controller
 public class FollowController {
@@ -33,6 +35,12 @@ public class FollowController {
 	
 	@Autowired
 	private MemberServiceImpl memberService;
+
+	@Autowired
+	MessageService messageService;
+	
+	@Autowired
+	private ChatService chatService;
 	
 	@Autowired
 	private BlockService blockService;
@@ -87,7 +95,7 @@ public class FollowController {
 
 	// 팔로우 목록 페이지 요청 처리
 	@RequestMapping(value = { "{id}/follower", "{id}/following" })
-	public String ShowFollowList(@PathVariable String id, Model model, HttpServletRequest request) {
+	public String ShowFollowList(@PathVariable String id, Model model, HttpServletRequest request) throws Exception {
 
 		// uri 에서 id/~~~ 에서 ~~~ 값을 뽑아내는 부분
 		String uri = request.getRequestURI();
@@ -102,7 +110,16 @@ public class FollowController {
 		// id에 해당하는 프로필을 가져온다. 
 		// MemberInterceptor에서 처리 한 후 가져오는것.
 		MemberVO memberVo = (MemberVO)request.getAttribute("vo");
+		
+		//읽지 않은 쪽지 개수 조회
+		int count = messageService.countList(memberVo);
+		//채팅방 개수 조회
+		int count2 = chatService.countList(memberVo);
+		
+		model.addAttribute("chatCount", count2);
 		model.addAttribute("profile",memberVo);
+		model.addAttribute("messageCount", count);
+		model.addAttribute("chatCount", count2);
 		model.addAttribute("type", type); // 팔로우 페이지인지 팔로잉 페이지인지
 		model.addAttribute("page_id", id); // 보여줄 페이지의 아이디값
 

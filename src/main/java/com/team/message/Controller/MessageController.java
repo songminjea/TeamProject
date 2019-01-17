@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.team.chat.Service.ChatService;
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
 import com.team.message.VO.MessageVO;
@@ -31,6 +31,9 @@ public class MessageController {
 	@Autowired
 	MessageService messageService;
 	
+	@Autowired
+	ChatService chatService;
+	
 	@Inject
 	public MessageController(MessageService messageService) {
 		this.messageService = messageService;
@@ -38,7 +41,6 @@ public class MessageController {
 		
 	//쪽지 전체 목록
 	@RequestMapping(value="{id}/messageList", method=RequestMethod.GET)
-//	@ResponseBody
 	public ModelAndView messageList(@PathVariable String id, @RequestParam(defaultValue="all")String searchOption, 
 						 			 @RequestParam(defaultValue="")String keyword,
 						 			 Model model,
@@ -51,7 +53,9 @@ public class MessageController {
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
 		
-//		int pageNum2 = Integer.parseInt("pageNum")*10;
+		//채팅방 개수 조회
+		int count2 = chatService.countList(memberVO);
+		model.addAttribute("chatCount", count2);
 		
 		List<MessageVO>mlist = messageService.listAll(searchOption, keyword, memberVO);		
 		
@@ -60,7 +64,6 @@ public class MessageController {
 		map.put("mlist", mlist);
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
-//		map.put("pageNum", pageNum2);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("map", map);
@@ -80,6 +83,10 @@ public class MessageController {
 		
 		int count = messageService.countList(memberVO);
 		model.addAttribute("messageCount", count);
+		
+		//채팅방 개수 조회
+		int count2 = chatService.countList(memberVO);
+		model.addAttribute("chatCount", count2);
 
 		List<MessageVO>mslist = messageService.sendListAll(searchOption, keyword, memberVO);		
 				
@@ -140,13 +147,13 @@ public class MessageController {
 	}
 	
 	//쪽지 답장 보내기
-		@RequestMapping(value="{id}/messageResend", method=RequestMethod.POST)
-		public String messageResendOk(MessageVO mvo, Model model)throws Exception{
+	@RequestMapping(value="{id}/messageResend", method=RequestMethod.POST)
+	public String messageResendOk(MessageVO mvo, Model model)throws Exception{
 			
-			messageService.create(mvo);
+		messageService.create(mvo);
 			
-			return "message/messageSendOk";
-		}
+		return "message/messageSendOk";
+	}
 	
 	//쪽지 상세내용 조회
 	//쪽지 조회시 읽음으로 변경되고, 읽은 날짜가 변경된다.(이후 변경되지는 않음)

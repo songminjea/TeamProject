@@ -9,7 +9,6 @@
 		FROM TB_CHATROOM
 		WHERE CHATROOM_SENDER = #{my_id}
 		OR CHATROOM_RECEIVER = #{my_id}		
-		GROUP BY #{my_id}
 		ORDER BY CHATROOM_MAKETIME DESC
 	</select>
 	
@@ -20,19 +19,21 @@
 		VALUES
 		(#{CHATROOM_SENDER}, #{CHATROOM_RECEIVER}, NOW())
 	</insert>
-	
+
 	<!-- 채팅 내용 -->
-	<select id="view" resultType="ChatVO">
+	<select id="view" resultType="ChatroomVO" parameterType="ChatroomVO">
 		SELECT * 
-		FROM TB_CHAT
-		ORDER BY CHAT_SENDTIME DESC
-		<!--  limit 1 -->
-	</select>
-	
-	<!-- 이미 존재하는 채팅방 입장 -->
-	<select id="aready" resultType="ChatroomVO" parameterType="ChatroomVO">
-		SELECT *
 		FROM TB_CHATROOM
 		WHERE CHATROOM_NO = #{CHATROOM_NO}
+		ORDER BY CHATROOM_MAKETIME DESC limit 1 
 	</select>
+	
+	<!-- 채팅방 수 -->
+	<select id="count" resultType="int" parameterType="String">
+		SELECT COUNT(*) 
+		FROM TB_CHATROOM
+		WHERE CHATROOM_SENDER = #{chat_id}
+		OR CHATROOM_RECEIVER = #{chat_id}	
+	</select>
+	
 </mapper>

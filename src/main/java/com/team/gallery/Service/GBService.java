@@ -18,7 +18,7 @@ public interface GBService {
 
 	// 대상 id가 쓴글 불러오기.
 	public List<galleryVO> GetSpecGalleryList(Map<String, String> galleryInfo);
-
+	
 	// 파일 입력
 	public void FileInsert(fileVO fvo)throws Exception;
 	

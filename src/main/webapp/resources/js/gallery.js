@@ -1,6 +1,6 @@
 pageNum = 0;
 countGallery = 0; // 표시된 글 수
-isDetach = true;
+is_gDetach = true;
 
 function getContextPath() { // ContextPath 얻어오는 함수 (/TeamPro)
 
@@ -108,7 +108,7 @@ function ShowGallery(id, isMyGall){
 	else{
 		GotoUrl = "/TeamPro/getSpecGallery"
 	}
-	if(isDetach == true)
+	if(is_gDetach == true)
 		$("#gallery_list").children().detach();
 	
 	$.ajax({
@@ -121,7 +121,7 @@ function ShowGallery(id, isMyGall){
 		DataType : "json",
 		url : GotoUrl,
 		success : function(result) {
-			//console.log(result);
+			//console.log(result.length + " " + is_gDetach);
 			// 차단되어있을때 화면 잠금.			
 			if(result.length != 0){
 				if(result[0].isblocked == 'true'){
@@ -144,7 +144,7 @@ function ShowGallery(id, isMyGall){
 				
 				pageNum++;
 			} else{
-					if(isDetach == true)
+					if(is_gDetach == true)
 						$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
 								"<img src='"+ getContextPath() + "/resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
 								"<h4 style='color: #1d2c52; font-weight: 600;'>" +
@@ -311,7 +311,7 @@ function screenLock(){
 $('body').scroll(function(){
 	
 	if ($('body').scrollTop() == $(document).height() - $(window).height()) {
-    	isDetach = false;
+    	is_gDetach = false;
     	
     	// 내 갤러리인지 아닌지
     	var isMyGall = $("#isMyGall").val()

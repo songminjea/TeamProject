@@ -9,7 +9,7 @@
 <!-- 핸들바 기능 -->
 <script id ="fileTemplate" type="text/x-handlebars-template">
 	<li>
-		<img src="{{imgSrc}}" alt = "Attachment" class ="view">
+		<img src="{{imgSrc}}" alt = "Attachment" class ="view" align ="center">
 		<input type="hidden" name = "gb_Image" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
@@ -27,6 +27,7 @@
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
+          
 <div><br>
 	<h4 style="font-weight: 600; color: #1d2c52;" align="center">글쓰기</h4>
 	<hr class="w3-clear" style="margin: 5px 0 20px;">
@@ -74,5 +75,6 @@
 <!-- image upload -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/upload.js"></script>
+<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/lightbox.js"></script>
 <!-- <script  src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 </html>

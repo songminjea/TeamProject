@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="com.team.recomment.RecommentDAO">
+	<select id="GetRecommentList" resultType="com.team.recomment.VO.RecommentVO">
+		select *
+		from TB_recomment
+		where GB_Num = #{GB_Num}
+		order by CM_Seq desc
+	</select>
+	
+	<insert id="RecommentInsert" parameterType="com.team.recomment.VO.RecommentVO">
+		insert into TB_recomment (GB_Num,MB_ID,CM_Content,CM_Date,CM_IP)
+		VALUES(#{GB_Num},#{MB_ID},#{CM_Content},#{CM_Date},#{CM_IP})
+	</insert>
+	
+	<delete id="delRecomment">
+		delete from TB_recomment
+		where CM_Seq = #{cm_Seq}
+	</delete>
+	
+	<update id="modifyRecomment">
+		
+	</update>
+	
+
+</mapper>

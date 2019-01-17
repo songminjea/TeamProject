@@ -13,6 +13,7 @@
 			<div class="w3-container w3-padding" id="gallery_list">
 			</div>
 		</div>
+		<td colspan="1">
 	</div>
 	<!-- Single button -->
 	
@@ -27,6 +28,51 @@
 		</a>
 	</div> 
 </div>
+
+<script id="writeTemplate" type="text/x-handlebars-template">
+<div class = "noAttach">
+	{{#write}}
+	<table border ="0">
+		<tr class="recommentinfo">
+			<td width = "10px">
+				<a href="${pageContext.request.contextPath}/{{mb_ID}}/gallery" class="w3-bar-item w3-button">
+					<strong>{{mb_ID}}</strong>
+				</a>
+			</td>
+			<td width = "400px">
+				<a onclick="modifyRecomment({{cm_Seq}})" href ="javascript:void(0);">{{cm_Content}}</a>
+			</td>
+			<td class="commentTime" align ="right" width="150px">
+				{{cm_Date}}
+			</td>
+			<td align ="right">
+				<a href="javascript:void(0);" onclick="deleteBtn({{cm_Seq}},{{gb_Num}})">
+					<i class="fa fa-fw fa-remove"></i>
+				</a>
+			</td>
+		</tr>
+	</table>
+	{{/write}} 
+
+	<div class="container">
+    <form role = "form"  method="post" name ="recommentWrite" id="recommentWrite">
+    <br><br>
+        <div>
+            <div>
+                <span><strong>Comments</strong></span> <span id="cCnt"></span>
+            </div>
+            <div>
+                <textarea rows="5" cols="40" class="w3-col m12 write_area" id="space" name="CM_Content" 
+					placeholder="하고싶은 말을 적어보세요!" style="resize: none;"></textarea>
+            </div>
+        </div>
+        <input type="hidden" id="MB_ID" name="MB_ID" value="${member.ID}" />
+		<input type="hidden" id="GB_Num" name="GB_Num" value="{{gb_Num}}" />
+		<input type="button" class="btn pull-right btn-success" value="등록" onclick="formRecommentWrite()">
+	</div>
+    </form>
+</div>
+</script>
 
 
 <script id="gallery-template" type="text/x-handlebars-template">
@@ -84,8 +130,7 @@
 		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><font class="writerId" style="font-size: 18px; color: #1d2c52; font-weight: 600;">{{gallery/mb_ID}}</font></a><br/>
 		<font class="writeTime w3-opacity">{{gallery/gb_Date}}</font><br/><br/>
 
-	<%-- 글 내용 --%>
-	<span id="Gall_Content"><p>{{#SetContentLine gallery/gb_Content}}{{/SetContentLine}}</p></span>
+	
 
 	<%-- 캐러셀 --%>
 	<div id="carouselControls_{{gallery/gb_Num}}" class="carousel slide" data-ride="carousel">
@@ -109,12 +154,14 @@
 		{{/setCarousel}}
 	</div>		
 
-	
+	<%-- 글 내용 --%>
+	<span id="Gall_Content"><p>{{#SetContentLine gallery/gb_Content}}{{/SetContentLine}}</p></span>
+	<span id ="recomment_{{gallery/gb_Num}}"></span>
 
 	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom w3-hover-white">
 		<i class="fa fa-thumbs-up" id="like_i"></i><font class="listFont" style="font-size: 14px;">Like</font>
 	</button>
-	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom w3-hover-white">
+	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom w3-hover-white" onclick ="recomment({{gallery/gb_Num}})">
 		<i class="fa fa-comment" id="comment_i"></i><font class="listFont" style="font-size: 14px;">Comment</font>
 	</button>
 	
@@ -127,3 +174,4 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript"	src="${pageContext.request.contextPath}/resources/js/gallery.js"></script>
+<script type="text/javascript"	src="${pageContext.request.contextPath}/resources/js/recomment.js"></script>

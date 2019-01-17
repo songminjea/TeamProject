@@ -37,7 +37,7 @@ public class loginController {
 		if (member != null && !member.getID().equals("") && !member.getPWD().equals("")) {
 			session.setAttribute("member", member);
 			//로그인 세션값 30분 유지
-			request.getSession().setMaxInactiveInterval(60*30);
+			//request.getSession().setMaxInactiveInterval(60*30);
 			return "redirect:main";
 		}else {
 			model.addAttribute("msg", "사용자의 아이디 혹은 비밀번호가 일치하지 않습니다.");

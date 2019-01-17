@@ -63,6 +63,7 @@ $(document).ready(function(){
 	$(".uploadedFileList").on("click",".delBtn", function(e) {
 		e.preventDefault();
 		var that = $(this);
+		console.log(that);
 		that.parents("li").remove();
 		/*
 		$.ajax({
@@ -131,6 +132,7 @@ function printFiles(data){
 		//마지막에 추가된 첨부파일 템플릿 선택자
 		var that =$(".uploadedFileList li").last();
 		
+		that.find(".mailbox-attachment-name").attr("data-lightbox","uploadImages");
 		
 		//파일 아이콘에서 이미지 아이콘으로 변경
 		that.find(".fa-paperclip").attr("class","fa fa-camera");

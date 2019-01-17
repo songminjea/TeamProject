@@ -10,4 +10,8 @@ public interface RCService {
 
 	public void recommentWrite(RecommentVO revo);
 
+	public void delRecomment(int cm_Seq);
+
+	public void modifyRecomment(int cm_Seq);
+
 }

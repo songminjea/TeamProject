@@ -10,6 +10,10 @@ public interface RecommentDAO {
 
 	void recommentWrite(RecommentVO revo);
 
+	void delRecomment(int cm_Seq);
+
+	void modifyRecomment(int cm_Seq);
+
 
 	
 

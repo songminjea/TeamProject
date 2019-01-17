@@ -13,6 +13,7 @@
 			<div class="w3-container w3-padding" id="gallery_list">
 			</div>
 		</div>
+		<td colspan="1">
 	</div>
 	<!-- Single button -->
 	
@@ -31,16 +32,30 @@
 <script id="writeTemplate" type="text/x-handlebars-template">
 <div class = "noAttach">
 	{{#write}}
-	<div>
-		<a href="${pageContext.request.contextPath}/{{mb_ID}}/gallery" class="w3-bar-item w3-button">
-			<strong>{{mb_ID}}</strong>
-		</a>			
-		{{cm_Content}}
-	</div>
+	<table border ="0">
+		<tr class="recommentinfo">
+			<td width = "10px">
+				<a href="${pageContext.request.contextPath}/{{mb_ID}}/gallery" class="w3-bar-item w3-button">
+					<strong>{{mb_ID}}</strong>
+				</a>
+			</td>
+			<td width = "400px">
+				<a onclick="modifyRecomment({{cm_Seq}})" href ="javascript:void(0);">{{cm_Content}}</a>
+			</td>
+			<td class="commentTime" align ="right" width="150px">
+				{{cm_Date}}
+			</td>
+			<td align ="right">
+				<a href="javascript:void(0);" onclick="deleteBtn({{cm_Seq}},{{gb_Num}})">
+					<i class="fa fa-fw fa-remove"></i>
+				</a>
+			</td>
+		</tr>
+	</table>
 	{{/write}} 
 
 	<div class="container">
-    <form role = "form"  method="post" onsubmit="">
+    <form role = "form"  method="post" name ="recommentWrite" id="recommentWrite">
     <br><br>
         <div>
             <div>
@@ -53,7 +68,7 @@
         </div>
         <input type="hidden" id="MB_ID" name="MB_ID" value="${member.ID}" />
 		<input type="hidden" id="GB_Num" name="GB_Num" value="{{gb_Num}}" />
-		<input type="submit" class="btn pull-right btn-success" value="등록">
+		<input type="button" class="btn pull-right btn-success" value="등록" onclick="formRecommentWrite()">
 	</div>
     </form>
 </div>

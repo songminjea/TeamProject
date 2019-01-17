@@ -14,6 +14,14 @@
 		VALUES(#{GB_Num},#{MB_ID},#{CM_Content},#{CM_Date},#{CM_IP})
 	</insert>
 	
+	<delete id="delRecomment">
+		delete from TB_recomment
+		where CM_Seq = #{cm_Seq}
+	</delete>
+	
+	<update id="modifyRecomment">
+		
+	</update>
 	
 
 </mapper>

@@ -196,9 +196,9 @@ public class ChatController {
 		int CHATROOM_NO = cvo.getCHATROOM_NO();
 		chvo.setCHAT_NO(CHATROOM_NO);
 		//CHATROOM_NO와 동일한 CHAT_NO의 대화를 가져옴.
-		ChatVO resultVO = chatService.read(chvo);
+//		ChatVO resultVO = chatService.read(chvo);
 		
-		model.addAttribute("resultChatVO", resultVO);
+//		model.addAttribute("resultChatVO", resultVO);
 		
 		return "chat/multiChat";
 	}
@@ -224,9 +224,9 @@ public class ChatController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");			
 		model.addAttribute("profile", memberVO);
 		
-		chatService.chatCreate();
-		List<ChatVO>contentList = chatService.contentListAll(CHATROOM_NO);
-		model.addAttribute("contentList", contentList);
+//		chatService.chatCreate();
+//		List<ChatVO>contentList = chatService.contentListAll(CHATROOM_NO);
+//		model.addAttribute("contentList", contentList);
 		
 		return "chat/multiChat.jsp?center=chat/chatContent";
 	}

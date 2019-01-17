@@ -27,4 +27,17 @@ public class RCServiceImpl implements RCService{
 		rdao.recommentWrite(revo);
 		
 	}
+	
+	@Override
+	public void delRecomment(int cm_Seq) {
+		// TODO Auto-generated method stub
+		rdao.delRecomment(cm_Seq);
+	}
+	
+	@Override
+	public void modifyRecomment(int cm_Seq) {
+		
+		rdao.modifyRecomment(cm_Seq);
+		
+	}
 }

@@ -37,18 +37,29 @@ public class RecommentController {
 	}
 	
 	@RequestMapping("{MB_ID}/recommentWrite")
-	public void recommentWrite(@ModelAttribute RecommentVO revo, HttpServletRequest request) throws Exception{
+	public String recommentWrite(@ModelAttribute RecommentVO revo, HttpServletRequest request) throws Exception{
 		
+		
+		System.out.println(revo.getCM_Content());
+		System.out.println(revo.getMB_ID());
 		revo.setCM_IP(IPUtill.getClientIpAddr(request));
 		
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		
 		revo.setCM_Date(ts);
 		
-		int num = revo.getGB_Num();
-
 		rcService.recommentWrite(revo);
 		
+		return "main.jsp?center=gallery/list";
+		
+	}
+	
+	@RequestMapping("{cm_Seq}/delRecomment")
+	public String delRecomment(@PathVariable String cm_Seq) {
+	
+		rcService.delRecomment(Integer.parseInt(cm_Seq));
+		
+		return "main.jsp?center=gallery/list";
 	}
 	
 

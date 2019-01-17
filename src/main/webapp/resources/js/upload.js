@@ -63,6 +63,7 @@ $(document).ready(function(){
 	$(".uploadedFileList").on("click",".delBtn", function(e) {
 		e.preventDefault();
 		var that = $(this);
+		console.log(that);
 		that.parents("li").remove();
 		/*
 		$.ajax({

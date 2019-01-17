@@ -9,7 +9,7 @@
 <!-- 핸들바 기능 -->
 <script id ="fileTemplate" type="text/x-handlebars-template">
 	<li>
-		<img src="{{imgSrc}}" alt = "Attachment" class ="view">
+		<img src="{{imgSrc}}" alt = "Attachment" class ="view" align ="center">
 		<input type="hidden" name = "gb_Image" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">

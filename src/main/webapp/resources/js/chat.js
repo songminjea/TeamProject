@@ -7,14 +7,15 @@ $("#btnSend").click(function() {
         $.ajax({
             type : "POST",
             data : {
-            	"CHAT_SENDVAL" : $("#CHAT_SENDVAL").val()
+            	"mem_ID" : $("#mem_ID").val(),
+            	"uID" : $("#uID").val()
             },
             url : "multiChat",
             success : function(data) {
-                if ($.trim(data) == true) {
-                	$("#discussion li").addClass("class", "left");
+                if ($.trim(data) == $("#uID").val()) {
+                	$("#discussion li").addClass("class", "right");
                 } else {
-	                $("#discussion li").addClass("class", "right");
+	                $("#discussion li").addClass("class", "left");
                 }
             }
         });
@@ -103,7 +104,7 @@ function getFollowList(my_id, page_id, pageType) {
 			
 			if(result.length == 0){
 				if(isDetach == true)
-					$("#chatFollow_list").append("<img src='../resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px;'/>"+
+					$("#chatFollow_list").append("<img src='../resources/img/logo_sad.png'style='width: 30%; margin-bottom: 30px;'/>"+
 												 "<h5 style='font-weight: 600; color: #1d2c52;'>저런! 친구가 없으시네요!</h5>");
 			}else{
 				var source = $("#chatFollow-template").html();

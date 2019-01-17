@@ -27,15 +27,6 @@ public class MessageDAOImpl implements MessageDAO{
 		return sqlSession.selectList(namespace+".listAll", map);
 	}
 
-	//페이징을 위한 카운트
-//	@Override
-//	public int countArticles(String searchOption, String keyword)throws Exception{
-//		Map<String, String> map = new HashMap<String, String>(); 
-//	 	map.put("searchOption", searchOption); 
-//		map.put("keyword", keyword); 
-//		return sqlSession.selectOne(namespace+".pagingCount", map);
-//	}
-	
 	//내가 보낸 쪽지
 	@Override
 	public List<MessageVO>sendListAll(String searchOption, String keyword, String MESSAGE_SENDER)throws Exception{
@@ -43,20 +34,9 @@ public class MessageDAOImpl implements MessageDAO{
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		map.put("MESSAGE_SENDER", MESSAGE_SENDER);
-//		map.put("start", start);
-//		map.put("end", end);
 		return sqlSession.selectList(namespace+".sendListAll", map);
 	}
-	
-	//페이징을 위한 카운트
-//	@Override
-//	public int sendCountArticles(String searchOption, String keyword)throws Exception{
-//		Map<String, String> map = new HashMap<String, String>(); 
-//		map.put("searchOption", searchOption); 
-//		map.put("keyword", keyword); 
-//		return sqlSession.selectOne(namespace+".pagingSendCount", map);
-//	}
-	
+
 	//안 읽은 쪽지 개수
 	@Override
 	public int countList(String message_id)throws Exception{

@@ -13,9 +13,26 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chat.css"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> 
 <!-- JS 파일 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/resourses/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resourses/js/sockjs.js"></script>
-<script src="/${pageContext.request.contextPath}/resourses/js/chat.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/chat.js"></script>
+<style type="text/css">
+.messageCloseBtn{
+		  width: 200px;
+		  height: 50px;
+		  border-radius: 5px;	  
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;		  	
+}	
+.blue{
+	background-color: #6494ff;
+}	
+.gray{
+	background-color: #cbcbcd;
+}
+</style>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
 	<div id="positionLayer">
@@ -38,6 +55,7 @@
 		<%-- 로그인 되어 있을 경우 --%>
 		<c:when test="${member.ID != null}">
 			<input type="hidden" id="memID" name="CHAT_SENDER" width="110" value="${member.ID}" readonly="readonly">
+			<input type="hidden" id="uID" name="CHAT_RECEIVER" width="110" value="${cvo2.CHATROOM_RECEIVER}" readonly="readonly">
 			<span style="display: none;" id="memName" width="110" value="${member.NAME}" readonly="readonly">${member.NAME}</span>
 		</c:when>
 		<%-- 로그인되어 있지 않을 경우 로그인 화면으로 이동 --%>
@@ -49,15 +67,13 @@
 	</c:choose>
 		<input type="text" class="chatInput" id="message" size="50" align="middle" placeholder="메세지를 입력하세요">
 			<br/>
-			<br/>
-			<input type="submit" id="btnSend" value="전송"/>
-			<input type="button" id="closeBtn" value="창닫기" onclick="window.close()">
-			<%-- 대화창. chatContent로 이동시킨다. 위의 ul인가? 좀 헷깔림. 여기는 include center로 변경한다. --%>
 			<ul id="discussion">
 			</ul>
 			</td>
 		</tr>	
 	</table>
+	<input type="submit" class="messageCloseBtn blue" id="btnSend" value="전송" disabled="disabled"/>
+	<input type="button" class="messageCloseBtn gray" id="closeBtn" value="창닫기" onclick="window.close()">
 	<br/>
 <!-- 채팅 API -->
 	<script src="http://demo.dongledongle.com/Scripts/jquery-1.10.2.min.js"></script>
@@ -67,14 +83,16 @@
 		var connection = $.hubConnection('http://demo.dongledongle.com/');
 		var chat = connection.createHubProxy('chatHub');
 		var sender = '<c:out value="${cvo.CHAT_SENDER}"/>';
+// 		var pic = '<c:out value="${member.PIC}"/>';
 		
 		$(document).ready(
 				
 				function() {
 					chat.on('addNewMessageToPage', function(memID, message) {
 						var memName = document.getElementById('memName');
-						var list_ID = "<li class='listId'><strong>"+htmlEncode(memID)+"("+memName.innerHTML+")"+"</strong></li>"
-						var list_route = "<li class='balloon'><span name='CHAT_SENDCONTENT' id='CHAT_SENDCONTENT'>"+htmlEncode(message)+"</span></li><br/>";
+						var list_ID = "<li class='listId' style='margin-left: 30px;'><strong style='color: #1d2c52;'>"+htmlEncode(memID)+"("+memName.innerHTML+")"+"</strong></li>"
+//  						var list_pic = "<img src='../resources/img/logo_noFlower.png' style='width: 12%; display:block;'>"
+						var list_route = "<li class='balloon right'><span name='CHAT_SENDCONTENT' id='CHAT_SENDCONTENT'>"+htmlEncode(message)+"</span></li><br/>";
 						
 						$('#discussion').append(list_ID+list_route);
 						var chatAreaHeight = $('#chatArea').height();
@@ -97,6 +115,12 @@
 											$('#message').val('').focus();
 					});
 				});
+				//빈칸 인식
+				if ($("#message").val().length != 0) {
+					$("#btnSend").removeAttr("disabled");
+				}else{
+					$("#btnSend").attr("disabled", "disabled");
+				}
 		});
 		function htmlEncode(value) {
 			var encodedValue = $('<div />').text(value).html();
@@ -110,6 +134,7 @@
 				document.getElementById("btnSend").click();
 			}
 		});
+		
 	</script>
 <!-- 채팅 API -->	
 	</div>

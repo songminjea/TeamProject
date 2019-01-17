@@ -29,7 +29,7 @@
 					<c:forEach items="${map.mlist}" var="message">
 						<c:choose>
 							<c:when test="${empty message}">
-								<img src="${pageContext.request.contextPath}/resourses/img/logo_oops.png" style="width: 20%; margin-bottom: 30px;">
+								<img src="${pageContext.request.contextPath}/resources/img/logo_oops.png" style="width: 20%; margin-bottom: 30px;">
 								<h4 style="color: #1d2c52; font-weight: 500;">받은 쪽지가 없습니다!</h4>
 							</c:when>
 							<c:otherwise>	
@@ -40,7 +40,6 @@
 										<c:if test="${message.MESSAGE_READVAL == false}">
 											<span style="color: #2f29fc; font-size: 12px; font-weight: 600;">New</span>
 										</c:if>
-											<!-- 위치 제대로 뜨는지 확인 필요 -->
 											<a href="#" id="messageView" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageView?MESSAGE_NO=${message.MESSAGE_NO}', 'messageView', 'width=500, height=650, top=100px, left=100px')">${message.MESSAGE_SUBJECT}</a>
 									</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${message.MESSAGE_SENDTIME}"/></td>

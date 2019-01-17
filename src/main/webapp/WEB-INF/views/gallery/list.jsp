@@ -127,8 +127,8 @@
 
 	<%-- 드랍다운 버튼 끝 --%>
 	<%-- 글쓴이, 작성시간 --%>
-		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><font class="writerId" style="font-size: 18px; color: #1d2c52; font-weight: 600;">{{gallery/mb_ID}}</font></a>
-		<font class="writeTime w3-opacity">{{gallery/gb_Date}}</font><br/>
+		<a href="${pageContext.request.contextPath}/{{gallery/mb_ID}}/gallery"><font class="writerId" style="font-size: 18px; color: #1d2c52; font-weight: 600;">{{gallery/mb_ID}}</font></a><br/>
+		<font class="writeTime w3-opacity">{{gallery/gb_Date}}</font><br/><br/>
 
 	
 

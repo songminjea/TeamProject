@@ -41,8 +41,6 @@
 		order by GB_Num desc
 		limit ${pageNum}, 8;
 	</select>
-	
-
 
 	<insert id="fileInsert">
 		insert into TB_FILE (gb_Num,gb_file)

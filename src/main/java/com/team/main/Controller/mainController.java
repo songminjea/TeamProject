@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.team.chat.Service.ChatService;
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
 
@@ -16,6 +17,9 @@ public class mainController {
 	
 	@Autowired
 	MessageService messageService;
+	
+	@Autowired
+	ChatService chatService;
 
 	@RequestMapping(value = "main", method = {RequestMethod.POST, RequestMethod.GET})
 	public String main(HttpSession session, Model model) throws Exception{
@@ -25,8 +29,12 @@ public class mainController {
 		//읽지 않은 쪽지 개수 조회
 		int count = messageService.countList(memberVO);
 		
+		//채팅방 개수 조회
+		int count2 = chatService.countList(memberVO);
+		
 		model.addAttribute("profile", memberVO);
 		model.addAttribute("messageCount", count);
+		model.addAttribute("chatCount", count2);
 		model.addAttribute("pageid", id);
 		model.addAttribute("isMyGall", true);
 		

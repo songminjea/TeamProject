@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team.block.Service.BlockService;
 import com.team.block.VO.BlockVO;
+import com.team.chat.Service.ChatService;
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.gallery.Service.GBService;
@@ -36,6 +37,7 @@ import com.team.gallery.util.IPUtill;
 import com.team.gallery.util.UploadUtil;
 import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
+import com.team.message.Service.MessageService;
 
 
 @Controller
@@ -47,6 +49,12 @@ public class galleryController {
 		
 	@Autowired
 	private MemberServiceImpl memberService;
+	
+	@Autowired
+	MessageService messageService;
+	
+	@Autowired
+	private ChatService chatService;
 	
 	@Autowired
 	private BlockService blockService;
@@ -205,15 +213,21 @@ public class galleryController {
 	
 	// 갤러리 접근 처리.
 	@RequestMapping(value = "{id}/gallery")
-	public String ShowGallery(@PathVariable String id, Model model, HttpServletRequest request) {
+	public String ShowGallery(@PathVariable String id, Model model, HttpServletRequest request) throws Exception {
 		//System.out.println("ShowGallery 호출");
 		
 		// id에 해당하는 프로필을 가져온다. 
 		// MemberInterceptor에서 처리 한 후 가져오는것.
 		MemberVO memberVo = (MemberVO)request.getAttribute("vo");
 		
+		//읽지 않은 쪽지 개수 조회
+		int count = messageService.countList(memberVo);
+		//채팅방 개수 조회
+		int count2 = chatService.countList(memberVo);
 		
 		model.addAttribute("profile",memberVo);
+		model.addAttribute("messageCount", count);
+		model.addAttribute("chatCount", count2);
 		model.addAttribute("isMyGall" , false);
 		model.addAttribute("pageid", id);
 		

@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.team.chat.VO.ChatVO;
 import com.team.chat.VO.ChatroomVO;
 
 @Repository
@@ -26,16 +25,17 @@ public class ChatDAOImpl implements ChatDAO{
 	public void create(ChatroomVO cvo)throws Exception{
 		sqlSession.insert(namespace+".insert", cvo);
 	}
-		
+	
 	//채팅 내용
 	@Override
-	public ChatVO read(ChatroomVO cvo)throws Exception{
-		return sqlSession.selectOne(namespace+".view", cvo);
+	public ChatroomVO read(ChatroomVO cvo2)throws Exception{
+		return sqlSession.selectOne(namespace+".view", cvo2);
 	}
 	
-	//이미 있는 채팅방 입장
+	//채팅방 개수
 	@Override
-	public ChatroomVO areadyRead(ChatroomVO cvo2)throws Exception{
-		return sqlSession.selectOne(namespace+".aready", cvo2);
+	public int countList(String chat_id)throws Exception{
+		return sqlSession.selectOne(namespace+".count", chat_id);
 	}
+
 }

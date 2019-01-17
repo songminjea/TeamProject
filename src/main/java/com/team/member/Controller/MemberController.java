@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.team.block.Service.BlockService;
 import com.team.block.VO.BlockVO;
+import com.team.chat.Service.ChatService;
 import com.team.follow.Service.FollowService;
 import com.team.follow.VO.FollowVO;
 import com.team.member.Service.MemberServiceImpl;
@@ -44,6 +45,9 @@ public class MemberController {
 	
 	@Autowired
 	BlockService blockService;
+	
+	@Autowired
+	ChatService chatService;
 	
 	@RequestMapping("/check")
 	public String check() {
@@ -114,7 +118,11 @@ public class MemberController {
 		MemberVO sessionVO = (MemberVO)session.getAttribute("member");
 		
 		int count = messageService.countList(vo);
+		//채팅방 개수 조회
+		int count2 = chatService.countList(vo);
+		
 		model.addAttribute("messageCount", count);
+		model.addAttribute("chatCount", count2);
 		
 		// uri의 ID값과 로그인 정보랑 다를때 main으로 이동하게 변경
 		if(!ID.equals(sessionVO.getID())) {
@@ -145,16 +153,17 @@ public class MemberController {
 	@RequestMapping("/search")
 	public String getSearchList(@RequestParam String keyword, HttpSession session ,Model model) throws Exception {
 	
-		
-		
 		// 로그인 여부 체크하기 위해 세션값 받아옴.
 		MemberVO memVO = (MemberVO)session.getAttribute("member");
 		
 		// 로그인 되어있는 상태에서만 값을 보내준다.
 		if(memVO != null) {		
 			int count = messageService.countList(memVO);
+			//채팅방 개수 조회
+			int count2 = chatService.countList(memVO);
 			model.addAttribute("profile", memVO);
 			model.addAttribute("messageCount", count);
+			model.addAttribute("chatCount", count2);
 		}
 		model.addAttribute("keyword", keyword);
 		

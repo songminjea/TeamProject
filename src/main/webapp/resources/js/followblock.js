@@ -302,7 +302,7 @@ function getSuggestionFollowList(my_id){
 						isFollowed(my_id , result[i].following_id);
 					})*/
 				}else{
-					$("#small_recommend_list").append("<h4 style='color: #1d2c52;'>더 이상 추천할 회원이 없습니다.</h4>");
+					$("#small_recommend_list").append("<h5 style='color: #1d2c52; font-weight: 600;'>더 이상 추천할 회원이 없습니다.</h5>");
 				}
 			}
 		})

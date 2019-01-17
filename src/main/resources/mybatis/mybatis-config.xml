@@ -12,8 +12,6 @@
    		<typeAlias alias="LoginDTO" type="com.team.login.DTO.LoginDTO" />
    		<typeAlias alias="MemberVO" type="com.team.member.VO.MemberVO" />
 		<typeAlias alias="MessageVO" type="com.team.message.VO.MessageVO" />
-		<typeAlias alias="DealDTO" type="com.team.deal.DTO.DealDTO" />
-		<typeAlias alias="ChatVO" type="com.team.chat.VO.ChatVO" />	
 		<typeAlias alias="ChatroomVO" type="com.team.chat.VO.ChatroomVO" />	
 	</typeAliases>
 

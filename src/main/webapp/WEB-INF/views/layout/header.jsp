@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- CSS -->
-<%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/main2.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"> --%>
 <!-- font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean"
@@ -26,20 +21,13 @@
 					<%-- 로그인 되어있을 경우 아이콘이 보이도록 한다. --%>
 					<c:if test="${member.ID != null}">
 						<div id="bar_icon">
-							<a
-								class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
-								href="javascript:void(0);"><i class="fa fa-bars"></i></a> <a
-								href="${pageContext.request.contextPath}/${member.ID}/deal/list"
-								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-								title="Board"><i class="fa fa-list" id="board_i"
-								aria-hidden="true"></i></a> <a
+								<a
 								href="${pageContext.request.contextPath}/${member.ID}/messageList"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 								title="Send Message"><i class="fa fa-envelope"
 								id="message_i"></i></a> <a href="#"
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-								<%-- 위치 알맞게 뜨는지 확인 필요. 우측 하단에 띄울 예정--%>
-								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatList', 'multiChat', 'width=450, height=650, right=70px, bottom=70px')"
+								onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatList', 'multiChat', 'width=450, height=650')"
 								title="Chat"><i class="fa fa-weixin" id="chat_i"
 								aria-hidden="true"></i></a>
 							<%-- 새 글 알림 --%>
@@ -48,20 +36,18 @@
 									<i class="fa fa-bell" id="alarm_i"></i> <span
 										class="w3-badge w3-right w3-small"
 										<%--  쪽지, 채팅, 댓글 합할 것. --%>
-										style="background-color: #cbcbcd;">${messageCount}</span>
+										style="background-color: #cbcbcd;">${messageCount + chatCount}</span>
 								</button>
 								<%-- 새 글 알림 드롭다운 --%>
 								<div class="w3-dropdown-content w3-card-4 w3-bar-block"
 									style="width: 300px; font-size: 14px; color: #1d2c52; font-weight: 600;">
-									<a href="${pageContext.request.contextPath}/main" class="w3-bar-item w3-button">새로 업로드된 게시물</a>
-									<!-- 새글 알림 핸들러로 약 3~5개 최신글 간략히 요약내용 보여줄 예정.  -->
-									<a href="#"></a>
 									<a href="${pageContext.request.contextPath}/${member.ID}/messageList"
 										class="w3-bar-item w3-button"> 읽지 않은 쪽지가 ${messageCount}개
 										<%-- 읽지않은 채팅방 개수 띄우기  --%>
-										있습니다. </a> <a href="${pageContext.request.contextPath}/${member.ID}/chatList" class="w3-bar-item w3-button">새로운 대화가 개
-										도착했습니다.</a>
-									<%--댓글은 추가할 시간이나 될까. --%>
+										있습니다. </a> <a href="#" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatList', 'multiChat', 'width=450, height=650')" class="w3-bar-item w3-button">대화방이 ${chatCount}개
+										있습니다.</a>
+										<a href="${pageContext.request.contextPath}/${member.ID}/gallery" class="w3-bar-item w3-button">새로운 댓글이 개
+										있습니다.</a>
 								</div>
 							</div>
 							<%-- 새 글 알림 끝 --%>
@@ -97,7 +83,6 @@
 					<%-- 로그인이 되어 있을 경우 회원 정보 아이콘이 뜬다. --%>
 					<c:if test="${member.ID != null}">
 						<div class="w3-dropdown-hover">
-							<%-- 		<c:if test="${!empty member.ID}"> --%>
 							<button
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-white"
 								style="text-decoration: none; font-weight: 600; font-size: 16px;">
@@ -116,7 +101,6 @@
 									onclick="return confirm('로그아웃하시겠습니까?')"
 									class="w3-bar-item w3-button">Logout</a>
 							</div>
-
 						</div>
 					</c:if>
 					<c:if test="${empty member.ID}">
@@ -131,6 +115,4 @@
 			</div>
 		</div>
 	</div>
-	<%-- <script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
 </div>

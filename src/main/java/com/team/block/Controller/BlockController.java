@@ -163,7 +163,15 @@ public class BlockController {
 			blocklist.add(tempMap);
 
 		}
-
+		
+		if(blocklist.size() == 0) {
+			Map<String, Object> tempMap = new HashMap<>();
+			tempMap.put("followerNum", followerNum);
+			tempMap.put("followingNum", followingNum);
+			tempMap.put("blockingNum", blockingNum);
+			blocklist.add(tempMap);
+		}
+		
 		return blocklist;
 
 	}

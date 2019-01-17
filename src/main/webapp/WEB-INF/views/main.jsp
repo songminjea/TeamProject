@@ -20,11 +20,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.css"/>
 <!-- 썸머노트 -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<%--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>--%>
 <!-- font -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 </head>
@@ -143,11 +143,11 @@ $(document).ready(
 				});	
 })
 //썸머노트
-$('#summernote').summernote({
+<%--$('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
         height: 100
-});
+});--%>
 
 $(document).ready(function(){ 
  	$("#messageSearchBtn").on("click", function(){ 
@@ -164,6 +164,5 @@ $(document).ready(function(){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/followblock.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/message.js"></script>
-<script type="text/javascript"	src="${pageContext.request.contextPath}/resources/js/recomment.js"></script>
 </body>
 </html> 

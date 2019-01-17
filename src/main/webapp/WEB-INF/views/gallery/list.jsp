@@ -19,14 +19,14 @@
 </div>
 
 <%-- 임시 주석 처리 --%>
-<!-- <div id="screenLock" style="width:100%; height:100%; top:0px; left:0px; position:absolute; z-index:1; background:#1B1B1B; visibility:hidden;"> -->
-<!-- 	<div style="position: relative; top: 50%; text-align: center; color: red; font-size: 20px; font-weight: bold; opacity: 1.0;"> -->
-<!-- 		차단된 페이지에는 접근할 수 없습니다!<br><br> -->
-<!-- 		<a href="javascript:history.back();" style=" border: 1px solid white; color: white; border-radius: 20px; padding: 5 10px;"> -->
-<!-- 		돌아가기 -->
-<!-- 		</a> -->
-<!-- 	</div>  -->
-<!-- </div> -->
+<div id="screenLock" style="width:100%; height:100%; top:0px; left:0px; position:absolute; z-index:1; background:#1B1B1B; visibility:hidden;"> -->
+	<div style="position: relative; top: 50%; text-align: center; color: red; font-size: 20px; font-weight: bold; opacity: 1.0;">
+		차단된 페이지에는 접근할 수 없습니다!<br><br>
+		<a href="javascript:history.back();" style=" border: 1px solid white; color: white; border-radius: 20px; padding: 5px 10px;">
+		돌아가기
+		</a>
+	</div> 
+</div>
 
 
 <script id="gallery-template" type="text/x-handlebars-template">

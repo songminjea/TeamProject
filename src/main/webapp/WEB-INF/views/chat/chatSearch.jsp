@@ -21,6 +21,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/chat.js"></script>
 </head>
 <body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
+<%-- 로그인된 아이디 --%>
+<input type="hidden" id="mem_id" value="${member.ID}">
 <%-- 팔로워 페이지인지 팔로잉 페이지인지 --%>
 <input type="hidden" id="page_type" value="${type}">
 <%-- 현재 봐야하는 페이지의 아이디 --%>
@@ -34,9 +36,10 @@
 				<a href="${pageContext.request.contextPath}/${member.ID}/chatFollower">
 					<i class="fa fa-user" aria-hidden="true" style="color:white;"></i>
 				</a>
+				<%-- 아이디 검색바 추가 --%>
 			</span>
 		</div>
-		<span id="s_listArea"> <%-- 팔로워 팔로잉 목록 버튼 --%>
+		<span id="s_listArea"> <%-- 팔로워 팔로잉 목록 버튼. css 변경--%>
 			<button type="button" class="w3-button w3-theme-d1 w3-hover-white"
 					id="chatfollower_Btn">
 				<i class="fa fa-thumbs-up" style="color: #4497fd;"></i>
@@ -50,7 +53,7 @@
 		</span>
 		<hr class="w3-clear" style="margin: 5px 0 10px;">			
 		<input type="hidden" id="CHATROOM_SENDER" name="CHATROOM_SENDER" value="${member.ID}">
-		<span id="chatFollow_list"> <%-- 팔로우 정보 리스트 영역 --%>				
+		<span id="chatFollow_list"> <%-- 팔로우 정보 리스트 영역. 무한 스크롤링 필요 --%>				
 		</span>
 	</div>
 <script id="chatFollow-template" type="text/x-handlebars-template">

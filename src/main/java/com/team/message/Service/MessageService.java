@@ -9,16 +9,10 @@ public interface MessageService {
 	
 	//쪽지 전체 목록
 	public List<MessageVO>listAll(String searchOption, String keyword, MemberVO mvo)throws Exception;
-
-	//페이징을 위한 카운트
-//	public int countArticles(String searchOption, String keyword)throws Exception;
 	
 	//내가 보낸 쪽지
 	public List<MessageVO> sendListAll(String searchOption, String keyword, MemberVO mvo)throws Exception;
-	
-	//내가 보낸 쪽지 - 페이징을 위한 카운트
-//	public int sendCountArticles(String searchOption, String keyword)throws Exception;
-	
+
 	//쪽지 개수
 	public int countList(MemberVO memberVO)throws Exception;
 		

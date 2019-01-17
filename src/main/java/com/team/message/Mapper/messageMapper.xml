@@ -5,7 +5,6 @@
 	
 	<!-- 쪽지 전체 목록 -->
 	<select id="listAll" resultType="MessageVO">
-<!-- 		<include refid="pagingHeader"></include> -->
 			SELECT *
 			FROM TB_MESSAGE
 			WHERE MESSAGE_RECEIVER = #{MESSAGE_RECEIVER}
@@ -20,11 +19,9 @@
 				</otherwise>
 			</choose>
 			ORDER BY MESSAGE_SENDTIME DESC
-<!-- 		<include refid="pagingFooter"></include> -->
 	</select>
 	
 	<select id="sendListAll" resultType="MessageVO">
-<!-- 		<include refid="pagingHeader"></include> -->
 			SELECT *
 			FROM TB_MESSAGE
 			WHERE MESSAGE_SENDER = #{MESSAGE_SENDER}
@@ -39,43 +36,8 @@
 				</otherwise>
 			</choose>
 			ORDER BY MESSAGE_SENDTIME DESC
-<!-- 		<include refid="pagingFooter"></include> -->
 	</select>
 	
-	<!-- 페이징 처리 -->
-<!-- 	<select id="pagingCount" resultType="int"> -->
-<!-- 		SELECT COUNT(*)  -->
-<!-- 		FROM TB_MESSAGE -->
-<!-- 		WHERE MESSAGE_RECEIVER = #{MESSAGE_RECEIVER} -->
-<!-- 			<choose> -->
-<!-- 				<when test="searchOption == 'all'"> -->
-<!-- 					AND (MESSAGE_SENDER LIKE CONCAT('%' , #{keyword} , '%') -->
-<!-- 					OR MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%') -->
-<!-- 					OR MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%')) -->
-<!-- 				</when> -->
-<!-- 				<otherwise> -->
-<!-- 					AND ${searchOption} LIKE CONCAT('%' , #{keyword} , '%') -->
-<!-- 				</otherwise> -->
-<!-- 			</choose> -->
-<!-- 	</select> -->
-	
-	
-<!-- 	<select id="pagingSendCount" resultType="int"> -->
-<!-- 		SELECT COUNT(*)  -->
-<!-- 		FROM TB_MESSAGE -->
-<!-- 		WHERE MESSAGE_SENDER = #{MESSAGE_SENDER} -->
-<!-- 			<choose> -->
-<!-- 				<when test="searchOption == 'all'"> -->
-<!-- 					AND (MESSAGE_RECEIVER LIKE CONCAT('%' , #{keyword} , '%') -->
-<!-- 					OR MESSAGE_SUBJECT LIKE CONCAT('%' , #{keyword} , '%') -->
-<!-- 					OR MESSAGE_CONTENT LIKE CONCAT('%' , #{keyword} , '%')) -->
-<!-- 				</when> -->
-<!-- 				<otherwise> -->
-<!-- 					AND ${searchOption} LIKE CONCAT('%' , #{keyword} , '%') -->
-<!-- 				</otherwise> -->
-<!-- 			</choose> -->
-<!-- 	</select> -->
-
 	<!-- 읽지 않은 쪽지 수 -->
 	<select id="count" resultType="int" parameterType="String">
 		SELECT COUNT(*) 
@@ -136,14 +98,4 @@
 		FROM TB_MESSAGE
 	</sql>
 	
-	<!-- search 재사용 -->
-<!-- 	<sql id="pagingHeader"> -->
-<!-- 		SET @rownum:=0; -->
-<!-- 		SELECT A.* FROM( -->
-<!-- 			SELECT @rownum:=@rownum+1 as rn, S.* FROM( -->
-<!-- 	</sql> -->
-<!-- 	<sql id="pagingFooter"> -->
-<!-- 			)S -->
-<!-- 		)A WHERE rn BETWEEN #{start} AND #{end} -->
-<!-- 	</sql> -->
 </mapper>

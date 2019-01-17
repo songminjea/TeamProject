@@ -34,15 +34,19 @@
 			<c:forEach items="${clist}" var="chat">
 				<c:choose>
 					<c:when test="${empty chat}">
-						<img src="${pageContext.request.contextPath}/resourses/img/logo_oops.png">
-						채팅 내역이 없습니다!
+						<img src="${pageContext.request.contextPath}/resourses/img/logo_oops.png" style="width: 20%; margin-bottom: 30px;">
+						<h5 style="color: #1d2c52; font-weight: 500;">이런! 채팅 내역이 없습니다!</h5>
 					</c:when>
 					<c:otherwise>
 						<div id="chatLists" style="padding: 10px 30px;">
 							<input type="hidden" value="${chat.CHATROOM_NO}" id="CHATROOM_NO" name="CHATROOM_NO">
 							<img src="${pageContext.request.contextPath}/resources/img/logo_noFlower.png" class="w3-left w3-circle w3-margin-right" style="width: 50px; padding-bottom: 20px;">
 							<span class="w3-right">
-								<button onclick="location.href='${pageContext.request.contextPath}/${member.ID}/multiAreadyChat?CHATROOM_NO=${chat.CHATROOM_NO}'" type="button" class="w3-button w3-theme-d1 w3-margin-bottom fbBtn" style="color: #4569c2; border: solid 1px #4569c2;">
+								<%-- 채팅 내역이 이미 존재할 경우, 존재하는 채팅방으로 이동시켜야 함. 
+									 채팅 리스트 무한 스크롤링해서 다 띄울 것. --%>
+								<%-- 채팅 내역 삭제도 가능하면 만들 예정임. --%>
+								<%-- 읽지 않은 대화 내용 개수 띄우기 --%>
+								<button onclick="location.href='${pageContext.request.contextPath}/${member.ID}/multiAlreadyChat?CHATROOM_NO=${chat.CHATROOM_NO}'" type="button" class="w3-button w3-theme-d1 w3-margin-bottom fbBtn" style="color: #4569c2; border: solid 1px #4569c2;">
 									<span>채팅</span>
 								</button>
 							</span>

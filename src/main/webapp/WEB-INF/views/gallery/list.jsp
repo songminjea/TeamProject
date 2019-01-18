@@ -27,6 +27,8 @@
 		돌아가기
 		</a>
 	</div> 
+	
+	
 </div>
 
 <script id="writeTemplate" type="text/x-handlebars-template">
@@ -45,11 +47,15 @@
 			<td class="commentTime" align ="right" width="150px">
 				{{cm_Date}}
 			</td>
+			<%-- 삭제 버튼 --%>
+			{{#SetDeleteBtn mb_ID}}
 			<td align ="right">
-				<a href="javascript:void(0);" onclick="deleteBtn({{cm_Seq}},{{gb_Num}})">
-					<i class="fa fa-fw fa-remove"></i>
-				</a>
+					<a href="javascript:void(0);" onclick="deleteBtn({{cm_Seq}},{{gb_Num}})">
+						<i class="fa fa-fw fa-remove"></i>
+					</a>
 			</td>
+			{{/SetDeleteBtn}}
+			<%-- 삭제 버튼 끝--%>
 		</tr>
 	</table>
 	{{/write}} 
@@ -163,6 +169,8 @@
 	</button>
 	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom w3-hover-white" onclick ="recomment({{gallery/gb_Num}})">
 		<i class="fa fa-comment" id="comment_i"></i><font class="listFont" style="font-size: 14px;">Comment</font>
+		 <span class="w3-badge w3-right w3-small"
+				style="background-color: #cbcbcd;">{{count}}</span>
 	</button>
 	
 	<hr class="w3-clear" style="margin: 5px 0 20px;">

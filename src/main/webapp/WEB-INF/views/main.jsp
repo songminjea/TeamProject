@@ -35,14 +35,14 @@
 	<c:if test="${empty center}"> 
  		<c:set var="center" value="gallery/list.jsp"/>
  	</c:if>
-<body class="w3-theme-l5 main" style="overflow-x: hidden; overflow-y:auto;">
+<body class="w3-theme-l4 main" style="overflow-x: hidden; overflow-y:auto;">
 
 <!-- Header -->
 	<jsp:include page="layout/header.jsp"/>
 <!-- END Header -->
 
 <!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1600px;padding-top:120px;">    
+<div class="w3-container w3-content" style="max-width:1650px;padding-top:120px;padding-left: 120px;">    
   <!-- The Grid -->
   <div class="w3-row">
     <!-- Left Column -->
@@ -50,14 +50,11 @@
     <!-- End Left Column -->
 
 	<!-- Center -->
-	<div class="w3-col m7">
+	<div class="w3-col m8">
 		<jsp:include page="${center}"></jsp:include>
 	</div>
 	<!-- END Center -->
-    
-    <!-- Right Column -->
-    <jsp:include page="layout/side-right.jsp"></jsp:include>      
-    <!-- End Right Column -->
+
     <jsp:include page="layout/top-slide.jsp"></jsp:include>  
     
   <!-- End Grid -->

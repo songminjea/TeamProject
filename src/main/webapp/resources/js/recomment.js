@@ -87,8 +87,8 @@ function serchWrite(result,gb_Num,data){
 			Timeset();
 		}else{
 			$("#recomment_"+gb_Num).append("<div class ='noAttach'><div align='center' style='line-height: 200%;'>" +
-					"<h4 style='color: #1d2c52; font-weight: 600;'>" +
-					"댓글좀 달아주세요ㅠㅠ</h4></div></div>"+html);
+					"<h5 style='color: #1d2c52; font-weight: 600;'>" +
+					"댓글이 없습니다. <br> 하고 싶은 말을 적어주세요!</h5></div></div>"+html);
 		}
 	}
 }

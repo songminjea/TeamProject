@@ -35,7 +35,7 @@
 								<button class="w3-button w3-padding-large" title="Notifications">
 									<i class="fa fa-bell" id="alarm_i"></i> <span
 										class="w3-badge w3-right w3-small"
-										<%--  쪽지, 채팅, 댓글 합할 것. --%>
+										<%--  쪽지, 채팅 합한 것 --%>
 										style="background-color: #cbcbcd;">${messageCount + chatCount}</span>
 								</button>
 								<%-- 새 글 알림 드롭다운 --%>
@@ -45,8 +45,6 @@
 										class="w3-bar-item w3-button"> 읽지 않은 쪽지가 ${messageCount}개
 										<%-- 읽지않은 채팅방 개수 띄우기  --%>
 										있습니다. </a> <a href="#" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/chatList', 'multiChat', 'width=450, height=650')" class="w3-bar-item w3-button">대화방이 ${chatCount}개
-										있습니다.</a>
-										<a href="${pageContext.request.contextPath}/${member.ID}/gallery" class="w3-bar-item w3-button">새로운 댓글이 개
 										있습니다.</a>
 								</div>
 							</div>
@@ -59,29 +57,36 @@
 				<%-- 중앙 로고 --%>
 				<div class="col-md-2 col-xs-2">
 					<div class="babylogo">
-						<a href="${pageContext.request.contextPath}/main"> <img
-							src="${pageContext.request.contextPath}/resources/img/logo2.png"
-							height="50px">
-						</a>
+						<c:choose>
+							<c:when test="${member.ID != null}">
+								<a href="${pageContext.request.contextPath}/main"> 
+									<img
+									src="${pageContext.request.contextPath}/resources/img/logo2.png"
+									height="50px">
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath}/login"> 
+									<img
+									src="${pageContext.request.contextPath}/resources/img/logo2.png"
+									height="50px">
+								</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
-
-
 				<%-- 중앙 로고끝 --%>
 
-
 				<%-- 로그인 확인, 로그아웃 및 회원 정보 관리 --%>
-
 				<div class="col-md-5" align="right">
+					<%-- 로그인이 되어 있을 경우 검색창과 회원 정보 아이콘이 뜬다. --%>
+					<c:if test="${member.ID != null}">
 					<%-- 검색창 --%>
 					<input type="text" id="search_keyword" value="${keyword}"
 						placeholder="검색할 아이디를 입력" style="margin-top: 10px;"> <a
 						href="" onclick="return false;" id="search_confirm"><i
 						class="fa fa-search fa-fw w3-margin-right w3-text-theme" style="color: #6297ff;"></i></a>
 					<%-- 검색창 끝 --%>
-
-					<%-- 로그인이 되어 있을 경우 회원 정보 아이콘이 뜬다. --%>
-					<c:if test="${member.ID != null}">
 						<div class="w3-dropdown-hover">
 							<button
 								class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-white"
@@ -90,7 +95,7 @@
 								<i class="fa fa-user-circle" aria-hidden="true" id="user_i"></i>
 							</button>
 							<div class="w3-dropdown-content w3-card-4 w3-bar-block"
-								id="dropdown_menu" align="center">
+								id="dropdown_menu" align="center" style="color: #1d2c52;">
 								<a href="#" class="w3-bar-item w3-button" onclick="goMypage()">회원정보
 									수정</a> <a
 									href="${pageContext.request.contextPath}/${member.ID}/gallery"
@@ -103,13 +108,16 @@
 							</div>
 						</div>
 					</c:if>
-					<c:if test="${empty member.ID}">
-						<a href="${pageContext.request.contextPath}/login"
-							style="padding: 20px 0px; font-size: 17px; font-weight: 900;">
-							<font color="#1d2c52">로그인</font> &nbsp; <i
-							class="fa fa-user fa-fw w3-margin-right w3-text-theme"></i>
+					<%-- <c:if test="${empty member.ID}">
+					<div id="loginIcon" style="margin-top: 10px;">
+						<div>
+							<a href="${pageContext.request.contextPath}/login"
+							style="font-weight: 600; font-size: 16px;">
+							<font color="#1d2c52">로그인</font> &nbsp;<i class="fa fa-user-circle" aria-hidden="true" id="user_i"></i>
 						</a>
-					</c:if>
+						</div>
+					</div>
+					</c:if> --%>
 				</div>
 
 			</div>

@@ -74,7 +74,7 @@ document.getElementById("PIC").value = temp;
 								   method="post" 
 								   action="${pageContext.request.contextPath}/mypageOk"
 								   name="member"> 
-						<table border="0" width="400" style="margin-left: 80px;">
+						<table border="0" width="400" style="margin-left: 80px; color: #1d2c52;">
 							<tr>
 								<th>아이디</th>
 								<td>
@@ -136,8 +136,8 @@ document.getElementById("PIC").value = temp;
 								</td>				
 							</tr>
 							<tr>
-								<td></td>
-								<td class="imgfile">
+								<th>프로필사진</th>
+								<td  colspan="3" class="imgfile">
 									<input type="file" class = "file">
 									<ul class = "uploadedFileList"></ul>
 									<form:hidden path="PIC" id="PIC"/>
@@ -152,7 +152,8 @@ document.getElementById("PIC").value = temp;
 								<br/>
 							</div>
 						</form:form>
-					<button onclick="input()">이미지 전송</button>
+					<input type="button" style="position: absolute; top: 400px; right: 650px; border-radius: 5px; background-color: #6494ff; border: none;
+		  									padding: 3px 10px; color: white; font-weight: 600;" onclick="input()" value="사진전송">
 				</div>
 			</div>
           </div>

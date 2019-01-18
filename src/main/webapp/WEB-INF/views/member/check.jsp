@@ -177,8 +177,10 @@
 								<td colspan="3" class="signUp_agree_checkbox" align="center">
 									<input type="checkbox" id="U_checkAgreement1">&nbsp;
 										<font class="U_checkAgreement1" style="font-size: 14px; font-weight: 700; color: #78787c;">약관에 동의</font><br/>
-									<input type="submit" value="약관에 동의" id="checkBtn" onclick="checkOk(this)">&nbsp;
-									<input type="button" value="취소" id="cancelBtn" onclick="goFirstForm()">
+									<input type="submit" value="회원가입" id="checkBtn" onclick="checkOk(this)" style="width: 150px; max-width : 100%;height: 40px;border-radius: 5px;
+		  																										   background-color: #6494ff;border: none;padding: 2px;color: white;font-weight: 600;">
+									<input type="button" value="취소" id="cancelBtn" onclick="goFirstForm()" style="width: 150px; max-width : 100%;height: 40px;border-radius: 5px;
+		  																										    background-color: #cbcbcd; border: none; padding: 2px;color: white; font-weight: 600;">
 								</td>
 							</tr>
 						</thead>

@@ -45,16 +45,6 @@
 	<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/imglogin.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<script type="text/javascript">
-var temp; 
-
-function input(){
-var input = document.getElementById("PIC1").value; 
-temp = input;
-document.getElementById("PIC").value = temp;
-document.getElementById('PIC').submit();
-}
-</script>
 
 <script type="text/javascript">
 $(function(){
@@ -83,6 +73,22 @@ $(function(){
 	     })
 
 	});
+	
+$(function(){
+	  $('#PWD').keyup(function(){
+	   $('font[name=check]').text('');
+	  }); //#user_pass.keyup
+
+	  $('#chpass').keyup(function(){
+	   if($('#PWD').val()!=$('#chpass').val()){
+	    $('font[name=check]').text('');
+	    $('font[name=check]').html("암호틀림");
+	   }else{
+	    $('font[name=check]').text('');
+	    $('font[name=check]').html("암호맞음");
+	   }
+	  }); //#chpass.keyup
+	 });
 </script>
 </head>
 <body class="main">
@@ -127,6 +133,13 @@ $(function(){
 										<form:password class="signupInput" path="PWD" maxlength="20"/>
 									</td>
 								</tr>
+								<tr>
+							    	<td scope="row">비밀번호확인</td>
+							    		<td>
+							    			<input type="password" name="chpass" id="chpass" size="10" class="signupInput"/>
+							    			<font name="check" size="2" color="red"></font> 
+							    		</td>
+							    </tr>
 								<tr>
 									<td></td>
 									<td colspan="2">
@@ -190,7 +203,6 @@ $(function(){
 							</tfoot>
 					</form:form>
 				</table>
-				<button onclick="input()">이미지 전송</button>
 		   	</div>
 		</div>
 	</div>	

@@ -45,13 +45,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/imglogin2.js"></script>
 <script type="text/javascript">
-var temp; 
-
-function input(){
-var input = document.getElementById("PIC1").value; 
-temp = input;
-document.getElementById("PIC").value = temp;
-}
 </script>
 <script type="text/javascript">
 		$(document).ready(function() {
@@ -152,7 +145,6 @@ document.getElementById("PIC").value = temp;
 								<br/>
 							</div>
 						</form:form>
-					<button onclick="input()">이미지 전송</button>
 				</div>
 			</div>
           </div>

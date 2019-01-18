@@ -14,6 +14,8 @@ public interface RecommentDAO {
 
 	void modifyRecomment(int cm_Seq);
 
+	int getCount(int gb_Num);
+
 
 	
 

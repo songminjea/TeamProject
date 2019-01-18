@@ -41,10 +41,19 @@
 	
 	<select id="getNotFollowingList" resultType="com.team.follow.VO.FollowVO">
 		select distinct m.ID as following_id
-		from TB_FOLLOW f, MEMBER m
+		from TB_FOLLOW f right outer join MEMBER m
+        on m.ID = f.following_id
 		where m.ID != #{following_id} and m.ID not in (select following_id
 							from TB_FOLLOW
-		                    where follower_id = #{following_id})
+		                    where follower_id = #{following_id}) and
+		                    
+		                    m.ID not in (select blocking_id
+							from TB_BLOCK
+							where blocker_id = #{following_id}) and
+				            
+				            m.ID not in (select blocker_id
+							from TB_BLOCK
+							where blocking_id = #{following_id})
 		order by rand() limit 5;
 	</select>
 	

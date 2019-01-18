@@ -20,12 +20,10 @@
 <!-- 핸들바 기능 -->
 <script id ="imgLogin" type="text/x-handlebars-template">
 	<li>
-		<img src="{{imgSrc}}" alt = "Attachment" class ="view">
 		<input type="hidden" name="PIC1" id="PIC1" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
-				<i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 20px; color: #78787c;"></i>
-				<span style="color: #1d2c52; font-size: 14px; text-align: center;">{{originalFileName}}</span>
+				<img src="{{imgSrc}}" alt = "Attachment" class ="view">
 			</a>
 			<a href="{{fullName}}" class = "btn btn-default btn-xs pull-right delBtn">
 				<i class="fa fa-fw fa-remove" style="font-size: 20px; color: #78787c;"></i>

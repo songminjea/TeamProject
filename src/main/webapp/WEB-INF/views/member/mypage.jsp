@@ -33,10 +33,10 @@
 		<input type="hidden" name="PIC1" id="PIC1" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
-				<i class = "fa fa-paperclip"></i>{{originalFileName}}
+				<img src="{{imgSrc}}" alt = "Attachment" class ="view">
 			</a>
 			<a href="{{fullName}}" class = "btn btn-default btn-xs pull-right delBtn">
-				<i class="fa fa-fw fa-remove"></i>
+				<i class="fa fa-fw fa-remove" style="font-size: 20px; color: #78787c;"></i>
 			</a>
 		</div>
 	</li>
@@ -139,7 +139,7 @@ document.getElementById("PIC").value = temp;
 								<th>프로필사진</th>
 								<td  colspan="3" class="imgfile">
 									<input type="file" class = "file">
-									<ul class = "uploadedFileList"></ul>
+									<ul class = "uploadedFileList" style="list-style: none;"></ul>
 									<form:hidden path="PIC" id="PIC"/>
 								</td>
 							</tr>	

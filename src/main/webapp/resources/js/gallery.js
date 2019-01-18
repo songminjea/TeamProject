@@ -146,7 +146,7 @@ function ShowGallery(id, isMyGall){
 			} else{
 					if(is_gDetach == true)
 						$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
-								"<img src='"+ getContextPath() + "/resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+								"<img src='"+ getContextPath() +"/resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
 								"<h4 style='color: #1d2c52; font-weight: 600;'>" +
 								"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
 					
@@ -176,9 +176,9 @@ function galleryDelete(GB_Num){
 			
 			if(countGallery == 0){
 				$("#gallery_list").append("<div align='center' style='line-height: 200%;'>" +
-										"<img src='resources/img/logo_oops.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
-										"<h4 style='color: #1d2c52; font-weight: 600;'>" +
-										"아직 작성한 글이 없습니다.<br/>새로운 글을 업로드 해주세요!</h4></div>");
+						"<img src='"+ getContextPath() + "/resources/img/logo_sad.png'style='width: 20%; margin-bottom: 30px;'/><br/>"+
+						"<h4 style='color: #1d2c52; font-weight: 600;'>" +
+						"작성된 글이 없네요!<br/>새로운 친구를 팔로우 해보세요!</h4></div>");
 			}
 			
 		},

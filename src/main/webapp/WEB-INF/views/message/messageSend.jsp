@@ -31,6 +31,13 @@
 .gray{
 	background-color: #cbcbcd;
 }
+#sendForm .closeBtn{
+	border-radius: 5px;
+	background-color: #cbcbcd;
+	border: none;
+	padding: 5px 10px;
+	color: white;
+	font-weight: 600;}
 </style>
 </head>
 <script type="text/javascript">

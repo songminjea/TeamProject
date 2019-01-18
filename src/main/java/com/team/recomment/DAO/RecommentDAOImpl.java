@@ -43,4 +43,10 @@ public class RecommentDAOImpl implements RecommentDAO{
 		
 	}
 	
+	@Override
+	public int getCount(int gb_Num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("RecommentCnt",gb_Num);
+	}
+	
 }

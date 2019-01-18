@@ -3,24 +3,6 @@
 pageNum = 0;
 isDetach = true;
 
-$("#btnSend").click(function() {
-        $.ajax({
-            type : "POST",
-            data : {
-            	"mem_ID" : $("#mem_ID").val(),
-            	"uID" : $("#uID").val()
-            },
-            url : "multiChat",
-            success : function(data) {
-                if ($.trim(data) == $("#uID").val()) {
-                	$("#discussion li").addClass("class", "right");
-                } else {
-	                $("#discussion li").addClass("class", "left");
-                }
-            }
-        });
-    });
-
 function getContextPath() { // ContextPath 얻어오는 함수
 
 	var hostIndex = location.href.indexOf(location.host) + location.host.length;
@@ -104,8 +86,8 @@ function getFollowList(my_id, page_id, pageType) {
 			
 			if(result.length == 0){
 				if(isDetach == true)
-					$("#chatFollow_list").append("<img src='../resources/img/logo_sad.png'style='width: 30%; margin-bottom: 30px;'/>"+
-												 "<h5 style='font-weight: 600; color: #1d2c52;'>저런! 친구가 없으시네요!</h5>");
+					$("#chatFollow_list").append("<div align='center' style='margin-top:60px;'>" +
+												 "<h5 style='font-weight: 600; color: #1d2c52;'>저런! 친구가 없으시네요!</h5></div>");
 			}else{
 				var source = $("#chatFollow-template").html();
 				var template = Handlebars.compile(source);

@@ -14,4 +14,6 @@ public interface RCService {
 
 	public void modifyRecomment(int cm_Seq);
 
+	public int getCount(int gb_Num);
+
 }

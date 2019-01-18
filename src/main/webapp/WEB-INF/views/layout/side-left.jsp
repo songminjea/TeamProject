@@ -23,7 +23,7 @@
          </div>
          <hr>
         <%-- 회원 정보 --%>
-        <div class="member_icon" style="font-weight: 500; font-size: 15px;" align="left">
+        <div class="member_icon" style="font-weight: 500; font-size: 15px; color:#1d2c52;" align="left">
 	         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${profile.NAME}</p>
 	         <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> ${profile.EMAIL}</p>
 	         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> ${profile.BIRTH}</p>

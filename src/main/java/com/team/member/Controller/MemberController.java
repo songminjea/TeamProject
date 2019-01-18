@@ -222,7 +222,7 @@ public class MemberController {
 				BlockVO bvo = new BlockVO();
 				bvo.setBlocker_id(memVO.getID());
 				bvo.setBlocking_id(temp.getID());
-				isBlocked = String.valueOf(blockService.IsBlocked(bvo));
+				isBlocked = String.valueOf(blockService.IsBlocking(bvo));
 
 			}
 

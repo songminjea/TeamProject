@@ -1,6 +1,23 @@
 var writeTemplate = Handlebars.compile($("#writeTemplate").html());
 var click = 0;
 
+
+Handlebars.registerHelper('SetDeleteBtn', function(writerID , options) {
+	  var sessionID = $("#mem_id").val();
+	  //console.log(sessionID + " " + writerID);
+	  //console.log(sessionID == writerID);
+	  // 해당 글이 내가 쓴글일때.
+	  if(sessionID == "" || sessionID == null){
+		  return options.inverse(this);
+	  }else if (sessionID == writerID) {
+		  return options.fn(this);
+	  }else { // 내가 쓴 글이 아닐때.
+		  return options.inverse(this);
+	  }
+});
+
+
+
 function formRecommentWrite(){
 	var formdata = jQuery("#recommentWrite").serialize();
 	
@@ -63,10 +80,13 @@ function recomment(gb_Num){
 		Datatype : "json",
 		url : "/TeamPro/"+ gb_Num + "/reComment",
 		success : function(result){
+			
 			var data = {
 					write : result,
 					gb_Num : gb_Num
 			}
+			
+			
 			serchWrite(result,gb_Num,data);
 		}
 	});
@@ -75,6 +95,7 @@ function recomment(gb_Num){
 
 function serchWrite(result,gb_Num,data){
 	//console.log(result);
+	
 	if(click == 1){
 		$(".noAttach").remove();
 		click = 0;
@@ -87,10 +108,11 @@ function serchWrite(result,gb_Num,data){
 			Timeset();
 		}else{
 			$("#recomment_"+gb_Num).append("<div class ='noAttach'><div align='center' style='line-height: 200%;'>" +
-					"<h4 style='color: #1d2c52; font-weight: 600;'>" +
-					"댓글좀 달아주세요ㅠㅠ</h4></div></div>"+html);
+					"<h5 style='color: #1d2c52; font-weight: 600;'>" +
+					"댓글이 없습니다. <br> 하고 싶은 말을 적어주세요!</h5></div></div>"+html);
 		}
-	}
+		
+	}	
 }
 
 function Timeset(){

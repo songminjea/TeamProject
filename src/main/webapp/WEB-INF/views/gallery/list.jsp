@@ -27,6 +27,8 @@
 		돌아가기
 		</a>
 	</div> 
+	
+	
 </div>
 
 <script id="writeTemplate" type="text/x-handlebars-template">
@@ -34,22 +36,27 @@
 	{{#write}}
 	<table border ="0">
 		<tr class="recommentinfo">
-			<td width = "10px">
-				<a href="${pageContext.request.contextPath}/{{mb_ID}}/gallery" class="w3-bar-item w3-button">
+			<td width = "10%">
+				<a href="${pageContext.request.contextPath}/{{mb_ID}}/gallery" class="w3-bar-item w3-button w3-hover-white">
 					<strong>{{mb_ID}}</strong>
 				</a>
 			</td>
-			<td width = "400px">
+			<td width = "70%">
 				<a onclick="modifyRecomment({{cm_Seq}})" href ="javascript:void(0);">{{cm_Content}}</a>
 			</td>
-			<td class="commentTime" align ="right" width="150px">
-				{{cm_Date}}
+			<td width="15%" class="commentTime" align ="right">
+				<font style="color: #78787c;">{{cm_Date}}</font>
 			</td>
-			<td align ="right">
+
+			<%-- 삭제 버튼 --%>
+			{{#SetDeleteBtn mb_ID}}
+			<td width="5%" align ="right">
 				<a href="javascript:void(0);" onclick="deleteBtn({{cm_Seq}},{{gb_Num}})">
-					<i class="fa fa-fw fa-remove"></i>
+					<i class="fa fa-fw fa-remove" style="color: #78787c;"></i>
 				</a>
 			</td>
+			{{/SetDeleteBtn}}
+			<%-- 삭제 버튼 끝--%>
 		</tr>
 	</table>
 	{{/write}} 
@@ -68,7 +75,8 @@
         </div>
         <input type="hidden" id="MB_ID" name="MB_ID" value="${member.ID}" />
 		<input type="hidden" id="GB_Num" name="GB_Num" value="{{gb_Num}}" />
-		<input type="button" class="btn pull-right btn-success" value="등록" onclick="formRecommentWrite()">
+		<input type="button" class="btn pull-right btn_comment" value="등록" style="width: 150px; max-width : 100%;height: 40px;border-radius: 5px; 
+		background-color: #6494ff;border: none;padding: 2px;color: white;font-weight: 600;" onclick="formRecommentWrite()">
 	</div>
     </form>
 </div>
@@ -158,11 +166,10 @@
 	<span id="Gall_Content"><p>{{#SetContentLine gallery/gb_Content}}{{/SetContentLine}}</p></span>
 	<span id ="recomment_{{gallery/gb_Num}}"></span>
 
-	<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom w3-hover-white">
-		<i class="fa fa-thumbs-up" id="like_i"></i><font class="listFont" style="font-size: 14px;">Like</font>
-	</button>
 	<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom w3-hover-white" onclick ="recomment({{gallery/gb_Num}})">
-		<i class="fa fa-comment" id="comment_i"></i><font class="listFont" style="font-size: 14px;">Comment</font>
+		<i class="fa fa-comment" id="comment_i"></i><font class="listFont" style="font-size: 14px; color: #1d2c52;">Comment</font>
+		 <span class="w3-badge w3-right w3-small"
+				style="background-color: #cbcbcd;">{{count}}</span>
 	</button>
 	
 	<hr class="w3-clear" style="margin: 5px 0 20px;">

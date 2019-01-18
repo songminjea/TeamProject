@@ -8,15 +8,14 @@
 
 <!-- 핸들바 기능 -->
 <script id ="fileTemplate" type="text/x-handlebars-template">
-	<li>
-		<img src="{{imgSrc}}" alt = "Attachment" class ="view" align ="center">
+	<li>	
 		<input type="hidden" name = "gb_Image" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
-				<i class = "fa fa-paperclip"></i>{{originalFileName}}
+				<img src="{{imgSrc}}" alt = "Attachment" class ="view" align ="center">
 			</a>
 			<a href="{{fullName}}" class = "btn btn-default btn-xs pull-right delBtn">
-				<i class="fa fa-fw fa-remove"></i>
+				<i class="fa fa-fw fa-remove" style="font-size: 20px; color: #78787c;"></i>
 			</a>
 		</div>
 	</li>
@@ -54,7 +53,7 @@
 		<div id="upload-area">
 		    <div class="file-dummy" id="space">
 		       <div class = "box-footer">
-		       		<ul class = "mailbox-attachments clearfix uploadedFileList"></ul>	       
+		       		<ul class = "mailbox-attachments clearfix uploadedFileList" style="list-style: none;"></ul>	       
 		       </div>
 		    </div>
 		</div>
@@ -74,7 +73,9 @@
 
 <!-- image upload -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.7/handlebars.min.js"></script>
+<script src="js/load-image-orientation.js"></script>
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/upload.js"></script>
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/lightbox.js"></script>
+
 <!-- <script  src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
 </html>

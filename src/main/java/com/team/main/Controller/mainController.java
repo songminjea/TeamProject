@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.team.chat.Service.ChatService;
+import com.team.gallery.Service.GBService;
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
+import com.team.recomment.Service.RCService;
 
 @Controller
 public class mainController {
@@ -20,6 +22,12 @@ public class mainController {
 	
 	@Autowired
 	ChatService chatService;
+	
+	@Autowired
+	RCService rcService;
+	
+	@Autowired
+	GBService gbService;
 
 	@RequestMapping(value = "main", method = {RequestMethod.POST, RequestMethod.GET})
 	public String main(HttpSession session, Model model) throws Exception{
@@ -30,7 +38,7 @@ public class mainController {
 		int count = messageService.countList(memberVO);
 		
 		//채팅방 개수 조회
-		int count2 = chatService.countList(memberVO);
+		int count2 = chatService.countList(memberVO);		
 		
 		model.addAttribute("profile", memberVO);
 		model.addAttribute("messageCount", count);

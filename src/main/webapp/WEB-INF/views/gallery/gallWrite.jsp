@@ -13,10 +13,11 @@
 		<input type="hidden" name = "gb_Image" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
-				<i class = "fa fa-paperclip"></i>{{originalFileName}}
+				<i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 20px; color: #78787c;"></i>
+				<span style="color: #1d2c52; font-size: 14px; text-align: center;">{{originalFileName}}</span>
 			</a>
 			<a href="{{fullName}}" class = "btn btn-default btn-xs pull-right delBtn">
-				<i class="fa fa-fw fa-remove"></i>
+				<i class="fa fa-fw fa-remove" style="font-size: 20px; color: #78787c;"></i>
 			</a>
 		</div>
 	</li>
@@ -54,7 +55,7 @@
 		<div id="upload-area">
 		    <div class="file-dummy" id="space">
 		       <div class = "box-footer">
-		       		<ul class = "mailbox-attachments clearfix uploadedFileList"></ul>	       
+		       		<ul class = "mailbox-attachments clearfix uploadedFileList" style="list-style: none;"></ul>	       
 		       </div>
 		    </div>
 		</div>

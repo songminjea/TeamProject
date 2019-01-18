@@ -22,27 +22,3 @@
 #U_checkAgreement1{margin-top: 10px;
 				   margin-bottom: 15px; 
 }
-#checkBtn{
-		  border-radius: 5px;
-		  background-color: #4497fd;
-		  border: none;
-		  padding: 5px 10px;
-		  color: white;
-		  font-weight: 600;
-}
-#cancelBtn{
-		  border-radius: 5px;
-		  background-color: #cbcbcd;
-		  border: none;
-		  padding: 5px 10px;
-		  color: white;
-		  font-weight: 600;
-}
-#checkSignup{
-		  border-radius: 5px;
-		  background-color: #cbcbcd;
-		  border: none;
-		  padding: 2px 10px;
-		  color: white;
-		  font-weight: 600;
-}

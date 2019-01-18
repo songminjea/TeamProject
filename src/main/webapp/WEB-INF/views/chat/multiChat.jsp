@@ -39,9 +39,18 @@
 	<!-- 레이어팝업 -->
 	<table align="center" bgcolor="#FFFFFF" width="100%">
 		<tr>
-			<td bgcolor="#4497fd" align="center" height="50px" width="100%" style="border: solid 1px #4497fd;">
-				<font style="font-size: 18px; font-weight:bold" color="#FFFFFF">${cvo2.CHATROOM_RECEIVER}님과의 대화</font>
-			</td>
+			<c:choose>
+				<c:when test="${cvo2.CHATROOM_RECEIVER ne member.ID}">
+					<td bgcolor="#4497fd" align="center" height="50px" width="100%" style="border: solid 1px #4497fd;">
+						<font style="font-size: 18px; font-weight:bold" color="#FFFFFF">${cvo2.CHATROOM_RECEIVER}님과의 대화</font>
+					</td>
+				</c:when>
+				<c:otherwise>
+					<td bgcolor="#4497fd" align="center" height="50px" width="100%" style="border: solid 1px #4497fd;">
+						<font style="font-size: 18px; font-weight:bold" color="#FFFFFF">${cvo2.CHATROOM_SENDER}님과의 대화</font>
+					</td>
+				</c:otherwise>
+			</c:choose>
 		</tr>
 		<tr>
 			<td>
@@ -104,23 +113,11 @@
 				connection.start({jsonp : true}).done(
 				function (){
 					$('#btnSend').click(function () {
-// 						var msg = $('#message').val();
-// 						if (msg!= "") {
-// 							message = {};
-// 							message.CHAT_SENDER = '${member.ID}'
-// 							message.CHAT_SENDCONTENT = '${cvo.CHAT_SENDCONTENT}'
-// 						}
 						chat.invoke('send', $('#memID').val(),
 											$('#message').val());
 											$('#message').val('').focus();
 					});
 				});
-				//빈칸 인식
-				if ($("#message").val().length != 0) {
-					$("#btnSend").removeAttr("disabled");
-				}else{
-					$("#btnSend").attr("disabled", "disabled");
-				}
 		});
 		function htmlEncode(value) {
 			var encodedValue = $('<div />').text(value).html();
@@ -133,8 +130,13 @@
 			if (event.keyCode == 13) {
 				document.getElementById("btnSend").click();
 			}
+			//빈칸 인식
+			if ($('#message').val().length==0) {
+				$('#btnSend').attr('disabled', 'disabled');
+			}else{
+				$('#btnSend').removeAttr('disabled');	
+			}
 		});
-		
 	</script>
 <!-- 채팅 API -->	
 	</div>

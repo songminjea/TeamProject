@@ -24,10 +24,11 @@
 		<input type="hidden" name="PIC1" id="PIC1" value ="{{originalFileUrl}}">
 		<div class = "mailbox-attachment-info">
 			<a href ="{{originalFileUrl}}" class="mailbox-attachment-name">
-				<i class = "fa fa-paperclip"></i>{{originalFileName}}
+				<i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 20px; color: #78787c;"></i>
+				<span style="color: #1d2c52; font-size: 14px; text-align: center;">{{originalFileName}}</span>
 			</a>
 			<a href="{{fullName}}" class = "btn btn-default btn-xs pull-right delBtn">
-				<i class="fa fa-fw fa-remove"></i>
+				<i class="fa fa-fw fa-remove" style="font-size: 20px; color: #78787c;"></i>
 			</a>
 		</div>
 	</li>
@@ -112,7 +113,8 @@ $(function(){
 									<th scope="row">아이디</th>
 									<td>
 										<form:input class="signupInput" path="ID" maxlength="20" />
-										<input type="button" value="중복확인" id="checkSignup">
+										<input type="button" value="중복확인" id="checkSignup" style="background-color: #6494ff; border-radius: 5px; border: none;
+		  																							  padding: 2px 10px; color: white;font-weight: 600;">
 									</td>
 								</tr>
 								<tr>
@@ -170,12 +172,10 @@ $(function(){
 									</td>
 								</tr>
 								<tr>
-									<td></td>
-									<td class="imgfile">
-										<input type="file" class = "file">
-
-		
-										<ul class = "uploadedFileList"></ul>
+									<th>프로필사진</th>
+									<td colspan="3" class="imgfile">
+										<input type="file" class = "file">		
+										<ul class = "uploadedFileList" style="list-style: none;"></ul>
 										<form:hidden path="PIC" id="PIC"/>
 									</td>
 								</tr>
@@ -183,14 +183,17 @@ $(function(){
 							<tfoot>
 								<tr>
 									<td colspan="3" align="center" style="margin-top: 10px;">
-										<input type="submit" id="checkBtn" value="등록">
-										<input type="button" id="cancelBtn" value="취소" onclick="goFirstForm()">
+										<input type="submit" id="checkBtn" value="회원가입" style="width: 150px; max-width : 100%;height: 40px;border-radius: 5px;
+		  																						background-color: #6494ff;border: none;padding: 2px;color: white;font-weight: 600;">
+										<input type="button" id="cancelBtn" value="취소" style="width: 150px; max-width : 100%;height: 40px;border-radius: 5px;
+		  																						background-color: #cbcbcd; border: none; padding: 2px;color: white; font-weight: 600;" onclick="goFirstForm()">
 									</td>
 								</tr>
 							</tfoot>
 					</form:form>
 				</table>
-				<button onclick="input()">이미지 전송</button>
+				<input type="button" style="position: absolute; top: 520px; left:350px; border-radius: 5px; background-color: #6494ff; border: none;
+		  									padding: 3px 10px; color: white; font-weight: 600;" onclick="input()" value="사진등록">
 		   	</div>
 		</div>
 	</div>	

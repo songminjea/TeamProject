@@ -147,7 +147,9 @@ function getBlockingList(my_id) {
 			
 			if(result[0].memVO == null){
 				if(isDetach == true)
-					$("#follow_list").append("<h4 style='color: #1d2c52;'>차단한 사람이 없으시네요!</h4>");
+					$("#follow_list").append("<div align='center'>" +
+									 		 "<img src='" + getContextPath() + "/resources/img/logo_noFlower.png'style='width: 17%; margin-bottom: 20px; padding-left:20px;'/>"+
+											 "<h4 style='color: #1d2c52; font-weight: 600;'>차단한 사람이 없으시네요!</h4></div>");
 			}else{
 				var source = $("#block-template").html();
 				var template = Handlebars.compile(source);
@@ -306,7 +308,7 @@ function getSuggestionFollowList(my_id){
 						isFollowed(my_id , result[i].following_id);
 					})*/
 				}else{
-					$("#small_recommend_list").append("<h5 style='color: #1d2c52; font-weight: 600;'>더 이상 추천할 회원이 없습니다.</h5>");
+					$("#small_recommend_list").append("<div align='center'><h5 style='color: #1d2c52; font-weight: 600;'>더 이상 추천할 회원이 없습니다.</h5></div>");
 				}
 			}
 		})

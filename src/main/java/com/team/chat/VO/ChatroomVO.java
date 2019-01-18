@@ -8,9 +8,6 @@ public class ChatroomVO {
 	private String CHATROOM_SENDER;
 	private String CHATROOM_RECEIVER;
 	private Timestamp CHATROOM_MAKETIME;
-	private String CHATROOM_SENDCONTENT;
-	private boolean CHATROOM_READVAL;
-	private boolean CHATROOM_SENDVAL;
 	
 	//getter, setter 생성
 	public int getCHATROOM_NO() {
@@ -37,23 +34,5 @@ public class ChatroomVO {
 	public void setCHATROOM_MAKETIME(Timestamp cHATROOM_MAKETIME) {
 		CHATROOM_MAKETIME = cHATROOM_MAKETIME;
 	}
-	public String getCHATROOM_SENDCONTENT() {
-		return CHATROOM_SENDCONTENT;
-	}
-	public void setCHATROOM_SENDCONTENT(String cHATROOM_SENDCONTENT) {
-		CHATROOM_SENDCONTENT = cHATROOM_SENDCONTENT;
-	}
-	public boolean isCHATROOM_READVAL() {
-		return CHATROOM_READVAL;
-	}
-	public void setCHATROOM_READVAL(boolean cHATROOM_READVAL) {
-		CHATROOM_READVAL = cHATROOM_READVAL;
-	}
-	public boolean isCHATROOM_SENDVAL() {
-		return CHATROOM_SENDVAL;
-	}
-	public void setCHATROOM_SENDVAL(boolean cHATROOM_SENDVAL) {
-		CHATROOM_SENDVAL = cHATROOM_SENDVAL;
-	}
-	
+
 }

@@ -71,13 +71,13 @@ margin: 0px 10px 10px 10px;
 							<%-- 드랍다운 버튼 끝 --%>
 						</span>
 						<p style="padding-top: 5px; margin-bottom: 7px;">
-							<font style="font-size: 17px; font-weight: bold;">
+							<font style="font-size: 17px; font-weight: bold; color: #1d2c52;">
 								<a href="${pageContext.request.contextPath}/{{sMem_id}}/gallery">{{sMem_id}}</a>
 							</font>
 						</p>
 						<br>
 						<%-- 이메일 --%>
-						<p><i class="fa fa-envelope fa-fw w3-text-theme"></i>{{sMem_email}}</p>
+						<p><i class="fa fa-envelope fa-fw w3-text-theme"></i><font style="color: #1d2c52;">{{sMem_email}}</font></p>
 					</div>
 				</div>
 			</div>

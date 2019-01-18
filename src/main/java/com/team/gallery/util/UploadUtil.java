@@ -138,7 +138,11 @@ public class UploadUtil {
 	//파일 업로드 처리
 	public static String uplaodFile(MultipartFile file, HttpServletRequest request) throws Exception{
 		
+				
 		String originalFileName = file.getOriginalFilename();	//파일명
+		
+				
+		
 		byte[] fileData = file.getBytes();	//파일 데이터
 		
 		//1.파일명 중복 방지 처리

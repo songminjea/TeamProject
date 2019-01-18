@@ -23,5 +23,11 @@
 		
 	</update>
 	
+	<select id="RecommentCnt" resultType="int">
+		select count(*)
+		from TB_recomment
+		where GB_Num = #{gb_Num}
+	</select>
+	
 
 </mapper>

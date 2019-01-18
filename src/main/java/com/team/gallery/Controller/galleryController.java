@@ -38,6 +38,7 @@ import com.team.gallery.util.UploadUtil;
 import com.team.member.Service.MemberServiceImpl;
 import com.team.member.VO.MemberVO;
 import com.team.message.Service.MessageService;
+import com.team.recomment.Service.RCService;
 
 
 @Controller
@@ -61,6 +62,9 @@ public class galleryController {
 	
 	@Autowired
 	private FollowService followService;
+	
+	@Autowired
+	private RCService rcService;
 	
 	@RequestMapping(value = "gallWrite", method=RequestMethod.GET)
 	public String imgupload(HttpSession session, Model model) {
@@ -274,13 +278,21 @@ public class galleryController {
 		// 리턴해줄 맵 생성
 		List<Map<String, Object>> galleryInfoList = new ArrayList<>();
 
+		
+		
 		// 갤러리 리스트 하나씩 체크
 		for (galleryVO gtemp : gall) {
 			Map<String, Object> temp = new HashMap<>();
 
 			List<galleryVO> file = gbService.GetImgList(gtemp.getGb_Num());
+			System.out.println("galleryController = " + gtemp.getGb_Num());
+			int rcCount = rcService.getCount(gtemp.getGb_Num());
+			
+			
 
 			MemberVO memVO = memberService.getMember(gtemp.getMb_ID());
+			
+			temp.put("count", rcCount);
 			
 			// 팔로우 여부 체크
 			if(sessionVO != null && !gtemp.getMb_ID().equals(sessionVO.getID())) {
@@ -295,7 +307,7 @@ public class galleryController {
 			// 해당 글의 이미지 파일 정보 리스트
 			temp.put("file", file);
 			// 갤러리 글 ID의 정보
-			temp.put("memVO", memVO);	
+			temp.put("memVO", memVO);
 			
 			galleryInfoList.add(temp);
 

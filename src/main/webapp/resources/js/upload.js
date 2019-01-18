@@ -11,12 +11,13 @@ $(document).ready(function(){
 		e.preventDefault();
 		
 		var file = e.target.files[0];
-		console.log(file);
+				
+		//console.log(file);
 		var formData = new FormData();
 				
 		formData.append("file",file);
 		
-		//console.log(formData);
+		console.log(formData);
 		
 		$.ajax({
 			type : "POST",
@@ -36,8 +37,11 @@ $(document).ready(function(){
 	$(".file-area").on("drop", function(e){
 		e.preventDefault();
 		
+
 		var files = e.originalEvent.dataTransfer.files;
 		var file = files[0];
+		
+
 		console.log(file);
 		var formData = new FormData();
 				

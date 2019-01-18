@@ -40,4 +40,10 @@ public class RCServiceImpl implements RCService{
 		rdao.modifyRecomment(cm_Seq);
 		
 	}
+	
+	@Override
+	public int getCount(int gb_Num) {
+		
+		return rdao.getCount(gb_Num);
+	}
 }

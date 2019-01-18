@@ -2,6 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+#messageSend, .sendMessageList{
+		  width: 150px;
+		  max-width : 100%;
+		  height: 40px;
+		  border-radius: 5px;
+		  background-color: #6494ff;
+		  border: none;
+		  padding: 2px;
+		  color: white;
+		  font-weight: 600;
+		  	
+}		
+#messageSend:hover, .sendMessageList:hover{
+	background-color: #3b74f7;
+}
+</style>
 	<input type="hidden" name="searchType" value="${map.searchOption}"> 
 	<input type="hidden" name="keyword" value="${map.keyword}">
       <div class="w3-row-padding">
@@ -65,9 +82,9 @@
  				   			<i style="color: #6297ff;" class="fa fa-search fa-fw w3-margin-right w3-text-theme"></i>
  				  		</a>
 				</form>
-				<div class="btn_Message" align="right" style="margin-right: 20px;">
+				<div class="btn_Message" align="center" style="margin-right: 20px;">
 					<input id="messageSend" type="button" value="쪽지보내기" id="messageSend" onclick="window.open('${pageContext.request.contextPath}/${member.ID}/messageSend', 'messageSend', 'width=500, height=650')">
-					<input style="border-radius: 5px; background-color: #cbcbcd; border: none;padding: 5px 10px;color: white;font-weight: 600;" class="sendMessageList" type="button" value="보낸 쪽지 확인" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageSendList'">
+					<input class="sendMessageList" type="button" value="보낸 쪽지 확인" onclick="location.href='${pageContext.request.contextPath}/${member.ID}/messageSendList'">
 				</div>
 				</div>
             </div>

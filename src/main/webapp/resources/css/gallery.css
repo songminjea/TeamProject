@@ -51,8 +51,8 @@
 ul.mailbox-attachments li {
     display: inline-block;
     padding: 10px;
+    border: none;
     margin-bottom: 5px;
-    border: 1px solid #efefef;
     font-size: 12px;
 }
 .btn_comment{
